@@ -409,6 +409,7 @@
 				000566D01562F94D003D114D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		000566D11562F94D003D114D /* Build configuration list for PBXNativeTarget "MailCleanerTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +418,7 @@
 				000566D31562F94D003D114D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
