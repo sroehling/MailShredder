@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 
+#import "LocalizationHelper.h"
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -29,16 +31,16 @@
 	UIViewController *msgListController = [[[UIViewController alloc] init] autorelease];
 	UINavigationController *msgListNavController = [[[UINavigationController alloc] 
 			initWithRootViewController:msgListController] autorelease];
-	msgListNavController.title = @"Messages";
-	msgListController.title = @"Messages";
+	msgListNavController.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
+	msgListController.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
 //	msgListNavController.tabBarItem.image = [UIImage imageNamed:@"piggy.png"];
 //	msgListNavController.navigationBar.tintColor = navBarControllerColor;
 
 	UIViewController *trashedMsgsController = [[[UIViewController alloc] init] autorelease];
 	UINavigationController *trashedMsgsNavController = [[[UINavigationController alloc] 
 			initWithRootViewController:trashedMsgsController] autorelease];
-	trashedMsgsController.title = @"Trash";
-	trashedMsgsNavController.title = @"Trash";
+	trashedMsgsController.title = LOCALIZED_STR(@"TRASH_VIEW_TITLE");
+	trashedMsgsNavController.title = LOCALIZED_STR(@"TRASH_VIEW_TITLE");
 	
 	
 	self.tabBarController = [[[UITabBarController alloc] init] autorelease];

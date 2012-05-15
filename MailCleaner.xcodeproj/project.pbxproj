@@ -18,6 +18,9 @@
 		000566C01562F94D003D114D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000566931562F94C003D114D /* Foundation.framework */; };
 		000566C81562F94D003D114D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 000566C61562F94D003D114D /* InfoPlist.strings */; };
 		000566CB1562F94D003D114D /* MailCleanerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 000566CA1562F94D003D114D /* MailCleanerTests.m */; };
+		000567041562FFC4003D114D /* libResultraGenericLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000567031562FFC4003D114D /* libResultraGenericLib.a */; };
+		0005672315630C12003D114D /* ResultraGenericLibResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0005672215630C12003D114D /* ResultraGenericLibResources.bundle */; };
+		0005672A15630DDD003D114D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0005672915630DDD003D114D /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,9 @@
 		000566C71562F94D003D114D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		000566C91562F94D003D114D /* MailCleanerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MailCleanerTests.h; sourceTree = "<group>"; };
 		000566CA1562F94D003D114D /* MailCleanerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MailCleanerTests.m; sourceTree = "<group>"; };
+		000567031562FFC4003D114D /* libResultraGenericLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libResultraGenericLib.a; path = "../ResultraGenericLib/build/Release-iphoneos/libResultraGenericLib.a"; sourceTree = "<group>"; };
+		0005672215630C12003D114D /* ResultraGenericLibResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ResultraGenericLibResources.bundle; path = "../../../Library/Developer/Xcode/DerivedData/MailCleaner-cwylgavsyequqsfyfgyiuldekald/Build/Products/Debug-iphonesimulator/ResultraGenericLibResources.bundle"; sourceTree = "<group>"; };
+		0005672915630DDD003D114D /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				000567041562FFC4003D114D /* libResultraGenericLib.a in Frameworks */,
 				000566921562F94C003D114D /* UIKit.framework in Frameworks */,
 				000566941562F94C003D114D /* Foundation.framework in Frameworks */,
 				000566961562F94C003D114D /* CoreGraphics.framework in Frameworks */,
@@ -76,6 +83,8 @@
 		000566821562F94C003D114D = {
 			isa = PBXGroup;
 			children = (
+				0005672215630C12003D114D /* ResultraGenericLibResources.bundle */,
+				000567031562FFC4003D114D /* libResultraGenericLib.a */,
 				000566971562F94C003D114D /* MailCleaner */,
 				000566C31562F94D003D114D /* MailCleanerTests */,
 				000566901562F94C003D114D /* Frameworks */,
@@ -109,6 +118,7 @@
 				000566A01562F94C003D114D /* AppDelegate.h */,
 				000566A11562F94C003D114D /* AppDelegate.m */,
 				000566981562F94C003D114D /* Supporting Files */,
+				0005672915630DDD003D114D /* Localizable.strings */,
 			);
 			path = MailCleaner;
 			sourceTree = "<group>";
@@ -214,6 +224,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0005669C1562F94C003D114D /* InfoPlist.strings in Resources */,
+				0005672315630C12003D114D /* ResultraGenericLibResources.bundle in Resources */,
+				0005672A15630DDD003D114D /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,7 +351,12 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MailCleaner/MailCleaner-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/..\"/**";
 				INFOPLIST_FILE = "MailCleaner/MailCleaner-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -350,7 +367,12 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MailCleaner/MailCleaner-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/..\"/**";
 				INFOPLIST_FILE = "MailCleaner/MailCleaner-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
