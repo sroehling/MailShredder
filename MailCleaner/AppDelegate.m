@@ -8,10 +8,6 @@
 
 #import "AppDelegate.h"
 
-#import "FirstViewController.h"
-
-#import "SecondViewController.h"
-
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -28,10 +24,26 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
-	UIViewController *viewController1 = [[[FirstViewController alloc] initWithNibName:@"FirstViewController" bundle:nil] autorelease];
-	UIViewController *viewController2 = [[[SecondViewController alloc] initWithNibName:@"SecondViewController" bundle:nil] autorelease];
+	
+	
+	UIViewController *msgListController = [[[UIViewController alloc] init] autorelease];
+	UINavigationController *msgListNavController = [[[UINavigationController alloc] 
+			initWithRootViewController:msgListController] autorelease];
+	msgListNavController.title = @"Messages";
+	msgListController.title = @"Messages";
+//	msgListNavController.tabBarItem.image = [UIImage imageNamed:@"piggy.png"];
+//	msgListNavController.navigationBar.tintColor = navBarControllerColor;
+
+	UIViewController *trashedMsgsController = [[[UIViewController alloc] init] autorelease];
+	UINavigationController *trashedMsgsNavController = [[[UINavigationController alloc] 
+			initWithRootViewController:trashedMsgsController] autorelease];
+	trashedMsgsController.title = @"Trash";
+	trashedMsgsNavController.title = @"Trash";
+	
+	
 	self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-	self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, nil];
+	self.tabBarController.viewControllers = 
+		[NSArray arrayWithObjects:msgListNavController, trashedMsgsNavController, nil];
 	self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;
