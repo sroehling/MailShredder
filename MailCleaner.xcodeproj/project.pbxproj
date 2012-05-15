@@ -1,0 +1,476 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		000566921562F94C003D114D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000566911562F94C003D114D /* UIKit.framework */; };
+		000566941562F94C003D114D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000566931562F94C003D114D /* Foundation.framework */; };
+		000566961562F94C003D114D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000566951562F94C003D114D /* CoreGraphics.framework */; };
+		0005669C1562F94C003D114D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0005669A1562F94C003D114D /* InfoPlist.strings */; };
+		0005669E1562F94C003D114D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0005669D1562F94C003D114D /* main.m */; };
+		000566A21562F94C003D114D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 000566A11562F94C003D114D /* AppDelegate.m */; };
+		000566A51562F94C003D114D /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000566A41562F94C003D114D /* FirstViewController.m */; };
+		000566A71562F94C003D114D /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 000566A61562F94C003D114D /* first.png */; };
+		000566A91562F94C003D114D /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000566A81562F94C003D114D /* first@2x.png */; };
+		000566AC1562F94C003D114D /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000566AB1562F94C003D114D /* SecondViewController.m */; };
+		000566AE1562F94C003D114D /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = 000566AD1562F94C003D114D /* second.png */; };
+		000566B01562F94C003D114D /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000566AF1562F94C003D114D /* second@2x.png */; };
+		000566B31562F94C003D114D /* FirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 000566B11562F94C003D114D /* FirstViewController.xib */; };
+		000566B61562F94C003D114D /* SecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 000566B41562F94C003D114D /* SecondViewController.xib */; };
+		000566BE1562F94D003D114D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000566BD1562F94D003D114D /* SenTestingKit.framework */; };
+		000566BF1562F94D003D114D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000566911562F94C003D114D /* UIKit.framework */; };
+		000566C01562F94D003D114D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000566931562F94C003D114D /* Foundation.framework */; };
+		000566C81562F94D003D114D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 000566C61562F94D003D114D /* InfoPlist.strings */; };
+		000566CB1562F94D003D114D /* MailCleanerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 000566CA1562F94D003D114D /* MailCleanerTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		000566C11562F94D003D114D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000566841562F94C003D114D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0005668C1562F94C003D114D;
+			remoteInfo = MailCleaner;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0005668D1562F94C003D114D /* MailCleaner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MailCleaner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		000566911562F94C003D114D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		000566931562F94C003D114D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		000566951562F94C003D114D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		000566991562F94C003D114D /* MailCleaner-Info.plist */ = {isa = PBXFileReference; path = "MailCleaner-Info.plist"; sourceTree = "<group>"; };
+		0005669B1562F94C003D114D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0005669D1562F94C003D114D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0005669F1562F94C003D114D /* MailCleaner-Prefix.pch */ = {isa = PBXFileReference; path = "MailCleaner-Prefix.pch"; sourceTree = "<group>"; };
+		000566A01562F94C003D114D /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		000566A11562F94C003D114D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		000566A31562F94C003D114D /* FirstViewController.h */ = {isa = PBXFileReference; path = FirstViewController.h; sourceTree = "<group>"; };
+		000566A41562F94C003D114D /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		000566A61562F94C003D114D /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
+		000566A81562F94C003D114D /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
+		000566AA1562F94C003D114D /* SecondViewController.h */ = {isa = PBXFileReference; path = SecondViewController.h; sourceTree = "<group>"; };
+		000566AB1562F94C003D114D /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		000566AD1562F94C003D114D /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
+		000566AF1562F94C003D114D /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
+		000566B21562F94C003D114D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FirstViewController.xib; sourceTree = "<group>"; };
+		000566B51562F94C003D114D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SecondViewController.xib; sourceTree = "<group>"; };
+		000566BC1562F94D003D114D /* MailCleanerTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MailCleanerTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		000566BD1562F94D003D114D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		000566C51562F94D003D114D /* MailCleanerTests-Info.plist */ = {isa = PBXFileReference; path = "MailCleanerTests-Info.plist"; sourceTree = "<group>"; };
+		000566C71562F94D003D114D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		000566C91562F94D003D114D /* MailCleanerTests.h */ = {isa = PBXFileReference; path = MailCleanerTests.h; sourceTree = "<group>"; };
+		000566CA1562F94D003D114D /* MailCleanerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MailCleanerTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0005668A1562F94C003D114D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				000566921562F94C003D114D /* UIKit.framework in Frameworks */,
+				000566941562F94C003D114D /* Foundation.framework in Frameworks */,
+				000566961562F94C003D114D /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		000566B81562F94D003D114D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				000566BE1562F94D003D114D /* SenTestingKit.framework in Frameworks */,
+				000566BF1562F94D003D114D /* UIKit.framework in Frameworks */,
+				000566C01562F94D003D114D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		000566821562F94C003D114D = {
+			isa = PBXGroup;
+			children = (
+				000566971562F94C003D114D /* MailCleaner */,
+				000566C31562F94D003D114D /* MailCleanerTests */,
+				000566901562F94C003D114D /* Frameworks */,
+				0005668E1562F94C003D114D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0005668E1562F94C003D114D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0005668D1562F94C003D114D /* MailCleaner.app */,
+				000566BC1562F94D003D114D /* MailCleanerTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		000566901562F94C003D114D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				000566911562F94C003D114D /* UIKit.framework */,
+				000566931562F94C003D114D /* Foundation.framework */,
+				000566951562F94C003D114D /* CoreGraphics.framework */,
+				000566BD1562F94D003D114D /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		000566971562F94C003D114D /* MailCleaner */ = {
+			isa = PBXGroup;
+			children = (
+				000566A01562F94C003D114D /* AppDelegate.h */,
+				000566A11562F94C003D114D /* AppDelegate.m */,
+				000566A31562F94C003D114D /* FirstViewController.h */,
+				000566A41562F94C003D114D /* FirstViewController.m */,
+				000566A61562F94C003D114D /* first.png */,
+				000566A81562F94C003D114D /* first@2x.png */,
+				000566AA1562F94C003D114D /* SecondViewController.h */,
+				000566AB1562F94C003D114D /* SecondViewController.m */,
+				000566AD1562F94C003D114D /* second.png */,
+				000566AF1562F94C003D114D /* second@2x.png */,
+				000566B11562F94C003D114D /* FirstViewController.xib */,
+				000566B41562F94C003D114D /* SecondViewController.xib */,
+				000566981562F94C003D114D /* Supporting Files */,
+			);
+			path = MailCleaner;
+			sourceTree = "<group>";
+		};
+		000566981562F94C003D114D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				000566991562F94C003D114D /* MailCleaner-Info.plist */,
+				0005669A1562F94C003D114D /* InfoPlist.strings */,
+				0005669D1562F94C003D114D /* main.m */,
+				0005669F1562F94C003D114D /* MailCleaner-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		000566C31562F94D003D114D /* MailCleanerTests */ = {
+			isa = PBXGroup;
+			children = (
+				000566C91562F94D003D114D /* MailCleanerTests.h */,
+				000566CA1562F94D003D114D /* MailCleanerTests.m */,
+				000566C41562F94D003D114D /* Supporting Files */,
+			);
+			path = MailCleanerTests;
+			sourceTree = "<group>";
+		};
+		000566C41562F94D003D114D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				000566C51562F94D003D114D /* MailCleanerTests-Info.plist */,
+				000566C61562F94D003D114D /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0005668C1562F94C003D114D /* MailCleaner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 000566CE1562F94D003D114D /* Build configuration list for PBXNativeTarget "MailCleaner" */;
+			buildPhases = (
+				000566891562F94C003D114D /* Sources */,
+				0005668A1562F94C003D114D /* Frameworks */,
+				0005668B1562F94C003D114D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MailCleaner;
+			productName = MailCleaner;
+			productReference = 0005668D1562F94C003D114D /* MailCleaner.app */;
+			productType = "com.apple.product-type.application";
+		};
+		000566BB1562F94D003D114D /* MailCleanerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 000566D11562F94D003D114D /* Build configuration list for PBXNativeTarget "MailCleanerTests" */;
+			buildPhases = (
+				000566B71562F94D003D114D /* Sources */,
+				000566B81562F94D003D114D /* Frameworks */,
+				000566B91562F94D003D114D /* Resources */,
+				000566BA1562F94D003D114D /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				000566C21562F94D003D114D /* PBXTargetDependency */,
+			);
+			name = MailCleanerTests;
+			productName = MailCleanerTests;
+			productReference = 000566BC1562F94D003D114D /* MailCleanerTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		000566841562F94C003D114D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 000566871562F94C003D114D /* Build configuration list for PBXProject "MailCleaner" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 000566821562F94C003D114D;
+			productRefGroup = 0005668E1562F94C003D114D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0005668C1562F94C003D114D /* MailCleaner */,
+				000566BB1562F94D003D114D /* MailCleanerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0005668B1562F94C003D114D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0005669C1562F94C003D114D /* InfoPlist.strings in Resources */,
+				000566A71562F94C003D114D /* first.png in Resources */,
+				000566A91562F94C003D114D /* first@2x.png in Resources */,
+				000566AE1562F94C003D114D /* second.png in Resources */,
+				000566B01562F94C003D114D /* second@2x.png in Resources */,
+				000566B31562F94C003D114D /* FirstViewController.xib in Resources */,
+				000566B61562F94C003D114D /* SecondViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		000566B91562F94D003D114D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				000566C81562F94D003D114D /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		000566BA1562F94D003D114D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		000566891562F94C003D114D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0005669E1562F94C003D114D /* main.m in Sources */,
+				000566A21562F94C003D114D /* AppDelegate.m in Sources */,
+				000566A51562F94C003D114D /* FirstViewController.m in Sources */,
+				000566AC1562F94C003D114D /* SecondViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		000566B71562F94D003D114D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				000566CB1562F94D003D114D /* MailCleanerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		000566C21562F94D003D114D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0005668C1562F94C003D114D /* MailCleaner */;
+			targetProxy = 000566C11562F94D003D114D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0005669A1562F94C003D114D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0005669B1562F94C003D114D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		000566B11562F94C003D114D /* FirstViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				000566B21562F94C003D114D /* en */,
+			);
+			name = FirstViewController.xib;
+			sourceTree = "<group>";
+		};
+		000566B41562F94C003D114D /* SecondViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				000566B51562F94C003D114D /* en */,
+			);
+			name = SecondViewController.xib;
+			sourceTree = "<group>";
+		};
+		000566C61562F94D003D114D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				000566C71562F94D003D114D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		000566CC1562F94D003D114D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		000566CD1562F94D003D114D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		000566CF1562F94D003D114D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MailCleaner/MailCleaner-Prefix.pch";
+				INFOPLIST_FILE = "MailCleaner/MailCleaner-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		000566D01562F94D003D114D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MailCleaner/MailCleaner-Prefix.pch";
+				INFOPLIST_FILE = "MailCleaner/MailCleaner-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		000566D21562F94D003D114D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MailCleaner.app/MailCleaner";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MailCleaner/MailCleaner-Prefix.pch";
+				INFOPLIST_FILE = "MailCleanerTests/MailCleanerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		000566D31562F94D003D114D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MailCleaner.app/MailCleaner";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MailCleaner/MailCleaner-Prefix.pch";
+				INFOPLIST_FILE = "MailCleanerTests/MailCleanerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		000566871562F94C003D114D /* Build configuration list for PBXProject "MailCleaner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				000566CC1562F94D003D114D /* Debug */,
+				000566CD1562F94D003D114D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		000566CE1562F94D003D114D /* Build configuration list for PBXNativeTarget "MailCleaner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				000566CF1562F94D003D114D /* Debug */,
+				000566D01562F94D003D114D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		000566D11562F94D003D114D /* Build configuration list for PBXNativeTarget "MailCleanerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				000566D21562F94D003D114D /* Debug */,
+				000566D31562F94D003D114D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 000566841562F94C003D114D /* Project object */;
+}
