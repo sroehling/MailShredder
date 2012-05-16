@@ -21,6 +21,11 @@
 		000567041562FFC4003D114D /* libResultraGenericLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000567031562FFC4003D114D /* libResultraGenericLib.a */; };
 		0005672315630C12003D114D /* ResultraGenericLibResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0005672215630C12003D114D /* ResultraGenericLibResources.bundle */; };
 		0005672A15630DDD003D114D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0005672915630DDD003D114D /* Localizable.strings */; };
+		003D59921564028200AD3D91 /* dummyEmails.txt in Resources */ = {isa = PBXBuildFile; fileRef = 003D59911564028200AD3D91 /* dummyEmails.txt */; };
+		003D599515641A3F00AD3D91 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003D599415641A3F00AD3D91 /* CoreData.framework */; };
+		003D599815641A9A00AD3D91 /* EmailInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 003D599615641A9A00AD3D91 /* EmailInfo.xcdatamodeld */; };
+		003D599F15641B8A00AD3D91 /* AppHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 003D599E15641B8A00AD3D91 /* AppHelper.m */; };
+		003D59A315641D2600AD3D91 /* EmailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 003D59A215641D2600AD3D91 /* EmailInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +58,13 @@
 		000567031562FFC4003D114D /* libResultraGenericLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libResultraGenericLib.a; path = "../ResultraGenericLib/build/Release-iphoneos/libResultraGenericLib.a"; sourceTree = "<group>"; };
 		0005672215630C12003D114D /* ResultraGenericLibResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ResultraGenericLibResources.bundle; path = "../../../Library/Developer/Xcode/DerivedData/MailCleaner-cwylgavsyequqsfyfgyiuldekald/Build/Products/Debug-iphonesimulator/ResultraGenericLibResources.bundle"; sourceTree = "<group>"; };
 		0005672915630DDD003D114D /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		003D59911564028200AD3D91 /* dummyEmails.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dummyEmails.txt; sourceTree = "<group>"; };
+		003D599415641A3F00AD3D91 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		003D599715641A9A00AD3D91 /* EmailInfo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EmailInfo.xcdatamodel; sourceTree = "<group>"; };
+		003D599D15641B8A00AD3D91 /* AppHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppHelper.h; sourceTree = "<group>"; };
+		003D599E15641B8A00AD3D91 /* AppHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppHelper.m; sourceTree = "<group>"; };
+		003D59A115641D2600AD3D91 /* EmailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfo.h; sourceTree = "<group>"; };
+		003D59A215641D2600AD3D91 /* EmailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				003D599515641A3F00AD3D91 /* CoreData.framework in Frameworks */,
 				000567041562FFC4003D114D /* libResultraGenericLib.a in Frameworks */,
 				000566921562F94C003D114D /* UIKit.framework in Frameworks */,
 				000566941562F94C003D114D /* Foundation.framework in Frameworks */,
@@ -83,6 +96,7 @@
 		000566821562F94C003D114D = {
 			isa = PBXGroup;
 			children = (
+				003D599415641A3F00AD3D91 /* CoreData.framework */,
 				0005672215630C12003D114D /* ResultraGenericLibResources.bundle */,
 				000567031562FFC4003D114D /* libResultraGenericLib.a */,
 				000566971562F94C003D114D /* MailCleaner */,
@@ -115,10 +129,13 @@
 		000566971562F94C003D114D /* MailCleaner */ = {
 			isa = PBXGroup;
 			children = (
+				003D59A015641CDD00AD3D91 /* Data Model */,
 				000566A01562F94C003D114D /* AppDelegate.h */,
 				000566A11562F94C003D114D /* AppDelegate.m */,
 				000566981562F94C003D114D /* Supporting Files */,
 				0005672915630DDD003D114D /* Localizable.strings */,
+				003D599D15641B8A00AD3D91 /* AppHelper.h */,
+				003D599E15641B8A00AD3D91 /* AppHelper.m */,
 			);
 			path = MailCleaner;
 			sourceTree = "<group>";
@@ -130,6 +147,8 @@
 				0005669A1562F94C003D114D /* InfoPlist.strings */,
 				0005669D1562F94C003D114D /* main.m */,
 				0005669F1562F94C003D114D /* MailCleaner-Prefix.pch */,
+				003D59911564028200AD3D91 /* dummyEmails.txt */,
+				003D599615641A9A00AD3D91 /* EmailInfo.xcdatamodeld */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -151,6 +170,15 @@
 				000566C61562F94D003D114D /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		003D59A015641CDD00AD3D91 /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				003D59A115641D2600AD3D91 /* EmailInfo.h */,
+				003D59A215641D2600AD3D91 /* EmailInfo.m */,
+			);
+			name = "Data Model";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,6 +254,7 @@
 				0005669C1562F94C003D114D /* InfoPlist.strings in Resources */,
 				0005672315630C12003D114D /* ResultraGenericLibResources.bundle in Resources */,
 				0005672A15630DDD003D114D /* Localizable.strings in Resources */,
+				003D59921564028200AD3D91 /* dummyEmails.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +291,9 @@
 			files = (
 				0005669E1562F94C003D114D /* main.m in Sources */,
 				000566A21562F94C003D114D /* AppDelegate.m in Sources */,
+				003D599815641A9A00AD3D91 /* EmailInfo.xcdatamodeld in Sources */,
+				003D599F15641B8A00AD3D91 /* AppHelper.m in Sources */,
+				003D59A315641D2600AD3D91 /* EmailInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +475,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		003D599615641A9A00AD3D91 /* EmailInfo.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				003D599715641A9A00AD3D91 /* EmailInfo.xcdatamodel */,
+			);
+			currentVersion = 003D599715641A9A00AD3D91 /* EmailInfo.xcdatamodel */;
+			path = EmailInfo.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 000566841562F94C003D114D /* Project object */;
 }
