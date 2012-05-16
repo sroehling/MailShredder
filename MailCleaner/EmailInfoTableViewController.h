@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EmailInfoViewController : UIViewController
+@class DataModelController;
+
+@interface EmailInfoTableViewController : UITableViewController 
+	<NSFetchedResultsControllerDelegate,UITableViewDelegate>
+{
+	@private
+		DataModelController *emailInfoDmc;
+		NSFetchedResultsController *emailInfoFrc;
+}
+
+@property(nonatomic,retain) DataModelController *emailInfoDmc;
+@property(nonatomic,retain) NSFetchedResultsController *emailInfoFrc;
 
 @end

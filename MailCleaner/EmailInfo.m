@@ -9,6 +9,7 @@
 #import "EmailInfo.h"
 
 NSString * const EMAIL_INFO_ENTITY_NAME = @"EmailInfo";
+NSString * const EMAIL_INFO_SEND_DATE_KEY = @"sendDate";
 
 @implementation EmailInfo
 

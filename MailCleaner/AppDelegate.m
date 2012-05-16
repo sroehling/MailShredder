@@ -14,6 +14,7 @@
 #import "AppHelper.h"
 #import "DateHelper.h"
 #import "EmailInfo.h"
+#import "EmailInfoTableViewController.h"
 
 @implementation AppDelegate
 
@@ -77,7 +78,7 @@
     // Override point for customization after application launch.
 	
 	
-	UIViewController *msgListController = [[[UIViewController alloc] init] autorelease];
+	EmailInfoTableViewController *msgListController = [[[EmailInfoTableViewController alloc] init] autorelease];
 	UINavigationController *msgListNavController = [[[UINavigationController alloc] 
 			initWithRootViewController:msgListController] autorelease];
 	msgListNavController.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");

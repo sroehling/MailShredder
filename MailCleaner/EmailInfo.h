@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 
 extern NSString * const EMAIL_INFO_ENTITY_NAME;
+extern NSString * const EMAIL_INFO_SEND_DATE_KEY;
 
 @interface EmailInfo : NSManagedObject
 
