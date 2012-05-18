@@ -12,6 +12,10 @@
 #import "EmailInfo.h"
 #import "DateHelper.h"
 
+#import "EmailInfoActionView.h"
+#import "TableHeaderWithDisclosure.h"
+#import "TableHeaderDisclosureButtonDelegate.h"
+
 @interface EmailInfoTableViewController ()
 
 @end
@@ -20,6 +24,7 @@
 
 @synthesize emailInfoDmc;
 @synthesize emailInfoFrc;
+@synthesize emailActionView;
 
 - (id)init
 {
@@ -66,6 +71,14 @@
 	}
  
     self.title = @"Email Info";
+	self.tableView.tableFooterView = [[[EmailInfoActionView alloc] init] autorelease];
+	
+	TableHeaderWithDisclosure *tableHeader = 
+			[[[TableHeaderWithDisclosure alloc] initWithFrame:CGRectZero 
+				andDisclosureButtonDelegate:self] autorelease];
+	tableHeader.header.text = @"Message Filter";
+	[tableHeader resizeForChildren];
+	self.tableView.tableHeaderView = tableHeader;
  
 }
 
@@ -112,13 +125,20 @@
     return cell;
 }
 
+#pragma mark TableHeaderDisclosureViewDelegate
+
+- (void)tableHeaderDisclosureButtonPressed
+{
+	NSLog(@"Disclosure button pressed");
+}
+
+
 #pragma mark NSFetchedResultsControllerDelegate 
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
     [self.tableView beginUpdates];
 }
- 
  
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
  
@@ -174,6 +194,7 @@
 {
 	[emailInfoDmc release];
 	[emailInfoFrc release];
+	[emailActionView release];
 	[super dealloc];
 }
 

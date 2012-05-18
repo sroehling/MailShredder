@@ -26,6 +26,7 @@
 		003D599815641A9A00AD3D91 /* EmailInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 003D599615641A9A00AD3D91 /* EmailInfo.xcdatamodeld */; };
 		003D599F15641B8A00AD3D91 /* AppHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 003D599E15641B8A00AD3D91 /* AppHelper.m */; };
 		003D59A315641D2600AD3D91 /* EmailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 003D59A215641D2600AD3D91 /* EmailInfo.m */; };
+		005E6A8715647602004198B6 /* EmailInfoActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 005E6A8615647602004198B6 /* EmailInfoActionView.m */; };
 		00E9944A15643244003B9771 /* EmailInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9944915643244003B9771 /* EmailInfoTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -66,7 +67,9 @@
 		003D599E15641B8A00AD3D91 /* AppHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppHelper.m; sourceTree = "<group>"; };
 		003D59A115641D2600AD3D91 /* EmailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfo.h; sourceTree = "<group>"; };
 		003D59A215641D2600AD3D91 /* EmailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfo.m; sourceTree = "<group>"; };
-		00E9944815643244003B9771 /* EmailInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = EmailInfoTableViewController.h; sourceTree = "<group>"; };
+		005E6A8515647602004198B6 /* EmailInfoActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoActionView.h; sourceTree = "<group>"; };
+		005E6A8615647602004198B6 /* EmailInfoActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoActionView.m; sourceTree = "<group>"; };
+		00E9944815643244003B9771 /* EmailInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoTableViewController.h; sourceTree = "<group>"; };
 		00E9944915643244003B9771 /* EmailInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -141,6 +144,8 @@
 				003D599E15641B8A00AD3D91 /* AppHelper.m */,
 				00E9944815643244003B9771 /* EmailInfoTableViewController.h */,
 				00E9944915643244003B9771 /* EmailInfoTableViewController.m */,
+				005E6A8515647602004198B6 /* EmailInfoActionView.h */,
+				005E6A8615647602004198B6 /* EmailInfoActionView.m */,
 			);
 			path = MailCleaner;
 			sourceTree = "<group>";
@@ -300,6 +305,7 @@
 				003D599F15641B8A00AD3D91 /* AppHelper.m in Sources */,
 				003D59A315641D2600AD3D91 /* EmailInfo.m in Sources */,
 				00E9944A15643244003B9771 /* EmailInfoTableViewController.m in Sources */,
+				005E6A8715647602004198B6 /* EmailInfoActionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
