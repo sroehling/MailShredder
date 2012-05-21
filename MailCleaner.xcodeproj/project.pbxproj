@@ -30,7 +30,6 @@
 		0039E5FF1566CE3600CB259D /* MessageFilterFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039E5FE1566CE3600CB259D /* MessageFilterFieldEditInfo.m */; };
 		0039E6021566D78B00CB259D /* MessageFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039E6011566D78A00CB259D /* MessageFilterFormInfoCreator.m */; };
 		0039E6051566FED000CB259D /* AgeFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039E6041566FED000CB259D /* AgeFilterFormInfoCreator.m */; };
-		003D59921564028200AD3D91 /* dummyEmails.txt in Resources */ = {isa = PBXBuildFile; fileRef = 003D59911564028200AD3D91 /* dummyEmails.txt */; };
 		003D599515641A3F00AD3D91 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003D599415641A3F00AD3D91 /* CoreData.framework */; };
 		003D599815641A9A00AD3D91 /* EmailInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 003D599615641A9A00AD3D91 /* EmailInfo.xcdatamodeld */; };
 		003D599F15641B8A00AD3D91 /* AppHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 003D599E15641B8A00AD3D91 /* AppHelper.m */; };
@@ -96,6 +95,7 @@
 		003D59A215641D2600AD3D91 /* EmailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfo.m; sourceTree = "<group>"; };
 		005E6A8515647602004198B6 /* EmailInfoActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoActionView.h; sourceTree = "<group>"; };
 		005E6A8615647602004198B6 /* EmailInfoActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoActionView.m; sourceTree = "<group>"; };
+		007ABE8B156AB618004BA8BF /* MailCleanerSpec.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MailCleanerSpec.md; sourceTree = "<group>"; };
 		009E32081567E4C500233276 /* AgeFilterFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeFilterFieldEditInfo.h; sourceTree = "<group>"; };
 		009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgeFilterFieldEditInfo.m; sourceTree = "<group>"; };
 		00E9944815643244003B9771 /* EmailInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoTableViewController.h; sourceTree = "<group>"; };
@@ -131,6 +131,7 @@
 		000566821562F94C003D114D = {
 			isa = PBXGroup;
 			children = (
+				007ABE8E156AB631004BA8BF /* Development Docs */,
 				003D599415641A3F00AD3D91 /* CoreData.framework */,
 				0005672215630C12003D114D /* ResultraGenericLibResources.bundle */,
 				000567031562FFC4003D114D /* libResultraGenericLib.a */,
@@ -287,6 +288,14 @@
 			name = "Data Model";
 			sourceTree = "<group>";
 		};
+		007ABE8E156AB631004BA8BF /* Development Docs */ = {
+			isa = PBXGroup;
+			children = (
+				007ABE8B156AB618004BA8BF /* MailCleanerSpec.md */,
+			);
+			name = "Development Docs";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -360,7 +369,6 @@
 				0005669C1562F94C003D114D /* InfoPlist.strings in Resources */,
 				0005672315630C12003D114D /* ResultraGenericLibResources.bundle in Resources */,
 				0005672A15630DDD003D114D /* Localizable.strings in Resources */,
-				003D59921564028200AD3D91 /* dummyEmails.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
