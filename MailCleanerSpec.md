@@ -8,8 +8,8 @@ in their email account. The reasons for this include:
     * Mail providers scan email to develop an 
       advertising profile. There's no 
       reason to give them more than they need.
-    * If an email account was compromized,
-      much personal information can be compromized
+    * If an email account was compromised,
+      much personal information can be compromised
       such as online purchase histories or private 
       conversations. After a period of time,
       these emails are not needed. 
@@ -26,7 +26,7 @@ in their email account. The reasons for this include:
       privacy rights.
 * For organized people ("neat freaks") who 
   just want to keep their email database tidy. For most emails,
-  there's simpy no need to keep them around for years.
+  there's simply no need to keep them around for years.
 * The UI for existing email clients is focused on 
   composition and reading, not deleting. There's
   unique opportunity to develop a customized UI
@@ -40,12 +40,13 @@ information to search and develop an advertising profile.
 
 ###  Sent Mail
 
-1. Group the recipients in a way that will allow rapid deletion and/or setting up filters:
+1. Group the recipients in a way that will allow rapid deletion and/or 
+   setting up filters:
     * Group by recipient and show the count. 
     * Show which ones are in address book. 
     * Group by recipients domain (e.g. "@gmail.com","@followupthen.com")
     * Covered by delete rule or not. 
-    * By timeframe - eg older than 6 months, older than 1 year. 
+    * By timeframe - e.g. older than 6 months, older than 1 year. 
     * With and without attachments. 
     * Locked vs unlocked. 
     * With a given subject
@@ -58,7 +59,7 @@ information to search and develop an advertising profile.
 The assumption is there will be a "message list" view for reviewing 
 the list of un-deleted messages. 
 
-Rather than displaying a un-filetered list of messaged by default, 
+Rather than displaying a unfiltered list of messaged by default, 
 some suggested/common rules for grouping messages to delete can be 
 shown in the root view controller. This would serve as a starting point 
 for the message filter used to display the list of messages. Alternatively, 
@@ -88,7 +89,7 @@ the user could then change the current filter.
 	* In Address Book?
 	* From
 		* Specific email address
-		* Email Domain - e.g: emazon.com,godaddy, etc.
+		* Email Domain - e.g: amazon.com, godaddy.com, etc.
 			* Could sort by common domains
 	* Subject contains <pattern>
 	* Has Attachments?
@@ -101,7 +102,9 @@ the user could then change the current filter.
 
 ### Delete and Exclusion Rules
 
-These rules are automatically applied to the list of undeleted messages to determine which messages are scheduled for deletion, and which ones are excluded.
+These rules are automatically applied to the list of undeleted
+messages to determine which messages are scheduled for deletion, 
+and which ones are excluded.
 
 These rules include:
 
@@ -114,7 +117,7 @@ These rules include:
                                     
 ### Message List View
 
-List of messages which haven't beenn deleted.
+List of messages which haven't been deleted.
   
 * Filter settings in Header
     * This is consistent with other apps which, by convention
@@ -130,7 +133,8 @@ List of messages which haven't beenn deleted.
 
 ### Trash View
 
-This view shows a list of messages scheduled for deletion. From this view, the user can:
+This view shows a list of messages scheduled for deletion. 
+From this view, the user can:
 
 * View messages matching different rules.
 * Exclude individual, or groups of messages from deletion.
@@ -140,7 +144,8 @@ TBD - will this a 'trash' confuse the user relative to trash email folder?
 
 ### Rules View
 
-The rules view is an ordered list of delete & exclusion rules. From this view, the user can:
+The rules view is an ordered list of delete & exclusion rules.
+ From this view, the user can:
 
 * Create new rules
 * Change existing rules
