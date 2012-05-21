@@ -11,3 +11,22 @@
 "TRASH_VIEW_TITLE" = "Trash";
 
 "MSGS_ACTION_BUTTON_TITLE" = "Actions";
+
+"MESSAGE_FILTER_TITLE" = "Message Filter";
+"MESSAGE_AGE_TITLE" = "Send Date";
+"MESSAGE_AGE_FILTER_PROMPT" = "Select a send date criterion";
+"MESSAGE_AGE_SUBTITLE" = "Filter by date the message was sent";
+
+"AGE_FILTER_NONE_TITLE" = "All Messages";
+"AGE_FILTER_NONE_SUBTITLE" = "Include messages with any send date.";
+"AGE_FILTER_COMPARISON_OLDER" = "Older Than";
+"AGE_FILTER_COMPARISON_NEWER" = "Newer Than";
+"AGE_FILTER_SYNOPSIS_FORMAT" = "%@ %d %@";
+
+"TIME_UNIT_WEEKS" = "Weeks";
+"TIME_UNIT_MONTHS" = "Months";
+"TIME_UNIT_YEARS" = "Years";
+"TIME_UNIT_WEEK" = "Week";
+"TIME_UNIT_MONTH" = "Month";
+"TIME_UNIT_YEAR" = "Year";
+

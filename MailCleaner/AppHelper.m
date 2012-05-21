@@ -22,4 +22,14 @@
 }
 
 
++(DataModelController*)appDataModelController
+{
+	DataModelController *appDmc = 
+		[[[DataModelController alloc] 
+			initForDatabaseUsageWithDataModelNamed:@"AppData"
+			andStoreNamed:@"AppData.sqlite"] autorelease];
+	return appDmc;
+}
+
+
 @end

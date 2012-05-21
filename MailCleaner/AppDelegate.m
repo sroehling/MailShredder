@@ -15,6 +15,7 @@
 #import "DateHelper.h"
 #import "EmailInfo.h"
 #import "EmailInfoTableViewController.h"
+#import "SharedAppVals.h"
 
 @implementation AppDelegate
 
@@ -72,6 +73,7 @@
 
 
 	[self populateDatabaseWithDummyEmails];
+	[SharedAppVals initFromDatabase];
 
 
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];

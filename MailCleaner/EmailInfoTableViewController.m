@@ -15,6 +15,9 @@
 #import "EmailInfoActionView.h"
 #import "TableHeaderWithDisclosure.h"
 #import "TableHeaderDisclosureButtonDelegate.h"
+#import "MessageFilterFormInfoCreator.h"
+#import "GenericFieldBasedTableEditViewController.h"
+#import "SharedAppVals.h"
 
 @interface EmailInfoTableViewController ()
 
@@ -130,6 +133,20 @@
 - (void)tableHeaderDisclosureButtonPressed
 {
 	NSLog(@"Disclosure button pressed");
+	
+	DataModelController *appDmc = [AppHelper appDataModelController];
+	
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:appDmc];
+	
+	MessageFilterFormInfoCreator *msgFilterFormInfoCreator = 
+		[[[MessageFilterFormInfoCreator alloc] initWithMsgFilter:sharedAppVals.msgListFilter] autorelease];
+		
+	GenericFieldBasedTableViewController *msgFilterViewController = 
+		[[[GenericFieldBasedTableViewController alloc] initWithFormInfoCreator:msgFilterFormInfoCreator 
+		andDataModelController:appDmc] autorelease];
+		
+	[self.navigationController pushViewController:msgFilterViewController animated:YES];       
+
 }
 
 

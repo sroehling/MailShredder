@@ -13,5 +13,7 @@
 @interface AppHelper : NSObject
 
 +(DataModelController*)emailInfoDataModelController;
++(DataModelController*)appDataModelController;
+
 
 @end

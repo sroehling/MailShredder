@@ -21,12 +21,22 @@
 		000567041562FFC4003D114D /* libResultraGenericLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000567031562FFC4003D114D /* libResultraGenericLib.a */; };
 		0005672315630C12003D114D /* ResultraGenericLibResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0005672215630C12003D114D /* ResultraGenericLibResources.bundle */; };
 		0005672A15630DDD003D114D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0005672915630DDD003D114D /* Localizable.strings */; };
+		0039E5DC1566B14000CB259D /* AppData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0039E5DA1566B14000CB259D /* AppData.xcdatamodeld */; };
+		0039E5EC1566B8CE00CB259D /* AgeFilterNone.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039E5EB1566B8CE00CB259D /* AgeFilterNone.m */; };
+		0039E5EF1566B8CE00CB259D /* MessageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039E5EE1566B8CE00CB259D /* MessageFilter.m */; };
+		0039E5F21566B8CE00CB259D /* AgeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039E5F11566B8CE00CB259D /* AgeFilter.m */; };
+		0039E5F51566B8CF00CB259D /* AgeFilterComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039E5F41566B8CE00CB259D /* AgeFilterComparison.m */; };
+		0039E5F91566BE6600CB259D /* SharedAppVals.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039E5F81566BE6600CB259D /* SharedAppVals.m */; };
+		0039E5FF1566CE3600CB259D /* MessageFilterFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039E5FE1566CE3600CB259D /* MessageFilterFieldEditInfo.m */; };
+		0039E6021566D78B00CB259D /* MessageFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039E6011566D78A00CB259D /* MessageFilterFormInfoCreator.m */; };
+		0039E6051566FED000CB259D /* AgeFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039E6041566FED000CB259D /* AgeFilterFormInfoCreator.m */; };
 		003D59921564028200AD3D91 /* dummyEmails.txt in Resources */ = {isa = PBXBuildFile; fileRef = 003D59911564028200AD3D91 /* dummyEmails.txt */; };
 		003D599515641A3F00AD3D91 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003D599415641A3F00AD3D91 /* CoreData.framework */; };
 		003D599815641A9A00AD3D91 /* EmailInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 003D599615641A9A00AD3D91 /* EmailInfo.xcdatamodeld */; };
 		003D599F15641B8A00AD3D91 /* AppHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 003D599E15641B8A00AD3D91 /* AppHelper.m */; };
 		003D59A315641D2600AD3D91 /* EmailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 003D59A215641D2600AD3D91 /* EmailInfo.m */; };
 		005E6A8715647602004198B6 /* EmailInfoActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 005E6A8615647602004198B6 /* EmailInfoActionView.m */; };
+		009E320A1567E4C500233276 /* AgeFilterFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */; };
 		00E9944A15643244003B9771 /* EmailInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9944915643244003B9771 /* EmailInfoTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +70,23 @@
 		000567031562FFC4003D114D /* libResultraGenericLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libResultraGenericLib.a; path = "../ResultraGenericLib/build/Release-iphoneos/libResultraGenericLib.a"; sourceTree = "<group>"; };
 		0005672215630C12003D114D /* ResultraGenericLibResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ResultraGenericLibResources.bundle; path = "../../../Library/Developer/Xcode/DerivedData/MailCleaner-cwylgavsyequqsfyfgyiuldekald/Build/Products/Debug-iphonesimulator/ResultraGenericLibResources.bundle"; sourceTree = "<group>"; };
 		0005672915630DDD003D114D /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		0039E5DB1566B14000CB259D /* AppData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppData.xcdatamodel; sourceTree = "<group>"; };
+		0039E5EA1566B8CE00CB259D /* AgeFilterNone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeFilterNone.h; sourceTree = "<group>"; };
+		0039E5EB1566B8CE00CB259D /* AgeFilterNone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgeFilterNone.m; sourceTree = "<group>"; };
+		0039E5ED1566B8CE00CB259D /* MessageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageFilter.h; sourceTree = "<group>"; };
+		0039E5EE1566B8CE00CB259D /* MessageFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageFilter.m; sourceTree = "<group>"; };
+		0039E5F01566B8CE00CB259D /* AgeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeFilter.h; sourceTree = "<group>"; };
+		0039E5F11566B8CE00CB259D /* AgeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgeFilter.m; sourceTree = "<group>"; };
+		0039E5F31566B8CE00CB259D /* AgeFilterComparison.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeFilterComparison.h; sourceTree = "<group>"; };
+		0039E5F41566B8CE00CB259D /* AgeFilterComparison.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgeFilterComparison.m; sourceTree = "<group>"; };
+		0039E5F71566BE6600CB259D /* SharedAppVals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedAppVals.h; sourceTree = "<group>"; };
+		0039E5F81566BE6600CB259D /* SharedAppVals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedAppVals.m; sourceTree = "<group>"; };
+		0039E5FD1566CE3600CB259D /* MessageFilterFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageFilterFieldEditInfo.h; sourceTree = "<group>"; };
+		0039E5FE1566CE3600CB259D /* MessageFilterFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageFilterFieldEditInfo.m; sourceTree = "<group>"; };
+		0039E6001566D78A00CB259D /* MessageFilterFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageFilterFormInfoCreator.h; sourceTree = "<group>"; };
+		0039E6011566D78A00CB259D /* MessageFilterFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageFilterFormInfoCreator.m; sourceTree = "<group>"; };
+		0039E6031566FED000CB259D /* AgeFilterFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeFilterFormInfoCreator.h; sourceTree = "<group>"; };
+		0039E6041566FED000CB259D /* AgeFilterFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgeFilterFormInfoCreator.m; sourceTree = "<group>"; };
 		003D59911564028200AD3D91 /* dummyEmails.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dummyEmails.txt; sourceTree = "<group>"; };
 		003D599415641A3F00AD3D91 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		003D599715641A9A00AD3D91 /* EmailInfo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EmailInfo.xcdatamodel; sourceTree = "<group>"; };
@@ -69,6 +96,8 @@
 		003D59A215641D2600AD3D91 /* EmailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfo.m; sourceTree = "<group>"; };
 		005E6A8515647602004198B6 /* EmailInfoActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoActionView.h; sourceTree = "<group>"; };
 		005E6A8615647602004198B6 /* EmailInfoActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoActionView.m; sourceTree = "<group>"; };
+		009E32081567E4C500233276 /* AgeFilterFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeFilterFieldEditInfo.h; sourceTree = "<group>"; };
+		009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgeFilterFieldEditInfo.m; sourceTree = "<group>"; };
 		00E9944815643244003B9771 /* EmailInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoTableViewController.h; sourceTree = "<group>"; };
 		00E9944915643244003B9771 /* EmailInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -135,17 +164,11 @@
 		000566971562F94C003D114D /* MailCleaner */ = {
 			isa = PBXGroup;
 			children = (
+				0039E5FA1566CD0800CB259D /* Application */,
 				003D59A015641CDD00AD3D91 /* Data Model */,
-				000566A01562F94C003D114D /* AppDelegate.h */,
-				000566A11562F94C003D114D /* AppDelegate.m */,
+				0039E5FB1566CD2E00CB259D /* Message List View */,
 				000566981562F94C003D114D /* Supporting Files */,
-				0005672915630DDD003D114D /* Localizable.strings */,
-				003D599D15641B8A00AD3D91 /* AppHelper.h */,
-				003D599E15641B8A00AD3D91 /* AppHelper.m */,
-				00E9944815643244003B9771 /* EmailInfoTableViewController.h */,
-				00E9944915643244003B9771 /* EmailInfoTableViewController.m */,
-				005E6A8515647602004198B6 /* EmailInfoActionView.h */,
-				005E6A8615647602004198B6 /* EmailInfoActionView.m */,
+				0039E5FC1566CE0700CB259D /* Message Filter */,
 			);
 			path = MailCleaner;
 			sourceTree = "<group>";
@@ -153,12 +176,12 @@
 		000566981562F94C003D114D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0005672915630DDD003D114D /* Localizable.strings */,
 				000566991562F94C003D114D /* MailCleaner-Info.plist */,
 				0005669A1562F94C003D114D /* InfoPlist.strings */,
 				0005669D1562F94C003D114D /* main.m */,
 				0005669F1562F94C003D114D /* MailCleaner-Prefix.pch */,
 				003D59911564028200AD3D91 /* dummyEmails.txt */,
-				003D599615641A9A00AD3D91 /* EmailInfo.xcdatamodeld */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -182,11 +205,84 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		0039E5E21566B44700CB259D /* Email Info */ = {
+			isa = PBXGroup;
+			children = (
+				003D599615641A9A00AD3D91 /* EmailInfo.xcdatamodeld */,
+				003D59A115641D2600AD3D91 /* EmailInfo.h */,
+				003D59A215641D2600AD3D91 /* EmailInfo.m */,
+			);
+			name = "Email Info";
+			sourceTree = "<group>";
+		};
+		0039E5E31566B45300CB259D /* App Data */ = {
+			isa = PBXGroup;
+			children = (
+				0039E5DA1566B14000CB259D /* AppData.xcdatamodeld */,
+				0039E5F71566BE6600CB259D /* SharedAppVals.h */,
+				0039E5F81566BE6600CB259D /* SharedAppVals.m */,
+				0039E5F61566BE3B00CB259D /* Message Filter */,
+			);
+			name = "App Data";
+			sourceTree = "<group>";
+		};
+		0039E5F61566BE3B00CB259D /* Message Filter */ = {
+			isa = PBXGroup;
+			children = (
+				0039E5F31566B8CE00CB259D /* AgeFilterComparison.h */,
+				0039E5F41566B8CE00CB259D /* AgeFilterComparison.m */,
+				0039E5F01566B8CE00CB259D /* AgeFilter.h */,
+				0039E5F11566B8CE00CB259D /* AgeFilter.m */,
+				0039E5ED1566B8CE00CB259D /* MessageFilter.h */,
+				0039E5EE1566B8CE00CB259D /* MessageFilter.m */,
+				0039E5EA1566B8CE00CB259D /* AgeFilterNone.h */,
+				0039E5EB1566B8CE00CB259D /* AgeFilterNone.m */,
+			);
+			name = "Message Filter";
+			sourceTree = "<group>";
+		};
+		0039E5FA1566CD0800CB259D /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				003D599D15641B8A00AD3D91 /* AppHelper.h */,
+				003D599E15641B8A00AD3D91 /* AppHelper.m */,
+				000566A01562F94C003D114D /* AppDelegate.h */,
+				000566A11562F94C003D114D /* AppDelegate.m */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		0039E5FB1566CD2E00CB259D /* Message List View */ = {
+			isa = PBXGroup;
+			children = (
+				00E9944815643244003B9771 /* EmailInfoTableViewController.h */,
+				00E9944915643244003B9771 /* EmailInfoTableViewController.m */,
+				005E6A8515647602004198B6 /* EmailInfoActionView.h */,
+				005E6A8615647602004198B6 /* EmailInfoActionView.m */,
+			);
+			name = "Message List View";
+			sourceTree = "<group>";
+		};
+		0039E5FC1566CE0700CB259D /* Message Filter */ = {
+			isa = PBXGroup;
+			children = (
+				0039E5FD1566CE3600CB259D /* MessageFilterFieldEditInfo.h */,
+				0039E5FE1566CE3600CB259D /* MessageFilterFieldEditInfo.m */,
+				0039E6001566D78A00CB259D /* MessageFilterFormInfoCreator.h */,
+				0039E6011566D78A00CB259D /* MessageFilterFormInfoCreator.m */,
+				0039E6031566FED000CB259D /* AgeFilterFormInfoCreator.h */,
+				0039E6041566FED000CB259D /* AgeFilterFormInfoCreator.m */,
+				009E32081567E4C500233276 /* AgeFilterFieldEditInfo.h */,
+				009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */,
+			);
+			name = "Message Filter";
+			sourceTree = "<group>";
+		};
 		003D59A015641CDD00AD3D91 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				003D59A115641D2600AD3D91 /* EmailInfo.h */,
-				003D59A215641D2600AD3D91 /* EmailInfo.m */,
+				0039E5E31566B45300CB259D /* App Data */,
+				0039E5E21566B44700CB259D /* Email Info */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -306,6 +402,16 @@
 				003D59A315641D2600AD3D91 /* EmailInfo.m in Sources */,
 				00E9944A15643244003B9771 /* EmailInfoTableViewController.m in Sources */,
 				005E6A8715647602004198B6 /* EmailInfoActionView.m in Sources */,
+				0039E5DC1566B14000CB259D /* AppData.xcdatamodeld in Sources */,
+				0039E5EC1566B8CE00CB259D /* AgeFilterNone.m in Sources */,
+				0039E5EF1566B8CE00CB259D /* MessageFilter.m in Sources */,
+				0039E5F21566B8CE00CB259D /* AgeFilter.m in Sources */,
+				0039E5F51566B8CF00CB259D /* AgeFilterComparison.m in Sources */,
+				0039E5F91566BE6600CB259D /* SharedAppVals.m in Sources */,
+				0039E5FF1566CE3600CB259D /* MessageFilterFieldEditInfo.m in Sources */,
+				0039E6021566D78B00CB259D /* MessageFilterFormInfoCreator.m in Sources */,
+				0039E6051566FED000CB259D /* AgeFilterFormInfoCreator.m in Sources */,
+				009E320A1567E4C500233276 /* AgeFilterFieldEditInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +595,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		0039E5DA1566B14000CB259D /* AppData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0039E5DB1566B14000CB259D /* AppData.xcdatamodel */,
+			);
+			currentVersion = 0039E5DB1566B14000CB259D /* AppData.xcdatamodel */;
+			path = AppData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		003D599615641A9A00AD3D91 /* EmailInfo.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11D50" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="AgeFilter" representedClassName="AgeFilter" isAbstract="YES" syncable="YES">
+        <relationship name="messageFilterAgeFilter" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="ageFilter" inverseEntity="MessageFilter" syncable="YES"/>
+    </entity>
+    <entity name="AgeFilterComparison" representedClassName="AgeFilterComparison" parentEntity="AgeFilter" syncable="YES">
+        <attribute name="comparison" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="interval" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="timeUnit" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultAgeFilterNewer1Month" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterNewer1Month" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultAgeFilterNewer1Year" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterNewer1Year" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultAgeFilterNewer3Months" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterNewer3Months" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultAgeFilterNewer6Months" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterNewer6Months" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultAgeFilterOlder1Month" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterOlder1Month" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultAgeFilterOlder1Year" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterOlder1Year" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultAgeFilterOlder2Years" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterOlder2Years" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultAgeFilterOlder3Months" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterOlder3Months" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultAgeFilterOlder6Months" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterOlder6Months" inverseEntity="SharedAppVals" syncable="YES"/>
+    </entity>
+    <entity name="AgeFilterNone" representedClassName="AgeFilterNone" parentEntity="AgeFilter" syncable="YES">
+        <relationship name="sharedAppValsDefaultAgeFilterNone" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterNone" inverseEntity="SharedAppVals" syncable="YES"/>
+    </entity>
+    <entity name="MessageFilter" representedClassName="MessageFilter" syncable="YES">
+        <attribute name="filterName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ageFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilter" inverseName="messageFilterAgeFilter" inverseEntity="AgeFilter" syncable="YES"/>
+        <relationship name="sharedAppValsMsgListFilter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="msgListFilter" inverseEntity="SharedAppVals" syncable="YES"/>
+    </entity>
+    <entity name="SharedAppVals" representedClassName="SharedAppVals" syncable="YES">
+        <relationship name="defaultAgeFilterNewer1Month" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterNewer1Month" inverseEntity="AgeFilterComparison" syncable="YES"/>
+        <relationship name="defaultAgeFilterNewer1Year" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterNewer1Year" inverseEntity="AgeFilterComparison" syncable="YES"/>
+        <relationship name="defaultAgeFilterNewer3Months" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterNewer3Months" inverseEntity="AgeFilterComparison" syncable="YES"/>
+        <relationship name="defaultAgeFilterNewer6Months" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterNewer6Months" inverseEntity="AgeFilterComparison" syncable="YES"/>
+        <relationship name="defaultAgeFilterNone" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterNone" inverseName="sharedAppValsDefaultAgeFilterNone" inverseEntity="AgeFilterNone" syncable="YES"/>
+        <relationship name="defaultAgeFilterOlder1Month" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterOlder1Month" inverseEntity="AgeFilterComparison" syncable="YES"/>
+        <relationship name="defaultAgeFilterOlder1Year" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterOlder1Year" inverseEntity="AgeFilterComparison" syncable="YES"/>
+        <relationship name="defaultAgeFilterOlder2Years" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterOlder2Years" inverseEntity="AgeFilterComparison" syncable="YES"/>
+        <relationship name="defaultAgeFilterOlder3Months" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterOlder3Months" inverseEntity="AgeFilterComparison" syncable="YES"/>
+        <relationship name="defaultAgeFilterOlder6Months" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterOlder6Months" inverseEntity="AgeFilterComparison" syncable="YES"/>
+        <relationship name="msgListFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="sharedAppValsMsgListFilter" inverseEntity="MessageFilter" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="AgeFilter" positionX="160" positionY="192" width="128" height="60"/>
+        <element name="AgeFilterComparison" positionX="160" positionY="192" width="128" height="225"/>
+        <element name="AgeFilterNone" positionX="160" positionY="192" width="128" height="60"/>
+        <element name="MessageFilter" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="SharedAppVals" positionX="160" positionY="192" width="128" height="210"/>
+    </elements>
+</model>
