@@ -17,6 +17,10 @@
 "MESSAGE_AGE_FILTER_PROMPT" = "Select a send date criterion";
 "MESSAGE_AGE_SUBTITLE" = "Filter by date the message was sent";
 
+"MESSAGE_LIST_ACTION_TRASH_MSGS_BUTTON_TITLE" = "Trash Messages";
+"MESSAGE_LIST_ACTION_LOCK_MSGS_BUTTON_TITLE" = "Lock Messages";
+"MESSAGE_LIST_ACTION_CANCEL_BUTTON_TITLE" = "Cancel";
+
 "AGE_FILTER_NONE_TITLE" = "All Messages";
 "AGE_FILTER_NONE_SUBTITLE" = "Include messages with any send date.";
 "AGE_FILTER_COMPARISON_OLDER" = "Older Than";

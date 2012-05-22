@@ -11,6 +11,7 @@
 #import "AppHelper.h"
 #import "EmailInfo.h"
 #import "DateHelper.h"
+#import "LocalizationHelper.h"
 
 #import "EmailInfoActionView.h"
 #import "TableHeaderWithDisclosure.h"
@@ -19,6 +20,7 @@
 #import "GenericFieldBasedTableEditViewController.h"
 #import "SharedAppVals.h"
 #import "MessageFilter.h"
+#import "MessageListActionView.h"
 
 @interface EmailInfoTableViewController ()
 
@@ -93,8 +95,8 @@
  
 	[self configureFetchedResultsController];
  
-    self.title = @"Email Info";
-	self.tableView.tableFooterView = [[[EmailInfoActionView alloc] init] autorelease];
+    self.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
+	self.tableView.tableFooterView = [[[EmailInfoActionView alloc] initWithDelegate:self] autorelease];
 	
 	TableHeaderWithDisclosure *tableHeader = 
 			[[[TableHeaderWithDisclosure alloc] initWithFrame:CGRectZero 
@@ -177,6 +179,28 @@
 		
 	[self.navigationController pushViewController:msgFilterViewController animated:YES];       
 
+}
+
+#pragma mark EmailActionViewDelegate
+
+-(void)actionButtonPressed
+{
+	NSLog(@"Action button pressed");
+	MessageListActionView *actionsList = [[[MessageListActionView alloc]
+		initWithFrame:self.navigationController.view.frame andDelegate:self] autorelease];
+	[self.navigationController.view addSubview:actionsList];
+}
+
+#pragma mark MessageListActionViewDelegate
+
+-(void)trashMsgsButtonPressed
+{
+	NSLog(@"Trash msgs button pressed");
+}
+
+-(void)lockMsgsButtonPressed
+{
+	NSLog(@"Lock msgs button pressed");
 }
 
 

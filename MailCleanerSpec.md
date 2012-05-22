@@ -113,7 +113,23 @@ These rules include:
 * A reference to the message filter used to filter which messages 
   are applicable to the rule.
 * An option to require delete confirmation? (delete rules only)
-                  
+                 
+Delete and exemption rules can be evaluated in order; or, the messages eligible
+for deletion created using a series of logical ANDs and ORs; i.e.:
+
+	(DeleteRule^1 OR DeleteRule^2 ... OR DeleteRule^N OR MessageIsTrashed) AND 
+	(NOT(ExemptionRule^1 OR ExemptionRule^2 ... OR ExemptionRule^N OR MessageIsLocked))
+	
+Some points to consider:
+
+* Having an ordered set of delete and exemption rules would be the most flexible,
+but also add more complexity and make it more confusing to users. 
+* Using the logic above, the user could also enable and disable (and think about) individual 
+rules without worrying about its order in the list.
+* With individual rules being evaluated independently, the list of matching messages can be shown for each rule.
+* Using logical ANDs and ORs allows the implementation of rules to be easily encoded in a compound database query.
+
+Based upon the considerations above, using logical ANDs and ORs is selected to be the best approach.
                                     
 ### Message List View
 
@@ -124,12 +140,14 @@ List of messages which haven't been deleted.
         have the search settings in the header.
     * Button on RHS to display and edit the current filter.
     * The current search filter is saved. 
-* Message Actions
-	* Lock a message from deletion.
+* Message Actions - Works on either the selected list of messages, or all the
+  messages matching the current message filter.
+	* Lock message(s) from deletion.
         * List of locked messages. 
 		* Could use a SHA1 signature to uniquely identify messages,
 		  including subject date, etc.
-	* Trash a message
+	* Trash message(s)
+	* Create a delete or exemption rule for messages matching current filter.
 
 ### Trash View
 

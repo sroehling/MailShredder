@@ -15,8 +15,9 @@ const NSInteger EMAIL_ACTION_VIEW_HEIGHT = 30.0;
 @implementation EmailInfoActionView
 
 @synthesize emailActionsButton;
+@synthesize delegate;
 
-- (id)init
+- (id)initWithDelegate:(id<EmailActionViewDelegate>)theDelegate
 {
 	CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
 	self = [super initWithFrame:CGRectMake(0, 0, screenRect.size.width, EMAIL_ACTION_VIEW_HEIGHT)];
@@ -25,11 +26,18 @@ const NSInteger EMAIL_ACTION_VIEW_HEIGHT = 30.0;
 
 		self.autoresizesSubviews = YES;
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+		
+		assert(theDelegate != nil);
+		self.delegate = theDelegate;
 
         self.emailActionsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 		[self.emailActionsButton setTitle:
 			LOCALIZED_STR(@"MSGS_ACTION_BUTTON_TITLE") forState:UIControlStateNormal];
 		[self.emailActionsButton sizeToFit];
+		
+		[self.emailActionsButton addTarget:self.delegate 
+				action:@selector(actionButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+
 		
 		[self addSubview:self.emailActionsButton];
     }
@@ -37,6 +45,12 @@ const NSInteger EMAIL_ACTION_VIEW_HEIGHT = 30.0;
 }
 
 - (id)initWithFrame:(CGRect)frame
+{
+	assert(0);
+	return 0;
+}
+
+-(id)init
 {
 	assert(0);
 	return 0;

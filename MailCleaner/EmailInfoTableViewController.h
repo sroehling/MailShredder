@@ -7,27 +7,29 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EmailInfoActionView.h"
+
 
 @class DataModelController;
-@class EmailActionView;
 
 #import "TableHeaderDisclosureButtonDelegate.h"
+#import "MessageListActionView.h"
 
 @interface EmailInfoTableViewController : UITableViewController 
 	<NSFetchedResultsControllerDelegate,UITableViewDelegate,
-		TableHeaderDisclosureButtonDelegate>
+		TableHeaderDisclosureButtonDelegate,EmailActionViewDelegate,MessageListActionViewDelegate>
 {
 	@private
 		DataModelController *emailInfoDmc;
 		DataModelController *filterDmc;
 		NSFetchedResultsController *emailInfoFrc;
 		
-		EmailActionView *emailActionView;
+		EmailInfoActionView *emailActionView;
 }
 
 @property(nonatomic,retain) DataModelController *emailInfoDmc;
 @property(nonatomic,retain) NSFetchedResultsController *emailInfoFrc;
-@property(nonatomic,retain) EmailActionView *emailActionView;
+@property(nonatomic,retain) EmailInfoActionView *emailActionView;
 @property(nonatomic,retain) DataModelController *filterDmc;
 
 @end
