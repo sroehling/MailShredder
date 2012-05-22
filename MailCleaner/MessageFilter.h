@@ -23,4 +23,7 @@ extern NSString * const MESSAGE_FILTER_AGE_FILTER_KEY;
 // Inverse
 @property (nonatomic, retain) SharedAppVals *sharedAppValsMsgListFilter;
 
+
+-(NSPredicate*)filterPredicate;
+
 @end

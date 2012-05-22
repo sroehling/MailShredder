@@ -18,6 +18,7 @@
 #import "MessageFilterFormInfoCreator.h"
 #import "GenericFieldBasedTableEditViewController.h"
 #import "SharedAppVals.h"
+#import "MessageFilter.h"
 
 @interface EmailInfoTableViewController ()
 
@@ -26,6 +27,7 @@
 @implementation EmailInfoTableViewController
 
 @synthesize emailInfoDmc;
+@synthesize filterDmc;
 @synthesize emailInfoFrc;
 @synthesize emailActionView;
 
@@ -35,6 +37,7 @@
     if (self) {
         // Custom initialization
 		self.emailInfoDmc = [AppHelper emailInfoDataModelController];
+		self.filterDmc = [AppHelper appDataModelController];
     }
     return self;
 }
@@ -45,10 +48,8 @@
 	return nil;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
- 
- 
+-(void)configureFetchedResultsController
+{
 	NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
 	NSEntityDescription *entity = [NSEntityDescription
 		entityForName:EMAIL_INFO_ENTITY_NAME 
@@ -58,12 +59,22 @@
 	NSSortDescriptor *sort = [[NSSortDescriptor alloc]
 		initWithKey:EMAIL_INFO_SEND_DATE_KEY ascending:NO];
 	[fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+		
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.filterDmc];
+	NSPredicate *filterPredicate = [sharedAppVals.msgListFilter filterPredicate];
+	if(filterPredicate != nil)
+	{
+		[fetchRequest setPredicate:filterPredicate];
+		NSLog(@"Filter predicate: %@",[filterPredicate description]);
+	}		
+	
 	[fetchRequest setFetchBatchSize:20];
  
 	self.emailInfoFrc = [[[NSFetchedResultsController alloc] 
 			initWithFetchRequest:fetchRequest
 			managedObjectContext:self.emailInfoDmc.managedObjectContext sectionNameKeyPath:nil
-			cacheName:@"Root"] autorelease];
+			cacheName:nil] autorelease];
+	self.emailInfoFrc.delegate = self;
 
  
     NSError *error;
@@ -72,6 +83,15 @@
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		exit(-1);  // Fail
 	}
+	
+	[self.tableView reloadData];
+
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+ 
+	[self configureFetchedResultsController];
  
     self.title = @"Email Info";
 	self.tableView.tableFooterView = [[[EmailInfoActionView alloc] init] autorelease];
@@ -85,9 +105,21 @@
  
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+	// If the filter has changed (and the view is appearing because of a return
+	// from editig the filter), the changes need to be saved, and the fetched results
+	// controller needs to be reconfigured.
+	if([self.filterDmc.managedObjectContext hasChanges])
+	{
+		[self.filterDmc saveContextAndIgnoreErrors];
+		[self configureFetchedResultsController];
+	}
+}
+
 - (void)viewDidUnload 
 {
-     [super viewDidUnload];
+	[super viewDidUnload];
 	self.emailInfoFrc = nil;
 }
 
@@ -133,17 +165,15 @@
 - (void)tableHeaderDisclosureButtonPressed
 {
 	NSLog(@"Disclosure button pressed");
-	
-	DataModelController *appDmc = [AppHelper appDataModelController];
-	
-	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:appDmc];
+		
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.filterDmc];
 	
 	MessageFilterFormInfoCreator *msgFilterFormInfoCreator = 
 		[[[MessageFilterFormInfoCreator alloc] initWithMsgFilter:sharedAppVals.msgListFilter] autorelease];
 		
 	GenericFieldBasedTableViewController *msgFilterViewController = 
 		[[[GenericFieldBasedTableViewController alloc] initWithFormInfoCreator:msgFilterFormInfoCreator 
-		andDataModelController:appDmc] autorelease];
+		andDataModelController:self.filterDmc] autorelease];
 		
 	[self.navigationController pushViewController:msgFilterViewController animated:YES];       
 
@@ -210,6 +240,7 @@
 -(void)dealloc
 {
 	[emailInfoDmc release];
+	[filterDmc release];
 	[emailInfoFrc release];
 	[emailActionView release];
 	[super dealloc];

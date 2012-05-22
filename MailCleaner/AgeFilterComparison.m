@@ -9,6 +9,8 @@
 #import "AgeFilterComparison.h"
 #import "LocalizationHelper.h"
 #import "DataModelController.h"
+#import "DateHelper.h"
+#import "EmailInfo.h"
 
 NSString * const AGE_FILTER_COMPARISON_ENTITY_NAME = @"AgeFilterComparison";
 NSUInteger const AGE_FILTER_COMPARISON_TIME_UNIT_WEEKS = 0;
@@ -97,6 +99,48 @@ NSUInteger const AGE_FILTER_COMPARISON_NEWER = 1;
 	return [NSString stringWithFormat:LOCALIZED_STR(@"AGE_FILTER_SYNOPSIS_FORMAT"),
 		[self comparisonAsString],[self.interval integerValue],[self timeUnitAsString]];
 }
+
+-(NSPredicate*)filterPredicate
+{
+	NSDateComponents *filterCompareComponents = [[[NSDateComponents alloc] init] autorelease];
+	NSInteger relativeIntervalValue = [self.interval integerValue] * -1;
+	if([self.timeUnit integerValue] == AGE_FILTER_COMPARISON_TIME_UNIT_WEEKS)
+	{
+		[filterCompareComponents setWeek:relativeIntervalValue];
+	}
+	else if ([self.timeUnit integerValue] == AGE_FILTER_COMPARISON_TIME_UNIT_MONTHS)
+	{
+		[filterCompareComponents setMonth:relativeIntervalValue];
+	}
+	else 
+	{
+		[filterCompareComponents setYear:relativeIntervalValue];
+	}
+	NSDate *compareDate = [[DateHelper theHelper].gregorian 
+		dateByAddingComponents:filterCompareComponents 
+                 toDate:[DateHelper today] options:0];
+	NSLog(@"Compare date: %@",[DateHelper stringFromDate:compareDate]);
+
+	NSString *comparisonOperatorAsString;
+	if([self.comparison integerValue] == AGE_FILTER_COMPARISON_OLDER)
+	{
+		comparisonOperatorAsString = @"<=";
+	}
+	else 
+	{
+		comparisonOperatorAsString = @">=";
+	}
+
+	
+	NSString *predicateFormat = [NSString stringWithFormat:@"(%@ %@ %%@)",
+		EMAIL_INFO_SEND_DATE_KEY,comparisonOperatorAsString];
+	NSLog(@"Predicate format: %@",predicateFormat);
+	NSPredicate *predicate = [NSPredicate
+			predicateWithFormat:predicateFormat,compareDate];
+
+	return predicate;
+}
+
 
 
 

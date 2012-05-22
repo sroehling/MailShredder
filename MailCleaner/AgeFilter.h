@@ -21,6 +21,7 @@
 @property BOOL selectionFlagForSelectableObjectTableView;
 
 -(NSString*)filterSynopsis;
+-(NSPredicate*)filterPredicate;
 
 @end
 

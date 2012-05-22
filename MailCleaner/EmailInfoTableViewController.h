@@ -19,6 +19,7 @@
 {
 	@private
 		DataModelController *emailInfoDmc;
+		DataModelController *filterDmc;
 		NSFetchedResultsController *emailInfoFrc;
 		
 		EmailActionView *emailActionView;
@@ -27,5 +28,6 @@
 @property(nonatomic,retain) DataModelController *emailInfoDmc;
 @property(nonatomic,retain) NSFetchedResultsController *emailInfoFrc;
 @property(nonatomic,retain) EmailActionView *emailActionView;
+@property(nonatomic,retain) DataModelController *filterDmc;
 
 @end

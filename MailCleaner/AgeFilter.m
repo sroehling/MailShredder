@@ -22,4 +22,10 @@
 	return nil;
 }
 
+-(NSPredicate*)filterPredicate
+{
+	assert(0); // must be overriden
+	return nil;
+}
+
 @end
