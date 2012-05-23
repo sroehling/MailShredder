@@ -21,6 +21,7 @@
 #import "SharedAppVals.h"
 #import "MessageFilter.h"
 #import "MessageListActionView.h"
+#import "CoreDataHelper.h"
 
 @interface EmailInfoTableViewController ()
 
@@ -50,6 +51,49 @@
 	return nil;
 }
 
+-(NSPredicate*)msgListPredicate
+{
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.filterDmc];
+	NSPredicate *filterPredicate = [sharedAppVals.msgListFilter filterPredicate];
+	NSPredicate *noTrashPredicate = [NSPredicate predicateWithFormat:@"%K == %@",
+		EMAIL_INFO_TRASHED_KEY,[NSNumber numberWithBool:NO]];
+	if(filterPredicate != nil)
+	{
+		NSPredicate *filterAndNoTrashPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:
+			[NSArray arrayWithObjects:filterPredicate, noTrashPredicate, nil]];
+		return filterAndNoTrashPredicate;
+		
+	}
+	else 
+	{
+		return noTrashPredicate;
+	}		
+}
+
+-(NSArray *)selectedInMsgList
+{
+	NSPredicate *selectedPredicate = [NSPredicate predicateWithFormat:@"%K == %@",
+		EMAIL_INFO_SELECTED_IN_MSG_LIST_KEY,[NSNumber numberWithBool:YES]];
+	NSPredicate *selectedInMsgListPredicate =  [NSCompoundPredicate andPredicateWithSubpredicates:
+		[NSArray arrayWithObjects:[self msgListPredicate],selectedPredicate, nil]];
+
+	NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
+	NSEntityDescription *entity = [NSEntityDescription
+		entityForName:EMAIL_INFO_ENTITY_NAME 
+		inManagedObjectContext:self.emailInfoDmc.managedObjectContext];
+	[fetchRequest setEntity:entity];
+ 
+	NSSortDescriptor *sort = [[NSSortDescriptor alloc]
+		initWithKey:EMAIL_INFO_SEND_DATE_KEY ascending:NO];
+	[fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+	[fetchRequest setPredicate:selectedInMsgListPredicate];	
+//	[fetchRequest setFetchBatchSize:20];
+
+	return [CoreDataHelper executeFetchOrThrow:fetchRequest 
+		inManagedObectContext:self.emailInfoDmc.managedObjectContext];
+
+}
+
 -(void)configureFetchedResultsController
 {
 	NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
@@ -61,15 +105,7 @@
 	NSSortDescriptor *sort = [[NSSortDescriptor alloc]
 		initWithKey:EMAIL_INFO_SEND_DATE_KEY ascending:NO];
 	[fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-		
-	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.filterDmc];
-	NSPredicate *filterPredicate = [sharedAppVals.msgListFilter filterPredicate];
-	if(filterPredicate != nil)
-	{
-		[fetchRequest setPredicate:filterPredicate];
-		NSLog(@"Filter predicate: %@",[filterPredicate description]);
-	}		
-	
+	[fetchRequest setPredicate:[self msgListPredicate]];	
 	[fetchRequest setFetchBatchSize:20];
  
 	self.emailInfoFrc = [[[NSFetchedResultsController alloc] 
@@ -104,7 +140,11 @@
 	tableHeader.header.text = @"Message Filter";
 	[tableHeader resizeForChildren];
 	self.tableView.tableHeaderView = tableHeader;
- 
+	
+	self.navigationItem.rightBarButtonItem = self.editButtonItem;
+	self.tableView.allowsSelectionDuringEditing = TRUE;
+	self.tableView.allowsSelection = TRUE;
+	self.tableView.allowsMultipleSelection = FALSE;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -137,10 +177,79 @@
     return [sectionInfo numberOfObjects];
 }
 
+-(UITableViewCellAccessoryType)accessoryTypeForEmailInfo:(EmailInfo*)theEmailInfo
+{
+	if(self.editing)
+	{
+		if([theEmailInfo.selectedInMsgList boolValue])
+		{
+			return UITableViewCellAccessoryCheckmark;
+		}
+		else 
+		{
+			return UITableViewCellAccessoryNone;
+		}
+	}
+	else 
+	{
+		return UITableViewCellAccessoryDisclosureIndicator;
+	}
+
+}
+
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     EmailInfo *info = [self.emailInfoFrc objectAtIndexPath:indexPath];
-    cell.textLabel.text = info.from;
+	NSString *lockedFlag = [info.locked boolValue]?@"L":@"U";
+    cell.textLabel.text = [NSString stringWithFormat:@"%@:%@",
+		lockedFlag,info.from];
     cell.detailTextLabel.text = [DateHelper stringFromDate:info.sendDate];
+	cell.editingAccessoryType = [info.selectedInMsgList boolValue]?UITableViewCellAccessoryCheckmark:UITableViewCellAccessoryNone;
+	cell.accessoryType =UITableViewCellAccessoryDisclosureIndicator;
+}
+
+- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView 
+	accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+	EmailInfo *info = [self.emailInfoFrc objectAtIndexPath:indexPath];
+	return [self accessoryTypeForEmailInfo:info];
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView 
+	editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath 
+{
+	return UITableViewCellEditingStyleNone;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+	UITableViewCell *cellForRow = [self.tableView cellForRowAtIndexPath:indexPath];
+	assert(cellForRow!=nil);
+    if(self.editing)
+    {
+        // Calling super's didSelectRowAtIndexPath will fetch the field edit 
+        // info object for the given path and push the associated controller
+        // We only do this in edit mode, so that while not in edit mode we can
+        // just move the selection.
+ 		EmailInfo *info = [self.emailInfoFrc objectAtIndexPath:indexPath];
+		if([info.selectedInMsgList boolValue])
+		{
+			info.selectedInMsgList = [NSNumber numberWithBool:FALSE];
+			cellForRow.editingAccessoryType =  UITableViewCellAccessoryNone;
+		}
+		else 
+		{
+			info.selectedInMsgList = [NSNumber numberWithBool:TRUE];
+			cellForRow.editingAccessoryType =  UITableViewCellAccessoryCheckmark;
+		}
+		[self.emailInfoDmc saveContext];
+
+    }
+    else
+    {
+		// TODO - Open up detail view for message.
+    }
+	[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -196,11 +305,25 @@
 -(void)trashMsgsButtonPressed
 {
 	NSLog(@"Trash msgs button pressed");
+	NSArray *selectedMsgs = [self selectedInMsgList];
+	for (EmailInfo *info in selectedMsgs)
+	{
+		info.selectedInMsgList = [NSNumber numberWithBool:FALSE];
+		info.trashed = [NSNumber numberWithBool:TRUE];
+	}
+	[self.tableView reloadData];
 }
 
 -(void)lockMsgsButtonPressed
 {
 	NSLog(@"Lock msgs button pressed");
+	NSArray *selectedMsgs = [self selectedInMsgList];
+	for (EmailInfo *info in selectedMsgs)
+	{
+		info.selectedInMsgList = [NSNumber numberWithBool:FALSE];
+		info.locked = [NSNumber numberWithBool:TRUE];
+	}
+	[self.tableView reloadData];
 }
 
 
