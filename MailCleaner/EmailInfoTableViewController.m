@@ -20,9 +20,9 @@
 #import "GenericFieldBasedTableEditViewController.h"
 #import "SharedAppVals.h"
 #import "MessageFilter.h"
-#import "MessageListActionView.h"
 #import "CoreDataHelper.h"
-
+#import "PopupButtonListView.h"
+#import "PopupButtonListItemInfo.h"
 
 @implementation EmailInfoTableViewController
 
@@ -90,9 +90,22 @@
 -(void)actionButtonPressed
 {
 	NSLog(@"Action button pressed");
-	MessageListActionView *actionsList = [[[MessageListActionView alloc]
-		initWithFrame:self.navigationController.view.frame andDelegate:self] autorelease];
-	[self.navigationController.view addSubview:actionsList];
+	
+	NSMutableArray *actionButtonInfo = [[[NSMutableArray alloc] init] autorelease];
+	
+	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_LOCK_MSGS_BUTTON_TITLE")
+		 andTarget:self andSelector:@selector(lockMsgsButtonPressed)] autorelease]];
+	
+	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_TRASH_MSGS_BUTTON_TITLE")
+		 andTarget:self andSelector:@selector(trashMsgsButtonPressed)] autorelease]];
+
+	PopupButtonListView *popupActionList = [[[PopupButtonListView alloc]
+		initWithFrame:self.navigationController.view.frame 
+		andButtonListItemInfo:actionButtonInfo] autorelease];
+	
+	[self.navigationController.view addSubview:popupActionList];
 }
 
 #pragma mark MessageListActionViewDelegate

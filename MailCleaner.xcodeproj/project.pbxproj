@@ -19,9 +19,7 @@
 		000566C81562F94D003D114D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 000566C61562F94D003D114D /* InfoPlist.strings */; };
 		000566CB1562F94D003D114D /* MailCleanerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 000566CA1562F94D003D114D /* MailCleanerTests.m */; };
 		000567041562FFC4003D114D /* libResultraGenericLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000567031562FFC4003D114D /* libResultraGenericLib.a */; };
-		0005672315630C12003D114D /* ResultraGenericLibResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0005672215630C12003D114D /* ResultraGenericLibResources.bundle */; };
 		0005672A15630DDD003D114D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0005672915630DDD003D114D /* Localizable.strings */; };
-		001FCA33156C06E200A7FCA8 /* MessageListActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 001FCA32156C06E200A7FCA8 /* MessageListActionView.m */; };
 		0039E5DC1566B14000CB259D /* AppData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0039E5DA1566B14000CB259D /* AppData.xcdatamodeld */; };
 		0039E5EC1566B8CE00CB259D /* AgeFilterNone.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039E5EB1566B8CE00CB259D /* AgeFilterNone.m */; };
 		0039E5EF1566B8CE00CB259D /* MessageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039E5EE1566B8CE00CB259D /* MessageFilter.m */; };
@@ -38,6 +36,7 @@
 		003F2397156D43490009BFE3 /* MsgListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 003F2396156D43490009BFE3 /* MsgListTableViewController.m */; };
 		005E6A8715647602004198B6 /* EmailInfoActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 005E6A8615647602004198B6 /* EmailInfoActionView.m */; };
 		006D6641156D4BC800074979 /* TrashMsgListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 006D6640156D4BC800074979 /* TrashMsgListViewController.m */; };
+		006D6650156D70A300074979 /* ResultraGenericLibResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */; };
 		007ABE8F156ACADE004BA8BF /* dummyEmails.txt in Resources */ = {isa = PBXBuildFile; fileRef = 003D59911564028200AD3D91 /* dummyEmails.txt */; };
 		009E320A1567E4C500233276 /* AgeFilterFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */; };
 		00E9944A15643244003B9771 /* EmailInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9944915643244003B9771 /* EmailInfoTableViewController.m */; };
@@ -71,10 +70,7 @@
 		000566C91562F94D003D114D /* MailCleanerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MailCleanerTests.h; sourceTree = "<group>"; };
 		000566CA1562F94D003D114D /* MailCleanerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MailCleanerTests.m; sourceTree = "<group>"; };
 		000567031562FFC4003D114D /* libResultraGenericLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libResultraGenericLib.a; path = "../ResultraGenericLib/build/Release-iphoneos/libResultraGenericLib.a"; sourceTree = "<group>"; };
-		0005672215630C12003D114D /* ResultraGenericLibResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ResultraGenericLibResources.bundle; path = "../../../Library/Developer/Xcode/DerivedData/MailCleaner-cwylgavsyequqsfyfgyiuldekald/Build/Products/Debug-iphonesimulator/ResultraGenericLibResources.bundle"; sourceTree = "<group>"; };
 		0005672915630DDD003D114D /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
-		001FCA31156C06E200A7FCA8 /* MessageListActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListActionView.h; sourceTree = "<group>"; };
-		001FCA32156C06E200A7FCA8 /* MessageListActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageListActionView.m; sourceTree = "<group>"; };
 		0039E5DB1566B14000CB259D /* AppData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppData.xcdatamodel; sourceTree = "<group>"; };
 		0039E5EA1566B8CE00CB259D /* AgeFilterNone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeFilterNone.h; sourceTree = "<group>"; };
 		0039E5EB1566B8CE00CB259D /* AgeFilterNone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgeFilterNone.m; sourceTree = "<group>"; };
@@ -105,6 +101,7 @@
 		005E6A8615647602004198B6 /* EmailInfoActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoActionView.m; sourceTree = "<group>"; };
 		006D663F156D4BC800074979 /* TrashMsgListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrashMsgListViewController.h; sourceTree = "<group>"; };
 		006D6640156D4BC800074979 /* TrashMsgListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrashMsgListViewController.m; sourceTree = "<group>"; };
+		006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ResultraGenericLibResources.bundle; path = "../../../Library/Developer/Xcode/DerivedData/MailCleaner-dtuamkacbllkfkggcpkuqouuqrpt/Build/Products/Debug-iphonesimulator/ResultraGenericLibResources.bundle"; sourceTree = "<group>"; };
 		007ABE8B156AB618004BA8BF /* MailCleanerSpec.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MailCleanerSpec.md; sourceTree = "<group>"; };
 		009E32081567E4C500233276 /* AgeFilterFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeFilterFieldEditInfo.h; sourceTree = "<group>"; };
 		009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgeFilterFieldEditInfo.m; sourceTree = "<group>"; };
@@ -141,9 +138,9 @@
 		000566821562F94C003D114D = {
 			isa = PBXGroup;
 			children = (
+				006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */,
 				007ABE8E156AB631004BA8BF /* Development Docs */,
 				003D599415641A3F00AD3D91 /* CoreData.framework */,
-				0005672215630C12003D114D /* ResultraGenericLibResources.bundle */,
 				000567031562FFC4003D114D /* libResultraGenericLib.a */,
 				000566971562F94C003D114D /* MailCleaner */,
 				000566C31562F94D003D114D /* MailCleanerTests */,
@@ -272,8 +269,6 @@
 				00E9944915643244003B9771 /* EmailInfoTableViewController.m */,
 				005E6A8515647602004198B6 /* EmailInfoActionView.h */,
 				005E6A8615647602004198B6 /* EmailInfoActionView.m */,
-				001FCA31156C06E200A7FCA8 /* MessageListActionView.h */,
-				001FCA32156C06E200A7FCA8 /* MessageListActionView.m */,
 				006D663F156D4BC800074979 /* TrashMsgListViewController.h */,
 				006D6640156D4BC800074979 /* TrashMsgListViewController.m */,
 			);
@@ -384,8 +379,8 @@
 			files = (
 				007ABE8F156ACADE004BA8BF /* dummyEmails.txt in Resources */,
 				0005669C1562F94C003D114D /* InfoPlist.strings in Resources */,
-				0005672315630C12003D114D /* ResultraGenericLibResources.bundle in Resources */,
 				0005672A15630DDD003D114D /* Localizable.strings in Resources */,
+				006D6650156D70A300074979 /* ResultraGenericLibResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,7 +432,6 @@
 				0039E6021566D78B00CB259D /* MessageFilterFormInfoCreator.m in Sources */,
 				0039E6051566FED000CB259D /* AgeFilterFormInfoCreator.m in Sources */,
 				009E320A1567E4C500233276 /* AgeFilterFieldEditInfo.m in Sources */,
-				001FCA33156C06E200A7FCA8 /* MessageListActionView.m in Sources */,
 				003F2397156D43490009BFE3 /* MsgListTableViewController.m in Sources */,
 				006D6641156D4BC800074979 /* TrashMsgListViewController.m in Sources */,
 			);

@@ -14,11 +14,9 @@
 @class DataModelController;
 
 #import "TableHeaderDisclosureButtonDelegate.h"
-#import "MessageListActionView.h"
 
 @interface EmailInfoTableViewController : MsgListTableViewController 
-	<TableHeaderDisclosureButtonDelegate,EmailActionViewDelegate,
-	MessageListActionViewDelegate> {
+	<TableHeaderDisclosureButtonDelegate,EmailActionViewDelegate> {
 		
 	@private
 		EmailInfoActionView *emailActionView;
