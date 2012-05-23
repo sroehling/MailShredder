@@ -13,6 +13,7 @@
 #import "DateHelper.h"
 #import "LocalizationHelper.h"
 #import "CoreDataHelper.h"
+#import "EmailInfoActionView.h"
 
 
 @implementation MsgListTableViewController
@@ -22,15 +23,22 @@
 @synthesize filterDmc;
 
 
-- (id)init
+- (id)initWithEmailInfoDataModelController:(DataModelController*)theEmailInfoDmc
+	andAppDataModelController:(DataModelController*)theAppDmc
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
-		self.emailInfoDmc = [AppHelper emailInfoDataModelController];
-		self.filterDmc = [AppHelper appDataModelController];
+		self.emailInfoDmc = theEmailInfoDmc;
+		self.filterDmc = theAppDmc;
     }
     return self;
+}
+
+-(id)init
+{
+	assert(0);
+	return nil;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -205,6 +213,9 @@
  
     self.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
 	
+		self.tableView.tableFooterView = [[[EmailInfoActionView alloc] initWithDelegate:self] autorelease];
+
+	
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	self.tableView.allowsSelectionDuringEditing = TRUE;
 	self.tableView.allowsSelection = TRUE;
@@ -242,6 +253,12 @@
     return [sectionInfo numberOfObjects];
 }
 
+#pragma mark EmailActionViewDelegate
+
+-(void)actionButtonPressed
+{
+	assert(0); // must be overriden
+}
 
 
 #pragma mark NSFetchedResultsControllerDelegate 

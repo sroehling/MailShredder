@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+#import "EmailInfoActionView.h"
+
 @class DataModelController;
 
 @interface MsgListTableViewController : UITableViewController 
-	<NSFetchedResultsControllerDelegate,UITableViewDelegate> {
+	<NSFetchedResultsControllerDelegate,UITableViewDelegate,EmailActionViewDelegate> {
 	@private
 		DataModelController *emailInfoDmc;
 		DataModelController *filterDmc;
@@ -24,5 +26,8 @@
 
 -(NSPredicate*)msgListPredicate;
 -(NSArray *)selectedInMsgList;
+
+- (id)initWithEmailInfoDataModelController:(DataModelController*)theEmailInfoDmc
+	andAppDataModelController:(DataModelController*)theAppDmc;
 
 @end

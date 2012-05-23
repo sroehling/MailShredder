@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EmailInfoActionView.h"
 #import "MsgListTableViewController.h"
 
 
@@ -16,12 +15,7 @@
 #import "TableHeaderDisclosureButtonDelegate.h"
 
 @interface EmailInfoTableViewController : MsgListTableViewController 
-	<TableHeaderDisclosureButtonDelegate,EmailActionViewDelegate> {
-		
-	@private
-		EmailInfoActionView *emailActionView;
+	<TableHeaderDisclosureButtonDelegate> {
 }
-
-@property(nonatomic,retain) EmailInfoActionView *emailActionView;
 
 @end

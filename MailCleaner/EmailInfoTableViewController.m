@@ -27,9 +27,6 @@
 @implementation EmailInfoTableViewController
 
 
-@synthesize emailActionView;
-
-
 -(NSPredicate*)msgListPredicate
 {
 	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.filterDmc];
@@ -54,8 +51,7 @@
     [super viewDidLoad];
   
     self.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
-	self.tableView.tableFooterView = [[[EmailInfoActionView alloc] initWithDelegate:self] autorelease];
-	
+
 	TableHeaderWithDisclosure *tableHeader = 
 			[[[TableHeaderWithDisclosure alloc] initWithFrame:CGRectZero 
 				andDisclosureButtonDelegate:self] autorelease];
@@ -96,6 +92,10 @@
 	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
 		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_LOCK_MSGS_BUTTON_TITLE")
 		 andTarget:self andSelector:@selector(lockMsgsButtonPressed)] autorelease]];
+		 
+	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_UNLOCK_MSGS_BUTTON_TITLE")
+		 andTarget:self andSelector:@selector(unlockMsgsButtonPressed)] autorelease]];
 	
 	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
 		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_TRASH_MSGS_BUTTON_TITLE")
@@ -108,16 +108,20 @@
 	[self.navigationController.view addSubview:popupActionList];
 }
 
-#pragma mark MessageListActionViewDelegate
+#pragma mark Button list call-backs
 
 -(void)trashMsgsButtonPressed
 {
 	NSLog(@"Trash msgs button pressed");
 	NSArray *selectedMsgs = [self selectedInMsgList];
+	
 	for (EmailInfo *info in selectedMsgs)
 	{
 		info.selectedInMsgList = [NSNumber numberWithBool:FALSE];
-		info.trashed = [NSNumber numberWithBool:TRUE];
+		if(![info.locked boolValue])
+		{
+			info.trashed = [NSNumber numberWithBool:TRUE];
+		}
 	}
 	[self.emailInfoDmc saveContext];
 	[self.tableView reloadData];
@@ -136,10 +140,22 @@
 	[self.tableView reloadData];
 }
 
+-(void)unlockMsgsButtonPressed
+{
+	NSLog(@"Unlock msgs button pressed");
+	NSArray *selectedMsgs = [self selectedInMsgList];
+	for (EmailInfo *info in selectedMsgs)
+	{
+		info.selectedInMsgList = [NSNumber numberWithBool:FALSE];
+		info.locked = [NSNumber numberWithBool:FALSE];
+	}
+	[self.emailInfoDmc saveContext];
+	[self.tableView reloadData];
+}
+
 
 -(void)dealloc
 {
-	[emailActionView release];
 	[super dealloc];
 }
 

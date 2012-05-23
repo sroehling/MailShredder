@@ -81,7 +81,12 @@
     // Override point for customization after application launch.
 	
 	
-	EmailInfoTableViewController *msgListController = [[[EmailInfoTableViewController alloc] init] autorelease];
+	DataModelController *emailInfoDmc = [AppHelper emailInfoDataModelController];
+	DataModelController *appDmc = [AppHelper appDataModelController];
+
+	
+	EmailInfoTableViewController *msgListController = [[[EmailInfoTableViewController alloc] 
+		initWithEmailInfoDataModelController:emailInfoDmc andAppDataModelController:appDmc] autorelease];
 	UINavigationController *msgListNavController = [[[UINavigationController alloc] 
 			initWithRootViewController:msgListController] autorelease];
 	msgListNavController.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
@@ -90,7 +95,8 @@
 //	msgListNavController.navigationBar.tintColor = navBarControllerColor;
 
 
-	TrashMsgListViewController *trashedMsgsController = [[[TrashMsgListViewController alloc] init] autorelease];
+	TrashMsgListViewController *trashedMsgsController = [[[TrashMsgListViewController alloc]  
+		initWithEmailInfoDataModelController:emailInfoDmc andAppDataModelController:appDmc] autorelease];
 	UINavigationController *trashedMsgsNavController = [[[UINavigationController alloc] 
 			initWithRootViewController:trashedMsgsController] autorelease];
 	trashedMsgsController.title = LOCALIZED_STR(@"TRASH_VIEW_TITLE");
