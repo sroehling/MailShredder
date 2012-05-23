@@ -15,6 +15,7 @@
 #import "DateHelper.h"
 #import "EmailInfo.h"
 #import "EmailInfoTableViewController.h"
+#import "TrashMsgListViewController.h"
 #import "SharedAppVals.h"
 
 @implementation AppDelegate
@@ -88,7 +89,8 @@
 //	msgListNavController.tabBarItem.image = [UIImage imageNamed:@"piggy.png"];
 //	msgListNavController.navigationBar.tintColor = navBarControllerColor;
 
-	UIViewController *trashedMsgsController = [[[UIViewController alloc] init] autorelease];
+
+	TrashMsgListViewController *trashedMsgsController = [[[TrashMsgListViewController alloc] init] autorelease];
 	UINavigationController *trashedMsgsNavController = [[[UINavigationController alloc] 
 			initWithRootViewController:trashedMsgsController] autorelease];
 	trashedMsgsController.title = LOCALIZED_STR(@"TRASH_VIEW_TITLE");

@@ -35,7 +35,9 @@
 		003D599815641A9A00AD3D91 /* EmailInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 003D599615641A9A00AD3D91 /* EmailInfo.xcdatamodeld */; };
 		003D599F15641B8A00AD3D91 /* AppHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 003D599E15641B8A00AD3D91 /* AppHelper.m */; };
 		003D59A315641D2600AD3D91 /* EmailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 003D59A215641D2600AD3D91 /* EmailInfo.m */; };
+		003F2397156D43490009BFE3 /* MsgListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 003F2396156D43490009BFE3 /* MsgListTableViewController.m */; };
 		005E6A8715647602004198B6 /* EmailInfoActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 005E6A8615647602004198B6 /* EmailInfoActionView.m */; };
+		006D6641156D4BC800074979 /* TrashMsgListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 006D6640156D4BC800074979 /* TrashMsgListViewController.m */; };
 		007ABE8F156ACADE004BA8BF /* dummyEmails.txt in Resources */ = {isa = PBXBuildFile; fileRef = 003D59911564028200AD3D91 /* dummyEmails.txt */; };
 		009E320A1567E4C500233276 /* AgeFilterFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */; };
 		00E9944A15643244003B9771 /* EmailInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9944915643244003B9771 /* EmailInfoTableViewController.m */; };
@@ -97,8 +99,12 @@
 		003D599E15641B8A00AD3D91 /* AppHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppHelper.m; sourceTree = "<group>"; };
 		003D59A115641D2600AD3D91 /* EmailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfo.h; sourceTree = "<group>"; };
 		003D59A215641D2600AD3D91 /* EmailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfo.m; sourceTree = "<group>"; };
+		003F2395156D43490009BFE3 /* MsgListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgListTableViewController.h; sourceTree = "<group>"; };
+		003F2396156D43490009BFE3 /* MsgListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgListTableViewController.m; sourceTree = "<group>"; };
 		005E6A8515647602004198B6 /* EmailInfoActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoActionView.h; sourceTree = "<group>"; };
 		005E6A8615647602004198B6 /* EmailInfoActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoActionView.m; sourceTree = "<group>"; };
+		006D663F156D4BC800074979 /* TrashMsgListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrashMsgListViewController.h; sourceTree = "<group>"; };
+		006D6640156D4BC800074979 /* TrashMsgListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrashMsgListViewController.m; sourceTree = "<group>"; };
 		007ABE8B156AB618004BA8BF /* MailCleanerSpec.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MailCleanerSpec.md; sourceTree = "<group>"; };
 		009E32081567E4C500233276 /* AgeFilterFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeFilterFieldEditInfo.h; sourceTree = "<group>"; };
 		009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgeFilterFieldEditInfo.m; sourceTree = "<group>"; };
@@ -260,12 +266,16 @@
 		0039E5FB1566CD2E00CB259D /* Message List View */ = {
 			isa = PBXGroup;
 			children = (
+				003F2395156D43490009BFE3 /* MsgListTableViewController.h */,
+				003F2396156D43490009BFE3 /* MsgListTableViewController.m */,
 				00E9944815643244003B9771 /* EmailInfoTableViewController.h */,
 				00E9944915643244003B9771 /* EmailInfoTableViewController.m */,
 				005E6A8515647602004198B6 /* EmailInfoActionView.h */,
 				005E6A8615647602004198B6 /* EmailInfoActionView.m */,
 				001FCA31156C06E200A7FCA8 /* MessageListActionView.h */,
 				001FCA32156C06E200A7FCA8 /* MessageListActionView.m */,
+				006D663F156D4BC800074979 /* TrashMsgListViewController.h */,
+				006D6640156D4BC800074979 /* TrashMsgListViewController.m */,
 			);
 			name = "Message List View";
 			sourceTree = "<group>";
@@ -428,6 +438,8 @@
 				0039E6051566FED000CB259D /* AgeFilterFormInfoCreator.m in Sources */,
 				009E320A1567E4C500233276 /* AgeFilterFieldEditInfo.m in Sources */,
 				001FCA33156C06E200A7FCA8 /* MessageListActionView.m in Sources */,
+				003F2397156D43490009BFE3 /* MsgListTableViewController.m in Sources */,
+				006D6641156D4BC800074979 /* TrashMsgListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
