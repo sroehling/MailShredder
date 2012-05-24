@@ -37,6 +37,9 @@
 		005E6A8715647602004198B6 /* EmailInfoActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 005E6A8615647602004198B6 /* EmailInfoActionView.m */; };
 		006D6641156D4BC800074979 /* TrashMsgListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 006D6640156D4BC800074979 /* TrashMsgListViewController.m */; };
 		006D6650156D70A300074979 /* ResultraGenericLibResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */; };
+		006D6675156E8E2500074979 /* MsgTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 006D6674156E8E2500074979 /* MsgTableCell.m */; };
+		006D6678156E9DAB00074979 /* unselectedMsgCheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 006D6676156E9DAA00074979 /* unselectedMsgCheckbox.png */; };
+		006D6679156E9DAB00074979 /* selectedMsgCheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 006D6677156E9DAB00074979 /* selectedMsgCheckbox.png */; };
 		007ABE8F156ACADE004BA8BF /* dummyEmails.txt in Resources */ = {isa = PBXBuildFile; fileRef = 003D59911564028200AD3D91 /* dummyEmails.txt */; };
 		009E320A1567E4C500233276 /* AgeFilterFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */; };
 		00E9944A15643244003B9771 /* EmailInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9944915643244003B9771 /* EmailInfoTableViewController.m */; };
@@ -102,11 +105,16 @@
 		006D663F156D4BC800074979 /* TrashMsgListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrashMsgListViewController.h; sourceTree = "<group>"; };
 		006D6640156D4BC800074979 /* TrashMsgListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrashMsgListViewController.m; sourceTree = "<group>"; };
 		006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ResultraGenericLibResources.bundle; path = "../../../Library/Developer/Xcode/DerivedData/MailCleaner-dtuamkacbllkfkggcpkuqouuqrpt/Build/Products/Debug-iphonesimulator/ResultraGenericLibResources.bundle"; sourceTree = "<group>"; };
+		006D6673156E8E2500074979 /* MsgTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgTableCell.h; sourceTree = "<group>"; };
+		006D6674156E8E2500074979 /* MsgTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgTableCell.m; sourceTree = "<group>"; };
+		006D6676156E9DAA00074979 /* unselectedMsgCheckbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselectedMsgCheckbox.png; sourceTree = "<group>"; };
+		006D6677156E9DAB00074979 /* selectedMsgCheckbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectedMsgCheckbox.png; sourceTree = "<group>"; };
 		007ABE8B156AB618004BA8BF /* MailCleanerSpec.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MailCleanerSpec.md; sourceTree = "<group>"; };
 		009E32081567E4C500233276 /* AgeFilterFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeFilterFieldEditInfo.h; sourceTree = "<group>"; };
 		009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgeFilterFieldEditInfo.m; sourceTree = "<group>"; };
 		00E9944815643244003B9771 /* EmailInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoTableViewController.h; sourceTree = "<group>"; };
 		00E9944915643244003B9771 /* EmailInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoTableViewController.m; sourceTree = "<group>"; };
+		00F9A77D156EC66A00BB4C92 /* msgCheckbox.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = msgCheckbox.psd; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,6 +271,9 @@
 		0039E5FB1566CD2E00CB259D /* Message List View */ = {
 			isa = PBXGroup;
 			children = (
+				00F9A77D156EC66A00BB4C92 /* msgCheckbox.psd */,
+				006D6676156E9DAA00074979 /* unselectedMsgCheckbox.png */,
+				006D6677156E9DAB00074979 /* selectedMsgCheckbox.png */,
 				003F2395156D43490009BFE3 /* MsgListTableViewController.h */,
 				003F2396156D43490009BFE3 /* MsgListTableViewController.m */,
 				00E9944815643244003B9771 /* EmailInfoTableViewController.h */,
@@ -271,6 +282,8 @@
 				005E6A8615647602004198B6 /* EmailInfoActionView.m */,
 				006D663F156D4BC800074979 /* TrashMsgListViewController.h */,
 				006D6640156D4BC800074979 /* TrashMsgListViewController.m */,
+				006D6673156E8E2500074979 /* MsgTableCell.h */,
+				006D6674156E8E2500074979 /* MsgTableCell.m */,
 			);
 			name = "Message List View";
 			sourceTree = "<group>";
@@ -381,6 +394,8 @@
 				0005669C1562F94C003D114D /* InfoPlist.strings in Resources */,
 				0005672A15630DDD003D114D /* Localizable.strings in Resources */,
 				006D6650156D70A300074979 /* ResultraGenericLibResources.bundle in Resources */,
+				006D6678156E9DAB00074979 /* unselectedMsgCheckbox.png in Resources */,
+				006D6679156E9DAB00074979 /* selectedMsgCheckbox.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,6 +449,7 @@
 				009E320A1567E4C500233276 /* AgeFilterFieldEditInfo.m in Sources */,
 				003F2397156D43490009BFE3 /* MsgListTableViewController.m in Sources */,
 				006D6641156D4BC800074979 /* TrashMsgListViewController.m in Sources */,
+				006D6675156E8E2500074979 /* MsgTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

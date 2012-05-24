@@ -14,6 +14,7 @@
 #import "LocalizationHelper.h"
 #import "CoreDataHelper.h"
 #import "EmailInfoActionView.h"
+#import "MsgTableCell.h"
 
 
 @implementation MsgListTableViewController
@@ -48,26 +49,6 @@
 }
 
 
--(UITableViewCellAccessoryType)accessoryTypeForEmailInfo:(EmailInfo*)theEmailInfo
-{
-	if(self.editing)
-	{
-		if([theEmailInfo.selectedInMsgList boolValue])
-		{
-			return UITableViewCellAccessoryCheckmark;
-		}
-		else 
-		{
-			return UITableViewCellAccessoryNone;
-		}
-	}
-	else 
-	{
-		return UITableViewCellAccessoryDisclosureIndicator;
-	}
-
-}
-
 -(NSPredicate*)msgListPredicate
 {
 	assert(0); // must be overridden
@@ -98,14 +79,17 @@
 }
 
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+- (void)configureCell:(MsgTableCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     EmailInfo *info = [self.emailInfoFrc objectAtIndexPath:indexPath];
 	NSString *lockedFlag = [info.locked boolValue]?@"L":@"U";
-    cell.textLabel.text = [NSString stringWithFormat:@"%@:%@",
+    cell.fromLabel.text = [NSString stringWithFormat:@"%@:%@",
 		lockedFlag,info.from];
-    cell.detailTextLabel.text = [DateHelper stringFromDate:info.sendDate];
-	cell.editingAccessoryType = [info.selectedInMsgList boolValue]?UITableViewCellAccessoryCheckmark:UITableViewCellAccessoryNone;
-	cell.accessoryType =UITableViewCellAccessoryDisclosureIndicator;
+    cell.sendDateLabel.text = [DateHelper stringFromDate:info.sendDate];
+	if([info.selectedInMsgList boolValue])
+	{
+		[self.tableView selectRowAtIndexPath:indexPath animated:FALSE scrollPosition:UITableViewScrollPositionNone];
+	}
+	cell.accessoryType =UITableViewCellAccessoryDetailDisclosureButton;
 }
 
 -(void)configureFetchedResultsController
@@ -140,63 +124,30 @@
 
 }
 
-- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView 
-	accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	EmailInfo *info = [self.emailInfoFrc objectAtIndexPath:indexPath];
-	return [self accessoryTypeForEmailInfo:info];
+	info.selectedInMsgList = [NSNumber numberWithBool:FALSE];
+	[self.emailInfoDmc saveContext];
 }
 
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView 
-	editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-	return UITableViewCellEditingStyleNone;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-	UITableViewCell *cellForRow = [self.tableView cellForRowAtIndexPath:indexPath];
-	assert(cellForRow!=nil);
-    if(self.editing)
-    {
-        // Calling super's didSelectRowAtIndexPath will fetch the field edit 
-        // info object for the given path and push the associated controller
-        // We only do this in edit mode, so that while not in edit mode we can
-        // just move the selection.
- 		EmailInfo *info = [self.emailInfoFrc objectAtIndexPath:indexPath];
-		if([info.selectedInMsgList boolValue])
-		{
-			info.selectedInMsgList = [NSNumber numberWithBool:FALSE];
-			cellForRow.editingAccessoryType =  UITableViewCellAccessoryNone;
-		}
-		else 
-		{
-			info.selectedInMsgList = [NSNumber numberWithBool:TRUE];
-			cellForRow.editingAccessoryType =  UITableViewCellAccessoryCheckmark;
-		}
-		[self.emailInfoDmc saveContext];
-
-    }
-    else
-    {
-		// TODO - Open up detail view for message.
-    }
-	[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+	EmailInfo *info = [self.emailInfoFrc objectAtIndexPath:indexPath];
+	info.selectedInMsgList = [NSNumber numberWithBool:TRUE];
+	[self.emailInfoDmc saveContext];
 	
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
     cellForRowAtIndexPath:(NSIndexPath *)indexPath {
  
-    static NSString *CellIdentifier = @"Cell";
  
-    UITableViewCell *cell =
-        [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    MsgTableCell *cell = (MsgTableCell*)[tableView dequeueReusableCellWithIdentifier:MSG_TABLE_CELL_IDENTIFIER];
 	if(cell == nil)
 	{
-		cell = [[[UITableViewCell alloc] 
-			initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease]; 
+		cell = [[[MsgTableCell alloc] init] autorelease]; 
 	}
  
     // Set up the cell...
@@ -213,13 +164,10 @@
  
     self.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
 	
-		self.tableView.tableFooterView = [[[EmailInfoActionView alloc] initWithDelegate:self] autorelease];
-
+	self.tableView.tableFooterView = [[[EmailInfoActionView alloc] initWithDelegate:self] autorelease];
 	
-	self.navigationItem.rightBarButtonItem = self.editButtonItem;
-	self.tableView.allowsSelectionDuringEditing = TRUE;
 	self.tableView.allowsSelection = TRUE;
-	self.tableView.allowsMultipleSelection = FALSE;
+	self.tableView.allowsMultipleSelection = TRUE;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -283,7 +231,7 @@
             break;
  
         case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            [self configureCell:(MsgTableCell*)[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             break;
  
         case NSFetchedResultsChangeMove:
