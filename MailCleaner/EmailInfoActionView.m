@@ -9,12 +9,19 @@
 #import "EmailInfoActionView.h"
 #import "LocalizationHelper.h"
 #import "TableCellHelper.h"
+#import "UIHelper.h"
 
 const NSInteger EMAIL_ACTION_VIEW_HEIGHT = 30.0;
+
+const CGFloat ACTION_BUTTON_FONT_SIZE = 12.0f;
+const CGFloat ACTION_BUTTON_SPACE = 5.0f;
 
 @implementation EmailInfoActionView
 
 @synthesize emailActionsButton;
+@synthesize selectAllButton;
+@synthesize unselectAllButton;
+
 @synthesize delegate;
 
 - (id)initWithDelegate:(id<EmailActionViewDelegate>)theDelegate
@@ -30,16 +37,27 @@ const NSInteger EMAIL_ACTION_VIEW_HEIGHT = 30.0;
 		assert(theDelegate != nil);
 		self.delegate = theDelegate;
 
-        self.emailActionsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-		[self.emailActionsButton setTitle:
-			LOCALIZED_STR(@"MSGS_ACTION_BUTTON_TITLE") forState:UIControlStateNormal];
-		[self.emailActionsButton sizeToFit];
+        self.emailActionsButton = [UIHelper imageButton:@"msgActionButton.png" 
+			withTitle:LOCALIZED_STR(@"MSGS_ACTION_BUTTON_TITLE")
+			andFontSize:ACTION_BUTTON_FONT_SIZE andFontColor:[UIColor whiteColor]
+			andTarget:self.delegate andAction:@selector(actionButtonPressed)];
+		[self addSubview:self.emailActionsButton];
+	
 		
-		[self.emailActionsButton addTarget:self.delegate 
-				action:@selector(actionButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+		self.selectAllButton = [UIHelper imageButton:@"msgActionButton.png" 
+			withTitle:LOCALIZED_STR(@"MSGS_ACTION_SELECT_ALL") 
+			andFontSize:ACTION_BUTTON_FONT_SIZE andFontColor:[UIColor whiteColor]
+			andTarget:self.delegate andAction:@selector(selectAllButtonPressed)];
+		[self addSubview:self.selectAllButton];
+
+		self.unselectAllButton = [UIHelper imageButton:@"msgActionButton.png" 
+			withTitle:LOCALIZED_STR(@"MSGS_ACTION_UNSELECT_ALL") 
+			andFontSize:ACTION_BUTTON_FONT_SIZE andFontColor:[UIColor whiteColor]
+			andTarget:self.delegate andAction:@selector(unselectAllButtonPressed)];
+		[self addSubview:self.unselectAllButton];
+		
 
 		
-		[self addSubview:self.emailActionsButton];
     }
     return self;
 }
@@ -60,8 +78,29 @@ const NSInteger EMAIL_ACTION_VIEW_HEIGHT = 30.0;
 {
 		[super layoutSubviews];
 		
-		[TableCellHelper horizCenterAlignChild:self.emailActionsButton withinParentFrame:self.frame];
+		CGFloat buttonsWidth = self.selectAllButton.frame.size.width +
+			self.unselectAllButton.frame.size.width + 
+			self.emailActionsButton.frame.size.width + 2 * ACTION_BUTTON_SPACE;
+		CGFloat currXOffset = self.frame.size.width/2.0 - buttonsWidth/2.0;
 		
+		CGRect buttonFrame = self.emailActionsButton.frame;
+		buttonFrame.origin.x = currXOffset;
+		buttonFrame.origin.y = self.frame.size.height/2.0 - buttonFrame.size.height/2.0;
+		[self.emailActionsButton setFrame:buttonFrame];
+		
+		currXOffset += buttonFrame.size.width + ACTION_BUTTON_SPACE;
+		
+		buttonFrame = self.unselectAllButton.frame;
+		buttonFrame.origin.x = currXOffset;
+		buttonFrame.origin.y = self.frame.size.height/2.0 - buttonFrame.size.height/2.0;
+		[self.unselectAllButton setFrame:buttonFrame];
+		
+		currXOffset += buttonFrame.size.width + ACTION_BUTTON_SPACE;
+		
+		buttonFrame = self.selectAllButton.frame;
+		buttonFrame.origin.x = currXOffset;
+		buttonFrame.origin.y = self.frame.size.height/2.0 - buttonFrame.size.height/2.0;
+		[self.selectAllButton setFrame:buttonFrame];
 		
 }
 

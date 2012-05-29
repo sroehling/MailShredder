@@ -16,10 +16,15 @@ extern const NSInteger EMAIL_ACTION_VIEW_HEIGHT;
 {
 	@private
 		UIButton *emailActionsButton;
+		UIButton *unselectAllButton;
+		UIButton *selectAllButton;
 		id<EmailActionViewDelegate> delegate;
 }
 
 @property(nonatomic,retain) UIButton *emailActionsButton;
+@property(nonatomic,retain) UIButton *selectAllButton;
+@property(nonatomic,retain) UIButton *unselectAllButton;
+
 @property(nonatomic,assign) id<EmailActionViewDelegate> delegate;
 
 - (id)initWithDelegate:(id<EmailActionViewDelegate>)theDelegate;
@@ -29,5 +34,7 @@ extern const NSInteger EMAIL_ACTION_VIEW_HEIGHT;
 @protocol EmailActionViewDelegate <NSObject>
 
 -(void)actionButtonPressed;
+-(void)unselectAllButtonPressed;
+-(void)selectAllButtonPressed;
 
 @end

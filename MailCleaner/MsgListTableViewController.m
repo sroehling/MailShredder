@@ -156,6 +156,11 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+	NSLog(@"Detail button pressed");
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -201,12 +206,24 @@
     return [sectionInfo numberOfObjects];
 }
 
+
 #pragma mark EmailActionViewDelegate
 
 -(void)actionButtonPressed
 {
 	assert(0); // must be overriden
 }
+
+-(void)unselectAllButtonPressed
+{
+	NSLog(@"Unselect all");
+}
+
+-(void)selectAllButtonPressed
+{
+	NSLog(@"Select all");
+}
+
 
 
 #pragma mark NSFetchedResultsControllerDelegate 

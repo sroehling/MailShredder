@@ -20,6 +20,7 @@
 		000566CB1562F94D003D114D /* MailCleanerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 000566CA1562F94D003D114D /* MailCleanerTests.m */; };
 		000567041562FFC4003D114D /* libResultraGenericLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000567031562FFC4003D114D /* libResultraGenericLib.a */; };
 		0005672A15630DDD003D114D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0005672915630DDD003D114D /* Localizable.strings */; };
+		00394EFC156EFE00006C3AE5 /* msgActionButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 00394EFB156EFE00006C3AE5 /* msgActionButton.png */; };
 		0039E5DC1566B14000CB259D /* AppData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0039E5DA1566B14000CB259D /* AppData.xcdatamodeld */; };
 		0039E5EC1566B8CE00CB259D /* AgeFilterNone.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039E5EB1566B8CE00CB259D /* AgeFilterNone.m */; };
 		0039E5EF1566B8CE00CB259D /* MessageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039E5EE1566B8CE00CB259D /* MessageFilter.m */; };
@@ -74,6 +75,7 @@
 		000566CA1562F94D003D114D /* MailCleanerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MailCleanerTests.m; sourceTree = "<group>"; };
 		000567031562FFC4003D114D /* libResultraGenericLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libResultraGenericLib.a; path = "../ResultraGenericLib/build/Release-iphoneos/libResultraGenericLib.a"; sourceTree = "<group>"; };
 		0005672915630DDD003D114D /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		00394EFB156EFE00006C3AE5 /* msgActionButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = msgActionButton.png; sourceTree = "<group>"; };
 		0039E5DB1566B14000CB259D /* AppData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppData.xcdatamodel; sourceTree = "<group>"; };
 		0039E5EA1566B8CE00CB259D /* AgeFilterNone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeFilterNone.h; sourceTree = "<group>"; };
 		0039E5EB1566B8CE00CB259D /* AgeFilterNone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgeFilterNone.m; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 		0039E5FB1566CD2E00CB259D /* Message List View */ = {
 			isa = PBXGroup;
 			children = (
+				00394EFB156EFE00006C3AE5 /* msgActionButton.png */,
 				00F9A77D156EC66A00BB4C92 /* msgCheckbox.psd */,
 				006D6676156E9DAA00074979 /* unselectedMsgCheckbox.png */,
 				006D6677156E9DAB00074979 /* selectedMsgCheckbox.png */,
@@ -396,6 +399,7 @@
 				006D6650156D70A300074979 /* ResultraGenericLibResources.bundle in Resources */,
 				006D6678156E9DAB00074979 /* unselectedMsgCheckbox.png in Resources */,
 				006D6679156E9DAB00074979 /* selectedMsgCheckbox.png in Resources */,
+				00394EFC156EFE00006C3AE5 /* msgActionButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

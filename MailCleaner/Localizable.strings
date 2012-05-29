@@ -11,6 +11,8 @@
 "TRASH_VIEW_TITLE" = "Trash";
 
 "MSGS_ACTION_BUTTON_TITLE" = "Actions";
+"MSGS_ACTION_UNSELECT_ALL" = "Unselect All";
+"MSGS_ACTION_SELECT_ALL" = "Select All";
 
 "MESSAGE_FILTER_TITLE" = "Message Filter";
 "MESSAGE_AGE_TITLE" = "Send Date";
