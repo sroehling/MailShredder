@@ -23,6 +23,7 @@
 #import "CoreDataHelper.h"
 #import "PopupButtonListView.h"
 #import "PopupButtonListItemInfo.h"
+#import "MsgListView.h"
 
 @implementation EmailInfoTableViewController
 
@@ -57,8 +58,9 @@
 				andDisclosureButtonDelegate:self] autorelease];
 	tableHeader.header.text = @"Message Filter";
 	[tableHeader resizeForChildren];
-	self.tableView.tableHeaderView = tableHeader;
 	
+	self.msgListView.headerView = tableHeader;
+	[self.msgListView addSubview:tableHeader];	
 }
 
 
@@ -124,7 +126,7 @@
 		}
 	}
 	[self.emailInfoDmc saveContext];
-	[self.tableView reloadData];
+	[self.msgListView.msgListTableView reloadData];
 }
 
 -(void)lockMsgsButtonPressed
@@ -137,7 +139,7 @@
 		info.locked = [NSNumber numberWithBool:TRUE];
 	}
 	[self.emailInfoDmc saveContext];
-	[self.tableView reloadData];
+	[self.msgListView.msgListTableView reloadData];
 }
 
 -(void)unlockMsgsButtonPressed
@@ -150,7 +152,7 @@
 		info.locked = [NSNumber numberWithBool:FALSE];
 	}
 	[self.emailInfoDmc saveContext];
-	[self.tableView reloadData];
+	[self.msgListView.msgListTableView reloadData];
 }
 
 

@@ -12,6 +12,7 @@
 #import "PopupButtonListItemInfo.h"
 #import "PopupButtonListView.h"
 #import "DataModelController.h"
+#import "MsgListView.h"
 
 
 @implementation TrashMsgListViewController
@@ -57,7 +58,7 @@
 		info.trashed= [NSNumber numberWithBool:FALSE];
 	}
 	[self.emailInfoDmc saveContext];
-	[self.tableView reloadData];
+	[self.msgListView.msgListTableView reloadData];
 }
 
 -(void)untrashMsgsButtonPressed
@@ -71,7 +72,7 @@
 		info.trashed = [NSNumber numberWithBool:FALSE];
 	}
 	[self.emailInfoDmc saveContext];
-	[self.tableView reloadData];
+	[self.msgListView.msgListTableView reloadData];
 }
 
 

@@ -15,6 +15,7 @@
 #import "CoreDataHelper.h"
 #import "EmailInfoActionView.h"
 #import "MsgTableCell.h"
+#import "MsgListView.h"
 
 
 @implementation MsgListTableViewController
@@ -22,6 +23,7 @@
 @synthesize emailInfoDmc;
 @synthesize emailInfoFrc;
 @synthesize filterDmc;
+@synthesize msgListView;
 
 
 - (id)initWithEmailInfoDataModelController:(DataModelController*)theEmailInfoDmc
@@ -87,7 +89,7 @@
     cell.sendDateLabel.text = [DateHelper stringFromDate:info.sendDate];
 	if([info.selectedInMsgList boolValue])
 	{
-		[self.tableView selectRowAtIndexPath:indexPath animated:FALSE scrollPosition:UITableViewScrollPositionNone];
+		[self.msgListView.msgListTableView selectRowAtIndexPath:indexPath animated:FALSE scrollPosition:UITableViewScrollPositionNone];
 	}
 	cell.accessoryType =UITableViewCellAccessoryDetailDisclosureButton;
 }
@@ -120,7 +122,7 @@
 		exit(-1);  // Fail
 	}
 	
-	[self.tableView reloadData];
+	[self.msgListView.msgListTableView reloadData];
 
 }
 
@@ -169,10 +171,13 @@
  
     self.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
 	
-	self.tableView.tableFooterView = [[[EmailInfoActionView alloc] initWithDelegate:self] autorelease];
+	self.msgListView = [[[MsgListView alloc] initWithFrame:CGRectZero] autorelease];
+	self.msgListView.msgListActionFooter.delegate = self;
+	self.msgListView.msgListTableView.delegate = self;
+	self.msgListView.msgListTableView.dataSource = self;
 	
-	self.tableView.allowsSelection = TRUE;
-	self.tableView.allowsMultipleSelection = TRUE;
+	self.view = self.msgListView;
+	
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -230,12 +235,12 @@
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
-    [self.tableView beginUpdates];
+    [self.msgListView.msgListTableView beginUpdates];
 }
  
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
  
-    UITableView *tableView = self.tableView;
+    UITableView *tableView = self.msgListView.msgListTableView;
  
     switch(type) {
  
@@ -266,11 +271,11 @@
     switch(type) {
  
         case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            [self.msgListView.msgListTableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             break;
  
         case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            [self.msgListView.msgListTableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
 }
@@ -278,7 +283,7 @@
  
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
-    [self.tableView endUpdates];
+    [self.msgListView.msgListTableView endUpdates];
 }
 
 
@@ -288,6 +293,7 @@
 	[emailInfoDmc release];
 	[filterDmc release];
 	[emailInfoFrc release];
+	[msgListView release];
 	[super dealloc];
 }
 

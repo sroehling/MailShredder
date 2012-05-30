@@ -27,8 +27,6 @@ extern const NSInteger EMAIL_ACTION_VIEW_HEIGHT;
 
 @property(nonatomic,assign) id<EmailActionViewDelegate> delegate;
 
-- (id)initWithDelegate:(id<EmailActionViewDelegate>)theDelegate;
-
 @end
 
 @protocol EmailActionViewDelegate <NSObject>
