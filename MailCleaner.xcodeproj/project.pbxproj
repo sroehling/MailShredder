@@ -44,6 +44,8 @@
 		007ABE8F156ACADE004BA8BF /* dummyEmails.txt in Resources */ = {isa = PBXBuildFile; fileRef = 003D59911564028200AD3D91 /* dummyEmails.txt */; };
 		009E320A1567E4C500233276 /* AgeFilterFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */; };
 		00D498631575380600F8FD2F /* MsgListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D498621575380600F8FD2F /* MsgListView.m */; };
+		00D498701575BCF700F8FD2F /* lock-closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 00D4986F1575BCF700F8FD2F /* lock-closed.png */; };
+		00D49872157694C000F8FD2F /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = 00D49871157694C000F8FD2F /* trash.png */; };
 		00E9944A15643244003B9771 /* EmailInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9944915643244003B9771 /* EmailInfoTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -117,6 +119,8 @@
 		009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgeFilterFieldEditInfo.m; sourceTree = "<group>"; };
 		00D498611575380600F8FD2F /* MsgListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgListView.h; sourceTree = "<group>"; };
 		00D498621575380600F8FD2F /* MsgListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgListView.m; sourceTree = "<group>"; };
+		00D4986F1575BCF700F8FD2F /* lock-closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-closed.png"; sourceTree = "<group>"; };
+		00D49871157694C000F8FD2F /* trash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trash.png; sourceTree = "<group>"; };
 		00E9944815643244003B9771 /* EmailInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoTableViewController.h; sourceTree = "<group>"; };
 		00E9944915643244003B9771 /* EmailInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoTableViewController.m; sourceTree = "<group>"; };
 		00F9A77D156EC66A00BB4C92 /* msgCheckbox.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = msgCheckbox.psd; sourceTree = "<group>"; };
@@ -276,6 +280,8 @@
 		0039E5FB1566CD2E00CB259D /* Message List View */ = {
 			isa = PBXGroup;
 			children = (
+				00D49871157694C000F8FD2F /* trash.png */,
+				00D4986F1575BCF700F8FD2F /* lock-closed.png */,
 				00394EFB156EFE00006C3AE5 /* msgActionButton.png */,
 				00F9A77D156EC66A00BB4C92 /* msgCheckbox.psd */,
 				006D6676156E9DAA00074979 /* unselectedMsgCheckbox.png */,
@@ -405,6 +411,8 @@
 				006D6678156E9DAB00074979 /* unselectedMsgCheckbox.png in Resources */,
 				006D6679156E9DAB00074979 /* selectedMsgCheckbox.png in Resources */,
 				00394EFC156EFE00006C3AE5 /* msgActionButton.png in Resources */,
+				00D498701575BCF700F8FD2F /* lock-closed.png in Resources */,
+				00D49872157694C000F8FD2F /* trash.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

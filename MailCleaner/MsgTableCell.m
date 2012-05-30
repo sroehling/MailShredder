@@ -22,6 +22,9 @@ NSString *const MSG_TABLE_CELL_IDENTIFIER = @"MsgTableCell";
 @synthesize sendDateLabel;
 @synthesize fromLabel;
 @synthesize selectedCheckbox;
+@synthesize lockedIndicator;
+@synthesize trashIndicator;
+@synthesize subjectLabel;
 
 
 
@@ -48,6 +51,18 @@ NSString *const MSG_TABLE_CELL_IDENTIFIER = @"MsgTableCell";
 		self.sendDateLabel.font = [UIFont systemFontOfSize:13];       
 		[self.contentView addSubview:self.sendDateLabel];
 		
+		self.subjectLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+		self.subjectLabel.backgroundColor = [UIColor clearColor];
+		self.subjectLabel.opaque = NO;
+		self.subjectLabel.textColor = [UIColor grayColor];
+		self.subjectLabel.textAlignment = UITextAlignmentLeft;
+		self.subjectLabel.highlightedTextColor = [UIColor darkGrayColor];
+		self.subjectLabel.font = [UIFont systemFontOfSize:13];        
+		self.subjectLabel.lineBreakMode = UILineBreakModeTailTruncation;
+		self.subjectLabel.numberOfLines = 1;
+		[self.contentView addSubview: self.subjectLabel]; 
+		
+		
 		self.selectionStyle = UITableViewCellSelectionStyleGray;
 		UIView *selBgView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
 		selBgView.alpha = 1.0;
@@ -57,6 +72,15 @@ NSString *const MSG_TABLE_CELL_IDENTIFIER = @"MsgTableCell";
 		[self.selectedCheckbox setHighlightedImage:[UIImage imageNamed:@"selectedMsgcheckbox.png"]];
 		[self.selectedCheckbox setImage:[UIImage imageNamed:@"unselectedMsgCheckbox.png"]];
 		[self.contentView addSubview:self.selectedCheckbox];
+		
+		self.lockedIndicator = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 11, 11)] autorelease];
+		[self.lockedIndicator setImage:[UIImage imageNamed:@"lock-closed"]];
+		[self.contentView addSubview:self.lockedIndicator];
+
+
+		self.trashIndicator = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 11, 11)] autorelease];
+		[self.trashIndicator setImage:[UIImage imageNamed:@"trash"]];
+		[self.contentView addSubview:self.trashIndicator];
 			   		   
 
 	}
@@ -95,6 +119,27 @@ NSString *const MSG_TABLE_CELL_IDENTIFIER = @"MsgTableCell";
 	fromFrame.size.width = sendDateFrame.origin.x - fromFrame.origin.x - 2*MSG_TABLE_CELL_LABEL_HORIZ_SPACE;
 	[self.fromLabel setFrame:fromFrame];
 	
+	CGFloat secondRowYStart = MAX(sendDateFrame.origin.y + sendDateFrame.size.height,
+		fromFrame.origin.y + fromFrame.size.height) + 2;
+	CGRect lockFrame = self.lockedIndicator.frame;
+	
+	[self.subjectLabel sizeToFit];
+	CGRect subjectFrame = self.subjectLabel.frame;
+	subjectFrame.origin.x = fromFrame.origin.x;
+	subjectFrame.origin.y = secondRowYStart;
+	subjectFrame.size.width = contentFrame.size.width - lockFrame.size.width - MSG_TABLE_CELL_RIGHT_MARGIN - subjectFrame.origin.x;
+	[self.subjectLabel setFrame:subjectFrame]; 
+
+	lockFrame.origin.x = contentFrame.size.width - lockFrame.size.width - MSG_TABLE_CELL_RIGHT_MARGIN;
+	lockFrame.origin.y =subjectFrame.origin.y + subjectFrame.size.height/2.0 - lockFrame.size.height/2.0;
+	[self.lockedIndicator setFrame:lockFrame];
+
+	
+	// Being trashed and locked are mutually exclusive for messages,
+	// so we can use the same frame for the lock and trash indicator, assuming
+	// only 1 or the other will be shown.
+	[self.trashIndicator setFrame:lockFrame];
+	
 }
 
 -(void)dealloc
@@ -102,6 +147,9 @@ NSString *const MSG_TABLE_CELL_IDENTIFIER = @"MsgTableCell";
 	[sendDateLabel release];
 	[fromLabel release];
 	[selectedCheckbox release];
+	[lockedIndicator release];
+	[trashIndicator release];
+	[subjectLabel release];
 	[super dealloc];
 }
 

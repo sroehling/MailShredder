@@ -83,15 +83,19 @@
 
 - (void)configureCell:(MsgTableCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     EmailInfo *info = [self.emailInfoFrc objectAtIndexPath:indexPath];
-	NSString *lockedFlag = [info.locked boolValue]?@"L":@"U";
-    cell.fromLabel.text = [NSString stringWithFormat:@"%@:%@",
-		lockedFlag,info.from];
+    cell.fromLabel.text = info.from;
     cell.sendDateLabel.text = [DateHelper stringFromDate:info.sendDate];
+	cell.subjectLabel.text = info.subject;
 	if([info.selectedInMsgList boolValue])
 	{
 		[self.msgListView.msgListTableView selectRowAtIndexPath:indexPath animated:FALSE scrollPosition:UITableViewScrollPositionNone];
 	}
 	cell.accessoryType =UITableViewCellAccessoryDetailDisclosureButton;
+	
+	cell.lockedIndicator.hidden = [info.locked boolValue]?FALSE:TRUE;
+	cell.trashIndicator.hidden = [info.trashed boolValue]?FALSE:TRUE;
+	
+	
 }
 
 -(void)configureFetchedResultsController
