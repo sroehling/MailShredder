@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11D50" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11E53" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="AgeFilter" representedClassName="AgeFilter" isAbstract="YES" syncable="YES">
         <relationship name="messageFilterAgeFilter" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="ageFilter" inverseEntity="MessageFilter" syncable="YES"/>
+        <relationship name="ruleAgeFilter" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MsgHandlingRule" inverseName="ageFilter" inverseEntity="MsgHandlingRule" syncable="YES"/>
     </entity>
     <entity name="AgeFilterComparison" representedClassName="AgeFilterComparison" parentEntity="AgeFilter" syncable="YES">
         <attribute name="comparison" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -20,10 +21,15 @@
     <entity name="AgeFilterNone" representedClassName="AgeFilterNone" parentEntity="AgeFilter" syncable="YES">
         <relationship name="sharedAppValsDefaultAgeFilterNone" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterNone" inverseEntity="SharedAppVals" syncable="YES"/>
     </entity>
+    <entity name="ExclusionRule" representedClassName="ExclusionRule" parentEntity="MsgHandlingRule" syncable="YES"/>
     <entity name="MessageFilter" representedClassName="MessageFilter" syncable="YES">
         <attribute name="filterName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="ageFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilter" inverseName="messageFilterAgeFilter" inverseEntity="AgeFilter" syncable="YES"/>
         <relationship name="sharedAppValsMsgListFilter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="msgListFilter" inverseEntity="SharedAppVals" syncable="YES"/>
+    </entity>
+    <entity name="MsgHandlingRule" representedClassName="MsgHandlingRule" isAbstract="YES" syncable="YES">
+        <attribute name="enabled" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <relationship name="ageFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilter" inverseName="ruleAgeFilter" inverseEntity="AgeFilter" syncable="YES"/>
     </entity>
     <entity name="SharedAppVals" representedClassName="SharedAppVals" syncable="YES">
         <relationship name="defaultAgeFilterNewer1Month" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterNewer1Month" inverseEntity="AgeFilterComparison" syncable="YES"/>
@@ -38,11 +44,15 @@
         <relationship name="defaultAgeFilterOlder6Months" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterOlder6Months" inverseEntity="AgeFilterComparison" syncable="YES"/>
         <relationship name="msgListFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="sharedAppValsMsgListFilter" inverseEntity="MessageFilter" syncable="YES"/>
     </entity>
+    <entity name="TrashRule" representedClassName="TrashRule" parentEntity="MsgHandlingRule" syncable="YES"/>
     <elements>
-        <element name="AgeFilter" positionX="160" positionY="192" width="128" height="60"/>
+        <element name="AgeFilter" positionX="160" positionY="192" width="128" height="75"/>
         <element name="AgeFilterComparison" positionX="160" positionY="192" width="128" height="225"/>
         <element name="AgeFilterNone" positionX="160" positionY="192" width="128" height="60"/>
+        <element name="TrashRule" positionX="160" positionY="192" width="128" height="45"/>
+        <element name="ExclusionRule" positionX="160" positionY="192" width="128" height="45"/>
         <element name="MessageFilter" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="MsgHandlingRule" positionX="160" positionY="192" width="128" height="75"/>
         <element name="SharedAppVals" positionX="160" positionY="192" width="128" height="210"/>
     </elements>
 </model>

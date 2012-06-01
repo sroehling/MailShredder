@@ -15,6 +15,7 @@
 @synthesize selectionFlagForSelectableObjectTableView;
 
 @dynamic messageFilterAgeFilter;
+@dynamic ruleAgeFilter;
 
 -(NSString*)filterSynopsis
 {

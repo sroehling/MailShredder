@@ -79,18 +79,18 @@ NSUInteger const AGE_FILTER_COMPARISON_NEWER = 1;
 
 -(NSString*)timeUnitAsString
 {
-
+	NSInteger timeInterval = [self.interval integerValue];
 	if([self.timeUnit integerValue] == AGE_FILTER_COMPARISON_TIME_UNIT_WEEKS)
 	{
-		return LOCALIZED_STR(@"TIME_UNIT_WEEK");
+		return (timeInterval > 1)?LOCALIZED_STR(@"TIME_UNIT_WEEKS"):LOCALIZED_STR(@"TIME_UNIT_WEEK");
 	}
 	else if ([self.timeUnit integerValue] == AGE_FILTER_COMPARISON_TIME_UNIT_MONTHS)
 	{
-		return LOCALIZED_STR(@"TIME_UNIT_MONTH");
+		return (timeInterval > 1)?LOCALIZED_STR(@"TIME_UNIT_MONTHS"):LOCALIZED_STR(@"TIME_UNIT_MONTH");
 	}
 	else 
 	{
-		return LOCALIZED_STR(@"TIME_UNIT_YEAR");
+		return (timeInterval > 1)?LOCALIZED_STR(@"TIME_UNIT_YEARS"):LOCALIZED_STR(@"TIME_UNIT_YEAR");
 	}
 }
 

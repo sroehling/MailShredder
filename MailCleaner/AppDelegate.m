@@ -16,7 +16,9 @@
 #import "EmailInfo.h"
 #import "EmailInfoTableViewController.h"
 #import "TrashMsgListViewController.h"
+#import "GenericFieldBasedTableEditViewController.h"
 #import "SharedAppVals.h"
+#import "RulesFormInfoCreator.h"
 
 @implementation AppDelegate
 
@@ -103,9 +105,24 @@
 	trashedMsgsNavController.title = LOCALIZED_STR(@"TRASH_VIEW_TITLE");
 	
 	
+	RulesFormInfoCreator *rulesFormInfoCreator = [[[RulesFormInfoCreator alloc] init] autorelease];
+	UIViewController *rulesController = [[[GenericFieldBasedTableEditViewController alloc]
+		initWithFormInfoCreator:rulesFormInfoCreator 
+		andDataModelController:appDmc] autorelease];
+	UINavigationController *rulesNavController = [[[UINavigationController alloc] 
+			initWithRootViewController:rulesController] autorelease];
+	rulesNavController.title = LOCALIZED_STR(@"RULES_VIEW_TITLE");
+	rulesNavController.title = LOCALIZED_STR(@"RULES_VIEW_TITLE");
+
+	
+	
 	self.tabBarController = [[[UITabBarController alloc] init] autorelease];
 	self.tabBarController.viewControllers = 
-		[NSArray arrayWithObjects:msgListNavController, trashedMsgsNavController, nil];
+		[NSArray arrayWithObjects:
+			msgListNavController, 
+			trashedMsgsNavController,
+			rulesNavController,
+			nil];
 	self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;
