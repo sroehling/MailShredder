@@ -33,5 +33,6 @@ extern NSString * const SHARED_APP_VALS_ENTITY_NAME;
 
 +(void)initFromDatabase;
 +(SharedAppVals*)getUsingDataModelController:(DataModelController*)dataModelController;
++(SharedAppVals*)createWithDataModelController:(DataModelController*)dataModelController;
 
 @end

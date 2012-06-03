@@ -23,5 +23,24 @@ NSString * const RULE_AGE_FILTER_KEY = @"ageFilter";
 	return nil;
 }
 
+-(NSPredicate*)rulePredicate:(NSDate*)baseDate
+{
+	if([self.enabled boolValue])
+	{
+		NSMutableArray *predicates = [[[NSMutableArray alloc] init] autorelease];
+
+		NSPredicate *agePredicate = [self.ageFilter filterPredicate:baseDate];
+		assert(agePredicate != nil);
+		[predicates addObject:agePredicate];
+		
+		NSPredicate *compoundPredicate = [NSCompoundPredicate 
+				andPredicateWithSubpredicates:predicates];
+		return compoundPredicate;
+	}
+	else 
+	{
+		return [NSPredicate predicateWithValue:FALSE];
+	}
+}
 
 @end

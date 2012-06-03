@@ -20,27 +20,17 @@ NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
 // Inverse
 @dynamic sharedAppValsMsgListFilter;
 
--(NSPredicate*)filterPredicate
+-(NSPredicate*)filterPredicate:(NSDate*)baseDate
 {
 	NSMutableArray *predicates = [[[NSMutableArray alloc] init] autorelease];
 
-	NSPredicate *agePredicate = [self.ageFilter filterPredicate];
+	NSPredicate *agePredicate = [self.ageFilter filterPredicate:baseDate];
+	assert(agePredicate != nil);
+	[predicates addObject:agePredicate];
 	
-	if(agePredicate != nil)
-	{
-		[predicates addObject:agePredicate];
-	}
-	
-	if([predicates count] > 0)
-	{
-		NSPredicate *compoundPredicate = [NSCompoundPredicate 
+	NSPredicate *compoundPredicate = [NSCompoundPredicate 
 			andPredicateWithSubpredicates:predicates];
-		return compoundPredicate;
-	}
-	else 
-	{
-		return nil;
-	}
+	return compoundPredicate;
 }
 
 @end

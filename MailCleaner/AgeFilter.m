@@ -23,7 +23,7 @@
 	return nil;
 }
 
--(NSPredicate*)filterPredicate
+-(NSPredicate*)filterPredicate:(NSDate*)baseDate
 {
 	assert(0); // must be overriden
 	return nil;

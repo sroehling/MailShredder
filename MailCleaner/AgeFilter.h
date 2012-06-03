@@ -24,7 +24,7 @@
 @property (nonatomic, retain) NSSet *ruleAgeFilter;
 
 -(NSString*)filterSynopsis;
--(NSPredicate*)filterPredicate;
+-(NSPredicate*)filterPredicate:(NSDate*)baseDate;
 
 @end
 

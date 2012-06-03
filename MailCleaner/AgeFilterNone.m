@@ -20,9 +20,9 @@ NSString * const AGE_FILTER_NONE_ENTITY_NAME = @"AgeFilterNone";
 	return LOCALIZED_STR(@"AGE_FILTER_NONE_TITLE");
 }
 
--(NSPredicate*)filterPredicate
+-(NSPredicate*)filterPredicate:(NSDate*)baseDate
 {
-	return nil;
+	return [NSPredicate predicateWithValue:TRUE];
 }
 
 

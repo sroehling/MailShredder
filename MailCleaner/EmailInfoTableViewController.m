@@ -24,6 +24,8 @@
 #import "PopupButtonListView.h"
 #import "PopupButtonListItemInfo.h"
 #import "MsgListView.h"
+#import "MsgPredicateHelper.h"
+#import "DateHelper.h"
 
 @implementation EmailInfoTableViewController
 
@@ -31,20 +33,18 @@
 -(NSPredicate*)msgListPredicate
 {
 	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.filterDmc];
-	NSPredicate *filterPredicate = [sharedAppVals.msgListFilter filterPredicate];
-	NSPredicate *noTrashPredicate = [NSPredicate predicateWithFormat:@"%K == %@",
-		EMAIL_INFO_TRASHED_KEY,[NSNumber numberWithBool:NO]];
-	if(filterPredicate != nil)
-	{
-		NSPredicate *filterAndNoTrashPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:
+	
+	NSDate *baseDate = [DateHelper today]; 
+	NSPredicate *filterPredicate = [sharedAppVals.msgListFilter filterPredicate:baseDate];
+	assert(filterPredicate != nil);
+	
+	NSPredicate *noTrashPredicate = [MsgPredicateHelper notTrashedByUserOrRules:self.filterDmc
+		andBaseDate:baseDate];
+	
+	NSPredicate *filterAndNoTrashPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:
 			[NSArray arrayWithObjects:filterPredicate, noTrashPredicate, nil]];
-		return filterAndNoTrashPredicate;
-		
-	}
-	else 
-	{
-		return noTrashPredicate;
-	}		
+			
+	return filterAndNoTrashPredicate;
 }
 
 - (void)viewDidLoad 

@@ -17,9 +17,12 @@
 		000566BF1562F94D003D114D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000566911562F94C003D114D /* UIKit.framework */; };
 		000566C01562F94D003D114D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000566931562F94C003D114D /* Foundation.framework */; };
 		000566C81562F94D003D114D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 000566C61562F94D003D114D /* InfoPlist.strings */; };
-		000566CB1562F94D003D114D /* MailCleanerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 000566CA1562F94D003D114D /* MailCleanerTests.m */; };
 		000567041562FFC4003D114D /* libResultraGenericLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000567031562FFC4003D114D /* libResultraGenericLib.a */; };
 		0005672A15630DDD003D114D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0005672915630DDD003D114D /* Localizable.strings */; };
+		0017B74C157928D7001D5D28 /* MsgPredicateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0017B74B157928D7001D5D28 /* MsgPredicateHelper.m */; };
+		0017B753157968EA001D5D28 /* TestMessageFiltering.m in Sources */ = {isa = PBXBuildFile; fileRef = 0017B752157968EA001D5D28 /* TestMessageFiltering.m */; };
+		0017B75915796A81001D5D28 /* libResultraGenericLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0017B75815796A81001D5D28 /* libResultraGenericLib.a */; };
+		0017B75A15798C89001D5D28 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003D599415641A3F00AD3D91 /* CoreData.framework */; };
 		00394EFC156EFE00006C3AE5 /* msgActionButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 00394EFB156EFE00006C3AE5 /* msgActionButton.png */; };
 		0039E5DC1566B14000CB259D /* AppData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0039E5DA1566B14000CB259D /* AppData.xcdatamodeld */; };
 		0039E5EC1566B8CE00CB259D /* AgeFilterNone.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039E5EB1566B8CE00CB259D /* AgeFilterNone.m */; };
@@ -83,10 +86,13 @@
 		000566BD1562F94D003D114D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		000566C51562F94D003D114D /* MailCleanerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MailCleanerTests-Info.plist"; sourceTree = "<group>"; };
 		000566C71562F94D003D114D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		000566C91562F94D003D114D /* MailCleanerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MailCleanerTests.h; sourceTree = "<group>"; };
-		000566CA1562F94D003D114D /* MailCleanerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MailCleanerTests.m; sourceTree = "<group>"; };
 		000567031562FFC4003D114D /* libResultraGenericLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libResultraGenericLib.a; path = "../ResultraGenericLib/build/Release-iphoneos/libResultraGenericLib.a"; sourceTree = "<group>"; };
 		0005672915630DDD003D114D /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		0017B74A157928D7001D5D28 /* MsgPredicateHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgPredicateHelper.h; sourceTree = "<group>"; };
+		0017B74B157928D7001D5D28 /* MsgPredicateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgPredicateHelper.m; sourceTree = "<group>"; };
+		0017B751157968EA001D5D28 /* TestMessageFiltering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMessageFiltering.h; sourceTree = "<group>"; };
+		0017B752157968EA001D5D28 /* TestMessageFiltering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestMessageFiltering.m; sourceTree = "<group>"; };
+		0017B75815796A81001D5D28 /* libResultraGenericLib.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libResultraGenericLib.a; path = "../ResultraGenericLib/build/Release-iphoneos/libResultraGenericLib.a"; sourceTree = "<group>"; };
 		00394EFB156EFE00006C3AE5 /* msgActionButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = msgActionButton.png; sourceTree = "<group>"; };
 		0039E5DB1566B14000CB259D /* AppData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppData.xcdatamodel; sourceTree = "<group>"; };
 		0039E5EA1566B8CE00CB259D /* AgeFilterNone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeFilterNone.h; sourceTree = "<group>"; };
@@ -170,6 +176,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0017B75A15798C89001D5D28 /* CoreData.framework in Frameworks */,
+				0017B75915796A81001D5D28 /* libResultraGenericLib.a in Frameworks */,
 				000566BE1562F94D003D114D /* SenTestingKit.framework in Frameworks */,
 				000566BF1562F94D003D114D /* UIKit.framework in Frameworks */,
 				000566C01562F94D003D114D /* Foundation.framework in Frameworks */,
@@ -182,6 +190,7 @@
 		000566821562F94C003D114D = {
 			isa = PBXGroup;
 			children = (
+				0017B75815796A81001D5D28 /* libResultraGenericLib.a */,
 				006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */,
 				007ABE8E156AB631004BA8BF /* Development Docs */,
 				003D599415641A3F00AD3D91 /* CoreData.framework */,
@@ -243,9 +252,9 @@
 		000566C31562F94D003D114D /* MailCleanerTests */ = {
 			isa = PBXGroup;
 			children = (
-				000566C91562F94D003D114D /* MailCleanerTests.h */,
-				000566CA1562F94D003D114D /* MailCleanerTests.m */,
 				000566C41562F94D003D114D /* Supporting Files */,
+				0017B751157968EA001D5D28 /* TestMessageFiltering.h */,
+				0017B752157968EA001D5D28 /* TestMessageFiltering.m */,
 			);
 			path = MailCleanerTests;
 			sourceTree = "<group>";
@@ -310,6 +319,8 @@
 		0039E5FB1566CD2E00CB259D /* Message List Views */ = {
 			isa = PBXGroup;
 			children = (
+				0017B74A157928D7001D5D28 /* MsgPredicateHelper.h */,
+				0017B74B157928D7001D5D28 /* MsgPredicateHelper.m */,
 				00D49871157694C000F8FD2F /* trash.png */,
 				00D4986F1575BCF700F8FD2F /* lock-closed.png */,
 				00394EFB156EFE00006C3AE5 /* msgActionButton.png */,
@@ -546,6 +557,7 @@
 				00D498921577F02B00F8FD2F /* MailCleanerFormPopulator.m in Sources */,
 				00D4989915781DA600F8FD2F /* TrashRuleFormInfoCreator.m in Sources */,
 				00D4989C1578371E00F8FD2F /* MsgHandlingRuleFieldEditInfo.m in Sources */,
+				0017B74C157928D7001D5D28 /* MsgPredicateHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -553,7 +565,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000566CB1562F94D003D114D /* MailCleanerTests.m in Sources */,
+				0017B753157968EA001D5D28 /* TestMessageFiltering.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -672,6 +684,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MailCleaner/MailCleaner-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/..\"/**";
 				INFOPLIST_FILE = "MailCleanerTests/MailCleanerTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -689,6 +702,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MailCleaner/MailCleaner-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/..\"/**";
 				INFOPLIST_FILE = "MailCleanerTests/MailCleanerTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";

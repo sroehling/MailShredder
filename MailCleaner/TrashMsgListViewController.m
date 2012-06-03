@@ -14,20 +14,16 @@
 #import "DataModelController.h"
 #import "MsgListView.h"
 
+#import "MsgPredicateHelper.h"
+
+#import "DateHelper.h"
 
 @implementation TrashMsgListViewController
 
 -(NSPredicate*)msgListPredicate
 {
-	NSPredicate *trashedPredicate = [NSPredicate predicateWithFormat:@"%K == %@",
-		EMAIL_INFO_TRASHED_KEY,[NSNumber numberWithBool:YES]];
-	NSPredicate *notLocked = [NSPredicate predicateWithFormat:@"%K == %@",
-		EMAIL_INFO_LOCKED_KEY,[NSNumber numberWithBool:NO]];
-	
-	NSPredicate *trashListPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:
-		[NSArray arrayWithObjects:trashedPredicate,notLocked, nil]];
-		
-	return trashListPredicate;
+	NSDate *baseDate = [DateHelper today];
+	return [MsgPredicateHelper trashedByUserOrRules:self.filterDmc andBaseDate:baseDate];
 }
 
 - (void)viewDidLoad

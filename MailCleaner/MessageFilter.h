@@ -24,6 +24,6 @@ extern NSString * const MESSAGE_FILTER_AGE_FILTER_KEY;
 @property (nonatomic, retain) SharedAppVals *sharedAppValsMsgListFilter;
 
 
--(NSPredicate*)filterPredicate;
+-(NSPredicate*)filterPredicate:(NSDate*)baseDate;
 
 @end

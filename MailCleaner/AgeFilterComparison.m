@@ -100,8 +100,10 @@ NSUInteger const AGE_FILTER_COMPARISON_NEWER = 1;
 		[self comparisonAsString],[self.interval integerValue],[self timeUnitAsString]];
 }
 
--(NSPredicate*)filterPredicate
+-(NSPredicate*)filterPredicate:(NSDate*)baseDate
 {
+	assert(baseDate != nil);
+	
 	NSDateComponents *filterCompareComponents = [[[NSDateComponents alloc] init] autorelease];
 	NSInteger relativeIntervalValue = [self.interval integerValue] * -1;
 	if([self.timeUnit integerValue] == AGE_FILTER_COMPARISON_TIME_UNIT_WEEKS)
@@ -118,7 +120,7 @@ NSUInteger const AGE_FILTER_COMPARISON_NEWER = 1;
 	}
 	NSDate *compareDate = [[DateHelper theHelper].gregorian 
 		dateByAddingComponents:filterCompareComponents 
-                 toDate:[DateHelper today] options:0];
+                 toDate:baseDate options:0];
 	NSLog(@"Compare date: %@",[DateHelper stringFromDate:compareDate]);
 
 	NSString *comparisonOperatorAsString;
