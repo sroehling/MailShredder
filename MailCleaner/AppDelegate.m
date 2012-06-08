@@ -71,11 +71,42 @@
 
 }
 
+-(void)retrieveEmails
+{
+	CTCoreAccount *testAccount = [[CTCoreAccount alloc] init];
+	
+	[testAccount connectToServer:@"debianvm" port:143
+		connectionType:CONNECTION_TYPE_PLAIN
+		authType:IMAP_AUTH_TYPE_PLAIN 
+		login:@"testimapuser@debianvm.local" password:@"pass"];
+
+	
+	CTCoreFolder *inbox = [testAccount folderWithPath:@"INBOX"];
+    NSLog(@"INBOX %@", inbox);
+    // set the toIndex to 0 so all messages are loaded
+    NSSet *messageSet = [inbox messageObjectsFromIndex:1 toIndex:0];
+    NSLog(@"Done getting list of messages...");
+
+    NSEnumerator *objEnum = [messageSet objectEnumerator];
+    CTCoreMessage *msg;
+
+    while(msg = [objEnum nextObject]) {
+ 		[msg fetchBodyStructure];
+		NSLog(@"Msg: %@[%@] - %@",
+			msg.messageId,[DateHelper stringFromDate:msg.senderDate],msg.subject);
+    }
+
+	
+	[testAccount release];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
 
 	[self populateDatabaseWithDummyEmails];
+//	[self retrieveEmails];
+	
 	[SharedAppVals initFromDatabase];
 
 

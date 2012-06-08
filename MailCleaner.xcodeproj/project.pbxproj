@@ -39,6 +39,7 @@
 		003D59A315641D2600AD3D91 /* EmailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 003D59A215641D2600AD3D91 /* EmailInfo.m */; };
 		003F2397156D43490009BFE3 /* MsgListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 003F2396156D43490009BFE3 /* MsgListTableViewController.m */; };
 		005E6A8715647602004198B6 /* EmailInfoActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 005E6A8615647602004198B6 /* EmailInfoActionView.m */; };
+		00699543157D77E3008D50A4 /* libmailcore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00699542157D77E3008D50A4 /* libmailcore.a */; };
 		006D6641156D4BC800074979 /* TrashMsgListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 006D6640156D4BC800074979 /* TrashMsgListViewController.m */; };
 		006D6650156D70A300074979 /* ResultraGenericLibResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */; };
 		006D6675156E8E2500074979 /* MsgTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 006D6674156E8E2500074979 /* MsgTableCell.m */; };
@@ -46,6 +47,12 @@
 		006D6679156E9DAB00074979 /* selectedMsgCheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 006D6677156E9DAB00074979 /* selectedMsgCheckbox.png */; };
 		007ABE8F156ACADE004BA8BF /* dummyEmails.txt in Resources */ = {isa = PBXBuildFile; fileRef = 003D59911564028200AD3D91 /* dummyEmails.txt */; };
 		009E320A1567E4C500233276 /* AgeFilterFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */; };
+		00C4AB0C1581764900E0868A /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB081581764900E0868A /* libcrypto.a */; };
+		00C4AB0D1581764900E0868A /* libetpan_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB091581764900E0868A /* libetpan_ios.a */; };
+		00C4AB0E1581764900E0868A /* libsasl2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB0A1581764900E0868A /* libsasl2.a */; };
+		00C4AB0F1581764900E0868A /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB0B1581764900E0868A /* libssl.a */; };
+		00C4AB141581784900E0868A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB131581784900E0868A /* CFNetwork.framework */; };
+		00C4AB15158178FC00E0868A /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB11158177C400E0868A /* libiconv.dylib */; };
 		00D498631575380600F8FD2F /* MsgListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D498621575380600F8FD2F /* MsgListView.m */; };
 		00D498701575BCF700F8FD2F /* lock-closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 00D4986F1575BCF700F8FD2F /* lock-closed.png */; };
 		00D49872157694C000F8FD2F /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = 00D49871157694C000F8FD2F /* trash.png */; };
@@ -92,7 +99,7 @@
 		0017B74B157928D7001D5D28 /* MsgPredicateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgPredicateHelper.m; sourceTree = "<group>"; };
 		0017B751157968EA001D5D28 /* TestMessageFiltering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMessageFiltering.h; sourceTree = "<group>"; };
 		0017B752157968EA001D5D28 /* TestMessageFiltering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestMessageFiltering.m; sourceTree = "<group>"; };
-		0017B75815796A81001D5D28 /* libResultraGenericLib.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libResultraGenericLib.a; path = "../ResultraGenericLib/build/Release-iphoneos/libResultraGenericLib.a"; sourceTree = "<group>"; };
+		0017B75815796A81001D5D28 /* libResultraGenericLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libResultraGenericLib.a; path = "../ResultraGenericLib/build/Release-iphoneos/libResultraGenericLib.a"; sourceTree = "<group>"; };
 		00394EFB156EFE00006C3AE5 /* msgActionButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = msgActionButton.png; sourceTree = "<group>"; };
 		0039E5DB1566B14000CB259D /* AppData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppData.xcdatamodel; sourceTree = "<group>"; };
 		0039E5EA1566B8CE00CB259D /* AgeFilterNone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeFilterNone.h; sourceTree = "<group>"; };
@@ -122,6 +129,7 @@
 		003F2396156D43490009BFE3 /* MsgListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgListTableViewController.m; sourceTree = "<group>"; };
 		005E6A8515647602004198B6 /* EmailInfoActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoActionView.h; sourceTree = "<group>"; };
 		005E6A8615647602004198B6 /* EmailInfoActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoActionView.m; sourceTree = "<group>"; };
+		00699542157D77E3008D50A4 /* libmailcore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmailcore.a; path = "../MailCore/build/Release-iphoneos/libmailcore.a"; sourceTree = "<group>"; };
 		006D663F156D4BC800074979 /* TrashMsgListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrashMsgListViewController.h; sourceTree = "<group>"; };
 		006D6640156D4BC800074979 /* TrashMsgListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrashMsgListViewController.m; sourceTree = "<group>"; };
 		006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ResultraGenericLibResources.bundle; path = "../../../Library/Developer/Xcode/DerivedData/MailCleaner-dtuamkacbllkfkggcpkuqouuqrpt/Build/Products/Debug-iphonesimulator/ResultraGenericLibResources.bundle"; sourceTree = "<group>"; };
@@ -132,6 +140,12 @@
 		007ABE8B156AB618004BA8BF /* MailCleanerSpec.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MailCleanerSpec.md; sourceTree = "<group>"; };
 		009E32081567E4C500233276 /* AgeFilterFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeFilterFieldEditInfo.h; sourceTree = "<group>"; };
 		009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgeFilterFieldEditInfo.m; sourceTree = "<group>"; };
+		00C4AB081581764900E0868A /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libcrypto.a; path = "../MailCore/iOSPorts/ports/security/openssl/build/Release-iphoneos/libcrypto.a"; sourceTree = "<group>"; };
+		00C4AB091581764900E0868A /* libetpan_ios.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libetpan_ios.a; path = "../MailCore/libetpan/build-mac/build/Release-iphoneos/libetpan_ios.a"; sourceTree = "<group>"; };
+		00C4AB0A1581764900E0868A /* libsasl2.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libsasl2.a; path = "../MailCore/iOSPorts/ports/security/cyrus-sasl/build/Release-iphoneos/libsasl2.a"; sourceTree = "<group>"; };
+		00C4AB0B1581764900E0868A /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libssl.a; path = "../MailCore/iOSPorts/ports/security/openssl/build/Release-iphoneos/libssl.a"; sourceTree = "<group>"; };
+		00C4AB11158177C400E0868A /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		00C4AB131581784900E0868A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		00D498611575380600F8FD2F /* MsgListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgListView.h; sourceTree = "<group>"; };
 		00D498621575380600F8FD2F /* MsgListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgListView.m; sourceTree = "<group>"; };
 		00D4986F1575BCF700F8FD2F /* lock-closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-closed.png"; sourceTree = "<group>"; };
@@ -164,6 +178,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00C4AB15158178FC00E0868A /* libiconv.dylib in Frameworks */,
+				00C4AB141581784900E0868A /* CFNetwork.framework in Frameworks */,
+				00699543157D77E3008D50A4 /* libmailcore.a in Frameworks */,
+				00C4AB0C1581764900E0868A /* libcrypto.a in Frameworks */,
+				00C4AB0D1581764900E0868A /* libetpan_ios.a in Frameworks */,
+				00C4AB0E1581764900E0868A /* libsasl2.a in Frameworks */,
+				00C4AB0F1581764900E0868A /* libssl.a in Frameworks */,
 				003D599515641A3F00AD3D91 /* CoreData.framework in Frameworks */,
 				000567041562FFC4003D114D /* libResultraGenericLib.a in Frameworks */,
 				000566921562F94C003D114D /* UIKit.framework in Frameworks */,
@@ -190,6 +211,13 @@
 		000566821562F94C003D114D = {
 			isa = PBXGroup;
 			children = (
+				00C4AB131581784900E0868A /* CFNetwork.framework */,
+				00C4AB11158177C400E0868A /* libiconv.dylib */,
+				00C4AB081581764900E0868A /* libcrypto.a */,
+				00C4AB091581764900E0868A /* libetpan_ios.a */,
+				00C4AB0A1581764900E0868A /* libsasl2.a */,
+				00C4AB0B1581764900E0868A /* libssl.a */,
+				00699542157D77E3008D50A4 /* libmailcore.a */,
 				0017B75815796A81001D5D28 /* libResultraGenericLib.a */,
 				006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */,
 				007ABE8E156AB631004BA8BF /* Development Docs */,
@@ -647,11 +675,15 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MailCleaner/MailCleaner-Prefix.pch";
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/..\"/**";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/..\"/**",
+					"\"$(SRCROOT)/../MailCore/include\"/**",
+				);
 				INFOPLIST_FILE = "MailCleaner/MailCleaner-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../MailCore/build/Release-iphoneos\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -663,11 +695,15 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MailCleaner/MailCleaner-Prefix.pch";
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/..\"/**";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/..\"/**",
+					"\"$(SRCROOT)/../MailCore/include\"/**",
+				);
 				INFOPLIST_FILE = "MailCleaner/MailCleaner-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../MailCore/build/Release-iphoneos\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
