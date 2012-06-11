@@ -26,6 +26,12 @@
 		EMAIL_INFO_TRASHED_KEY,[NSNumber numberWithBool:isTrashed]];
 }
 
++(NSPredicate*)markedForDeletion
+{
+	return [NSPredicate predicateWithFormat:@"%K == %@",
+		EMAIL_INFO_DELETED_KEY,[NSNumber numberWithBool:TRUE]];
+}
+
 +(NSPredicate*)trashedByMsgRules:(DataModelController*)appDmc andBaseDate:(NSDate*)baseDate
 {
 

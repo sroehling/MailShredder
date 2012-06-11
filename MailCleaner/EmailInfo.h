@@ -14,10 +14,13 @@ extern NSString * const EMAIL_INFO_SEND_DATE_KEY;
 
 extern NSString * const EMAIL_INFO_LOCKED_KEY;
 extern NSString * const EMAIL_INFO_TRASHED_KEY;
+extern NSString * const EMAIL_INFO_DELETED_KEY;
 extern NSString * const EMAIL_INFO_SELECTED_IN_MSG_LIST_KEY;
 
 
 @interface EmailInfo : NSManagedObject
+
+@property (nonatomic, retain) NSString * messageId;
 
 @property (nonatomic, retain) NSDate * sendDate;
 @property (nonatomic, retain) NSString * from;
@@ -27,6 +30,11 @@ extern NSString * const EMAIL_INFO_SELECTED_IN_MSG_LIST_KEY;
 
 @property (nonatomic, retain) NSNumber * locked;
 @property (nonatomic, retain) NSNumber * trashed;
+
+// If marked as deleted, it will be deleted on the server
+// as soon as possible.
+@property (nonatomic, retain) NSNumber * deleted;
+
 
 
 @end

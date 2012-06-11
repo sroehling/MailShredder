@@ -17,6 +17,7 @@
 		SharedAppVals *testAppVals;
 		DataModelController *appDataDmc;
 		DataModelController *emailInfoDmc;
+		NSInteger currMessageId;
 }
 
 @property(nonatomic,retain) SharedAppVals *testAppVals;

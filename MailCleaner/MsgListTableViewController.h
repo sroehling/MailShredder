@@ -29,6 +29,7 @@
 
 -(NSPredicate*)msgListPredicate;
 -(NSArray *)selectedInMsgList;
+-(NSArray*)allMsgsInMsgList;
 
 - (id)initWithEmailInfoDataModelController:(DataModelController*)theEmailInfoDmc
 	andAppDataModelController:(DataModelController*)theAppDmc;

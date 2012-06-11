@@ -13,7 +13,7 @@
 #import "PopupButtonListView.h"
 #import "DataModelController.h"
 #import "MsgListView.h"
-
+#import "MailClientServerSyncController.h"
 #import "MsgPredicateHelper.h"
 
 #import "DateHelper.h"
@@ -71,6 +71,34 @@
 	[self.msgListView.msgListTableView reloadData];
 }
 
+-(void)deleteTrashedMsgList:(NSArray*)trashedMsgs
+{
+	for (EmailInfo *info in trashedMsgs)
+	{
+		info.selectedInMsgList = [NSNumber numberWithBool:FALSE];
+		info.deleted = [NSNumber numberWithBool:TRUE];
+		
+	}
+	[self.emailInfoDmc saveContext];
+	[self.msgListView.msgListTableView reloadData];
+	
+	MailClientServerSyncController *mailSync = [[[MailClientServerSyncController alloc] 
+			initWithDataModelController:self.emailInfoDmc] autorelease];
+	[mailSync deleteMarkedMsgs];	
+
+}
+
+-(void)deleteAllTrashedMsgsButtonPressed
+{
+	NSLog(@"Delete All Trashed Messages button pressed");
+	[self deleteTrashedMsgList:[self allMsgsInMsgList]];
+}
+
+-(void)deleteSelectedTrashedMsgsButtonPressed
+{
+	NSLog(@"Delete Selected Messages button pressed");
+	[self deleteTrashedMsgList:[self selectedInMsgList]];
+}
 
 #pragma mark EmailActionViewDelegate
 
@@ -87,6 +115,15 @@
 	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
 		initWithTitle:LOCALIZED_STR(@"TRASH_LIST_ACTION_UNTRASH_BUTTON_TITLE")
 		 andTarget:self andSelector:@selector(untrashMsgsButtonPressed)] autorelease]];
+
+	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
+		initWithTitle:LOCALIZED_STR(@"TRASH_LIST_ACTION_DELETE_SELECTED_BUTTON_TITLE")
+		 andTarget:self andSelector:@selector(deleteSelectedTrashedMsgsButtonPressed)] autorelease]];
+
+	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
+		initWithTitle:LOCALIZED_STR(@"TRASH_LIST_ACTION_DELETE_ALL_BUTTON_TITLE")
+		 andTarget:self andSelector:@selector(deleteAllTrashedMsgsButtonPressed)] autorelease]];
+
 	
 	PopupButtonListView *popupActionList = [[[PopupButtonListView alloc]
 		initWithFrame:self.navigationController.view.frame 

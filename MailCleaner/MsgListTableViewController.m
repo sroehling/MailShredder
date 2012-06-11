@@ -98,7 +98,7 @@
 	
 }
 
--(void)configureFetchedResultsController
+-(NSFetchRequest*)allMsgsFetchRequest
 {
 	NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
 	NSEntityDescription *entity = [NSEntityDescription
@@ -111,11 +111,22 @@
 	[fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
 	[fetchRequest setPredicate:[self msgListPredicate]];	
 	[fetchRequest setFetchBatchSize:20];
+	return fetchRequest;
+}
+
+-(NSArray*)allMsgsInMsgList
+{
+	return [CoreDataHelper executeFetchOrThrow:[self allMsgsFetchRequest] 
+		inManagedObectContext:self.emailInfoDmc.managedObjectContext];
+}
+
+-(void)configureFetchedResultsController
+{
  
 	self.emailInfoFrc = [[[NSFetchedResultsController alloc] 
-			initWithFetchRequest:fetchRequest
-			managedObjectContext:self.emailInfoDmc.managedObjectContext sectionNameKeyPath:nil
-			cacheName:nil] autorelease];
+			initWithFetchRequest:[self allMsgsFetchRequest]
+			managedObjectContext:self.emailInfoDmc.managedObjectContext 
+			sectionNameKeyPath:nil cacheName:nil] autorelease];
 	self.emailInfoFrc.delegate = self;
 
  

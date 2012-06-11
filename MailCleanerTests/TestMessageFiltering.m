@@ -44,6 +44,8 @@
 	newEmailInfo.subject = subject;
 	newEmailInfo.locked = [NSNumber numberWithBool:msgIsLocked];
 	newEmailInfo.trashed = [NSNumber numberWithBool:msgIsTrashed];
+	newEmailInfo.messageId = [NSString stringWithFormat:@"MSG%06d",currMessageId];
+	currMessageId ++;
 	[self.emailInfoDmc saveContext];
 }
 
@@ -58,6 +60,8 @@
 	self.emailInfoDmc = [[[DataModelController alloc] 
 			initForInMemoryStorageWithDataModelNamed:EMAIL_INFO_DATA_MODEL_NAME 
 			andStoreNamed:EMAIL_INFO_STORE_NAME] autorelease];
+			
+	currMessageId = 0;
 }
 
 -(void)checkFilteredEmailsInfos:(NSArray*)expectedSubjects 

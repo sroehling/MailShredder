@@ -19,6 +19,7 @@
 #import "GenericFieldBasedTableEditViewController.h"
 #import "SharedAppVals.h"
 #import "RulesFormInfoCreator.h"
+#import "MailClientServerSyncController.h"
 
 @implementation AppDelegate
 
@@ -45,6 +46,7 @@
 	
 	if(![emailInfoDmc entitiesExistForEntityName:EMAIL_INFO_ENTITY_NAME])
 	{
+		NSInteger msgNum =0;
 		for(NSString *line in lines)
 		{
 			NSLog(@"email: %@",line);
@@ -56,6 +58,8 @@
 			newEmailInfo.sendDate = [DateHelper dateFromStr:[fields objectAtIndex:0]];
 			newEmailInfo.from = [fields objectAtIndex:1];
 			newEmailInfo.subject = [fields objectAtIndex:2];
+			newEmailInfo.messageId = [NSString stringWithFormat:@"%04d",msgNum];
+			msgNum++;
 		}
 		
 		[emailInfoDmc saveContext];
@@ -71,41 +75,17 @@
 
 }
 
--(void)retrieveEmails
+-(void)retrieveEmails:(DataModelController *)emailInfoDmc
 {
-	CTCoreAccount *testAccount = [[CTCoreAccount alloc] init];
-	
-	[testAccount connectToServer:@"debianvm" port:143
-		connectionType:CONNECTION_TYPE_PLAIN
-		authType:IMAP_AUTH_TYPE_PLAIN 
-		login:@"testimapuser@debianvm.local" password:@"pass"];
-
-	
-	CTCoreFolder *inbox = [testAccount folderWithPath:@"INBOX"];
-    NSLog(@"INBOX %@", inbox);
-    // set the toIndex to 0 so all messages are loaded
-    NSSet *messageSet = [inbox messageObjectsFromIndex:1 toIndex:0];
-    NSLog(@"Done getting list of messages...");
-
-    NSEnumerator *objEnum = [messageSet objectEnumerator];
-    CTCoreMessage *msg;
-
-    while(msg = [objEnum nextObject]) {
- 		[msg fetchBodyStructure];
-		NSLog(@"Msg: %@[%@] - %@",
-			msg.messageId,[DateHelper stringFromDate:msg.senderDate],msg.subject);
-    }
-
-	
-	[testAccount release];
+	MailClientServerSyncController *mailSync = [[[MailClientServerSyncController alloc] 
+			initWithDataModelController:emailInfoDmc] autorelease];
+	[mailSync syncWithServer];	
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-
-	[self populateDatabaseWithDummyEmails];
-//	[self retrieveEmails];
+//	[self populateDatabaseWithDummyEmails];
 	
 	[SharedAppVals initFromDatabase];
 
@@ -116,6 +96,8 @@
 	
 	DataModelController *emailInfoDmc = [AppHelper emailInfoDataModelController];
 	DataModelController *appDmc = [AppHelper appDataModelController];
+
+	[self retrieveEmails:emailInfoDmc];
 
 	
 	EmailInfoTableViewController *msgListController = [[[EmailInfoTableViewController alloc] 

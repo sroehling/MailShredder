@@ -14,6 +14,7 @@
 
 +(NSPredicate*)trashedByUser:(BOOL)isTrashed;
 +(NSPredicate*)lockedByUser:(BOOL)isLocked;
++(NSPredicate*)markedForDeletion;
 
 +(NSPredicate*)trashedByMsgRules:(DataModelController*)appDmc andBaseDate:(NSDate*)baseDate;
 +(NSPredicate*)trashedByUserOrRules:(DataModelController*)appDmc andBaseDate:(NSDate*)baseDate;
