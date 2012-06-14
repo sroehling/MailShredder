@@ -19,6 +19,7 @@
 #import "AgeFilterComparison.h"
 #import "AgeFilterNone.h"
 #import "TrashRule.h"
+#import "FolderInfo.h"
 #import "ExclusionRule.h"
 
 @implementation TestMessageFiltering
@@ -26,6 +27,7 @@
 @synthesize testAppVals;
 @synthesize appDataDmc;
 @synthesize emailInfoDmc;
+@synthesize testFolder;
 
 - (void)setUp
 {
@@ -45,6 +47,7 @@
 	newEmailInfo.locked = [NSNumber numberWithBool:msgIsLocked];
 	newEmailInfo.trashed = [NSNumber numberWithBool:msgIsTrashed];
 	newEmailInfo.messageId = [NSString stringWithFormat:@"MSG%06d",currMessageId];
+	newEmailInfo.folderInfo = self.testFolder;
 	currMessageId ++;
 	[self.emailInfoDmc saveContext];
 }
@@ -57,9 +60,13 @@
 			
 	self.testAppVals = [SharedAppVals createWithDataModelController:self.appDataDmc];
 	
+	
 	self.emailInfoDmc = [[[DataModelController alloc] 
 			initForInMemoryStorageWithDataModelNamed:EMAIL_INFO_DATA_MODEL_NAME 
 			andStoreNamed:EMAIL_INFO_STORE_NAME] autorelease];
+
+	self.testFolder = (FolderInfo*)[self.emailInfoDmc insertObject:FOLDER_INFO_ENTITY_NAME];
+	self.testFolder.fullyQualifiedName = @"TESTINBOX";
 			
 	currMessageId = 0;
 }
@@ -107,6 +114,7 @@
 	[appDataDmc release];
 	[emailInfoDmc release];
 	[testAppVals release];
+	[testFolder release];
     
     [super tearDown];
 }

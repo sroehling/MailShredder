@@ -28,4 +28,7 @@ NSString * const EMAIL_INFO_SELECTED_IN_MSG_LIST_KEY = @"selectedInMsgList";
 @dynamic trashed;
 @dynamic deleted;
 
+@dynamic folderInfo;
+
+
 @end

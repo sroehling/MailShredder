@@ -17,6 +17,8 @@ extern NSString * const EMAIL_INFO_TRASHED_KEY;
 extern NSString * const EMAIL_INFO_DELETED_KEY;
 extern NSString * const EMAIL_INFO_SELECTED_IN_MSG_LIST_KEY;
 
+@class FolderInfo;
+
 
 @interface EmailInfo : NSManagedObject
 
@@ -35,6 +37,7 @@ extern NSString * const EMAIL_INFO_SELECTED_IN_MSG_LIST_KEY;
 // as soon as possible.
 @property (nonatomic, retain) NSNumber * deleted;
 
+@property (nonatomic, retain) FolderInfo *folderInfo;
 
 
 @end
