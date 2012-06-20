@@ -15,6 +15,7 @@ extern NSString * const EMAIL_INFO_SEND_DATE_KEY;
 extern NSString * const EMAIL_INFO_LOCKED_KEY;
 extern NSString * const EMAIL_INFO_TRASHED_KEY;
 extern NSString * const EMAIL_INFO_DELETED_KEY;
+extern NSString * const EMAIL_INFO_FROM_KEY;
 extern NSString * const EMAIL_INFO_SELECTED_IN_MSG_LIST_KEY;
 
 @class FolderInfo;

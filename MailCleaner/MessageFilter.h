@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 
 @class AgeFilter;
+@class EmailAddressFilter;
 @class SharedAppVals;
 
 extern NSString * const MESSAGE_FILTER_ENTITY_NAME;
@@ -19,6 +20,7 @@ extern NSString * const MESSAGE_FILTER_AGE_FILTER_KEY;
 
 @property (nonatomic, retain) NSString * filterName;
 @property (nonatomic, retain) AgeFilter *ageFilter;
+@property (nonatomic, retain) EmailAddressFilter *emailAddressFilter;
 
 // Inverse
 @property (nonatomic, retain) SharedAppVals *sharedAppValsMsgListFilter;

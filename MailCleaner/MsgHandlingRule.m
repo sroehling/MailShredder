@@ -8,6 +8,7 @@
 
 #import "MsgHandlingRule.h"
 #import "AgeFilter.h"
+#import "EmailAddressFilter.h"
 
 NSString * const RULE_ENABLED_KEY = @"enabled";
 NSString * const RULE_AGE_FILTER_KEY = @"ageFilter";
@@ -16,6 +17,7 @@ NSString * const RULE_AGE_FILTER_KEY = @"ageFilter";
 
 @dynamic enabled;
 @dynamic ageFilter;
+@dynamic emailAddressFilter;
 
 -(NSString*)ruleSynopsis
 {
@@ -32,6 +34,10 @@ NSString * const RULE_AGE_FILTER_KEY = @"ageFilter";
 		NSPredicate *agePredicate = [self.ageFilter filterPredicate:baseDate];
 		assert(agePredicate != nil);
 		[predicates addObject:agePredicate];
+		
+		NSPredicate *emailAddressPredicate = [self.emailAddressFilter filterPredicate];
+		assert(emailAddressPredicate != nil);
+		[predicates addObject:emailAddressPredicate];
 		
 		NSPredicate *compoundPredicate = [NSCompoundPredicate 
 				andPredicateWithSubpredicates:predicates];

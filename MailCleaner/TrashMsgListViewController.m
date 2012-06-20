@@ -83,7 +83,8 @@
 	[self.msgListView.msgListTableView reloadData];
 	
 	MailClientServerSyncController *mailSync = [[[MailClientServerSyncController alloc] 
-			initWithDataModelController:self.emailInfoDmc] autorelease];
+			initWithDataModelController:self.emailInfoDmc
+			andAppDataDmc:self.filterDmc] autorelease];
 	[mailSync deleteMarkedMsgs];	
 
 }

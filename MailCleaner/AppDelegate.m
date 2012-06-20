@@ -75,10 +75,11 @@
 
 }
 
--(void)retrieveEmails:(DataModelController *)emailInfoDmc
+-(void)retrieveEmails:(DataModelController *)emailInfoDmc 
+	andAppDataDmc:(DataModelController*)appDataDmc
 {
 	MailClientServerSyncController *mailSync = [[[MailClientServerSyncController alloc] 
-			initWithDataModelController:emailInfoDmc] autorelease];
+			initWithDataModelController:emailInfoDmc andAppDataDmc:appDataDmc] autorelease];
 	[mailSync syncWithServer];	
 }
 
@@ -97,7 +98,7 @@
 	DataModelController *emailInfoDmc = [AppHelper emailInfoDataModelController];
 	DataModelController *appDmc = [AppHelper appDataModelController];
 
-	[self retrieveEmails:emailInfoDmc];
+	[self retrieveEmails:emailInfoDmc andAppDataDmc:appDmc];
 
 	
 	EmailInfoTableViewController *msgListController = [[[EmailInfoTableViewController alloc] 

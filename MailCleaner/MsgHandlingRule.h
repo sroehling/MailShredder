@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 
 @class AgeFilter;
+@class EmailAddressFilter;
 
 extern NSString * const RULE_ENABLED_KEY;
 extern NSString * const RULE_AGE_FILTER_KEY;
@@ -18,6 +19,7 @@ extern NSString * const RULE_AGE_FILTER_KEY;
 
 @property (nonatomic, retain) NSNumber * enabled;
 @property (nonatomic, retain) AgeFilter *ageFilter;
+@property (nonatomic, retain) EmailAddressFilter *emailAddressFilter;
 
 -(NSString*)ruleSynopsis;
 -(NSPredicate*)rulePredicate:(NSDate*)baseDate;

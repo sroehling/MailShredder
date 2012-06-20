@@ -12,19 +12,25 @@
 #import "EmailInfo.h"
 #import "FolderInfo.h"
 #import "MsgPredicateHelper.h"
+#import "EmailAddress.h"
 
 @implementation MailClientServerSyncController
 
 @synthesize mailAcct;
 @synthesize emailInfoDmc;
+@synthesize appDataDmc;
 
 -(id)initWithDataModelController:(DataModelController*)theDmcForEmailInfo
+	andAppDataDmc:(DataModelController*)theAppDataDmc
 {
 	self = [super init];
 	if(self)
 	{
 		assert(theDmcForEmailInfo != nil);
 		self.emailInfoDmc = theDmcForEmailInfo;
+		
+		assert(theAppDataDmc != nil);
+		self.appDataDmc = theAppDataDmc;
 	
 	}
 	return self;
@@ -59,6 +65,7 @@
 {
 	[mailAcct release];
 	[emailInfoDmc release];
+	[appDataDmc release];
 	[super dealloc];
 }
 
@@ -82,6 +89,12 @@
 
 	[self connect];
 	
+	NSSet *currEmailAddresses = [self.appDataDmc fetchObjectsForEntityName:EMAIL_ADDRESS_ENTITY_NAME]; 
+	NSMutableDictionary *currEmailAddressByAddress = [[[NSMutableDictionary alloc] init] autorelease];
+	for(EmailAddress *currAddr in currEmailAddresses)
+	{
+		[currEmailAddressByAddress setObject:currAddr forKey:currAddr.address];
+	}
 	
 	NSSet *currFolderInfo = [self.emailInfoDmc fetchObjectsForEntityName:FOLDER_INFO_ENTITY_NAME];
 	for (FolderInfo *currFolder in currFolderInfo)
@@ -112,7 +125,17 @@
 			{
 				NSLog(@"Sync msg: uid= %@, msg id = %@, send date = %@, subj = %@", msg.uid,msg.messageId,
 					[DateHelper stringFromDate:msg.senderDate],msg.subject);
-				[self emailInfoFromServerMsg:msg andFolderInfo:folderInfo];
+				EmailInfo *newEmailInfo = [self emailInfoFromServerMsg:msg andFolderInfo:folderInfo];
+				
+				// Update the list of known senders' addresses, if the address is not
+				// already in the list.
+				EmailAddress *newEmailAddr = [currEmailAddressByAddress objectForKey:newEmailInfo.from];
+				if(newEmailAddr == nil)
+				{
+					newEmailAddr = [self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
+					newEmailAddr.address = newEmailInfo.from;
+				}
+				
 				numNewMsgs ++;
 					
 			}
@@ -124,6 +147,7 @@
 	}
 	
 	[self.emailInfoDmc saveContext];
+	[self.appDataDmc saveContext];
 
 	NSLog(@"Done synchronizing messages: new msgs = %d, total server msgs = %d",
 		numNewMsgs, totalMsgs);

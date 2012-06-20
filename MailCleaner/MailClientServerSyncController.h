@@ -15,12 +15,15 @@
 	@private
 		CTCoreAccount *mailAcct;
 		DataModelController *emailInfoDmc;
+		DataModelController *appDataDmc;
 }
 
 @property(nonatomic,retain) CTCoreAccount *mailAcct;
 @property(nonatomic,retain) DataModelController *emailInfoDmc;
+@property(nonatomic,retain) DataModelController *appDataDmc;
 
--(id)initWithDataModelController:(DataModelController*)theDmcForEmailInfo;
+-(id)initWithDataModelController:(DataModelController*)theDmcForEmailInfo
+	andAppDataDmc:(DataModelController*)theAppDataDmc;
 
 -(void)syncWithServer;
 -(void)deleteMarkedMsgs;

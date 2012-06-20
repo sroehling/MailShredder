@@ -10,11 +10,13 @@
 #import "ManagedObjectFieldInfo.h"
 #import "AgeFilterFormInfoCreator.h"
 #import "SelectableObjectTableViewControllerFactory.h"
+#import "GenericFieldBasedTableEditViewControllerFactory.h"
 #import "StaticNavFieldEditInfo.h"
 #import "StringValidation.h"
 #import "LocalizationHelper.h"
 #import "AgeFilter.h"
 #import "SectionInfo.h"
+#import "EmailAddressFilterFormInfoCreator.h"
 #import "BoolFieldEditInfo.h"
 #import "MsgHandlingRule.h"
 
@@ -53,6 +55,22 @@
 			andSubViewFactory:ageFilterViewFactory] autorelease];
 	[self.currentSection addFieldEditInfo:messageAgeFieldEditInfo];		
 
+}
+
+-(void)populateEmailAddressFilter:(EmailAddressFilter*)emailAddressFilter
+{
+	EmailAddressFilterFormInfoCreator *addrFilterFormInfoCreator = 
+		[[[EmailAddressFilterFormInfoCreator alloc] 
+			initWithEmailAddressFilter:emailAddressFilter] autorelease];
+
+	StaticNavFieldEditInfo *messageAddrFieldEditInfo = 
+		[[[StaticNavFieldEditInfo alloc] 
+			initWithCaption:LOCALIZED_STR(@"EMAIL_ADDRESS_TITLE") 
+		andSubtitle:LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_SUBTITLE")
+		andContentDescription:[emailAddressFilter filterSynopsis]
+		andSubFormInfoCreator:addrFilterFormInfoCreator] autorelease];
+		
+	[self.currentSection addFieldEditInfo:messageAddrFieldEditInfo];
 }
 
 

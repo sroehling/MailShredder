@@ -13,6 +13,7 @@
 #import "AgeFilterNone.h"
 #import "CoreDataHelper.h"
 #import "AgeFilterComparison.h"
+#import "EmailAddressFilter.h"
 
 NSString * const SHARED_APP_VALS_ENTITY_NAME = @"SharedAppVals";
 
@@ -58,10 +59,11 @@ NSString * const SHARED_APP_VALS_ENTITY_NAME = @"SharedAppVals";
 		andComparisonType:AGE_FILTER_COMPARISON_OLDER andInterval:3 andTimeUnit:AGE_FILTER_COMPARISON_TIME_UNIT_MONTHS];
 	sharedVals.defaultAgeFilterOlder6Months = [AgeFilterComparison filterWithDataModelController:dataModelController 
 		andComparisonType:AGE_FILTER_COMPARISON_OLDER andInterval:6 andTimeUnit:AGE_FILTER_COMPARISON_TIME_UNIT_MONTHS];
-	
-	
+		
 	sharedVals.msgListFilter = (MessageFilter*)[dataModelController insertObject:MESSAGE_FILTER_ENTITY_NAME];
 	sharedVals.msgListFilter.ageFilter = sharedVals.defaultAgeFilterNone;
+	sharedVals.msgListFilter.emailAddressFilter = (EmailAddressFilter*)
+		[dataModelController insertObject:EMAIL_ADDRESS_FILTER_ENTITY_NAME];
 	
 	return sharedVals;
 }

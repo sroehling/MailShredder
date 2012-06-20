@@ -9,11 +9,14 @@
 #import "FormPopulator.h"
 
 @class MsgHandlingRule;
+@class EmailAddressFilter;
 
 @interface MailCleanerFormPopulator : FormPopulator
 
 -(void)populateAgeFilterInParentObj:(NSManagedObject*)parentObj
 	withAgeFilterPropertyKey:(NSString*)ageFilterKey;
+	
+-(void)populateEmailAddressFilter:(EmailAddressFilter*)emailAddressFilter;	
 
 -(void)populateRuleEnabled:(MsgHandlingRule*)theRule withSubtitle:(NSString*)subTitle;
 

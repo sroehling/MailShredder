@@ -46,7 +46,9 @@
 	
 	[formPopulator populateAgeFilterInParentObj:self.msgFilter 
 		withAgeFilterPropertyKey:MESSAGE_FILTER_AGE_FILTER_KEY];
-			
+		
+	[formPopulator populateEmailAddressFilter:self.msgFilter.emailAddressFilter];
+					
 	return formPopulator.formInfo;
 }
 
