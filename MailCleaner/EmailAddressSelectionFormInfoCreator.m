@@ -59,10 +59,15 @@
 		fetchObjectsForEntityName:EMAIL_ADDRESS_ENTITY_NAME];
 	for(EmailAddress *senderAddress in senderAddresses)
 	{
-		EmailAddressFieldEditInfo *senderAddrFieldEditInfo = 
-			[[[EmailAddressFieldEditInfo alloc] 
-				initWithEmailAddress:senderAddress] autorelease];
-		[formPopulator.currentSection addFieldEditInfo:senderAddrFieldEditInfo];
+		// Only display the address for selection if 
+		// it is not already in the set of selected addresses.
+		if([self.emailAddressFilter.selectedAddresses member:senderAddress] == nil)
+		{
+			EmailAddressFieldEditInfo *senderAddrFieldEditInfo = 
+				[[[EmailAddressFieldEditInfo alloc] 
+					initWithEmailAddress:senderAddress] autorelease];
+			[formPopulator.currentSection addFieldEditInfo:senderAddrFieldEditInfo];
+		}
 	}
 
 			
