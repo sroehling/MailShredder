@@ -134,6 +134,7 @@
 				{
 					newEmailAddr = [self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
 					newEmailAddr.address = newEmailInfo.from;
+					[currEmailAddressByAddress setObject:newEmailAddr forKey:newEmailAddr.address];
 				}
 				
 				numNewMsgs ++;
