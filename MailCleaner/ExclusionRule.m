@@ -8,6 +8,11 @@
 
 #import "ExclusionRule.h"
 #import "AgeFilter.h"
+#import "DataModelController.h"
+#import "SharedAppVals.h"
+#import "EmailAddressFilter.h"
+#import "AgeFilter.h"
+#import "AgeFilterNone.h"
 
 NSString * const EXCLUSION_RULE_ENTITY_NAME = @"ExclusionRule";
 
@@ -16,6 +21,20 @@ NSString * const EXCLUSION_RULE_ENTITY_NAME = @"ExclusionRule";
 -(NSString*)ruleSynopsis
 {
 	return [NSString stringWithFormat:@"Don't trash messages if ... %@",[self.ageFilter filterSynopsis]];
+}
+
++(ExclusionRule*)createNewDefaultRule:(DataModelController*)dmcForNewRule
+{
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:dmcForNewRule];
+
+	ExclusionRule *newRule = (ExclusionRule*)
+		[dmcForNewRule insertObject:EXCLUSION_RULE_ENTITY_NAME];
+	newRule.ageFilter = sharedAppVals.defaultAgeFilterNone;
+	newRule.emailAddressFilter = (EmailAddressFilter*)
+		[dmcForNewRule insertObject:EMAIL_ADDRESS_FILTER_ENTITY_NAME];
+		
+	return newRule;
+
 }
 
 

@@ -21,6 +21,8 @@
 #import "TrashRule.h"
 #import "FolderInfo.h"
 #import "ExclusionRule.h"
+#import "EmailAddress.h"
+#import "EmailAddressFilter.h"
 
 @implementation TestMessageFiltering
 
@@ -144,6 +146,7 @@
 		andFilterPredicate:[MsgPredicateHelper trashedByUser:NO]];
 }
 
+
 - (void)testLockedMsgs
 {
 	[self resetCoreData];
@@ -203,6 +206,47 @@
 	
 }
 
+- (void)testEmailAddressFilter
+{
+	[self resetCoreData];
+
+	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+	
+	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane" andTrashed:TRUE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2012-02-01" andSubject:@"S02" andFrom:@"bob" andTrashed:TRUE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2012-03-01" andSubject:@"S03" andFrom:@"dan" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2012-04-01" andSubject:@"S04" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2012-05-01" andSubject:@"S05" andFrom:@"sally" andTrashed:FALSE andLocked:FALSE];
+
+	// Filtering for Jane should include S01 and S04
+	EmailAddress *janeEmailAddr = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
+	janeEmailAddr.address = @"jane";
+	[self.testAppVals.msgListFilter.emailAddressFilter addSelectedAddressesObject:janeEmailAddr];
+	NSPredicate *filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S04", nil];
+	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
+	
+	// Also filtering for Dan should additionally include S03
+	EmailAddress *danEmailAddr = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
+	danEmailAddr.address = @"dan";
+	[self.testAppVals.msgListFilter.emailAddressFilter addSelectedAddressesObject:danEmailAddr];
+	filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S03",@"S04", nil];
+	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
+
+
+	// Filtering for Steve shouldn't change the results, since there are no messages from Steve
+	EmailAddress *steveEmailAddr = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
+	steveEmailAddr.address = @"steve";
+	[self.testAppVals.msgListFilter.emailAddressFilter addSelectedAddressesObject:danEmailAddr];
+	filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S03",@"S04", nil];
+	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
+
+	
+}
+
+
 - (void)testTrashRule
 {
 	[self resetCoreData];
@@ -215,7 +259,7 @@
 	
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 	
-	TrashRule *trashRule = (TrashRule*)[self.appDataDmc insertObject:TRASH_RULE_ENTITY_NAME];
+	TrashRule *trashRule = [TrashRule createNewDefaultRule:self.appDataDmc];
 
 	// Don't trash anything
 	trashRule.ageFilter = self.testAppVals.defaultAgeFilterNone;
@@ -250,8 +294,8 @@
 	
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 	
-	TrashRule *trashRule = (TrashRule*)[self.appDataDmc insertObject:TRASH_RULE_ENTITY_NAME];
-	ExclusionRule *exclusionRule = (ExclusionRule*)[self.appDataDmc insertObject:EXCLUSION_RULE_ENTITY_NAME];
+	TrashRule *trashRule = [TrashRule createNewDefaultRule:self.appDataDmc];
+	ExclusionRule *exclusionRule = [ExclusionRule createNewDefaultRule:self.appDataDmc];
 
 	// Trashing older than 3 months includes - S02, S03, S04, S05
 	// Excluding newer than 6 months includes - S01, S02
@@ -298,8 +342,8 @@
 	
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 	
-	TrashRule *trashRule01 = (TrashRule*)[self.appDataDmc insertObject:TRASH_RULE_ENTITY_NAME];
-	TrashRule *trashRule02 = (TrashRule*)[self.appDataDmc insertObject:TRASH_RULE_ENTITY_NAME];
+	TrashRule *trashRule01 = [TrashRule createNewDefaultRule:self.appDataDmc];
+	TrashRule *trashRule02 = [TrashRule createNewDefaultRule:self.appDataDmc];
 
 	trashRule01.ageFilter = self.testAppVals.defaultAgeFilterOlder1Year;
 	trashRule02.ageFilter = self.testAppVals.defaultAgeFilterNewer3Months;
@@ -328,7 +372,7 @@
 	
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 	
-	TrashRule *trashRule01 = (TrashRule*)[self.appDataDmc insertObject:TRASH_RULE_ENTITY_NAME];
+	TrashRule *trashRule01 = [TrashRule createNewDefaultRule:self.appDataDmc];
 
 	trashRule01.ageFilter = self.testAppVals.defaultAgeFilterOlder1Year;
 	trashRule01.enabled = [NSNumber numberWithBool:FALSE];
@@ -339,6 +383,62 @@
 	
 }
 
+
+- (void)testTrashRuleWithEmailAddressFilter
+{
+	[self resetCoreData];
+	
+	[self populateTestEmailWithSendDate:@"2012-12-30" andSubject:@"S01" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2012-10-15" andSubject:@"S02" andFrom:@"bob" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2012-09-15" andSubject:@"S03" andFrom:@"dan" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2012-01-02" andSubject:@"S05" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S05" andFrom:@"sally" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S06" andFrom:@"steve" andTrashed:FALSE andLocked:FALSE];
+	
+	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+	
+	TrashRule *trashRule01 = [TrashRule createNewDefaultRule:self.appDataDmc];
+
+
+	EmailAddress *janeEmailAddr = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
+	janeEmailAddr.address = @"jane";
+	
+	[trashRule01.emailAddressFilter addSelectedAddressesObject:janeEmailAddr];
+	NSPredicate *filterPredicate = [MsgPredicateHelper trashedByMsgRules:self.appDataDmc andBaseDate:baseDate];
+	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S05", nil];
+	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
+}
+
+
+- (void)testExclusionRuleWithAddressFiltering
+{
+	[self resetCoreData];
+	
+	[self populateTestEmailWithSendDate:@"2012-10-15" andSubject:@"S01" andFrom:@"bob" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2012-09-15" andSubject:@"S02" andFrom:@"bob" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S03" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2010-01-01" andSubject:@"S04" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S05" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
+	
+	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+	
+	TrashRule *trashRule = [TrashRule createNewDefaultRule:self.appDataDmc];
+	ExclusionRule *exclusionRule = [ExclusionRule createNewDefaultRule:self.appDataDmc];
+
+	// Trashing older than 3 months includes - S02, S03, S04, S05
+	trashRule.ageFilter = self.testAppVals.defaultAgeFilterOlder3Months;
+	
+	// Excluding messages sent from "bob" includes - S01, S02
+	// The results should be S03, S04, S05 (S02 got excluded)
+	EmailAddress *bobEmailAddress = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
+	bobEmailAddress.address = @"bob";
+	[exclusionRule.emailAddressFilter addSelectedAddressesObject:bobEmailAddress];
+
+	NSPredicate *filterPredicate = [MsgPredicateHelper trashedByMsgRules:self.appDataDmc andBaseDate:baseDate];
+	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S03",@"S04",@"S05",nil];
+	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
+		
+}
 
 
 

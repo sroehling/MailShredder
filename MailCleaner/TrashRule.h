@@ -12,7 +12,12 @@
 
 extern NSString * const TRASH_RULE_ENTITY_NAME;
 
+@class DataModelController;
+
 @interface TrashRule : MsgHandlingRule
+
+
++(TrashRule*)createNewDefaultRule:(DataModelController*)dmcForNewRule;
 
 
 @end

@@ -10,9 +10,12 @@
 #import <CoreData/CoreData.h>
 #import "MsgHandlingRule.h"
 
+@class DataModelController;
+
 extern NSString * const EXCLUSION_RULE_ENTITY_NAME;
 
 @interface ExclusionRule : MsgHandlingRule
 
++(ExclusionRule*)createNewDefaultRule:(DataModelController*)dmcForNewRule;
 
 @end

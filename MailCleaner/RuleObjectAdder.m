@@ -21,6 +21,7 @@
 #import "TrashRule.h"
 #import "AgeFilterNone.h"
 #import "TrashRuleFormInfoCreator.h"
+#import "EmailAddressFilter.h"
 
 @implementation RuleObjectAdder 
 
@@ -33,11 +34,7 @@
 	assert(currentContext != nil);
 	
 	DataModelController *dmcForNewRule = [AppHelper appDataModelController];
-	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:dmcForNewRule];
-	
-	TrashRule *newRule = (TrashRule*)
-		[dmcForNewRule insertObject:TRASH_RULE_ENTITY_NAME];
-	newRule.ageFilter = sharedAppVals.defaultAgeFilterNone;
+	TrashRule *newRule = [TrashRule createNewDefaultRule:dmcForNewRule];
 	
 	TrashRuleFormInfoCreator *ruleFormCreator = 
 		[[[TrashRuleFormInfoCreator alloc] initWithTrashRule:newRule] autorelease];
@@ -57,12 +54,10 @@
 	NSLog(@"new Exclusion rule");	
 	assert(currentContext != nil);
 	
-	DataModelController *dmcForNewRule = [AppHelper appDataModelController];
-	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:dmcForNewRule];
 	
-	ExclusionRule *newRule = (ExclusionRule*)
-		[dmcForNewRule insertObject:EXCLUSION_RULE_ENTITY_NAME];
-	newRule.ageFilter = sharedAppVals.defaultAgeFilterNone;
+	
+	DataModelController *dmcForNewRule = [AppHelper appDataModelController];
+	ExclusionRule *newRule = [ExclusionRule createNewDefaultRule:dmcForNewRule];
 	
 	ExclusionRuleFormInfoCreator *ruleFormCreator = 
 		[[[ExclusionRuleFormInfoCreator alloc] initWithExclusionRule:newRule] autorelease];

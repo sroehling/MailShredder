@@ -53,6 +53,9 @@
 	[formPopulator nextSection];
 
 	[formPopulator populateAgeFilterInParentObj:self.rule withAgeFilterPropertyKey:RULE_AGE_FILTER_KEY];
+
+	[formPopulator populateEmailAddressFilter:self.rule.emailAddressFilter];
+
 	
 	return formPopulator.formInfo;
 }
