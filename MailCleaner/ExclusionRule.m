@@ -13,6 +13,7 @@
 #import "EmailAddressFilter.h"
 #import "AgeFilter.h"
 #import "AgeFilterNone.h"
+#import "EmailDomainFilter.h"
 
 NSString * const EXCLUSION_RULE_ENTITY_NAME = @"ExclusionRule";
 
@@ -32,6 +33,8 @@ NSString * const EXCLUSION_RULE_ENTITY_NAME = @"ExclusionRule";
 	newRule.ageFilter = sharedAppVals.defaultAgeFilterNone;
 	newRule.emailAddressFilter = (EmailAddressFilter*)
 		[dmcForNewRule insertObject:EMAIL_ADDRESS_FILTER_ENTITY_NAME];
+	newRule.emailDomainFilter = (EmailDomainFilter*)
+		[dmcForNewRule insertObject:EMAIL_DOMAIN_FILTER_ENTITY_NAME];
 		
 	return newRule;
 

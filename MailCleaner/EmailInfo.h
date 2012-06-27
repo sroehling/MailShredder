@@ -16,6 +16,7 @@ extern NSString * const EMAIL_INFO_LOCKED_KEY;
 extern NSString * const EMAIL_INFO_TRASHED_KEY;
 extern NSString * const EMAIL_INFO_DELETED_KEY;
 extern NSString * const EMAIL_INFO_FROM_KEY;
+extern NSString * const EMAIL_INFO_DOMAIN_KEY;
 extern NSString * const EMAIL_INFO_SELECTED_IN_MSG_LIST_KEY;
 
 @class FolderInfo;
@@ -27,6 +28,8 @@ extern NSString * const EMAIL_INFO_SELECTED_IN_MSG_LIST_KEY;
 
 @property (nonatomic, retain) NSDate * sendDate;
 @property (nonatomic, retain) NSString * from;
+@property (nonatomic, retain) NSString * domain;
+
 @property (nonatomic, retain) NSString * subject;
 
 @property (nonatomic, retain) NSNumber * selectedInMsgList;

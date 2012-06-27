@@ -48,6 +48,9 @@
 		withAgeFilterPropertyKey:MESSAGE_FILTER_AGE_FILTER_KEY];
 		
 	[formPopulator populateEmailAddressFilter:self.msgFilter.emailAddressFilter];
+
+	[formPopulator populateEmailDomainFilter:self.msgFilter.emailDomainFilter];
+
 					
 	return formPopulator.formInfo;
 }

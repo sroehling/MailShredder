@@ -12,7 +12,9 @@
 #import "EmailInfo.h"
 #import "FolderInfo.h"
 #import "MsgPredicateHelper.h"
+#import "EmailDomain.h"
 #import "EmailAddress.h"
+#import "MailAddressHelper.h"
 
 @implementation MailClientServerSyncController
 
@@ -77,6 +79,7 @@
 	newEmailInfo.from = msg.sender.email;
 	newEmailInfo.subject = msg.subject;
 	newEmailInfo.messageId = msg.uid;
+	newEmailInfo.domain = [MailAddressHelper emailAddressDomainName:msg.sender.email];
 	
 	newEmailInfo.folderInfo = folderInfo;
 	
@@ -94,6 +97,13 @@
 	for(EmailAddress *currAddr in currEmailAddresses)
 	{
 		[currEmailAddressByAddress setObject:currAddr forKey:currAddr.address];
+	}
+	
+	NSSet *currDomains = [self.appDataDmc fetchObjectsForEntityName:EMAIL_DOMAIN_ENTITY_NAME];
+	NSMutableDictionary *currDomainByDomainName = [[[NSMutableDictionary alloc] init] autorelease];
+	for(EmailDomain *currDomain in currDomains)
+	{
+		[currDomainByDomainName setObject:currDomain forKey:currDomain.domainName];
 	}
 	
 	NSSet *currFolderInfo = [self.emailInfoDmc fetchObjectsForEntityName:FOLDER_INFO_ENTITY_NAME];
@@ -135,6 +145,14 @@
 					newEmailAddr = [self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
 					newEmailAddr.address = newEmailInfo.from;
 					[currEmailAddressByAddress setObject:newEmailAddr forKey:newEmailAddr.address];
+				}
+				
+				EmailDomain *existingDomain = [currDomainByDomainName objectForKey:newEmailInfo.domain];
+				if(existingDomain == nil)
+				{
+					EmailDomain *newDomain = [self.appDataDmc insertObject:EMAIL_DOMAIN_ENTITY_NAME];
+					newDomain.domainName = newEmailInfo.domain;
+					[currDomainByDomainName setObject:newDomain forKey:newDomain.domainName];
 				}
 				
 				numNewMsgs ++;

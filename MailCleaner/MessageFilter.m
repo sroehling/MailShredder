@@ -9,6 +9,7 @@
 #import "MessageFilter.h"
 #import "AgeFilter.h"
 #import "EmailAddressFilter.h"
+#import "EmailDomainFilter.h"
 
 NSString * const MESSAGE_FILTER_ENTITY_NAME = @"MessageFilter";
 NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
@@ -18,6 +19,7 @@ NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
 @dynamic filterName;
 @dynamic ageFilter;
 @dynamic emailAddressFilter;
+@dynamic emailDomainFilter;
 
 // Inverse
 @dynamic sharedAppValsMsgListFilter;
@@ -34,6 +36,9 @@ NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
 	assert(emailAddressPredicate != nil);
 	[predicates addObject:emailAddressPredicate];
 
+	NSPredicate *emailDomainPredicate = [self.emailDomainFilter filterPredicate];
+	assert(emailDomainPredicate != nil);
+	[predicates addObject:emailDomainPredicate];
 	
 	NSPredicate *compoundPredicate = [NSCompoundPredicate 
 			andPredicateWithSubpredicates:predicates];

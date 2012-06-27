@@ -57,6 +57,14 @@
 "EMAIL_ADDRESS_FILTER_TABLE_HEADER_TITLE" = "Match Sender Email Addresses";
 "EMAIL_ADDRESS_FILTER_TABLE_HEADER_SUBTITLE" = "To match any address, leave this list empty. Or, to match specific addresses, edit this list to include the addresses.";
 
+"EMAIL_DOMAIN_FILTER_NONE_TITLE" = "Any Domain";
+"EMAIL_DOMAIN_FILTER_SELECTED" = "Specific Domains";
+"EMAIL_DOMAIN_FILTER_DOMAIN_LIST_TITLE" = "Match Domains";
+"EMAIL_DOMAIN_FILTER_TABLE_HEADER_TITLE" = "Match Sender Domain Names";
+"EMAIL_DOMAIN_FILTER_TABLE_HEADER_SUBTITLE" = "To match any domain,leave this list empty. Or, to match specific domains, edit this list to include the domains";
+"EMAIL_DOMAIN_TITLE" = "Sender Domain";
+"EMAIL_DOMAIN_FILTER_SUBTITLE" = "Filter by the email domain of the sender, where the domain may represent the sender's organization or company."; 
+
 
 "TIME_UNIT_WEEKS" = "Weeks";
 "TIME_UNIT_MONTHS" = "Months";

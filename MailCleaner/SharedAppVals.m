@@ -14,6 +14,7 @@
 #import "CoreDataHelper.h"
 #import "AgeFilterComparison.h"
 #import "EmailAddressFilter.h"
+#import "EmailDomainFilter.h"
 
 NSString * const SHARED_APP_VALS_ENTITY_NAME = @"SharedAppVals";
 
@@ -64,7 +65,9 @@ NSString * const SHARED_APP_VALS_ENTITY_NAME = @"SharedAppVals";
 	sharedVals.msgListFilter.ageFilter = sharedVals.defaultAgeFilterNone;
 	sharedVals.msgListFilter.emailAddressFilter = (EmailAddressFilter*)
 		[dataModelController insertObject:EMAIL_ADDRESS_FILTER_ENTITY_NAME];
-	
+	sharedVals.msgListFilter.emailDomainFilter = (EmailDomainFilter*)
+		[dataModelController insertObject:EMAIL_DOMAIN_FILTER_ENTITY_NAME];
+
 	return sharedVals;
 }
 

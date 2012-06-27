@@ -10,13 +10,15 @@
 
 @class MsgHandlingRule;
 @class EmailAddressFilter;
+@class EmailDomainFilter;
 
 @interface MailCleanerFormPopulator : FormPopulator
 
 -(void)populateAgeFilterInParentObj:(NSManagedObject*)parentObj
 	withAgeFilterPropertyKey:(NSString*)ageFilterKey;
 	
--(void)populateEmailAddressFilter:(EmailAddressFilter*)emailAddressFilter;	
+-(void)populateEmailAddressFilter:(EmailAddressFilter*)emailAddressFilter;
+-(void)populateEmailDomainFilter:(EmailDomainFilter*)emailDomainFilter;	
 
 -(void)populateRuleEnabled:(MsgHandlingRule*)theRule withSubtitle:(NSString*)subTitle;
 

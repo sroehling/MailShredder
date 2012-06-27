@@ -12,6 +12,7 @@
 #import "AgeFilterNone.h"
 #import "EmailAddressFilter.h"
 #import "SharedAppVals.h"
+#import "EmailDomainFilter.h"
 
 NSString * const TRASH_RULE_ENTITY_NAME = @"TrashRule";
 
@@ -32,6 +33,8 @@ NSString * const TRASH_RULE_ENTITY_NAME = @"TrashRule";
 	newRule.ageFilter = sharedAppVals.defaultAgeFilterNone;
 	newRule.emailAddressFilter = (EmailAddressFilter*)
 		[dmcForNewRule insertObject:EMAIL_ADDRESS_FILTER_ENTITY_NAME];
+	newRule.emailDomainFilter = (EmailDomainFilter*)
+		[dmcForNewRule insertObject:EMAIL_DOMAIN_FILTER_ENTITY_NAME];
 		
 	return newRule;
 }

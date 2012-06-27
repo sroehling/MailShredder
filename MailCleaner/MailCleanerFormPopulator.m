@@ -17,6 +17,7 @@
 #import "AgeFilter.h"
 #import "SectionInfo.h"
 #import "EmailAddressFilterFormInfoCreator.h"
+#import "EmailDomainFilterFormInfoCreator.h"
 #import "BoolFieldEditInfo.h"
 #import "MsgHandlingRule.h"
 
@@ -71,6 +72,23 @@
 		andSubFormInfoCreator:addrFilterFormInfoCreator] autorelease];
 		
 	[self.currentSection addFieldEditInfo:messageAddrFieldEditInfo];
+}
+
+-(void)populateEmailDomainFilter:(EmailDomainFilter*)emailDomainFilter
+{
+	EmailDomainFilterFormInfoCreator *domainFilterFormInfoCreator = 
+		[[[EmailDomainFilterFormInfoCreator alloc]
+			initWithEmailDomainFilter:emailDomainFilter] autorelease];
+
+	StaticNavFieldEditInfo *messageDomainFieldEditInfo = 
+		[[[StaticNavFieldEditInfo alloc] 
+			initWithCaption:LOCALIZED_STR(@"EMAIL_DOMAIN_TITLE") 
+		andSubtitle:LOCALIZED_STR(@"EMAIL_DOMAIN_FILTER_SUBTITLE")
+		andContentDescription:[emailDomainFilter filterSynopsis]
+		andSubFormInfoCreator:domainFilterFormInfoCreator] autorelease];
+		
+	[self.currentSection addFieldEditInfo:messageDomainFieldEditInfo];
+	
 }
 
 
