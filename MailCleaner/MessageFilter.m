@@ -20,6 +20,8 @@ NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
 @dynamic ageFilter;
 @dynamic emailAddressFilter;
 @dynamic emailDomainFilter;
+@dynamic folderFilter;
+
 
 // Inverse
 @dynamic sharedAppValsMsgListFilter;
@@ -40,6 +42,10 @@ NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
 	assert(emailDomainPredicate != nil);
 	[predicates addObject:emailDomainPredicate];
 	
+	NSPredicate *emailFolderPredicate = [self.folderFilter filterPredicate];
+	assert(emailFolderPredicate != nil);
+	[predicates addObject:emailFolderPredicate];
+		
 	NSPredicate *compoundPredicate = [NSCompoundPredicate 
 			andPredicateWithSubpredicates:predicates];
 	return compoundPredicate;

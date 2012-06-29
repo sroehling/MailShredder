@@ -15,6 +15,7 @@
 #import "EmailDomain.h"
 #import "EmailAddress.h"
 #import "MailAddressHelper.h"
+#import "EmailFolder.h"
 
 @implementation MailClientServerSyncController
 
@@ -82,6 +83,7 @@
 	newEmailInfo.domain = [MailAddressHelper emailAddressDomainName:msg.sender.email];
 	
 	newEmailInfo.folderInfo = folderInfo;
+	newEmailInfo.folder = folderInfo.fullyQualifiedName;
 	
 	return newEmailInfo;
 
@@ -106,6 +108,14 @@
 		[currDomainByDomainName setObject:currDomain forKey:currDomain.domainName];
 	}
 	
+	NSSet *currFolders = [self.appDataDmc fetchObjectsForEntityName:EMAIL_FOLDER_ENTITY_NAME];
+	NSMutableDictionary *currFolderByFolderName = [[[NSMutableDictionary alloc] init] autorelease];
+	for(EmailFolder *currFolder in currFolders)
+	{
+		[currFolderByFolderName setObject:currFolder forKey:currFolder.folderName];
+	}
+
+	
 	NSSet *currFolderInfo = [self.emailInfoDmc fetchObjectsForEntityName:FOLDER_INFO_ENTITY_NAME];
 	for (FolderInfo *currFolder in currFolderInfo)
 	{
@@ -124,6 +134,15 @@
 		
 		FolderInfo *folderInfo = (FolderInfo*)[self.emailInfoDmc insertObject:FOLDER_INFO_ENTITY_NAME];
 		folderInfo.fullyQualifiedName = currFolder.path;
+
+		EmailFolder *existingFolder = [currFolderByFolderName objectForKey:folderName];
+		if(existingFolder == nil)
+		{
+			EmailFolder *newFolder = [self.appDataDmc insertObject:EMAIL_FOLDER_ENTITY_NAME];
+			newFolder.folderName = folderName;
+			[currFolderByFolderName setObject:newFolder forKey:folderName];
+		}
+
 		
 		if(currFolder.totalMessageCount > 0)
 		{
@@ -154,6 +173,7 @@
 					newDomain.domainName = newEmailInfo.domain;
 					[currDomainByDomainName setObject:newDomain forKey:newDomain.domainName];
 				}
+
 				
 				numNewMsgs ++;
 					
@@ -225,6 +245,7 @@
 	}
 	
 	[self.emailInfoDmc saveContext];
+	[self.appDataDmc saveContext];
 
 	[serverFoldersToExpunge release];
 	[folderByPath release];

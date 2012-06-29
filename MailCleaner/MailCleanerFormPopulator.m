@@ -20,6 +20,7 @@
 #import "EmailDomainFilterFormInfoCreator.h"
 #import "BoolFieldEditInfo.h"
 #import "MsgHandlingRule.h"
+#import "EmailFolderFilterFormInfoCreator.h"
 
 @implementation MailCleanerFormPopulator
 
@@ -89,6 +90,23 @@
 		
 	[self.currentSection addFieldEditInfo:messageDomainFieldEditInfo];
 	
+}
+
+-(void)populateEmailFolderFilter:(EmailFolderFilter*)emailFolderFilter
+{
+	EmailFolderFilterFormInfoCreator *folderFilterFormInfoCreator = 
+		[[[EmailFolderFilterFormInfoCreator alloc]
+			initWithEmailFolderFilter:emailFolderFilter] autorelease];
+
+	StaticNavFieldEditInfo *messageFolderFieldEditInfo = 
+		[[[StaticNavFieldEditInfo alloc] 
+			initWithCaption:LOCALIZED_STR(@"EMAIL_FOLDER_TITLE") 
+		andSubtitle:LOCALIZED_STR(@"EMAIL_FOLDER_FILTER_SUBTITLE")
+		andContentDescription:[emailFolderFilter filterSynopsis]
+		andSubFormInfoCreator:folderFilterFormInfoCreator] autorelease];
+		
+	[self.currentSection addFieldEditInfo:messageFolderFieldEditInfo];
+
 }
 
 

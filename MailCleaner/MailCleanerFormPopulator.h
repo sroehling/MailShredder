@@ -11,6 +11,7 @@
 @class MsgHandlingRule;
 @class EmailAddressFilter;
 @class EmailDomainFilter;
+@class EmailFolderFilter;
 
 @interface MailCleanerFormPopulator : FormPopulator
 
@@ -18,7 +19,8 @@
 	withAgeFilterPropertyKey:(NSString*)ageFilterKey;
 	
 -(void)populateEmailAddressFilter:(EmailAddressFilter*)emailAddressFilter;
--(void)populateEmailDomainFilter:(EmailDomainFilter*)emailDomainFilter;	
+-(void)populateEmailDomainFilter:(EmailDomainFilter*)emailDomainFilter;
+-(void)populateEmailFolderFilter:(EmailFolderFilter*)emailFolderFilter;
 
 -(void)populateRuleEnabled:(MsgHandlingRule*)theRule withSubtitle:(NSString*)subTitle;
 

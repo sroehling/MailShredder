@@ -19,6 +19,12 @@
 		000566C81562F94D003D114D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 000566C61562F94D003D114D /* InfoPlist.strings */; };
 		000567041562FFC4003D114D /* libResultraGenericLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000567031562FFC4003D114D /* libResultraGenericLib.a */; };
 		0005672A15630DDD003D114D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0005672915630DDD003D114D /* Localizable.strings */; };
+		000BBA9B159CE800003A7158 /* EmailFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 000BBA9A159CE800003A7158 /* EmailFolder.m */; };
+		000BBA9F159CE801003A7158 /* EmailFolderFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 000BBA9E159CE801003A7158 /* EmailFolderFilter.m */; };
+		000BBAA3159CF3BF003A7158 /* EmailFolderFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 000BBAA2159CF3BF003A7158 /* EmailFolderFieldEditInfo.m */; };
+		000BBAA6159CF553003A7158 /* EmailFolderSelectionFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 000BBAA5159CF553003A7158 /* EmailFolderSelectionFormInfoCreator.m */; };
+		000BBAA9159CF696003A7158 /* EmailFolderFilterFolderAdder.m in Sources */ = {isa = PBXBuildFile; fileRef = 000BBAA8159CF696003A7158 /* EmailFolderFilterFolderAdder.m */; };
+		000BBAAC159CFA10003A7158 /* EmailFolderFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 000BBAAB159CFA0F003A7158 /* EmailFolderFilterFormInfoCreator.m */; };
 		0017B74C157928D7001D5D28 /* MsgPredicateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0017B74B157928D7001D5D28 /* MsgPredicateHelper.m */; };
 		0017B753157968EA001D5D28 /* TestMessageFiltering.m in Sources */ = {isa = PBXBuildFile; fileRef = 0017B752157968EA001D5D28 /* TestMessageFiltering.m */; };
 		0017B75915796A81001D5D28 /* libResultraGenericLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0017B75815796A81001D5D28 /* libResultraGenericLib.a */; };
@@ -110,6 +116,18 @@
 		000566C71562F94D003D114D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		000567031562FFC4003D114D /* libResultraGenericLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libResultraGenericLib.a; path = "../ResultraGenericLib/build/Release-iphoneos/libResultraGenericLib.a"; sourceTree = "<group>"; };
 		0005672915630DDD003D114D /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		000BBA99159CE800003A7158 /* EmailFolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailFolder.h; sourceTree = "<group>"; };
+		000BBA9A159CE800003A7158 /* EmailFolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailFolder.m; sourceTree = "<group>"; };
+		000BBA9D159CE801003A7158 /* EmailFolderFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailFolderFilter.h; sourceTree = "<group>"; };
+		000BBA9E159CE801003A7158 /* EmailFolderFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailFolderFilter.m; sourceTree = "<group>"; };
+		000BBAA1159CF3BF003A7158 /* EmailFolderFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailFolderFieldEditInfo.h; sourceTree = "<group>"; };
+		000BBAA2159CF3BF003A7158 /* EmailFolderFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailFolderFieldEditInfo.m; sourceTree = "<group>"; };
+		000BBAA4159CF553003A7158 /* EmailFolderSelectionFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailFolderSelectionFormInfoCreator.h; sourceTree = "<group>"; };
+		000BBAA5159CF553003A7158 /* EmailFolderSelectionFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailFolderSelectionFormInfoCreator.m; sourceTree = "<group>"; };
+		000BBAA7159CF696003A7158 /* EmailFolderFilterFolderAdder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailFolderFilterFolderAdder.h; sourceTree = "<group>"; };
+		000BBAA8159CF696003A7158 /* EmailFolderFilterFolderAdder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailFolderFilterFolderAdder.m; sourceTree = "<group>"; };
+		000BBAAA159CFA0F003A7158 /* EmailFolderFilterFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailFolderFilterFormInfoCreator.h; sourceTree = "<group>"; };
+		000BBAAB159CFA0F003A7158 /* EmailFolderFilterFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailFolderFilterFormInfoCreator.m; sourceTree = "<group>"; };
 		0017B74A157928D7001D5D28 /* MsgPredicateHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgPredicateHelper.h; sourceTree = "<group>"; };
 		0017B74B157928D7001D5D28 /* MsgPredicateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgPredicateHelper.m; sourceTree = "<group>"; };
 		0017B751157968EA001D5D28 /* TestMessageFiltering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMessageFiltering.h; sourceTree = "<group>"; };
@@ -334,6 +352,21 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		000BBAA0159CF39D003A7158 /* Email Folder Filter */ = {
+			isa = PBXGroup;
+			children = (
+				000BBAA1159CF3BF003A7158 /* EmailFolderFieldEditInfo.h */,
+				000BBAA2159CF3BF003A7158 /* EmailFolderFieldEditInfo.m */,
+				000BBAA4159CF553003A7158 /* EmailFolderSelectionFormInfoCreator.h */,
+				000BBAA5159CF553003A7158 /* EmailFolderSelectionFormInfoCreator.m */,
+				000BBAA7159CF696003A7158 /* EmailFolderFilterFolderAdder.h */,
+				000BBAA8159CF696003A7158 /* EmailFolderFilterFolderAdder.m */,
+				000BBAAA159CFA0F003A7158 /* EmailFolderFilterFormInfoCreator.h */,
+				000BBAAB159CFA0F003A7158 /* EmailFolderFilterFormInfoCreator.m */,
+			);
+			name = "Email Folder Filter";
+			sourceTree = "<group>";
+		};
 		0039E5E21566B44700CB259D /* Email Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -372,6 +405,8 @@
 				0039E5EB1566B8CE00CB259D /* AgeFilterNone.m */,
 				0098BCD9158BCD3000C15243 /* EmailAddressFilter.h */,
 				0098BCDA158BCD3000C15243 /* EmailAddressFilter.m */,
+				000BBA9D159CE801003A7158 /* EmailFolderFilter.h */,
+				000BBA9E159CE801003A7158 /* EmailFolderFilter.m */,
 				00A6FB3F159A4C9F00ED4D4B /* EmailDomainFilter.h */,
 				00A6FB40159A4C9F00ED4D4B /* EmailDomainFilter.m */,
 			);
@@ -419,6 +454,7 @@
 		0039E5FC1566CE0700CB259D /* Message Filter */ = {
 			isa = PBXGroup;
 			children = (
+				000BBAA0159CF39D003A7158 /* Email Folder Filter */,
 				00A6FB46159A594C00ED4D4B /* Age Filter */,
 				00A6FB42159A575B00ED4D4B /* Email Domain Filter */,
 				0053EFCE1590EEC9003F6B6E /* Email Address Filter */,
@@ -483,6 +519,8 @@
 		00A6FB3A159A48F600ED4D4B /* Catalogued Email Info */ = {
 			isa = PBXGroup;
 			children = (
+				000BBA99159CE800003A7158 /* EmailFolder.h */,
+				000BBA9A159CE800003A7158 /* EmailFolder.m */,
 				0098BCD2158BCCEC00C15243 /* EmailAddress.h */,
 				0098BCD3158BCCEC00C15243 /* EmailAddress.m */,
 				00A6FB3C159A493200ED4D4B /* EmailDomain.h */,
@@ -726,6 +764,12 @@
 				00A6FB4C159A8DF100ED4D4B /* EmailDomainFilterDomainAdder.m in Sources */,
 				00A6FB4F159A908200ED4D4B /* EmailDomainFilterFormInfoCreator.m in Sources */,
 				00A6FB58159B850A00ED4D4B /* MailAddressHelper.m in Sources */,
+				000BBA9B159CE800003A7158 /* EmailFolder.m in Sources */,
+				000BBA9F159CE801003A7158 /* EmailFolderFilter.m in Sources */,
+				000BBAA3159CF3BF003A7158 /* EmailFolderFieldEditInfo.m in Sources */,
+				000BBAA6159CF553003A7158 /* EmailFolderSelectionFormInfoCreator.m in Sources */,
+				000BBAA9159CF696003A7158 /* EmailFolderFilterFolderAdder.m in Sources */,
+				000BBAAC159CFA10003A7158 /* EmailFolderFilterFormInfoCreator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

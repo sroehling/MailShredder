@@ -10,6 +10,7 @@
 #import "AgeFilter.h"
 #import "EmailAddressFilter.h"
 #import "EmailDomainFilter.h"
+#import "EmailFolderFilter.h"
 
 NSString * const RULE_ENABLED_KEY = @"enabled";
 NSString * const RULE_AGE_FILTER_KEY = @"ageFilter";
@@ -20,6 +21,8 @@ NSString * const RULE_AGE_FILTER_KEY = @"ageFilter";
 @dynamic ageFilter;
 @dynamic emailAddressFilter;
 @dynamic emailDomainFilter;
+@dynamic folderFilter;
+
 
 -(NSString*)ruleSynopsis
 {
@@ -44,6 +47,10 @@ NSString * const RULE_AGE_FILTER_KEY = @"ageFilter";
 		NSPredicate *emailDomainPredicate = [self.emailDomainFilter filterPredicate];
 		assert(emailDomainPredicate != nil);
 		[predicates addObject:emailDomainPredicate];
+
+		NSPredicate *emailFolderPredicate = [self.folderFilter filterPredicate];
+		assert(emailFolderPredicate != nil);
+		[predicates addObject:emailFolderPredicate];
 		
 		NSPredicate *compoundPredicate = [NSCompoundPredicate 
 				andPredicateWithSubpredicates:predicates];

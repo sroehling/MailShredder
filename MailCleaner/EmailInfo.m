@@ -13,6 +13,7 @@ NSString * const EMAIL_INFO_SEND_DATE_KEY = @"sendDate";
 NSString * const EMAIL_INFO_LOCKED_KEY = @"locked";
 NSString * const EMAIL_INFO_FROM_KEY = @"from";
 NSString * const EMAIL_INFO_DOMAIN_KEY = @"domain";
+NSString * const EMAIL_INFO_FOLDER_KEY = @"folder";
 NSString * const EMAIL_INFO_TRASHED_KEY = @"trashed";
 NSString * const EMAIL_INFO_DELETED_KEY = @"deleted";
 NSString * const EMAIL_INFO_SELECTED_IN_MSG_LIST_KEY = @"selectedInMsgList";
@@ -23,6 +24,7 @@ NSString * const EMAIL_INFO_SELECTED_IN_MSG_LIST_KEY = @"selectedInMsgList";
 @dynamic sendDate;
 @dynamic from;
 @dynamic domain;
+@dynamic folder;
 @dynamic subject;
 
 @dynamic selectedInMsgList;

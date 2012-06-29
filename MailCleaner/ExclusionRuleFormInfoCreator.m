@@ -56,7 +56,9 @@
 	[formPopulator populateEmailAddressFilter:self.rule.emailAddressFilter];
 
 	[formPopulator populateEmailDomainFilter:self.rule.emailDomainFilter];
- 	
+ 
+	[formPopulator populateEmailFolderFilter:self.rule.folderFilter];
+	
 	return formPopulator.formInfo;
 }
 

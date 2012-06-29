@@ -13,6 +13,7 @@
 #import "EmailAddressFilter.h"
 #import "SharedAppVals.h"
 #import "EmailDomainFilter.h"
+#import "EmailFolderFilter.h"
 
 NSString * const TRASH_RULE_ENTITY_NAME = @"TrashRule";
 
@@ -35,6 +36,8 @@ NSString * const TRASH_RULE_ENTITY_NAME = @"TrashRule";
 		[dmcForNewRule insertObject:EMAIL_ADDRESS_FILTER_ENTITY_NAME];
 	newRule.emailDomainFilter = (EmailDomainFilter*)
 		[dmcForNewRule insertObject:EMAIL_DOMAIN_FILTER_ENTITY_NAME];
+	newRule.folderFilter = (EmailFolderFilter*)
+		[dmcForNewRule insertObject:EMAIL_FOLDER_FILTER_ENTITY_NAME];
 		
 	return newRule;
 }

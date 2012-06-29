@@ -13,6 +13,7 @@
 @class EmailAddressFilter;
 @class SharedAppVals;
 @class EmailDomainFilter;
+@class EmailFolderFilter;
 
 extern NSString * const MESSAGE_FILTER_ENTITY_NAME;
 extern NSString * const MESSAGE_FILTER_AGE_FILTER_KEY;
@@ -23,6 +24,8 @@ extern NSString * const MESSAGE_FILTER_AGE_FILTER_KEY;
 @property (nonatomic, retain) AgeFilter *ageFilter;
 @property (nonatomic, retain) EmailAddressFilter *emailAddressFilter;
 @property (nonatomic, retain) EmailDomainFilter *emailDomainFilter;
+@property (nonatomic, retain) EmailFolderFilter *folderFilter;
+
 
 // Inverse
 @property (nonatomic, retain) SharedAppVals *sharedAppValsMsgListFilter;

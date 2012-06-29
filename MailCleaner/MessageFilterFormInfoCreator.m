@@ -51,6 +51,7 @@
 
 	[formPopulator populateEmailDomainFilter:self.msgFilter.emailDomainFilter];
 
+	[formPopulator populateEmailFolderFilter:self.msgFilter.folderFilter];
 					
 	return formPopulator.formInfo;
 }
