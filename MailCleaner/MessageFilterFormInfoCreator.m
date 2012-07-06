@@ -17,6 +17,10 @@
 #import "ManagedObjectFieldInfo.h"
 #import "AgeFilter.h"
 #import "MailCleanerFormPopulator.h"
+#import "SingleButtonTableFooter.h"
+#import "MessageFilterResetter.h"
+#import "FormContext.h"
+
 
 @implementation MessageFilterFormInfoCreator
 
@@ -52,6 +56,11 @@
 	[formPopulator populateEmailDomainFilter:self.msgFilter.emailDomainFilter];
 
 	[formPopulator populateEmailFolderFilter:self.msgFilter.folderFilter];
+	 
+	formPopulator.formInfo.footerController = 
+		[[[MessageFilterResetter alloc] initWithMessageFilter:self.msgFilter 
+			andFilterDataModelController:parentContext.dataModelController] autorelease];
+	
 					
 	return formPopulator.formInfo;
 }

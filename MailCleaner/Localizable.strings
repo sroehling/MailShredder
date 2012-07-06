@@ -16,6 +16,8 @@
 "MSGS_ACTION_SELECT_ALL" = "Select All";
 
 "MESSAGE_FILTER_TITLE" = "Message Filter";
+"MESSAGE_FILTER_RESET_FILTER_BUTTON_TITLE" = "Reset Filter";
+
 "MESSAGE_AGE_TITLE" = "Send Date";
 "MESSAGE_AGE_FILTER_PROMPT" = "Select a send date criterion";
 "MESSAGE_AGE_SUBTITLE" = "Filter by date the message was sent";

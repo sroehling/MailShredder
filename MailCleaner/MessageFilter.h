@@ -14,6 +14,7 @@
 @class SharedAppVals;
 @class EmailDomainFilter;
 @class EmailFolderFilter;
+@class DataModelController;
 
 extern NSString * const MESSAGE_FILTER_ENTITY_NAME;
 extern NSString * const MESSAGE_FILTER_AGE_FILTER_KEY;
@@ -32,5 +33,6 @@ extern NSString * const MESSAGE_FILTER_AGE_FILTER_KEY;
 
 
 -(NSPredicate*)filterPredicate:(NSDate*)baseDate;
+-(void)resetToDefault:(DataModelController*)filterDmc;
 
 @end
