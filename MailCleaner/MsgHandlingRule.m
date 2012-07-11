@@ -14,6 +14,8 @@
 
 NSString * const RULE_ENABLED_KEY = @"enabled";
 NSString * const RULE_AGE_FILTER_KEY = @"ageFilter";
+NSString * const RULE_NAME_KEY = @"ruleName";
+NSInteger const RULE_NAME_MAX_LENGTH = 32;
 
 @implementation MsgHandlingRule
 
@@ -22,6 +24,7 @@ NSString * const RULE_AGE_FILTER_KEY = @"ageFilter";
 @dynamic emailAddressFilter;
 @dynamic emailDomainFilter;
 @dynamic folderFilter;
+@dynamic ruleName;
 
 
 -(NSString*)ruleSynopsis

@@ -40,6 +40,7 @@
 "RULE_ENABLED_FIELD_LABEL" = "Rule Enabled?";
 "EXCLUSION_RULE_ENABLED_SUBTITLE" = "Exclude messages matching this rule from being trashed?";
 "TRASH_RULE_ENABLED_SUBTITLE" = "Automatically trash messages matching this rule?";
+"MESSAGE_RULE_NAME_PLACEHOLDER" = "Enter a Name";
 
 
 "AGE_FILTER_NONE_TITLE" = "Any Date";

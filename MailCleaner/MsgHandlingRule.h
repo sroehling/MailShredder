@@ -16,6 +16,8 @@
 
 extern NSString * const RULE_ENABLED_KEY;
 extern NSString * const RULE_AGE_FILTER_KEY;
+extern NSString * const RULE_NAME_KEY;
+extern NSInteger const RULE_NAME_MAX_LENGTH;
 
 @interface MsgHandlingRule : NSManagedObject
 
@@ -24,7 +26,7 @@ extern NSString * const RULE_AGE_FILTER_KEY;
 @property (nonatomic, retain) EmailAddressFilter *emailAddressFilter;
 @property (nonatomic, retain) EmailDomainFilter *emailDomainFilter;
 @property (nonatomic, retain) EmailFolderFilter *folderFilter;
-
+@property (nonatomic, retain) NSString * ruleName;
 
 -(NSString*)ruleSynopsis;
 -(NSString*)subFilterSynopsis;

@@ -12,7 +12,7 @@
 #import "FormFieldWithSubtitleTableCell.h"
 #import "GenericTableViewFactory.h"
 #import "FormInfoCreator.h"
-#import "GenericFieldBasedTableViewControllerFactory.h"
+#import "GenericFieldBasedTableEditViewControllerFactory.h"
 
 @implementation MsgHandlingRuleFieldEditInfo
 
@@ -58,8 +58,8 @@
 
 - (UIViewController*)fieldEditController:(FormContext*)parentContext
 {
-	GenericFieldBasedTableViewControllerFactory *theSubViewFactory = 
-		[[[GenericFieldBasedTableViewControllerFactory alloc]
+	GenericFieldBasedTableEditViewControllerFactory *theSubViewFactory = 
+		[[[GenericFieldBasedTableEditViewControllerFactory alloc]
 			initWithFormInfoCreator:self.subFormInfoCreator] autorelease];
 
 	return [theSubViewFactory createTableView:parentContext];	
@@ -68,7 +68,7 @@
 
 - (void)configureRuleCell
 {
-	self.ruleCell.caption.text = @"";	
+	self.ruleCell.caption.text = self.rule.ruleName;	
 	self.ruleCell.subTitle.text = [self.rule ruleSynopsis];
 }
 

@@ -45,7 +45,13 @@
 		initWithFormContext:parentContext] autorelease];
 	
     formPopulator.formInfo.title = LOCALIZED_STR(@"TRASH_RULE_FORM_TITLE");
-	
+
+	[formPopulator nextSection];
+
+	[formPopulator populateNameFieldInParentObj:self.rule withNameField:RULE_NAME_KEY 
+	            andPlaceholder:LOCALIZED_STR(@"MESSAGE_RULE_NAME_PLACEHOLDER") 
+				andMaxLength:RULE_NAME_MAX_LENGTH];
+
 	[formPopulator nextSection];
 
 	[formPopulator populateRuleEnabled:self.rule withSubtitle:LOCALIZED_STR(@"TRASH_RULE_ENABLED_SUBTITLE")];	

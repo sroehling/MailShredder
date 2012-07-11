@@ -60,6 +60,7 @@
     </entity>
     <entity name="MsgHandlingRule" representedClassName="MsgHandlingRule" isAbstract="YES" syncable="YES">
         <attribute name="enabled" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <attribute name="ruleName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="ageFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilter" inverseName="ruleAgeFilter" inverseEntity="AgeFilter" syncable="YES"/>
         <relationship name="emailAddressFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAddressFilter" inverseName="msgHandlingRuleEmailAddressFilter" inverseEntity="EmailAddressFilter" syncable="YES"/>
         <relationship name="emailDomainFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailDomainFilter" inverseName="msgHandlingRuleDomainFilter" inverseEntity="EmailDomainFilter" syncable="YES"/>
@@ -91,7 +92,7 @@
         <element name="EmailFolderFilter" positionX="160" positionY="192" width="128" height="90"/>
         <element name="ExclusionRule" positionX="160" positionY="192" width="128" height="45"/>
         <element name="MessageFilter" positionX="160" positionY="192" width="128" height="135"/>
-        <element name="MsgHandlingRule" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="MsgHandlingRule" positionX="160" positionY="192" width="128" height="135"/>
         <element name="SharedAppVals" positionX="160" positionY="192" width="128" height="210"/>
         <element name="TrashRule" positionX="160" positionY="192" width="128" height="45"/>
     </elements>

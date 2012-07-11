@@ -538,6 +538,17 @@
 			name = "Email Address Filter";
 			sourceTree = "<group>";
 		};
+		0054D2F715AE08DC00270679 /* Rule Views */ = {
+			isa = PBXGroup;
+			children = (
+				00D4988C1577EB9700F8FD2F /* ExclusionRuleFormInfoCreator.h */,
+				00D4988D1577EB9700F8FD2F /* ExclusionRuleFormInfoCreator.m */,
+				00D4989715781DA500F8FD2F /* TrashRuleFormInfoCreator.h */,
+				00D4989815781DA500F8FD2F /* TrashRuleFormInfoCreator.m */,
+			);
+			name = "Rule Views";
+			sourceTree = "<group>";
+		};
 		0065E3B91586A57400D59B2A /* Libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -615,14 +626,11 @@
 		00D498731576D9C700F8FD2F /* Rules List View */ = {
 			isa = PBXGroup;
 			children = (
+				0054D2F715AE08DC00270679 /* Rule Views */,
 				00D498741576D9FD00F8FD2F /* RulesFormInfoCreator.h */,
 				00D498751576D9FD00F8FD2F /* RulesFormInfoCreator.m */,
 				00D4987F1576EC0100F8FD2F /* RuleObjectAdder.h */,
 				00D498801576EC0100F8FD2F /* RuleObjectAdder.m */,
-				00D4988C1577EB9700F8FD2F /* ExclusionRuleFormInfoCreator.h */,
-				00D4988D1577EB9700F8FD2F /* ExclusionRuleFormInfoCreator.m */,
-				00D4989715781DA500F8FD2F /* TrashRuleFormInfoCreator.h */,
-				00D4989815781DA500F8FD2F /* TrashRuleFormInfoCreator.m */,
 				00D4989A1578371D00F8FD2F /* MsgHandlingRuleFieldEditInfo.h */,
 				00D4989B1578371D00F8FD2F /* MsgHandlingRuleFieldEditInfo.m */,
 			);
