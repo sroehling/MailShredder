@@ -22,6 +22,9 @@ extern NSString * const EMAIL_DOMAIN_FILTER_ENTITY_NAME;
 @property (nonatomic, retain) MsgHandlingRule *msgHandlingRuleDomainFilter;
 
 -(NSString*)filterSynopsis;
+-(NSString*)filterSynopsisShort;
+-(NSString*)subFilterSynopsis;
+
 -(NSPredicate*)filterPredicate;
 
 @end

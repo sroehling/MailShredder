@@ -34,5 +34,6 @@ extern NSString * const MESSAGE_FILTER_AGE_FILTER_KEY;
 
 -(NSPredicate*)filterPredicate:(NSDate*)baseDate;
 -(void)resetToDefault:(DataModelController*)filterDmc;
+-(NSString*)filterSynopsis;
 
 @end

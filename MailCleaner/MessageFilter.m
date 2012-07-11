@@ -75,4 +75,16 @@ NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
 
 }
 
+-(NSString*)filterSynopsis
+{
+	NSMutableArray *synopsisParts = [[[NSMutableArray alloc] init] autorelease];
+	[synopsisParts addObject:[self.ageFilter filterSynopsis]];
+	[synopsisParts addObject:[self.emailAddressFilter filterSynopsis]];
+	[synopsisParts addObject:[self.emailDomainFilter filterSynopsis]];
+	[synopsisParts addObject:[self.folderFilter filterSynopsis]];
+	
+	return [synopsisParts componentsJoinedByString:@", "];
+	
+}
+
 @end

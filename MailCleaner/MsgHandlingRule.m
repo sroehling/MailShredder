@@ -30,6 +30,18 @@ NSString * const RULE_AGE_FILTER_KEY = @"ageFilter";
 	return nil;
 }
 
+-(NSString*)subFilterSynopsis
+{
+
+	NSMutableArray *synopsisParts = [[[NSMutableArray alloc] init] autorelease];
+	[synopsisParts addObject:[self.ageFilter filterSynopsis]];
+	[synopsisParts addObject:[self.emailAddressFilter filterSynopsis]];
+	[synopsisParts addObject:[self.emailDomainFilter filterSynopsis]];
+	[synopsisParts addObject:[self.folderFilter filterSynopsis]];
+	return [synopsisParts componentsJoinedByString:@", "];
+
+}
+
 -(NSPredicate*)rulePredicate:(NSDate*)baseDate
 {
 	if([self.enabled boolValue])

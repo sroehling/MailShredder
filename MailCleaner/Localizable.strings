@@ -16,6 +16,7 @@
 "MSGS_ACTION_SELECT_ALL" = "Select All";
 
 "MESSAGE_FILTER_TITLE" = "Message Filter";
+"MESSAGE_FILTER_FORM_SUBHEADER_TEXT" = "The parameters below configure which messages are shown in the message list. A message must match all the parameters to be shown.";
 "MESSAGE_FILTER_RESET_FILTER_BUTTON_TITLE" = "Reset Filter";
 
 "MESSAGE_AGE_TITLE" = "Send Date";
@@ -41,7 +42,7 @@
 "TRASH_RULE_ENABLED_SUBTITLE" = "Automatically trash messages matching this rule?";
 
 
-"AGE_FILTER_NONE_TITLE" = "All Messages";
+"AGE_FILTER_NONE_TITLE" = "Any Date";
 "AGE_FILTER_NONE_SUBTITLE" = "Include messages with any send date.";
 "AGE_FILTER_COMPARISON_OLDER" = "Older Than";
 "AGE_FILTER_COMPARISON_NEWER" = "Newer Than";
@@ -49,8 +50,8 @@
 
 "EMAIL_ADDRESS_FILTER_NONE_TITLE" = "Any Address";
 "EMAIL_ADDRESS_FILTER_SELECTED" = "Specific Addresses";
+"EMAIL_FOLDER_FILTER_SELECTED_REMAINING_ADDRESSES_FORMAT" = "and %d more";
 "EMAIL_ADDRESS_TITLE" = "Sender Address";
-"EMAIL_ADDRESS_FILTER_SUBTITLE" = "Filter by sender's email address";
 "EMAIL_ADDRESS_FILTER_TITLE" = "Email Address";
 "EMAIL_ADDRESS_FILTER_PROMPT" = "Select email addresses";
 "EMAIL_ADDRESS_FILTER__ADD_BUTTON_CAPTION" = "Tap here to match specific email addresses, or leave the list empty to match any address.";
@@ -61,19 +62,19 @@
 
 "EMAIL_DOMAIN_FILTER_NONE_TITLE" = "Any Domain";
 "EMAIL_DOMAIN_FILTER_SELECTED" = "Specific Domains";
+"EMAIL_FOLDER_FILTER_SELECTED_REMAINING_DOMAINS_FORMAT" = "and %d more"; 
 "EMAIL_DOMAIN_FILTER_DOMAIN_LIST_TITLE" = "Match Domains";
 "EMAIL_DOMAIN_FILTER_TABLE_HEADER_TITLE" = "Match Sender Domain Names";
 "EMAIL_DOMAIN_FILTER_TABLE_HEADER_SUBTITLE" = "To match any domain,leave this list empty. Or, to match specific domains, edit this list to include the domains.";
 "EMAIL_DOMAIN_TITLE" = "Sender Domain";
-"EMAIL_DOMAIN_FILTER_SUBTITLE" = "Filter by the email domain of the sender, where the domain may represent the sender's organization or company."; 
 
 "EMAIL_FOLDER_FILTER_NONE_TITLE" = "Any Folder";
-"EMAIL_FOLDER_FILTER_SELECTED" = "Selected Folders";
+"EMAIL_FOLDER_FILTER_SELECTED" = "Specific Folders";
+"EMAIL_FOLDER_FILTER_SELECTED_REMAINING_FOLDERS_FORMAT" = "and %d more";
 "EMAIL_FOLDER_FILTER_DOMAIN_LIST_TITLE" = "Match Folders";
 "EMAIL_FOLDER_FILTER_TABLE_HEADER_TITLE" = "Match Folder Names";
 "EMAIL_FOLDER_FILTER_TABLE_HEADER_SUBTITLE" = "To match any folder, leave this list empty. Or, to match specific folder names, edit this list to include those names.";
 "EMAIL_FOLDER_TITLE" = "Folder";
-"EMAIL_FOLDER_FILTER_SUBTITLE" = "Filter by the name of the mail folder containing the message.";
 "EMAIL_FOLDER_FILTER_FOLDER_LIST_TITLE" = "Match Folders";
 
 "TIME_UNIT_WEEKS" = "Weeks";

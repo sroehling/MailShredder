@@ -20,6 +20,7 @@
 #import "SingleButtonTableFooter.h"
 #import "MessageFilterResetter.h"
 #import "FormContext.h"
+#import "VariableHeightTableHeader.h"
 
 
 @implementation MessageFilterFormInfoCreator
@@ -43,8 +44,17 @@
 {
     MailCleanerFormPopulator *formPopulator = [[[MailCleanerFormPopulator alloc] 
 		initWithFormContext:parentContext] autorelease];
+		
+		
 			
     formPopulator.formInfo.title = LOCALIZED_STR(@"MESSAGE_FILTER_TITLE");
+	
+	VariableHeightTableHeader *tableHeader = 
+		[[[VariableHeightTableHeader alloc] initWithFrame:CGRectZero] autorelease];
+	tableHeader.header.text = @"";
+	tableHeader.subHeader.text = LOCALIZED_STR(@"MESSAGE_FILTER_FORM_SUBHEADER_TEXT");
+	[tableHeader resizeForChildren];
+	formPopulator.formInfo.headerView = tableHeader;
 	
 	[formPopulator nextSection];
 	

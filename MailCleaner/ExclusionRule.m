@@ -22,7 +22,7 @@ NSString * const EXCLUSION_RULE_ENTITY_NAME = @"ExclusionRule";
 
 -(NSString*)ruleSynopsis
 {
-	return [NSString stringWithFormat:@"Don't trash messages if ... %@",[self.ageFilter filterSynopsis]];
+	return [NSString stringWithFormat:@"Don't trash messages if ... %@",[self subFilterSynopsis]];
 }
 
 +(ExclusionRule*)createNewDefaultRule:(DataModelController*)dmcForNewRule

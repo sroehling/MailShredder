@@ -21,7 +21,7 @@ NSString * const TRASH_RULE_ENTITY_NAME = @"TrashRule";
 
 -(NSString*)ruleSynopsis
 {
-	return [NSString stringWithFormat:@"Trash messages if ... %@",[self.ageFilter filterSynopsis]];
+	return [NSString stringWithFormat:@"Trash messages if ... %@",[self subFilterSynopsis]];
 }
 
 +(TrashRule*)createNewDefaultRule:(DataModelController*)dmcForNewRule

@@ -29,6 +29,7 @@
 
 @implementation EmailInfoTableViewController
 
+@synthesize messageFilterHeader;
 
 -(NSPredicate*)msgListPredicate
 {
@@ -52,17 +53,27 @@
     [super viewDidLoad];
   
     self.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.filterDmc];
 
-	TableHeaderWithDisclosure *tableHeader = 
-			[[[TableHeaderWithDisclosure alloc] initWithFrame:CGRectZero 
+	self.messageFilterHeader  = [[[TableHeaderWithDisclosure alloc] initWithFrame:CGRectZero 
 				andDisclosureButtonDelegate:self] autorelease];
-	tableHeader.header.text = @"Message Filter";
-	[tableHeader resizeForChildren];
+	self.messageFilterHeader.header.text = LOCALIZED_STR(@"MESSAGE_FILTER_TITLE");
+	self.messageFilterHeader.subTitle.text =  sharedAppVals.msgListFilter.filterSynopsis;
+	[self.messageFilterHeader resizeForChildren];
 	
-	self.msgListView.headerView = tableHeader;
-	[self.msgListView addSubview:tableHeader];	
+	self.msgListView.headerView = self.messageFilterHeader;
+	[self.msgListView addSubview:self.messageFilterHeader];	
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.filterDmc];
+	self.messageFilterHeader.subTitle.text =  sharedAppVals.msgListFilter.filterSynopsis;
+	[self.messageFilterHeader resizeForChildren];
+
+}
 
 #pragma mark TableHeaderDisclosureViewDelegate
 

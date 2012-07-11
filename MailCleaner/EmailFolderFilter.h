@@ -20,6 +20,9 @@ extern NSString * const EMAIL_FOLDER_FILTER_ENTITY_NAME;
 @property (nonatomic, retain) MessageFilter *messageFilterFolderFilter;
 
 -(NSString*)filterSynopsis;
+-(NSString*)filterSynopsisShort;
+-(NSString*)subFilterSynopsis;
+
 -(NSPredicate*)filterPredicate;
 
 @end

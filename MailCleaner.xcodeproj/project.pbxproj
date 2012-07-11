@@ -398,18 +398,10 @@
 		0039E5F61566BE3B00CB259D /* Message Filter */ = {
 			isa = PBXGroup;
 			children = (
-				0039E5F31566B8CE00CB259D /* AgeFilterComparison.h */,
-				0039E5F41566B8CE00CB259D /* AgeFilterComparison.m */,
-				0039E5F01566B8CE00CB259D /* AgeFilter.h */,
-				0039E5F11566B8CE00CB259D /* AgeFilter.m */,
-				0039E5EA1566B8CE00CB259D /* AgeFilterNone.h */,
-				0039E5EB1566B8CE00CB259D /* AgeFilterNone.m */,
-				0098BCD9158BCD3000C15243 /* EmailAddressFilter.h */,
-				0098BCDA158BCD3000C15243 /* EmailAddressFilter.m */,
-				000BBA9D159CE801003A7158 /* EmailFolderFilter.h */,
-				000BBA9E159CE801003A7158 /* EmailFolderFilter.m */,
-				00A6FB3F159A4C9F00ED4D4B /* EmailDomainFilter.h */,
-				00A6FB40159A4C9F00ED4D4B /* EmailDomainFilter.m */,
+				00472B1715AC9F3700C6BC82 /* Domain Filter */,
+				00472B1615AC9F1C00C6BC82 /* Folder Filter */,
+				00472B1515AC9F0800C6BC82 /* Address Filter */,
+				00472B1315AC9EF800C6BC82 /* Age Filter */,
 				0039E5ED1566B8CE00CB259D /* MessageFilter.h */,
 				0039E5EE1566B8CE00CB259D /* MessageFilter.m */,
 			);
@@ -430,14 +422,9 @@
 		0039E5FB1566CD2E00CB259D /* Message List Views */ = {
 			isa = PBXGroup;
 			children = (
+				00472B1815ACA02000C6BC82 /* Resources */,
 				0017B74A157928D7001D5D28 /* MsgPredicateHelper.h */,
 				0017B74B157928D7001D5D28 /* MsgPredicateHelper.m */,
-				00D49871157694C000F8FD2F /* trash.png */,
-				00D4986F1575BCF700F8FD2F /* lock-closed.png */,
-				00394EFB156EFE00006C3AE5 /* msgActionButton.png */,
-				00F9A77D156EC66A00BB4C92 /* msgCheckbox.psd */,
-				006D6676156E9DAA00074979 /* unselectedMsgCheckbox.png */,
-				006D6677156E9DAB00074979 /* selectedMsgCheckbox.png */,
 				00D498611575380600F8FD2F /* MsgListView.h */,
 				00D498621575380600F8FD2F /* MsgListView.m */,
 				003F2395156D43490009BFE3 /* MsgListTableViewController.h */,
@@ -478,6 +465,59 @@
 				0039E5E21566B44700CB259D /* Email Info */,
 			);
 			name = "Data Model";
+			sourceTree = "<group>";
+		};
+		00472B1315AC9EF800C6BC82 /* Age Filter */ = {
+			isa = PBXGroup;
+			children = (
+				0039E5F31566B8CE00CB259D /* AgeFilterComparison.h */,
+				0039E5F41566B8CE00CB259D /* AgeFilterComparison.m */,
+				0039E5F01566B8CE00CB259D /* AgeFilter.h */,
+				0039E5F11566B8CE00CB259D /* AgeFilter.m */,
+				0039E5EA1566B8CE00CB259D /* AgeFilterNone.h */,
+				0039E5EB1566B8CE00CB259D /* AgeFilterNone.m */,
+			);
+			name = "Age Filter";
+			sourceTree = "<group>";
+		};
+		00472B1515AC9F0800C6BC82 /* Address Filter */ = {
+			isa = PBXGroup;
+			children = (
+				0098BCD9158BCD3000C15243 /* EmailAddressFilter.h */,
+				0098BCDA158BCD3000C15243 /* EmailAddressFilter.m */,
+			);
+			name = "Address Filter";
+			sourceTree = "<group>";
+		};
+		00472B1615AC9F1C00C6BC82 /* Folder Filter */ = {
+			isa = PBXGroup;
+			children = (
+				000BBA9D159CE801003A7158 /* EmailFolderFilter.h */,
+				000BBA9E159CE801003A7158 /* EmailFolderFilter.m */,
+			);
+			name = "Folder Filter";
+			sourceTree = "<group>";
+		};
+		00472B1715AC9F3700C6BC82 /* Domain Filter */ = {
+			isa = PBXGroup;
+			children = (
+				00A6FB3F159A4C9F00ED4D4B /* EmailDomainFilter.h */,
+				00A6FB40159A4C9F00ED4D4B /* EmailDomainFilter.m */,
+			);
+			name = "Domain Filter";
+			sourceTree = "<group>";
+		};
+		00472B1815ACA02000C6BC82 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				00D49871157694C000F8FD2F /* trash.png */,
+				00D4986F1575BCF700F8FD2F /* lock-closed.png */,
+				00394EFB156EFE00006C3AE5 /* msgActionButton.png */,
+				00F9A77D156EC66A00BB4C92 /* msgCheckbox.psd */,
+				006D6676156E9DAA00074979 /* unselectedMsgCheckbox.png */,
+				006D6677156E9DAB00074979 /* selectedMsgCheckbox.png */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		0053EFCE1590EEC9003F6B6E /* Email Address Filter */ = {

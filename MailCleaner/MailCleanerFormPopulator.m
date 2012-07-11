@@ -16,6 +16,7 @@
 #import "LocalizationHelper.h"
 #import "AgeFilter.h"
 #import "SectionInfo.h"
+#import "EmailFolderFilter.h"
 #import "EmailAddressFilterFormInfoCreator.h"
 #import "EmailDomainFilterFormInfoCreator.h"
 #import "BoolFieldEditInfo.h"
@@ -68,8 +69,8 @@
 	StaticNavFieldEditInfo *messageAddrFieldEditInfo = 
 		[[[StaticNavFieldEditInfo alloc] 
 			initWithCaption:LOCALIZED_STR(@"EMAIL_ADDRESS_TITLE") 
-		andSubtitle:LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_SUBTITLE")
-		andContentDescription:[emailAddressFilter filterSynopsis]
+		andSubtitle:[emailAddressFilter subFilterSynopsis]
+		andContentDescription:[emailAddressFilter filterSynopsisShort]
 		andSubFormInfoCreator:addrFilterFormInfoCreator] autorelease];
 		
 	[self.currentSection addFieldEditInfo:messageAddrFieldEditInfo];
@@ -84,8 +85,8 @@
 	StaticNavFieldEditInfo *messageDomainFieldEditInfo = 
 		[[[StaticNavFieldEditInfo alloc] 
 			initWithCaption:LOCALIZED_STR(@"EMAIL_DOMAIN_TITLE") 
-		andSubtitle:LOCALIZED_STR(@"EMAIL_DOMAIN_FILTER_SUBTITLE")
-		andContentDescription:[emailDomainFilter filterSynopsis]
+		andSubtitle:[emailDomainFilter subFilterSynopsis]
+		andContentDescription:[emailDomainFilter filterSynopsisShort]
 		andSubFormInfoCreator:domainFilterFormInfoCreator] autorelease];
 		
 	[self.currentSection addFieldEditInfo:messageDomainFieldEditInfo];
@@ -101,8 +102,8 @@
 	StaticNavFieldEditInfo *messageFolderFieldEditInfo = 
 		[[[StaticNavFieldEditInfo alloc] 
 			initWithCaption:LOCALIZED_STR(@"EMAIL_FOLDER_TITLE") 
-		andSubtitle:LOCALIZED_STR(@"EMAIL_FOLDER_FILTER_SUBTITLE")
-		andContentDescription:[emailFolderFilter filterSynopsis]
+		andSubtitle:[emailFolderFilter subFilterSynopsis]
+		andContentDescription:[emailFolderFilter filterSynopsisShort]
 		andSubFormInfoCreator:folderFilterFormInfoCreator] autorelease];
 		
 	[self.currentSection addFieldEditInfo:messageFolderFieldEditInfo];

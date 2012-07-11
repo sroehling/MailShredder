@@ -15,6 +15,7 @@
 #import "EmailInfo.h"
 
 NSString * const EMAIL_FOLDER_FILTER_ENTITY_NAME = @"EmailFolderFilter";
+NSInteger const MAX_SPECIFIC_FOLDER_SYNOPSIS = 2;
 
 @implementation EmailFolderFilter
 
@@ -24,7 +25,7 @@ NSString * const EMAIL_FOLDER_FILTER_ENTITY_NAME = @"EmailFolderFilter";
 @dynamic msgHandlingRuleFolderFilter;
 @dynamic messageFilterFolderFilter;
 
--(NSString*)filterSynopsis
+-(NSString*)filterSynopsisShort
 {
 	if([self.selectedFolders count] == 0)
 	{
@@ -33,6 +34,47 @@ NSString * const EMAIL_FOLDER_FILTER_ENTITY_NAME = @"EmailFolderFilter";
 	else 
 	{
 		return LOCALIZED_STR(@"EMAIL_FOLDER_FILTER_SELECTED");
+	}
+}
+
+-(NSString*)subFilterSynopsis
+{
+	NSInteger folderNum = 0;
+	NSMutableArray *specificFolderNames = [[[NSMutableArray alloc] init] autorelease];
+	for(EmailFolder *folder in self.selectedFolders)
+	{
+		if(folderNum < MAX_SPECIFIC_FOLDER_SYNOPSIS)
+		{
+			[specificFolderNames addObject:folder.folderName];
+		}
+		folderNum++;
+	}
+	if(folderNum <= MAX_SPECIFIC_FOLDER_SYNOPSIS)
+	{
+		return [specificFolderNames componentsJoinedByString:@", "];
+	}
+	else
+	{
+		NSInteger remainingFolders = [self.selectedFolders count] - MAX_SPECIFIC_FOLDER_SYNOPSIS;
+		NSString *remainingFolderDesc = [NSString stringWithFormat:
+			LOCALIZED_STR(@"EMAIL_FOLDER_FILTER_SELECTED_REMAINING_FOLDERS_FORMAT"),remainingFolders];
+		return [NSString stringWithFormat:@"%@ %@",
+			[specificFolderNames componentsJoinedByString:@", "],
+			remainingFolderDesc];
+	}
+
+}
+
+-(NSString*)filterSynopsis
+{
+	if([self.selectedFolders count] == 0)
+	{
+		return LOCALIZED_STR(@"EMAIL_FOLDER_FILTER_NONE_TITLE");
+	}
+	else 
+	{
+		return [NSString stringWithFormat:@"%@ (%@)",LOCALIZED_STR(@"EMAIL_FOLDER_FILTER_SELECTED"),
+				[self subFilterSynopsis]];
 	}
 }
 

@@ -20,6 +20,8 @@ extern NSString * const EMAIL_ADDRESS_FILTER_ENTITY_NAME;
 @property (nonatomic, retain) NSSet *msgHandlingRuleEmailAddressFilter;
 
 -(NSString*)filterSynopsis;
+-(NSString*)filterSynopsisShort;
+-(NSString*)subFilterSynopsis;
 -(NSPredicate*)filterPredicate;
 
 @property (nonatomic, retain) NSSet *selectedAddresses;

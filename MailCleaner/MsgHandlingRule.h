@@ -27,6 +27,7 @@ extern NSString * const RULE_AGE_FILTER_KEY;
 
 
 -(NSString*)ruleSynopsis;
+-(NSString*)subFilterSynopsis;
 -(NSPredicate*)rulePredicate:(NSDate*)baseDate;
 
 @end

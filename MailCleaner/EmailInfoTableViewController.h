@@ -11,11 +11,16 @@
 
 
 @class DataModelController;
+@class TableHeaderWithDisclosure;
 
 #import "TableHeaderDisclosureButtonDelegate.h"
 
 @interface EmailInfoTableViewController : MsgListTableViewController 
 	<TableHeaderDisclosureButtonDelegate> {
+	@private
+		TableHeaderWithDisclosure *messageFilterHeader;
 }
+
+@property(nonatomic,retain) TableHeaderWithDisclosure *messageFilterHeader;
 
 @end

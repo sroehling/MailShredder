@@ -14,6 +14,7 @@
 #import "EmailAddress.h"
 
 NSString * const EMAIL_ADDRESS_FILTER_ENTITY_NAME = @"EmailAddressFilter";
+NSInteger const MAX_SPECIFIC_ADDRESS_SYNOPSIS = 2;
 
 @implementation EmailAddressFilter
 
@@ -22,7 +23,7 @@ NSString * const EMAIL_ADDRESS_FILTER_ENTITY_NAME = @"EmailAddressFilter";
 
 @dynamic selectedAddresses;
 
--(NSString*)filterSynopsis
+-(NSString*)filterSynopsisShort
 {
 	if([self.selectedAddresses count] == 0)
 	{
@@ -33,6 +34,47 @@ NSString * const EMAIL_ADDRESS_FILTER_ENTITY_NAME = @"EmailAddressFilter";
 		return LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_SELECTED");
 	}
 }
+
+-(NSString*)subFilterSynopsis
+{
+	NSInteger addressNum = 0;
+	NSMutableArray *specificAddresses = [[[NSMutableArray alloc] init] autorelease];
+	for(EmailAddress *senderAddress in self.selectedAddresses)
+	{
+		if(addressNum < MAX_SPECIFIC_ADDRESS_SYNOPSIS)
+		{
+			[specificAddresses addObject:senderAddress.address];
+		}
+		addressNum++;
+	}
+	if(addressNum <= MAX_SPECIFIC_ADDRESS_SYNOPSIS)
+	{
+		return [specificAddresses componentsJoinedByString:@", "];
+	}
+	else
+	{
+		NSInteger remainingAddresses = [self.selectedAddresses count] - MAX_SPECIFIC_ADDRESS_SYNOPSIS;
+		NSString *remainingAddressesDesc = [NSString stringWithFormat:
+			LOCALIZED_STR(@"EMAIL_FOLDER_FILTER_SELECTED_REMAINING_ADDRESSES_FORMAT"),remainingAddresses];
+		return [NSString stringWithFormat:@"%@ %@",
+			[specificAddresses componentsJoinedByString:@", "],remainingAddressesDesc];
+	}
+}
+
+-(NSString*)filterSynopsis
+{
+	if([self.selectedAddresses count] == 0)
+	{
+		return LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_NONE_TITLE");
+	}
+	else 
+	{
+		return [NSString stringWithFormat:@"%@ (%@)",
+			LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_SELECTED"),
+			[self subFilterSynopsis]];
+	}
+}
+
 
 -(NSPredicate*)filterPredicate
 {
