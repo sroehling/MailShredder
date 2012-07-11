@@ -57,6 +57,7 @@
 
 	self.messageFilterHeader  = [[[TableHeaderWithDisclosure alloc] initWithFrame:CGRectZero 
 				andDisclosureButtonDelegate:self] autorelease];
+	[self.messageFilterHeader configureWithCustomButtonImage:@"search.png"];
 	self.messageFilterHeader.header.text = LOCALIZED_STR(@"MESSAGE_FILTER_TITLE");
 	self.messageFilterHeader.subTitle.text =  sharedAppVals.msgListFilter.filterSynopsis;
 	[self.messageFilterHeader resizeForChildren];
