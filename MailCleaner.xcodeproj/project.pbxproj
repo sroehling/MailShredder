@@ -76,6 +76,9 @@
 		00C4AB0F1581764900E0868A /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB0B1581764900E0868A /* libssl.a */; };
 		00C4AB141581784900E0868A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB131581784900E0868A /* CFNetwork.framework */; };
 		00C4AB15158178FC00E0868A /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB11158177C400E0868A /* libiconv.dylib */; };
+		00C8970A15AF34560006FF2F /* MoreFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8970915AF34560006FF2F /* MoreFormInfoCreator.m */; };
+		00C8971915AF3F0E0006FF2F /* about.md in Resources */ = {isa = PBXBuildFile; fileRef = 00C8971815AF3F0E0006FF2F /* about.md */; };
+		00C8971B15AF40340006FF2F /* markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 00C8971A15AF40340006FF2F /* markdown.css */; };
 		00D498631575380600F8FD2F /* MsgListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D498621575380600F8FD2F /* MsgListView.m */; };
 		00D498701575BCF700F8FD2F /* lock-closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 00D4986F1575BCF700F8FD2F /* lock-closed.png */; };
 		00D49872157694C000F8FD2F /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = 00D49871157694C000F8FD2F /* trash.png */; };
@@ -90,6 +93,20 @@
 		00D4989C1578371E00F8FD2F /* MsgHandlingRuleFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4989B1578371D00F8FD2F /* MsgHandlingRuleFieldEditInfo.m */; };
 		00E9944A15643244003B9771 /* EmailInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9944915643244003B9771 /* EmailInfoTableViewController.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		00C8971215AF3AA00006FF2F /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.md";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"${DERIVED_FILE_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_BASE}.html",
+			);
+			script = "mkdir -p ${DERIVED_FILE_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}$; \"${INPUT_FILE_DIR}/../../MarkdownHelpGeneration/wrapMarkdown.pl\" \"${INPUT_FILE_PATH}\" > ${DERIVED_FILE_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_BASE}.html";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
 		000566C11562F94D003D114D /* PBXContainerItemProxy */ = {
@@ -215,6 +232,10 @@
 		00C4AB0B1581764900E0868A /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "../MailCore/iOSPorts/ports/security/openssl/build/Release-iphoneos/libssl.a"; sourceTree = "<group>"; };
 		00C4AB11158177C400E0868A /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		00C4AB131581784900E0868A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		00C8970815AF34560006FF2F /* MoreFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreFormInfoCreator.h; sourceTree = "<group>"; };
+		00C8970915AF34560006FF2F /* MoreFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreFormInfoCreator.m; sourceTree = "<group>"; };
+		00C8971815AF3F0E0006FF2F /* about.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = about.md; sourceTree = "<group>"; };
+		00C8971A15AF40340006FF2F /* markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = markdown.css; path = ../../MarkdownHelpGeneration/markdown.css; sourceTree = "<group>"; };
 		00D498611575380600F8FD2F /* MsgListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgListView.h; sourceTree = "<group>"; };
 		00D498621575380600F8FD2F /* MsgListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgListView.m; sourceTree = "<group>"; };
 		00D4986F1575BCF700F8FD2F /* lock-closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-closed.png"; sourceTree = "<group>"; };
@@ -313,6 +334,8 @@
 		000566971562F94C003D114D /* MailCleaner */ = {
 			isa = PBXGroup;
 			children = (
+				00C8970F15AF39CB0006FF2F /* Help File Generation */,
+				00C8970615AF34400006FF2F /* More View */,
 				00D4988F1577F00F00F8FD2F /* Helper */,
 				003D59A015641CDD00AD3D91 /* Data Model */,
 				00A8C31115838BB9006163EE /* Mail Sync */,
@@ -623,6 +646,24 @@
 			name = "Mail Sync";
 			sourceTree = "<group>";
 		};
+		00C8970615AF34400006FF2F /* More View */ = {
+			isa = PBXGroup;
+			children = (
+				00C8971A15AF40340006FF2F /* markdown.css */,
+				00C8970815AF34560006FF2F /* MoreFormInfoCreator.h */,
+				00C8970915AF34560006FF2F /* MoreFormInfoCreator.m */,
+				00C8971815AF3F0E0006FF2F /* about.md */,
+			);
+			name = "More View";
+			sourceTree = "<group>";
+		};
+		00C8970F15AF39CB0006FF2F /* Help File Generation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Help File Generation";
+			sourceTree = "<group>";
+		};
 		00D498731576D9C700F8FD2F /* Rules List View */ = {
 			isa = PBXGroup;
 			children = (
@@ -673,6 +714,7 @@
 				0005668B1562F94C003D114D /* Resources */,
 			);
 			buildRules = (
+				00C8971215AF3AA00006FF2F /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -741,6 +783,8 @@
 				00D498701575BCF700F8FD2F /* lock-closed.png in Resources */,
 				00D49872157694C000F8FD2F /* trash.png in Resources */,
 				0054D2EA15ADF49D00270679 /* search.png in Resources */,
+				00C8971915AF3F0E0006FF2F /* about.md in Resources */,
+				00C8971B15AF40340006FF2F /* markdown.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -828,6 +872,7 @@
 				000BBAA9159CF696003A7158 /* EmailFolderFilterFolderAdder.m in Sources */,
 				000BBAAC159CFA10003A7158 /* EmailFolderFilterFormInfoCreator.m in Sources */,
 				003C716715A39BA000FB1FF9 /* MessageFilterResetter.m in Sources */,
+				00C8970A15AF34560006FF2F /* MoreFormInfoCreator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

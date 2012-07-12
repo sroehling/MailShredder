@@ -20,6 +20,8 @@
 #import "SharedAppVals.h"
 #import "RulesFormInfoCreator.h"
 #import "MailClientServerSyncController.h"
+#import "MoreFormInfoCreator.h"
+#import "ColorHelper.h"
 
 @implementation AppDelegate
 
@@ -99,6 +101,9 @@
 	DataModelController *appDmc = [AppHelper appDataModelController];
 
 	[self retrieveEmails:emailInfoDmc andAppDataDmc:appDmc];
+	
+	UIColor *navBarControllerColor = [ColorHelper navBarTintColor];
+
 
 	
 	EmailInfoTableViewController *msgListController = [[[EmailInfoTableViewController alloc] 
@@ -108,7 +113,7 @@
 	msgListNavController.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
 	msgListController.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
 //	msgListNavController.tabBarItem.image = [UIImage imageNamed:@"piggy.png"];
-//	msgListNavController.navigationBar.tintColor = navBarControllerColor;
+	msgListNavController.navigationBar.tintColor = navBarControllerColor;
 
 
 	TrashMsgListViewController *trashedMsgsController = [[[TrashMsgListViewController alloc]  
@@ -117,6 +122,7 @@
 			initWithRootViewController:trashedMsgsController] autorelease];
 	trashedMsgsController.title = LOCALIZED_STR(@"TRASH_VIEW_TITLE");
 	trashedMsgsNavController.title = LOCALIZED_STR(@"TRASH_VIEW_TITLE");
+	trashedMsgsNavController.navigationBar.tintColor = navBarControllerColor;	
 	
 	
 	RulesFormInfoCreator *rulesFormInfoCreator = [[[RulesFormInfoCreator alloc] init] autorelease];
@@ -127,6 +133,17 @@
 			initWithRootViewController:rulesController] autorelease];
 	rulesNavController.title = LOCALIZED_STR(@"RULES_VIEW_TITLE");
 	rulesNavController.title = LOCALIZED_STR(@"RULES_VIEW_TITLE");
+	rulesNavController.navigationBar.tintColor = navBarControllerColor;	
+	
+	MoreFormInfoCreator *moreFormInfoCreator = 
+		[[[MoreFormInfoCreator alloc] init] autorelease];
+	UIViewController *moreViewController = [[[GenericFieldBasedTableViewController alloc]
+		initWithFormInfoCreator:moreFormInfoCreator andDataModelController:appDmc] autorelease];
+	UINavigationController *moreNavController = [[[UINavigationController alloc] initWithRootViewController:moreViewController] autorelease];
+	moreNavController.title = LOCALIZED_STR(@"MORE_VIEW_TITLE");
+	moreNavController.tabBarItem = [[[UITabBarItem alloc] 
+		initWithTabBarSystemItem:UITabBarSystemItemMore tag:0] autorelease];
+	moreNavController.navigationBar.tintColor = navBarControllerColor;	
 
 	
 	
@@ -136,6 +153,7 @@
 			msgListNavController, 
 			trashedMsgsNavController,
 			rulesNavController,
+			moreNavController,
 			nil];
 	self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];

@@ -78,6 +78,10 @@
 "EMAIL_FOLDER_TITLE" = "Folder";
 "EMAIL_FOLDER_FILTER_FOLDER_LIST_TITLE" = "Match Folders";
 
+"MORE_VIEW_TITLE" = "More";
+
+"HELP_ABOUT" = "About";
+
 "TIME_UNIT_WEEKS" = "Weeks";
 "TIME_UNIT_MONTHS" = "Months";
 "TIME_UNIT_YEARS" = "Years";

@@ -16,6 +16,7 @@
 #import "EmailInfoActionView.h"
 #import "MsgTableCell.h"
 #import "MsgListView.h"
+#import "UIHelper.h"
 
 
 @implementation MsgListTableViewController
@@ -139,6 +140,12 @@
 	
 	[self.msgListView.msgListTableView reloadData];
 
+}
+
+- (void)setTitle:(NSString *)title
+{
+	[super setTitle:title];
+	[UIHelper setCommonTitleForController:self withTitle:title];
 }
 
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
