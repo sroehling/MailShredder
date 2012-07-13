@@ -9,6 +9,7 @@
 #import "MoreFormInfoCreator.h"
 #import "HelpPageFormPopulator.h"
 #import "LocalizationHelper.h"
+#import "EmailAccountListFormInfoCreator.h"
 
 @implementation MoreFormInfoCreator
 
@@ -18,6 +19,13 @@
 		initWithFormContext:parentContext] autorelease];
 	
 	formPopulator.formInfo.title = LOCALIZED_STR(@"MORE_VIEW_TITLE");
+
+	[formPopulator nextSection];
+
+	[formPopulator populateStaticNavFieldWithFormInfoCreator:
+		[[[EmailAccountListFormInfoCreator alloc] init] autorelease]
+		andFieldCaption:LOCALIZED_STR(@"EMAIL_ACCOUNT_LIST_VIEW_TITLE")
+		andSubTitle:LOCALIZED_STR(@"EMAIL_ACCOUNT_LIST_FIELD_SUBTITLE")];
 	
 	[formPopulator nextSection];
 	

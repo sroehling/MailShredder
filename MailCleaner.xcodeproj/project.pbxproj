@@ -79,6 +79,11 @@
 		00C8970A15AF34560006FF2F /* MoreFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8970915AF34560006FF2F /* MoreFormInfoCreator.m */; };
 		00C8971915AF3F0E0006FF2F /* about.md in Resources */ = {isa = PBXBuildFile; fileRef = 00C8971815AF3F0E0006FF2F /* about.md */; };
 		00C8971B15AF40340006FF2F /* markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 00C8971A15AF40340006FF2F /* markdown.css */; };
+		00C8971E15AF4BF20006FF2F /* EmailAccountFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8971D15AF4BF20006FF2F /* EmailAccountFormInfoCreator.m */; };
+		00C8972115AF4F480006FF2F /* EmailAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8972015AF4F480006FF2F /* EmailAccount.m */; };
+		00C8972415AF52540006FF2F /* EmailAccountListFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8972315AF52540006FF2F /* EmailAccountListFormInfoCreator.m */; };
+		00C8972715AF52FD0006FF2F /* EmailAccountAdder.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8972615AF52FD0006FF2F /* EmailAccountAdder.m */; };
+		00C8972B15AF690F0006FF2F /* PortNumberValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8972A15AF690F0006FF2F /* PortNumberValidator.m */; };
 		00D498631575380600F8FD2F /* MsgListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D498621575380600F8FD2F /* MsgListView.m */; };
 		00D498701575BCF700F8FD2F /* lock-closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 00D4986F1575BCF700F8FD2F /* lock-closed.png */; };
 		00D49872157694C000F8FD2F /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = 00D49871157694C000F8FD2F /* trash.png */; };
@@ -236,6 +241,16 @@
 		00C8970915AF34560006FF2F /* MoreFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreFormInfoCreator.m; sourceTree = "<group>"; };
 		00C8971815AF3F0E0006FF2F /* about.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = about.md; sourceTree = "<group>"; };
 		00C8971A15AF40340006FF2F /* markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = markdown.css; path = ../../MarkdownHelpGeneration/markdown.css; sourceTree = "<group>"; };
+		00C8971C15AF4BF20006FF2F /* EmailAccountFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAccountFormInfoCreator.h; sourceTree = "<group>"; };
+		00C8971D15AF4BF20006FF2F /* EmailAccountFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAccountFormInfoCreator.m; sourceTree = "<group>"; };
+		00C8971F15AF4F480006FF2F /* EmailAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAccount.h; sourceTree = "<group>"; };
+		00C8972015AF4F480006FF2F /* EmailAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAccount.m; sourceTree = "<group>"; };
+		00C8972215AF52540006FF2F /* EmailAccountListFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAccountListFormInfoCreator.h; sourceTree = "<group>"; };
+		00C8972315AF52540006FF2F /* EmailAccountListFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAccountListFormInfoCreator.m; sourceTree = "<group>"; };
+		00C8972515AF52FD0006FF2F /* EmailAccountAdder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAccountAdder.h; sourceTree = "<group>"; };
+		00C8972615AF52FD0006FF2F /* EmailAccountAdder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAccountAdder.m; sourceTree = "<group>"; };
+		00C8972915AF690F0006FF2F /* PortNumberValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PortNumberValidator.h; sourceTree = "<group>"; };
+		00C8972A15AF690F0006FF2F /* PortNumberValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PortNumberValidator.m; sourceTree = "<group>"; };
 		00D498611575380600F8FD2F /* MsgListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgListView.h; sourceTree = "<group>"; };
 		00D498621575380600F8FD2F /* MsgListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgListView.m; sourceTree = "<group>"; };
 		00D4986F1575BCF700F8FD2F /* lock-closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-closed.png"; sourceTree = "<group>"; };
@@ -334,14 +349,14 @@
 		000566971562F94C003D114D /* MailCleaner */ = {
 			isa = PBXGroup;
 			children = (
-				00C8970F15AF39CB0006FF2F /* Help File Generation */,
-				00C8970615AF34400006FF2F /* More View */,
 				00D4988F1577F00F00F8FD2F /* Helper */,
 				003D59A015641CDD00AD3D91 /* Data Model */,
 				00A8C31115838BB9006163EE /* Mail Sync */,
 				0039E5FA1566CD0800CB259D /* Application */,
 				0039E5FB1566CD2E00CB259D /* Message List Views */,
 				00D498731576D9C700F8FD2F /* Rules List View */,
+				00C8972815AF53120006FF2F /* Email Account */,
+				00C8970615AF34400006FF2F /* More View */,
 				000566981562F94C003D114D /* Supporting Files */,
 				0039E5FC1566CE0700CB259D /* Message Filter */,
 			);
@@ -416,6 +431,8 @@
 				0039E5F81566BE6600CB259D /* SharedAppVals.m */,
 				00D498821577E8F500F8FD2F /* Rules */,
 				0039E5F61566BE3B00CB259D /* Message Filter */,
+				00C8971F15AF4F480006FF2F /* EmailAccount.h */,
+				00C8972015AF4F480006FF2F /* EmailAccount.m */,
 			);
 			name = "App Data";
 			sourceTree = "<group>";
@@ -657,11 +674,19 @@
 			name = "More View";
 			sourceTree = "<group>";
 		};
-		00C8970F15AF39CB0006FF2F /* Help File Generation */ = {
+		00C8972815AF53120006FF2F /* Email Account */ = {
 			isa = PBXGroup;
 			children = (
+				00C8972515AF52FD0006FF2F /* EmailAccountAdder.h */,
+				00C8972615AF52FD0006FF2F /* EmailAccountAdder.m */,
+				00C8971C15AF4BF20006FF2F /* EmailAccountFormInfoCreator.h */,
+				00C8971D15AF4BF20006FF2F /* EmailAccountFormInfoCreator.m */,
+				00C8972215AF52540006FF2F /* EmailAccountListFormInfoCreator.h */,
+				00C8972315AF52540006FF2F /* EmailAccountListFormInfoCreator.m */,
+				00C8972915AF690F0006FF2F /* PortNumberValidator.h */,
+				00C8972A15AF690F0006FF2F /* PortNumberValidator.m */,
 			);
-			name = "Help File Generation";
+			name = "Email Account";
 			sourceTree = "<group>";
 		};
 		00D498731576D9C700F8FD2F /* Rules List View */ = {
@@ -873,6 +898,11 @@
 				000BBAAC159CFA10003A7158 /* EmailFolderFilterFormInfoCreator.m in Sources */,
 				003C716715A39BA000FB1FF9 /* MessageFilterResetter.m in Sources */,
 				00C8970A15AF34560006FF2F /* MoreFormInfoCreator.m in Sources */,
+				00C8971E15AF4BF20006FF2F /* EmailAccountFormInfoCreator.m in Sources */,
+				00C8972115AF4F480006FF2F /* EmailAccount.m in Sources */,
+				00C8972415AF52540006FF2F /* EmailAccountListFormInfoCreator.m in Sources */,
+				00C8972715AF52FD0006FF2F /* EmailAccountAdder.m in Sources */,
+				00C8972B15AF690F0006FF2F /* PortNumberValidator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

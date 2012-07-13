@@ -21,6 +21,15 @@
     <entity name="AgeFilterNone" representedClassName="AgeFilterNone" parentEntity="AgeFilter" syncable="YES">
         <relationship name="sharedAppValsDefaultAgeFilterNone" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterNone" inverseEntity="SharedAppVals" syncable="YES"/>
     </entity>
+    <entity name="EmailAccount" representedClassName="EmailAccount" syncable="YES">
+        <attribute name="acctName" attributeType="String" syncable="YES"/>
+        <attribute name="emailAddress" attributeType="String" syncable="YES"/>
+        <attribute name="imapServer" attributeType="String" syncable="YES"/>
+        <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="portNumber" attributeType="Integer 32" defaultValueString="143" syncable="YES"/>
+        <attribute name="userName" attributeType="String" syncable="YES"/>
+        <attribute name="useSSL" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+    </entity>
     <entity name="EmailAddress" representedClassName="EmailAddress" syncable="YES">
         <attribute name="address" attributeType="String" minValueString="1" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -95,5 +104,6 @@
         <element name="MsgHandlingRule" positionX="160" positionY="192" width="128" height="135"/>
         <element name="SharedAppVals" positionX="160" positionY="192" width="128" height="210"/>
         <element name="TrashRule" positionX="160" positionY="192" width="128" height="45"/>
+        <element name="EmailAccount" positionX="160" positionY="192" width="128" height="150"/>
     </elements>
 </model>
