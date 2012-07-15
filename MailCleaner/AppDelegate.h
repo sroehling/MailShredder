@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
+#import "GenericFieldBasedTableAddViewController.h"
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate,
+			GenericTableAddViewSaveCompleteDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

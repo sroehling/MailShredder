@@ -16,6 +16,8 @@
 #import "TextFieldEditInfo.h"
 #import "SectionInfo.h"
 #import "RegExpTextFieldValidator.h"
+#import "VariableHeightTableHeader.h"
+
 
 @implementation EmailAccountFormInfoCreator
 
@@ -27,6 +29,14 @@
 		initWithFormContext:parentContext] autorelease];
 	
 	formPopulator.formInfo.title = LOCALIZED_STR(@"EMAIL_ACCOUNT_VIEW_TITLE");
+	
+	VariableHeightTableHeader *tableHeader = 
+		[[[VariableHeightTableHeader alloc] initWithFrame:CGRectZero] autorelease];
+	tableHeader.header.text = @"";
+	tableHeader.subHeader.text = LOCALIZED_STR(@"EMAIL_ACCOUNT_TABLE_SUBHEADER");
+	[tableHeader resizeForChildren];
+	formPopulator.formInfo.headerView = tableHeader;
+
 	
 	[formPopulator nextSectionWithTitle:
 		LOCALIZED_STR(@"EMAIL_ACCOUNT_ACCOUNT_INFO_SECTION_TITLE")];

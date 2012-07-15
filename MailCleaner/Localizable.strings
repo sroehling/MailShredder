@@ -105,6 +105,7 @@
 "EMAIL_ACCOUNT_PASSWORD_VALIDATION_MSG" = "Enter a valid password";
 "EMAIL_ACCOUNT_PASSWORD_FIELD_LABEL" = "Password";
 "EMAIL_ACCOUNT_PASSWORD_PLACEHOLDER" = "Enter a password";
+"EMAIL_ACCOUNT_TABLE_SUBHEADER" = "Enter your email account settings. If you're unsure of the settings, please consult your email provider."; 
 
 
 "TIME_UNIT_WEEKS" = "Weeks";

@@ -23,6 +23,11 @@
 #import "MoreFormInfoCreator.h"
 #import "ColorHelper.h"
 
+#import "EmailAccount.h"
+#import "EmailAccountFormInfoCreator.h"
+#import "GenericFieldBasedTableAddViewController.h"
+
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -85,6 +90,42 @@
 	[mailSync syncWithServer];	
 }
 
+-(void)promptForEmailAcctInfoForDataModelController:(DataModelController*)appDmc
+{
+	EmailAccount *newAcct = [appDmc insertObject:EMAIL_ACCOUNT_ENTITY_NAME];
+	newAcct.portNumber = [NSNumber numberWithInt:143];
+	newAcct.useSSL = [NSNumber numberWithBool:FALSE];
+	
+	EmailAccountFormInfoCreator *emailAcctFormInfoCreator = 
+		[[[EmailAccountFormInfoCreator alloc] initWithEmailAcct:newAcct] autorelease];
+	
+    GenericFieldBasedTableAddViewController *addView =  
+		[[[GenericFieldBasedTableAddViewController alloc] 
+        initWithFormInfoCreator:emailAcctFormInfoCreator andNewObject:newAcct
+		andDataModelController:appDmc] autorelease];
+	addView.popDepth = 0;
+	addView.showCancelButton = FALSE;
+	addView.addCompleteDelegate = self;
+
+	UINavigationController *emailAcctNavController = [[[UINavigationController alloc] 
+			initWithRootViewController:addView] autorelease];
+	emailAcctNavController.title = LOCALIZED_STR(@"EMAIL_ACCOUNT_VIEW_TITLE");
+	emailAcctNavController.navigationBar.tintColor = [ColorHelper navBarTintColor];;	
+		
+	self.window.rootViewController = emailAcctNavController;
+	
+    [self.window makeKeyAndVisible];
+
+}
+
+-(void)genericAddViewSaveCompleteForObject:(NSManagedObject*)addedObject
+{
+	self.window.rootViewController = self.tabBarController;
+	
+    [self.window makeKeyAndVisible];
+
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
@@ -103,8 +144,6 @@
 	[self retrieveEmails:emailInfoDmc andAppDataDmc:appDmc];
 	
 	UIColor *navBarControllerColor = [ColorHelper navBarTintColor];
-
-
 	
 	EmailInfoTableViewController *msgListController = [[[EmailInfoTableViewController alloc] 
 		initWithEmailInfoDataModelController:emailInfoDmc andAppDataModelController:appDmc] autorelease];
@@ -145,8 +184,6 @@
 		initWithTabBarSystemItem:UITabBarSystemItemMore tag:0] autorelease];
 	moreNavController.navigationBar.tintColor = navBarControllerColor;	
 
-	
-	
 	self.tabBarController = [[[UITabBarController alloc] init] autorelease];
 	self.tabBarController.viewControllers = 
 		[NSArray arrayWithObjects:
@@ -155,9 +192,19 @@
 			rulesNavController,
 			moreNavController,
 			nil];
-	self.window.rootViewController = self.tabBarController;
-    [self.window makeKeyAndVisible];
-    return YES;
+
+	if(![appDmc entitiesExistForEntityName:EMAIL_ACCOUNT_ENTITY_NAME])
+	{
+		[self promptForEmailAcctInfoForDataModelController:appDmc];
+	}
+	else 
+	{
+		self.window.rootViewController = self.tabBarController;
+		
+		[self.window makeKeyAndVisible];
+	}
+	
+	return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
