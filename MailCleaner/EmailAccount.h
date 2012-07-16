@@ -19,6 +19,10 @@ extern NSString * const EMAIL_ACCOUNT_IMAPSERVER_KEY;
 extern NSString * const EMAIL_ACCOUNT_USERNAME_KEY;
 extern NSString * const EMAIL_ACCOUNT_PASSWORD_KEY;
 
+extern NSInteger const EMAIL_ACCOUNT_DEFAULT_PORT_SSL;
+extern NSInteger const EMAIL_ACCOUNT_DEFAULT_PORT_NOSSL;
+
+
 @interface EmailAccount : NSManagedObject
 
 @property (nonatomic, retain) NSString * acctName;

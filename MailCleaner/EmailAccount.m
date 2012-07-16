@@ -18,6 +18,10 @@ NSString * const EMAIL_ACCOUNT_IMAPSERVER_KEY = @"imapServer";
 NSString * const EMAIL_ACCOUNT_USERNAME_KEY = @"userName";
 NSString * const EMAIL_ACCOUNT_PASSWORD_KEY = @"password";
 
+NSInteger const EMAIL_ACCOUNT_DEFAULT_PORT_SSL = 993;
+NSInteger const EMAIL_ACCOUNT_DEFAULT_PORT_NOSSL = 143;
+
+
 @implementation EmailAccount
 
 @dynamic acctName;

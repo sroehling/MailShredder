@@ -76,6 +76,7 @@
 		00C4AB0F1581764900E0868A /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB0B1581764900E0868A /* libssl.a */; };
 		00C4AB141581784900E0868A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB131581784900E0868A /* CFNetwork.framework */; };
 		00C4AB15158178FC00E0868A /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB11158177C400E0868A /* libiconv.dylib */; };
+		00C8777415B306EE0063F88B /* PortNumFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8777315B306EE0063F88B /* PortNumFieldEditInfo.m */; };
 		00C8970A15AF34560006FF2F /* MoreFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8970915AF34560006FF2F /* MoreFormInfoCreator.m */; };
 		00C8971915AF3F0E0006FF2F /* about.md in Resources */ = {isa = PBXBuildFile; fileRef = 00C8971815AF3F0E0006FF2F /* about.md */; };
 		00C8971B15AF40340006FF2F /* markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 00C8971A15AF40340006FF2F /* markdown.css */; };
@@ -237,6 +238,8 @@
 		00C4AB0B1581764900E0868A /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "../MailCore/iOSPorts/ports/security/openssl/build/Release-iphoneos/libssl.a"; sourceTree = "<group>"; };
 		00C4AB11158177C400E0868A /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		00C4AB131581784900E0868A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		00C8777215B306EE0063F88B /* PortNumFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PortNumFieldEditInfo.h; sourceTree = "<group>"; };
+		00C8777315B306EE0063F88B /* PortNumFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PortNumFieldEditInfo.m; sourceTree = "<group>"; };
 		00C8970815AF34560006FF2F /* MoreFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreFormInfoCreator.h; sourceTree = "<group>"; };
 		00C8970915AF34560006FF2F /* MoreFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreFormInfoCreator.m; sourceTree = "<group>"; };
 		00C8971815AF3F0E0006FF2F /* about.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = about.md; sourceTree = "<group>"; };
@@ -677,6 +680,8 @@
 		00C8972815AF53120006FF2F /* Email Account */ = {
 			isa = PBXGroup;
 			children = (
+				00C8777215B306EE0063F88B /* PortNumFieldEditInfo.h */,
+				00C8777315B306EE0063F88B /* PortNumFieldEditInfo.m */,
 				00C8972515AF52FD0006FF2F /* EmailAccountAdder.h */,
 				00C8972615AF52FD0006FF2F /* EmailAccountAdder.m */,
 				00C8971C15AF4BF20006FF2F /* EmailAccountFormInfoCreator.h */,
@@ -903,6 +908,7 @@
 				00C8972415AF52540006FF2F /* EmailAccountListFormInfoCreator.m in Sources */,
 				00C8972715AF52FD0006FF2F /* EmailAccountAdder.m in Sources */,
 				00C8972B15AF690F0006FF2F /* PortNumberValidator.m in Sources */,
+				00C8777415B306EE0063F88B /* PortNumFieldEditInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

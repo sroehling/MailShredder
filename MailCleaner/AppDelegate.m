@@ -93,7 +93,7 @@
 -(void)promptForEmailAcctInfoForDataModelController:(DataModelController*)appDmc
 {
 	EmailAccount *newAcct = [appDmc insertObject:EMAIL_ACCOUNT_ENTITY_NAME];
-	newAcct.portNumber = [NSNumber numberWithInt:143];
+	newAcct.portNumber = [NSNumber numberWithInt:EMAIL_ACCOUNT_DEFAULT_PORT_NOSSL];
 	newAcct.useSSL = [NSNumber numberWithBool:FALSE];
 	
 	EmailAccountFormInfoCreator *emailAcctFormInfoCreator = 

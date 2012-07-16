@@ -17,6 +17,7 @@
 #import "SectionInfo.h"
 #import "RegExpTextFieldValidator.h"
 #import "VariableHeightTableHeader.h"
+#import "PortNumFieldEditInfo.h"
 
 
 @implementation EmailAccountFormInfoCreator
@@ -129,21 +130,18 @@
 			andAutoCorrectType:UITextAutocorrectionTypeNo];
 		[formPopulator.currentSection addFieldEditInfo:passwordFieldEditInfo];
 	}
+
 		
 	[formPopulator nextSectionWithTitle:LOCALIZED_STR(@"EMAIL_ACCOUNT_ADVANCED_SECTION")];
-	
+
 	[formPopulator populateBoolFieldInParentObj:self.emailAccount withBoolField:EMAIL_ACCOUNT_USESSL_KEY 
 		andFieldLabel:LOCALIZED_STR(@"EMAIL_ACCOUNT_USESSL_FIELD_TITLE") 
 		andSubTitle:@""];
 		
 	if(TRUE)
 	{
-		NumberFieldEditInfo *portNumFieldEditInfo = 
-			[NumberFieldEditInfo createForObject:self.emailAccount andKey:EMAIL_ACCOUNT_PORTNUM_KEY 
-			andLabel:LOCALIZED_STR(@"EMAIL_ACCOUNT_PORTNUM_FIELD_LABEL") 
-			andPlaceholder:LOCALIZED_STR(@"EMAIL_ACCOUNT_PORTNUM_PLACEHOLDER") 
-			andNumberFormatter:[NumberHelper theHelper].decimalFormatter 
-			andValidator:[[[PortNumberValidator alloc] init] autorelease]];
+		PortNumFieldEditInfo *portNumFieldEditInfo = 
+			[[[PortNumFieldEditInfo alloc] initWithEmailAcct:self.emailAccount] autorelease];
 		[formPopulator.currentSection addFieldEditInfo:portNumFieldEditInfo];
 	}
 	
