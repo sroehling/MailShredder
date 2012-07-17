@@ -17,11 +17,14 @@ extern NSString * const EMAIL_ACCOUNT_PORTNUM_KEY;
 extern NSString * const EMAIL_ACCOUNT_ADDRESS_KEY;
 extern NSString * const EMAIL_ACCOUNT_IMAPSERVER_KEY;
 extern NSString * const EMAIL_ACCOUNT_USERNAME_KEY;
-extern NSString * const EMAIL_ACCOUNT_PASSWORD_KEY;
 
 extern NSInteger const EMAIL_ACCOUNT_DEFAULT_PORT_SSL;
 extern NSInteger const EMAIL_ACCOUNT_DEFAULT_PORT_NOSSL;
 
+extern NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX;
+extern NSString * const EMAIL_ACCOUNT_UNIQUEACCTID_KEY;
+
+@class DataModelController;
 
 @interface EmailAccount : NSManagedObject
 
@@ -31,6 +34,13 @@ extern NSInteger const EMAIL_ACCOUNT_DEFAULT_PORT_NOSSL;
 @property (nonatomic, retain) NSString * userName;
 @property (nonatomic, retain) NSNumber * useSSL;
 @property (nonatomic, retain) NSNumber * portNumber;
-@property (nonatomic, retain) NSString * password;
+
+
+// The uniqueAcctID property is used to cross-reference the account with the
+// user name and password stored separately in the keychain.
+@property (nonatomic, retain) NSString * uniqueAcctID;
+
+
++(EmailAccount*)defaultNewEmailAcctWithDataModelController:(DataModelController*)acctDmc;
 
 @end

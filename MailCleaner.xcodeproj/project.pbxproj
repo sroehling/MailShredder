@@ -70,6 +70,7 @@
 		00A6FB4F159A908200ED4D4B /* EmailDomainFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB4E159A908100ED4D4B /* EmailDomainFilterFormInfoCreator.m */; };
 		00A6FB58159B850A00ED4D4B /* MailAddressHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB57159B850900ED4D4B /* MailAddressHelper.m */; };
 		00A8C31515838C1D006163EE /* MailClientServerSyncController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A8C31415838C1D006163EE /* MailClientServerSyncController.m */; };
+		00AAF2E015B4B3ED00BFF03C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00AAF2DF15B4B3ED00BFF03C /* Security.framework */; };
 		00C4AB0C1581764900E0868A /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB081581764900E0868A /* libcrypto.a */; };
 		00C4AB0D1581764900E0868A /* libetpan_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB091581764900E0868A /* libetpan_ios.a */; };
 		00C4AB0E1581764900E0868A /* libsasl2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB0A1581764900E0868A /* libsasl2.a */; };
@@ -232,6 +233,7 @@
 		00A6FB57159B850900ED4D4B /* MailAddressHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailAddressHelper.m; sourceTree = "<group>"; };
 		00A8C31315838C1D006163EE /* MailClientServerSyncController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailClientServerSyncController.h; sourceTree = "<group>"; };
 		00A8C31415838C1D006163EE /* MailClientServerSyncController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailClientServerSyncController.m; sourceTree = "<group>"; };
+		00AAF2DF15B4B3ED00BFF03C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		00C4AB081581764900E0868A /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../MailCore/iOSPorts/ports/security/openssl/build/Release-iphoneos/libcrypto.a"; sourceTree = "<group>"; };
 		00C4AB091581764900E0868A /* libetpan_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libetpan_ios.a; path = "../MailCore/libetpan/build-mac/build/Release-iphoneos/libetpan_ios.a"; sourceTree = "<group>"; };
 		00C4AB0A1581764900E0868A /* libsasl2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsasl2.a; path = "../MailCore/iOSPorts/ports/security/cyrus-sasl/build/Release-iphoneos/libsasl2.a"; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00AAF2E015B4B3ED00BFF03C /* Security.framework in Frameworks */,
 				00C4AB15158178FC00E0868A /* libiconv.dylib in Frameworks */,
 				00C4AB141581784900E0868A /* CFNetwork.framework in Frameworks */,
 				00699543157D77E3008D50A4 /* libmailcore.a in Frameworks */,
@@ -319,6 +322,7 @@
 		000566821562F94C003D114D = {
 			isa = PBXGroup;
 			children = (
+				00AAF2DF15B4B3ED00BFF03C /* Security.framework */,
 				0065E3B91586A57400D59B2A /* Libs */,
 				006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */,
 				007ABE8E156AB631004BA8BF /* Development Docs */,

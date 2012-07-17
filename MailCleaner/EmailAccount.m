@@ -7,6 +7,8 @@
 //
 
 #import "EmailAccount.h"
+#import "DataModelController.h"
+#import "StringValidation.h"
 
 NSString * const EMAIL_ACCOUNT_ENTITY_NAME = @"EmailAccount";
 NSString * const EMAIL_ACCOUNT_NAME_KEY = @"acctName";
@@ -16,10 +18,12 @@ NSString * const EMAIL_ACCOUNT_PORTNUM_KEY= @"portNumber";
 NSString * const EMAIL_ACCOUNT_ADDRESS_KEY = @"emailAddress";
 NSString * const EMAIL_ACCOUNT_IMAPSERVER_KEY = @"imapServer";
 NSString * const EMAIL_ACCOUNT_USERNAME_KEY = @"userName";
-NSString * const EMAIL_ACCOUNT_PASSWORD_KEY = @"password";
+NSString * const EMAIL_ACCOUNT_UNIQUEACCTID_KEY = @"uniqueAcctID";
 
 NSInteger const EMAIL_ACCOUNT_DEFAULT_PORT_SSL = 993;
 NSInteger const EMAIL_ACCOUNT_DEFAULT_PORT_NOSSL = 143;
+
+NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX = @"EmailAccountLoginInfo";
 
 
 @implementation EmailAccount
@@ -30,6 +34,30 @@ NSInteger const EMAIL_ACCOUNT_DEFAULT_PORT_NOSSL = 143;
 @dynamic userName;
 @dynamic useSSL;
 @dynamic portNumber;
-@dynamic password;
+@dynamic uniqueAcctID;
+
+
+
++(EmailAccount*)defaultNewEmailAcctWithDataModelController:(DataModelController*)acctDmc
+{
+
+	EmailAccount *newAcct = [acctDmc insertObject:EMAIL_ACCOUNT_ENTITY_NAME];
+	newAcct.portNumber = [NSNumber numberWithInt:EMAIL_ACCOUNT_DEFAULT_PORT_NOSSL];
+	newAcct.useSSL = [NSNumber numberWithBool:FALSE];
+	
+	NSString *uniqueIDCandidate;
+	NSArray *collidingUniqueIDs;
+	do {
+		uniqueIDCandidate = [StringValidation pseudoRandomToken];
+		NSPredicate *uniqueIDPredicate = [NSPredicate predicateWithFormat:@"%K == %@",
+					EMAIL_ACCOUNT_UNIQUEACCTID_KEY,uniqueIDCandidate];
+		collidingUniqueIDs = [acctDmc fetchObjectsForEntityName:EMAIL_ACCOUNT_ENTITY_NAME andPredicate:uniqueIDPredicate];
+	} while ([collidingUniqueIDs count] > 0);
+	
+	newAcct.uniqueAcctID = uniqueIDCandidate;
+	
+	return newAcct;
+}
+
 
 @end

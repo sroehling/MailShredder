@@ -20,9 +20,8 @@
 
 	NSLog(@"Adding email account");
 		
-	EmailAccount *newAcct = [parentContext.dataModelController insertObject:EMAIL_ACCOUNT_ENTITY_NAME];
-	newAcct.portNumber = [NSNumber numberWithInt:EMAIL_ACCOUNT_DEFAULT_PORT_NOSSL];
-	newAcct.useSSL = [NSNumber numberWithBool:FALSE];
+
+	EmailAccount *newAcct = [EmailAccount defaultNewEmailAcctWithDataModelController:parentContext.dataModelController];
 	
 	EmailAccountFormInfoCreator *emailAcctFormInfoCreator = 
 		[[[EmailAccountFormInfoCreator alloc] initWithEmailAcct:newAcct] autorelease];

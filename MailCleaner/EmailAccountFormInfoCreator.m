@@ -19,6 +19,8 @@
 #import "VariableHeightTableHeader.h"
 #import "PortNumFieldEditInfo.h"
 
+#import "KeychainFieldInfo.h"
+
 
 @implementation EmailAccountFormInfoCreator
 
@@ -122,12 +124,16 @@
 		TextFieldValidator *passwordValidator = [[[RegExpTextFieldValidator alloc] 
 			initWithValidationMsg:LOCALIZED_STR(@"EMAIL_ACCOUNT_PASSWORD_VALIDATION_MSG")
 			andPattern:passwordRegExPattern] autorelease];
-		TextFieldEditInfo *passwordFieldEditInfo = [TextFieldEditInfo 
-			createForObject:self.emailAccount andKey:EMAIL_ACCOUNT_PASSWORD_KEY 
-			andLabel:LOCALIZED_STR(@"EMAIL_ACCOUNT_PASSWORD_FIELD_LABEL") 
-			andPlaceholder:LOCALIZED_STR(@"EMAIL_ACCOUNT_PASSWORD_PLACEHOLDER") 
-			andValidator:passwordValidator andSecureTextEntry:YES 
-			andAutoCorrectType:UITextAutocorrectionTypeNo];
+		NSString *keychainID = [NSString stringWithFormat:@"%@-%@",EMAIL_ACCOUNT_KEYCHAIN_PREFIX,
+		self.emailAccount.uniqueAcctID];
+		KeychainFieldInfo *passwordFieldInfo = [[[KeychainFieldInfo alloc] 
+			initWithFieldLabel:LOCALIZED_STR(@"EMAIL_ACCOUNT_PASSWORD_FIELD_LABEL")  
+			andFieldPlaceholder:LOCALIZED_STR(@"EMAIL_ACCOUNT_PASSWORD_PLACEHOLDER") 
+			andKeyChainID:keychainID andKeychainKey:kSecValueData] autorelease];
+		TextFieldEditInfo *passwordFieldEditInfo = [[[TextFieldEditInfo alloc]
+			initWithFieldInfo:passwordFieldInfo andValidator:passwordValidator 
+			andSecureTextEntry:YES andAutoCorrection:UITextAutocorrectionTypeNo] autorelease];
+			
 		[formPopulator.currentSection addFieldEditInfo:passwordFieldEditInfo];
 	}
 

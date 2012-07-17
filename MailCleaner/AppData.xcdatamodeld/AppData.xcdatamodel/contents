@@ -25,8 +25,8 @@
         <attribute name="acctName" attributeType="String" syncable="YES"/>
         <attribute name="emailAddress" attributeType="String" syncable="YES"/>
         <attribute name="imapServer" attributeType="String" syncable="YES"/>
-        <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="portNumber" attributeType="Integer 32" defaultValueString="143" syncable="YES"/>
+        <attribute name="uniqueAcctID" attributeType="String" syncable="YES"/>
         <attribute name="userName" attributeType="String" syncable="YES"/>
         <attribute name="useSSL" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
     </entity>
@@ -93,6 +93,7 @@
         <element name="AgeFilter" positionX="160" positionY="192" width="128" height="75"/>
         <element name="AgeFilterComparison" positionX="160" positionY="192" width="128" height="225"/>
         <element name="AgeFilterNone" positionX="160" positionY="192" width="128" height="60"/>
+        <element name="EmailAccount" positionX="160" positionY="192" width="128" height="150"/>
         <element name="EmailAddress" positionX="160" positionY="192" width="128" height="90"/>
         <element name="EmailAddressFilter" positionX="160" positionY="192" width="128" height="75"/>
         <element name="EmailDomain" positionX="160" positionY="192" width="128" height="75"/>
@@ -104,6 +105,5 @@
         <element name="MsgHandlingRule" positionX="160" positionY="192" width="128" height="135"/>
         <element name="SharedAppVals" positionX="160" positionY="192" width="128" height="210"/>
         <element name="TrashRule" positionX="160" positionY="192" width="128" height="45"/>
-        <element name="EmailAccount" positionX="160" positionY="192" width="128" height="150"/>
     </elements>
 </model>
