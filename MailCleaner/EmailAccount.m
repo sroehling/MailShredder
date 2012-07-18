@@ -35,7 +35,9 @@ NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX = @"EmailAccountLoginInfo";
 @dynamic useSSL;
 @dynamic portNumber;
 @dynamic uniqueAcctID;
+@dynamic sharedAppValsCurrentEmailAcct;
 
+@synthesize isSelectedForSelectableObjectTableView;
 
 
 +(EmailAccount*)defaultNewEmailAcctWithDataModelController:(DataModelController*)acctDmc

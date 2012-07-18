@@ -10,15 +10,21 @@
 #import <CoreData/CoreData.h>
 
 extern NSString * const SHARED_APP_VALS_ENTITY_NAME;
+extern NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY;
 
 @class MessageFilter;
 @class AgeFilterNone;
 @class DataModelController;
 @class AgeFilterComparison;
+@class EmailAccount;
 
 @interface SharedAppVals : NSManagedObject
 
 @property (nonatomic, retain) MessageFilter *msgListFilter;
+@property (nonatomic, retain) EmailAccount *currentEmailAcct;
+
+// Defaults and "singleton" objects only
+// needing one instance.
 @property (nonatomic, retain) AgeFilterNone *defaultAgeFilterNone;
 @property (nonatomic, retain) AgeFilterComparison *defaultAgeFilterNewer1Month;
 @property (nonatomic, retain) AgeFilterComparison *defaultAgeFilterNewer1Year;

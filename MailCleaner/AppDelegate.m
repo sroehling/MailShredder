@@ -30,6 +30,7 @@
 
 @implementation AppDelegate
 
+@synthesize appDmc;
 @synthesize window = _window;
 @synthesize tabBarController = _tabBarController;
 
@@ -37,6 +38,7 @@
 {
 	[_window release];
 	[_tabBarController release];
+	[appDmc release];
     [super dealloc];
 }
 
@@ -90,12 +92,10 @@
 	[mailSync syncWithServer];	
 }
 
--(void)promptForEmailAcctInfoForDataModelController:(DataModelController*)appDmc
+-(void)promptForEmailAcctInfoForDataModelController
 {
 
-
-	EmailAccount *newAcct = [EmailAccount defaultNewEmailAcctWithDataModelController:appDmc];
-	
+	EmailAccount *newAcct = [EmailAccount defaultNewEmailAcctWithDataModelController:self.appDmc];	
 	
 	EmailAccountFormInfoCreator *emailAcctFormInfoCreator = 
 		[[[EmailAccountFormInfoCreator alloc] initWithEmailAcct:newAcct] autorelease];
@@ -121,10 +121,32 @@
 
 -(void)genericAddViewSaveCompleteForObject:(NSManagedObject*)addedObject
 {
+
+	assert([addedObject isKindOfClass:[EmailAccount class]]);
+	
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
+	
+	// The first account becomes the current email account
+	sharedAppVals.currentEmailAcct = (EmailAccount*)addedObject;
+
 	self.window.rootViewController = self.tabBarController;
 	
     [self.window makeKeyAndVisible];
 
+}
+
+-(void)assignFirstEmailAccountToCurrentIfNotSelected
+{
+	// If the currentEmailAcct isn't set when the first EmailAccount is created, go 
+	// ahead and set it here.
+	SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:self.appDmc];
+	if(sharedVals.currentEmailAcct == nil)
+	{
+		NSArray *emailAccounts = [[self.appDmc fetchObjectsForEntityName:EMAIL_ACCOUNT_ENTITY_NAME] allObjects];
+		EmailAccount *firstAcct = [emailAccounts objectAtIndex:0];
+		assert(firstAcct != nil);
+		sharedVals.currentEmailAcct = firstAcct;
+	}
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -140,7 +162,7 @@
 	
 	
 	DataModelController *emailInfoDmc = [AppHelper emailInfoDataModelController];
-	DataModelController *appDmc = [AppHelper appDataModelController];
+	self.appDmc = [AppHelper appDataModelController];
 
 	[self retrieveEmails:emailInfoDmc andAppDataDmc:appDmc];
 	
@@ -196,10 +218,12 @@
 
 	if(![appDmc entitiesExistForEntityName:EMAIL_ACCOUNT_ENTITY_NAME])
 	{
-		[self promptForEmailAcctInfoForDataModelController:appDmc];
+		[self promptForEmailAcctInfoForDataModelController];
 	}
 	else 
 	{
+		[self assignFirstEmailAccountToCurrentIfNotSelected];
+	
 		self.window.rootViewController = self.tabBarController;
 		
 		[self.window makeKeyAndVisible];
@@ -235,18 +259,5 @@
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-/*
-// Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
-{
-}
-*/
-
-/*
-// Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed
-{
-}
-*/
 
 @end

@@ -15,6 +15,9 @@
 #import "EmailAccount.h"
 #import "FormContext.h"
 #import "DataModelController.h"
+#import "EmailAcctFieldEditInfo.h"
+#import "SectionInfo.h"
+#import "VariableHeightTableHeader.h"
 
 @implementation EmailAccountListFormInfoCreator
 
@@ -26,16 +29,23 @@
 	formPopulator.formInfo.title = LOCALIZED_STR(@"EMAIL_ACCOUNT_LIST_VIEW_TITLE");
 	formPopulator.formInfo.objectAdder = [[[EmailAccountAdder alloc] init] autorelease];
 	
+	VariableHeightTableHeader *tableHeader = 
+		[[[VariableHeightTableHeader alloc] initWithFrame:CGRectZero] autorelease];
+	tableHeader.header.text = @"";
+	tableHeader.subHeader.text = LOCALIZED_STR(@"EMAIL_ACCOUNT_LIST_TABLE_SUBHEADER");
+	[tableHeader resizeForChildren];
+	formPopulator.formInfo.headerView = tableHeader;
+
+	
 	[formPopulator nextSection];
 	
-	NSSet *emailAccounts = [parentContext.dataModelController 
-				fetchObjectsForEntityName:EMAIL_ACCOUNT_ENTITY_NAME];
+	NSArray *emailAccounts = [parentContext.dataModelController 
+				fetchSortedObjectsWithEntityName:EMAIL_ACCOUNT_ENTITY_NAME sortKey:EMAIL_ACCOUNT_NAME_KEY];
 	for(EmailAccount *acct in emailAccounts)
-	{    
-		EmailAccountFormInfoCreator *emailAcctFormInfoCreator = [[[EmailAccountFormInfoCreator alloc] 
-			initWithEmailAcct:acct] autorelease];
-		[formPopulator populateStaticNavFieldWithFormInfoCreator:emailAcctFormInfoCreator 
-			andFieldCaption:acct.acctName andSubTitle:acct.emailAddress];
+	{    			
+		EmailAcctFieldEditInfo *acctFieldEditInfo = 
+			[[[EmailAcctFieldEditInfo alloc] initWithEmailAcct:acct andAppDmc:parentContext.dataModelController] autorelease];
+		[formPopulator.currentSection addFieldEditInfo:acctFieldEditInfo];
 	
 	}
 

@@ -24,6 +24,7 @@
 #import "PopupButtonListView.h"
 #import "PopupButtonListItemInfo.h"
 #import "MsgListView.h"
+#import "EmailAccount.h"
 #import "MsgPredicateHelper.h"
 #import "DateHelper.h"
 
@@ -58,7 +59,7 @@
 	self.messageFilterHeader  = [[[TableHeaderWithDisclosure alloc] initWithFrame:CGRectZero 
 				andDisclosureButtonDelegate:self] autorelease];
 	[self.messageFilterHeader configureWithCustomButtonImage:@"search.png"];
-	self.messageFilterHeader.header.text = LOCALIZED_STR(@"MESSAGE_FILTER_TITLE");
+	self.messageFilterHeader.header.text = sharedAppVals.currentEmailAcct.acctName;
 	self.messageFilterHeader.subTitle.text =  sharedAppVals.msgListFilter.filterSynopsis;
 	[self.messageFilterHeader resizeForChildren];
 	

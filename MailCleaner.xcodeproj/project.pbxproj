@@ -71,6 +71,7 @@
 		00A6FB58159B850A00ED4D4B /* MailAddressHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB57159B850900ED4D4B /* MailAddressHelper.m */; };
 		00A8C31515838C1D006163EE /* MailClientServerSyncController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A8C31415838C1D006163EE /* MailClientServerSyncController.m */; };
 		00AAF2E015B4B3ED00BFF03C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00AAF2DF15B4B3ED00BFF03C /* Security.framework */; };
+		00AAF2E815B61ED000BFF03C /* EmailAcctFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AAF2E715B61ED000BFF03C /* EmailAcctFieldEditInfo.m */; };
 		00C4AB0C1581764900E0868A /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB081581764900E0868A /* libcrypto.a */; };
 		00C4AB0D1581764900E0868A /* libetpan_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB091581764900E0868A /* libetpan_ios.a */; };
 		00C4AB0E1581764900E0868A /* libsasl2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB0A1581764900E0868A /* libsasl2.a */; };
@@ -234,6 +235,8 @@
 		00A8C31315838C1D006163EE /* MailClientServerSyncController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailClientServerSyncController.h; sourceTree = "<group>"; };
 		00A8C31415838C1D006163EE /* MailClientServerSyncController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailClientServerSyncController.m; sourceTree = "<group>"; };
 		00AAF2DF15B4B3ED00BFF03C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		00AAF2E615B61ECF00BFF03C /* EmailAcctFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAcctFieldEditInfo.h; sourceTree = "<group>"; };
+		00AAF2E715B61ED000BFF03C /* EmailAcctFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAcctFieldEditInfo.m; sourceTree = "<group>"; };
 		00C4AB081581764900E0868A /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../MailCore/iOSPorts/ports/security/openssl/build/Release-iphoneos/libcrypto.a"; sourceTree = "<group>"; };
 		00C4AB091581764900E0868A /* libetpan_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libetpan_ios.a; path = "../MailCore/libetpan/build-mac/build/Release-iphoneos/libetpan_ios.a"; sourceTree = "<group>"; };
 		00C4AB0A1581764900E0868A /* libsasl2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsasl2.a; path = "../MailCore/iOSPorts/ports/security/cyrus-sasl/build/Release-iphoneos/libsasl2.a"; sourceTree = "<group>"; };
@@ -694,6 +697,8 @@
 				00C8972315AF52540006FF2F /* EmailAccountListFormInfoCreator.m */,
 				00C8972915AF690F0006FF2F /* PortNumberValidator.h */,
 				00C8972A15AF690F0006FF2F /* PortNumberValidator.m */,
+				00AAF2E615B61ECF00BFF03C /* EmailAcctFieldEditInfo.h */,
+				00AAF2E715B61ED000BFF03C /* EmailAcctFieldEditInfo.m */,
 			);
 			name = "Email Account";
 			sourceTree = "<group>";
@@ -913,6 +918,7 @@
 				00C8972715AF52FD0006FF2F /* EmailAccountAdder.m in Sources */,
 				00C8972B15AF690F0006FF2F /* PortNumberValidator.m in Sources */,
 				00C8777415B306EE0063F88B /* PortNumFieldEditInfo.m in Sources */,
+				00AAF2E815B61ED000BFF03C /* EmailAcctFieldEditInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

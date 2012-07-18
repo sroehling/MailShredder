@@ -25,8 +25,13 @@ extern NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX;
 extern NSString * const EMAIL_ACCOUNT_UNIQUEACCTID_KEY;
 
 @class DataModelController;
+@class SharedAppVals;
 
 @interface EmailAccount : NSManagedObject
+{
+	@private
+		BOOL isSelectedForSelectableObjectTableView;
+}
 
 @property (nonatomic, retain) NSString * acctName;
 @property (nonatomic, retain) NSString * emailAddress;
@@ -34,11 +39,16 @@ extern NSString * const EMAIL_ACCOUNT_UNIQUEACCTID_KEY;
 @property (nonatomic, retain) NSString * userName;
 @property (nonatomic, retain) NSNumber * useSSL;
 @property (nonatomic, retain) NSNumber * portNumber;
+@property BOOL isSelectedForSelectableObjectTableView;
 
 
 // The uniqueAcctID property is used to cross-reference the account with the
 // user name and password stored separately in the keychain.
 @property (nonatomic, retain) NSString * uniqueAcctID;
+
+// Inverse relationship
+@property (nonatomic, retain) SharedAppVals *sharedAppValsCurrentEmailAcct;
+
 
 
 +(EmailAccount*)defaultNewEmailAcctWithDataModelController:(DataModelController*)acctDmc;

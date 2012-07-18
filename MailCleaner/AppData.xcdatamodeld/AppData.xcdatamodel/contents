@@ -29,6 +29,7 @@
         <attribute name="uniqueAcctID" attributeType="String" syncable="YES"/>
         <attribute name="userName" attributeType="String" syncable="YES"/>
         <attribute name="useSSL" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <relationship name="sharedAppValsCurrentEmailAcct" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="currentEmailAcct" inverseEntity="SharedAppVals" syncable="YES"/>
     </entity>
     <entity name="EmailAddress" representedClassName="EmailAddress" syncable="YES">
         <attribute name="address" attributeType="String" minValueString="1" syncable="YES"/>
@@ -76,6 +77,7 @@
         <relationship name="folderFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailFolderFilter" inverseName="msgHandlingRuleFolderFilter" inverseEntity="EmailFolderFilter" syncable="YES"/>
     </entity>
     <entity name="SharedAppVals" representedClassName="SharedAppVals" syncable="YES">
+        <relationship name="currentEmailAcct" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="sharedAppValsCurrentEmailAcct" inverseEntity="EmailAccount" syncable="YES"/>
         <relationship name="defaultAgeFilterNewer1Month" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterNewer1Month" inverseEntity="AgeFilterComparison" syncable="YES"/>
         <relationship name="defaultAgeFilterNewer1Year" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterNewer1Year" inverseEntity="AgeFilterComparison" syncable="YES"/>
         <relationship name="defaultAgeFilterNewer3Months" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterNewer3Months" inverseEntity="AgeFilterComparison" syncable="YES"/>

@@ -85,6 +85,7 @@
 "EMAIL_ACCOUNT_VIEW_TITLE" = "Email Account";
 "EMAIL_ACCOUNT_LIST_VIEW_TITLE" = "Email Accounts";
 "EMAIL_ACCOUNT_LIST_FIELD_SUBTITLE" = "Configure email accounts for deleting messages";
+"EMAIL_ACCOUNT_LIST_TABLE_SUBHEADER" = "Edit the account list to add new or change existing email accounts. Or, if there are multiple accounts, make a selection to change the current account.";
 "EMAIL_ACCOUNT_NAME_PLACEHOLDER" = "Enter a Description";
 "EMAIL_ACCOUNT_ADVANCED_SECTION" = "Advanced Settings";
 "EMAIL_ACCOUNT_USESSL_FIELD_TITLE" = "Use SSL?";

@@ -18,10 +18,12 @@
 #import "EmailFolderFilter.h"
 
 NSString * const SHARED_APP_VALS_ENTITY_NAME = @"SharedAppVals";
+NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY = @"currentEmailAcct";
 
 @implementation SharedAppVals
 
 @dynamic msgListFilter;
+@dynamic currentEmailAcct;
 
 @dynamic defaultAgeFilterNone;
 

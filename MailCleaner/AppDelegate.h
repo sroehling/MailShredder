@@ -10,11 +10,18 @@
 
 #import "GenericFieldBasedTableAddViewController.h"
 
+@class DataModelController;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate,
 			GenericTableAddViewSaveCompleteDelegate>
+{
+	@private
+		DataModelController *appDmc;
+}
 
 @property (strong, nonatomic) UIWindow *window;
-
 @property (strong, nonatomic) UITabBarController *tabBarController;
+
+@property(nonatomic,retain) DataModelController *appDmc;
 
 @end
