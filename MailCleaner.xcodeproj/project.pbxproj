@@ -59,6 +59,7 @@
 		006D6678156E9DAB00074979 /* unselectedMsgCheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 006D6676156E9DAA00074979 /* unselectedMsgCheckbox.png */; };
 		006D6679156E9DAB00074979 /* selectedMsgCheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 006D6677156E9DAB00074979 /* selectedMsgCheckbox.png */; };
 		007ABE8F156ACADE004BA8BF /* dummyEmails.txt in Resources */ = {isa = PBXBuildFile; fileRef = 003D59911564028200AD3D91 /* dummyEmails.txt */; };
+		008129E515B75D0D00533E36 /* TrashMsgListViewInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 008129E415B75D0D00533E36 /* TrashMsgListViewInfo.m */; };
 		0098BCD4158BCCEC00C15243 /* EmailAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 0098BCD3158BCCEC00C15243 /* EmailAddress.m */; };
 		0098BCDB158BCD3000C15243 /* EmailAddressFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0098BCDA158BCD3000C15243 /* EmailAddressFilter.m */; };
 		009E320A1567E4C500233276 /* AgeFilterFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */; };
@@ -99,6 +100,8 @@
 		00D498921577F02B00F8FD2F /* MailCleanerFormPopulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D498911577F02B00F8FD2F /* MailCleanerFormPopulator.m */; };
 		00D4989915781DA600F8FD2F /* TrashRuleFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4989815781DA500F8FD2F /* TrashRuleFormInfoCreator.m */; };
 		00D4989C1578371E00F8FD2F /* MsgHandlingRuleFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4989B1578371D00F8FD2F /* MsgHandlingRuleFieldEditInfo.m */; };
+		00E980DE15B71D75007CE0ED /* RuleSelectionListFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E980DD15B71D75007CE0ED /* RuleSelectionListFormInfoCreator.m */; };
+		00E980E115B7267D007CE0ED /* TrashMsgListViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E980E015B7267D007CE0ED /* TrashMsgListViewFactory.m */; };
 		00E9944A15643244003B9771 /* EmailInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9944915643244003B9771 /* EmailInfoTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -212,6 +215,8 @@
 		006D6676156E9DAA00074979 /* unselectedMsgCheckbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselectedMsgCheckbox.png; sourceTree = "<group>"; };
 		006D6677156E9DAB00074979 /* selectedMsgCheckbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectedMsgCheckbox.png; sourceTree = "<group>"; };
 		007ABE8B156AB618004BA8BF /* MailCleanerSpec.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MailCleanerSpec.md; sourceTree = "<group>"; };
+		008129E315B75D0D00533E36 /* TrashMsgListViewInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrashMsgListViewInfo.h; sourceTree = "<group>"; };
+		008129E415B75D0D00533E36 /* TrashMsgListViewInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrashMsgListViewInfo.m; sourceTree = "<group>"; };
 		0098BCD2158BCCEC00C15243 /* EmailAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddress.h; sourceTree = "<group>"; };
 		0098BCD3158BCCEC00C15243 /* EmailAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddress.m; sourceTree = "<group>"; };
 		0098BCD9158BCD3000C15243 /* EmailAddressFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddressFilter.h; sourceTree = "<group>"; };
@@ -281,6 +286,10 @@
 		00D4989815781DA500F8FD2F /* TrashRuleFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrashRuleFormInfoCreator.m; sourceTree = "<group>"; };
 		00D4989A1578371D00F8FD2F /* MsgHandlingRuleFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgHandlingRuleFieldEditInfo.h; sourceTree = "<group>"; };
 		00D4989B1578371D00F8FD2F /* MsgHandlingRuleFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgHandlingRuleFieldEditInfo.m; sourceTree = "<group>"; };
+		00E980DC15B71D75007CE0ED /* RuleSelectionListFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuleSelectionListFormInfoCreator.h; sourceTree = "<group>"; };
+		00E980DD15B71D75007CE0ED /* RuleSelectionListFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuleSelectionListFormInfoCreator.m; sourceTree = "<group>"; };
+		00E980DF15B7267D007CE0ED /* TrashMsgListViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrashMsgListViewFactory.h; sourceTree = "<group>"; };
+		00E980E015B7267D007CE0ED /* TrashMsgListViewFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrashMsgListViewFactory.m; sourceTree = "<group>"; };
 		00E9944815643244003B9771 /* EmailInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoTableViewController.h; sourceTree = "<group>"; };
 		00E9944915643244003B9771 /* EmailInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoTableViewController.m; sourceTree = "<group>"; };
 		00F9A77D156EC66A00BB4C92 /* msgCheckbox.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = msgCheckbox.psd; sourceTree = "<group>"; };
@@ -364,6 +373,7 @@
 				00A8C31115838BB9006163EE /* Mail Sync */,
 				0039E5FA1566CD0800CB259D /* Application */,
 				0039E5FB1566CD2E00CB259D /* Message List Views */,
+				00E980DA15B71CF4007CE0ED /* Trash List View */,
 				00D498731576D9C700F8FD2F /* Rules List View */,
 				00C8972815AF53120006FF2F /* Email Account */,
 				00C8970615AF34400006FF2F /* More View */,
@@ -485,8 +495,6 @@
 				005E6A8515647602004198B6 /* EmailInfoActionView.h */,
 				00E9944915643244003B9771 /* EmailInfoTableViewController.m */,
 				005E6A8615647602004198B6 /* EmailInfoActionView.m */,
-				006D663F156D4BC800074979 /* TrashMsgListViewController.h */,
-				006D6640156D4BC800074979 /* TrashMsgListViewController.m */,
 				006D6673156E8E2500074979 /* MsgTableCell.h */,
 				006D6674156E8E2500074979 /* MsgTableCell.m */,
 			);
@@ -741,6 +749,21 @@
 			name = Helper;
 			sourceTree = "<group>";
 		};
+		00E980DA15B71CF4007CE0ED /* Trash List View */ = {
+			isa = PBXGroup;
+			children = (
+				008129E315B75D0D00533E36 /* TrashMsgListViewInfo.h */,
+				008129E415B75D0D00533E36 /* TrashMsgListViewInfo.m */,
+				006D663F156D4BC800074979 /* TrashMsgListViewController.h */,
+				006D6640156D4BC800074979 /* TrashMsgListViewController.m */,
+				00E980DC15B71D75007CE0ED /* RuleSelectionListFormInfoCreator.h */,
+				00E980DD15B71D75007CE0ED /* RuleSelectionListFormInfoCreator.m */,
+				00E980DF15B7267D007CE0ED /* TrashMsgListViewFactory.h */,
+				00E980E015B7267D007CE0ED /* TrashMsgListViewFactory.m */,
+			);
+			name = "Trash List View";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -919,6 +942,9 @@
 				00C8972B15AF690F0006FF2F /* PortNumberValidator.m in Sources */,
 				00C8777415B306EE0063F88B /* PortNumFieldEditInfo.m in Sources */,
 				00AAF2E815B61ED000BFF03C /* EmailAcctFieldEditInfo.m in Sources */,
+				00E980DE15B71D75007CE0ED /* RuleSelectionListFormInfoCreator.m in Sources */,
+				00E980E115B7267D007CE0ED /* TrashMsgListViewFactory.m in Sources */,
+				008129E515B75D0D00533E36 /* TrashMsgListViewInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

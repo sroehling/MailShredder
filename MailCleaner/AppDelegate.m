@@ -23,6 +23,8 @@
 #import "MoreFormInfoCreator.h"
 #import "ColorHelper.h"
 
+#import "RuleSelectionListFormInfoCreator.h"
+
 #import "EmailAccount.h"
 #import "EmailAccountFormInfoCreator.h"
 #import "GenericFieldBasedTableAddViewController.h"
@@ -178,15 +180,16 @@
 	msgListNavController.navigationBar.tintColor = navBarControllerColor;
 
 
-	TrashMsgListViewController *trashedMsgsController = [[[TrashMsgListViewController alloc]  
-		initWithEmailInfoDataModelController:emailInfoDmc andAppDataModelController:appDmc] autorelease];
-	UINavigationController *trashedMsgsNavController = [[[UINavigationController alloc] 
-			initWithRootViewController:trashedMsgsController] autorelease];
-	trashedMsgsController.title = LOCALIZED_STR(@"TRASH_VIEW_TITLE");
-	trashedMsgsNavController.title = LOCALIZED_STR(@"TRASH_VIEW_TITLE");
-	trashedMsgsNavController.navigationBar.tintColor = navBarControllerColor;	
-	
-	
+	RuleSelectionListFormInfoCreator *ruleSelectionFormInfoCreator = 
+		[[[RuleSelectionListFormInfoCreator alloc] initWithEmailInfoDataModelController:emailInfoDmc] autorelease];
+	UIViewController *trashedRuleSelectionController =
+		[[[GenericFieldBasedTableViewController alloc] initWithFormInfoCreator:ruleSelectionFormInfoCreator 
+		andDataModelController:self.appDmc] autorelease];
+	UINavigationController *trashedRuleSelectionNavController = [[[UINavigationController alloc] 
+			initWithRootViewController:trashedRuleSelectionController] autorelease];
+	trashedRuleSelectionNavController.title = LOCALIZED_STR(@"TRASH_RULE_LIST_VIEW_TITLE");
+	trashedRuleSelectionNavController.navigationBar.tintColor = navBarControllerColor;	
+
 	RulesFormInfoCreator *rulesFormInfoCreator = [[[RulesFormInfoCreator alloc] init] autorelease];
 	UIViewController *rulesController = [[[GenericFieldBasedTableEditViewController alloc]
 		initWithFormInfoCreator:rulesFormInfoCreator 
@@ -211,7 +214,7 @@
 	self.tabBarController.viewControllers = 
 		[NSArray arrayWithObjects:
 			msgListNavController, 
-			trashedMsgsNavController,
+			trashedRuleSelectionNavController,
 			rulesNavController,
 			moreNavController,
 			nil];

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class DataModelController;
+@class TrashRule;
 
 @interface MsgPredicateHelper : NSObject
 
@@ -18,6 +19,10 @@
 
 +(NSPredicate*)trashedByMsgRules:(DataModelController*)appDmc andBaseDate:(NSDate*)baseDate;
 +(NSPredicate*)trashedByUserOrRules:(DataModelController*)appDmc andBaseDate:(NSDate*)baseDate;
+
++(NSPredicate*)trashedByOneRule:(TrashRule*)theTrashRule 
+	inDataModelController:(DataModelController*)appDmc andBaseDate:(NSDate*)baseDate;
+
 +(NSPredicate*)notTrashedByUserOrRules:(DataModelController*)appDmc
 	andBaseDate:(NSDate*)baseDate;
 

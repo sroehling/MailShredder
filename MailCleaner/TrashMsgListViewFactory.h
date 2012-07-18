@@ -1,16 +1,18 @@
 //
-//  TrashMsgListViewController.h
+//  TrashMsgListViewFactory.h
 //  MailCleaner
 //
-//  Created by Steve Roehling on 5/23/12.
+//  Created by Steve Roehling on 7/18/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "MsgListTableViewController.h"
+#import <Foundation/Foundation.h>
+
+#import "GenericTableViewFactory.h"
 
 @class TrashMsgListViewInfo;
 
-@interface TrashMsgListViewController : MsgListTableViewController
+@interface TrashMsgListViewFactory : NSObject <GenericTableViewFactory>
 {
 	@private
 		TrashMsgListViewInfo *viewInfo;

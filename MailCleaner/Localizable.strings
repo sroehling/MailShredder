@@ -29,6 +29,12 @@
 "TRASH_LIST_ACTION_UNTRASH_BUTTON_TITLE" = "Recycle Trashed Messages";
 "TRASH_LIST_ACTION_DELETE_ALL_BUTTON_TITLE" = "Delete All Trashed Messages";
 "TRASH_LIST_ACTION_DELETE_SELECTED_BUTTON_TITLE" = "Delete Selected Messages";
+"TRASH_RULE_LIST_VIEW_TITLE" = "Matching";
+"TRASH_RULE_LIST_VIEW_HEADER" = "Message Matching Rules";
+"TRASH_RULE_LIST_VIEW_SUBHEADER" = "Select from the list below to review messages matching different rules (not including messages excluded by exclusion rules).";
+"TRASH_RULE_LIST_ALL_MESSAGES_FIELD_CAPTION" = "Matching Any Rule";
+"TRASH_RULE_LIST_ALL_MESSAGES_FIELD_SUBTITLE" = "Combined list of messages matching any rule";
+"TRASH_RULE_LIST_SPECIFIC_RULE_SECTION_TITLE" = "Specific Rules";
 
 
 "RULES_TRASH_RULES_SECTION_TITLE" = "Trash Rules";

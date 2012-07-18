@@ -14,16 +14,43 @@
 #import "DataModelController.h"
 #import "MsgListView.h"
 #import "MailClientServerSyncController.h"
-#import "MsgPredicateHelper.h"
-
-#import "DateHelper.h"
+#import "VariableHeightTableHeader.h"
+#import "MsgListView.h"
+#import "MsgListTableViewController.h"
+#import "TrashMsgListViewInfo.h"
 
 @implementation TrashMsgListViewController
 
+@synthesize viewInfo;
+
+-(id)initWithViewInfo:(TrashMsgListViewInfo*)theViewInfo
+{
+	self = [super initWithEmailInfoDataModelController:theViewInfo.emailInfoDmc 
+			andAppDataModelController:theViewInfo.appDmc];
+	if(self)
+	{
+		assert(theViewInfo != nil);
+		self.viewInfo = theViewInfo;
+	}
+	return self;
+}
+
+
+-(id)initWithEmailInfoDataModelController:(DataModelController *)theEmailInfoDmc andAppDataModelController:(DataModelController *)theAppDmc
+{
+	assert(0);
+	return nil;
+}
+
+-(void)dealloc
+{
+	[viewInfo release];
+	[super dealloc];
+}
+
 -(NSPredicate*)msgListPredicate
 {
-	NSDate *baseDate = [DateHelper today];
-	return [MsgPredicateHelper trashedByUserOrRules:self.filterDmc andBaseDate:baseDate];
+	return self.viewInfo.msgListPredicate;
 }
 
 - (void)viewDidLoad
@@ -32,7 +59,19 @@
 	
 	self.title = LOCALIZED_STR(@"TRASH_VIEW_TITLE");
 
-	// Do any additional setup after loading the view.
+	// Create a view subtitle and header to describe what's shown in the list
+	
+	VariableHeightTableHeader *tableHeader = 
+		[[[VariableHeightTableHeader alloc] initWithFrame:CGRectZero] autorelease];
+	tableHeader.header.text = self.viewInfo.listHeader;
+	tableHeader.subHeader.text = self.viewInfo.listSubheader;
+	[tableHeader resizeForChildren];
+	self.msgListView.headerView = tableHeader;
+	[self.msgListView addSubview:tableHeader];	
+
+
+	
+	
 }
 
 - (void)viewDidUnload
