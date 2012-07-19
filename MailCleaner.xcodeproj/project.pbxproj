@@ -89,8 +89,6 @@
 		00C8972715AF52FD0006FF2F /* EmailAccountAdder.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8972615AF52FD0006FF2F /* EmailAccountAdder.m */; };
 		00C8972B15AF690F0006FF2F /* PortNumberValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8972A15AF690F0006FF2F /* PortNumberValidator.m */; };
 		00D498631575380600F8FD2F /* MsgListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D498621575380600F8FD2F /* MsgListView.m */; };
-		00D498701575BCF700F8FD2F /* lock-closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 00D4986F1575BCF700F8FD2F /* lock-closed.png */; };
-		00D49872157694C000F8FD2F /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = 00D49871157694C000F8FD2F /* trash.png */; };
 		00D498761576D9FD00F8FD2F /* RulesFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D498751576D9FD00F8FD2F /* RulesFormInfoCreator.m */; };
 		00D498811576EC0100F8FD2F /* RuleObjectAdder.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D498801576EC0100F8FD2F /* RuleObjectAdder.m */; };
 		00D498851577E92B00F8FD2F /* TrashRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D498841577E92B00F8FD2F /* TrashRule.m */; };
@@ -266,8 +264,6 @@
 		00C8972A15AF690F0006FF2F /* PortNumberValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PortNumberValidator.m; sourceTree = "<group>"; };
 		00D498611575380600F8FD2F /* MsgListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgListView.h; sourceTree = "<group>"; };
 		00D498621575380600F8FD2F /* MsgListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgListView.m; sourceTree = "<group>"; };
-		00D4986F1575BCF700F8FD2F /* lock-closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-closed.png"; sourceTree = "<group>"; };
-		00D49871157694C000F8FD2F /* trash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trash.png; sourceTree = "<group>"; };
 		00D498741576D9FD00F8FD2F /* RulesFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RulesFormInfoCreator.h; sourceTree = "<group>"; };
 		00D498751576D9FD00F8FD2F /* RulesFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RulesFormInfoCreator.m; sourceTree = "<group>"; };
 		00D4987F1576EC0100F8FD2F /* RuleObjectAdder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuleObjectAdder.h; sourceTree = "<group>"; };
@@ -571,8 +567,6 @@
 			isa = PBXGroup;
 			children = (
 				0054D2E915ADF49D00270679 /* search.png */,
-				00D49871157694C000F8FD2F /* trash.png */,
-				00D4986F1575BCF700F8FD2F /* lock-closed.png */,
 				00394EFB156EFE00006C3AE5 /* msgActionButton.png */,
 				00F9A77D156EC66A00BB4C92 /* msgCheckbox.psd */,
 				006D6676156E9DAA00074979 /* unselectedMsgCheckbox.png */,
@@ -842,8 +836,6 @@
 				006D6678156E9DAB00074979 /* unselectedMsgCheckbox.png in Resources */,
 				006D6679156E9DAB00074979 /* selectedMsgCheckbox.png in Resources */,
 				00394EFC156EFE00006C3AE5 /* msgActionButton.png in Resources */,
-				00D498701575BCF700F8FD2F /* lock-closed.png in Resources */,
-				00D49872157694C000F8FD2F /* trash.png in Resources */,
 				0054D2EA15ADF49D00270679 /* search.png in Resources */,
 				00C8971915AF3F0E0006FF2F /* about.md in Resources */,
 				00C8971B15AF40340006FF2F /* markdown.css in Resources */,

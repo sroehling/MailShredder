@@ -40,13 +40,7 @@
 	NSPredicate *filterPredicate = [sharedAppVals.msgListFilter filterPredicate:baseDate];
 	assert(filterPredicate != nil);
 	
-	NSPredicate *noTrashPredicate = [MsgPredicateHelper notTrashedByUserOrRules:self.filterDmc
-		andBaseDate:baseDate];
-	
-	NSPredicate *filterAndNoTrashPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:
-			[NSArray arrayWithObjects:filterPredicate, noTrashPredicate, nil]];
-			
-	return filterAndNoTrashPredicate;
+	return filterPredicate;
 }
 
 - (void)viewDidLoad 
@@ -104,17 +98,7 @@
 	
 	NSMutableArray *actionButtonInfo = [[[NSMutableArray alloc] init] autorelease];
 	
-	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
-		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_LOCK_MSGS_BUTTON_TITLE")
-		 andTarget:self andSelector:@selector(lockMsgsButtonPressed)] autorelease]];
-		 
-	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
-		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_UNLOCK_MSGS_BUTTON_TITLE")
-		 andTarget:self andSelector:@selector(unlockMsgsButtonPressed)] autorelease]];
-	
-	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
-		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_TRASH_MSGS_BUTTON_TITLE")
-		 andTarget:self andSelector:@selector(trashMsgsButtonPressed)] autorelease]];
+	// TODO Add delete selected button
 
 	PopupButtonListView *popupActionList = [[[PopupButtonListView alloc]
 		initWithFrame:self.navigationController.view.frame 
@@ -125,48 +109,6 @@
 
 #pragma mark Button list call-backs
 
--(void)trashMsgsButtonPressed
-{
-	NSLog(@"Trash msgs button pressed");
-	NSArray *selectedMsgs = [self selectedInMsgList];
-	
-	for (EmailInfo *info in selectedMsgs)
-	{
-		info.selectedInMsgList = [NSNumber numberWithBool:FALSE];
-		if(![info.locked boolValue])
-		{
-			info.trashed = [NSNumber numberWithBool:TRUE];
-		}
-	}
-	[self.emailInfoDmc saveContext];
-	[self.msgListView.msgListTableView reloadData];
-}
-
--(void)lockMsgsButtonPressed
-{
-	NSLog(@"Lock msgs button pressed");
-	NSArray *selectedMsgs = [self selectedInMsgList];
-	for (EmailInfo *info in selectedMsgs)
-	{
-		info.selectedInMsgList = [NSNumber numberWithBool:FALSE];
-		info.locked = [NSNumber numberWithBool:TRUE];
-	}
-	[self.emailInfoDmc saveContext];
-	[self.msgListView.msgListTableView reloadData];
-}
-
--(void)unlockMsgsButtonPressed
-{
-	NSLog(@"Unlock msgs button pressed");
-	NSArray *selectedMsgs = [self selectedInMsgList];
-	for (EmailInfo *info in selectedMsgs)
-	{
-		info.selectedInMsgList = [NSNumber numberWithBool:FALSE];
-		info.locked = [NSNumber numberWithBool:FALSE];
-	}
-	[self.emailInfoDmc saveContext];
-	[self.msgListView.msgListTableView reloadData];
-}
 
 
 -(void)dealloc

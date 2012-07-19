@@ -72,7 +72,7 @@
 	if(TRUE)
 	{
 		NSPredicate *allMsgsPredicate = [MsgPredicateHelper 
-			trashedByUserOrRules:parentContext.dataModelController andBaseDate:baseDate];
+			trashedByMsgRules:parentContext.dataModelController andBaseDate:baseDate];
 		TrashMsgListViewInfo *allMsgsViewInfo = [[[TrashMsgListViewInfo alloc]
 			initWithEmailInfoDataModelController:self.emailInfoDmc 
 			andAppDataModelController:parentContext.dataModelController

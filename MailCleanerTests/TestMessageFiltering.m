@@ -45,14 +45,12 @@
 
 -(void)populateTestEmailWithSendDate:(NSString*)sendDate 
 	andSubject:(NSString*)subject andFrom:(NSString*)fromSender
-	andTrashed:(BOOL)msgIsTrashed andLocked:(BOOL)msgIsLocked andFolder:(NSString*)folderName
+	andFolder:(NSString*)folderName
 {
 	EmailInfo *newEmailInfo = (EmailInfo*) [self.emailInfoDmc insertObject:EMAIL_INFO_ENTITY_NAME];
 	newEmailInfo.sendDate = [DateHelper dateFromStr:sendDate];
 	newEmailInfo.from = fromSender;
 	newEmailInfo.subject = subject;
-	newEmailInfo.locked = [NSNumber numberWithBool:msgIsLocked];
-	newEmailInfo.trashed = [NSNumber numberWithBool:msgIsTrashed];
 	newEmailInfo.messageId = [NSString stringWithFormat:@"MSG%06d",currMessageId];
 	newEmailInfo.folderInfo = self.testFolder;
 	newEmailInfo.folder = folderName;
@@ -63,16 +61,15 @@
 
 -(void)populateTestEmailWithSendDate:(NSString*)sendDate 
 	andSubject:(NSString*)subject andFrom:(NSString*)fromSender
-	andTrashed:(BOOL)msgIsTrashed andLocked:(BOOL)msgIsLocked
 {
-	[self populateTestEmailWithSendDate:sendDate andSubject:subject andFrom:fromSender andTrashed:msgIsTrashed andLocked:msgIsLocked andFolder:@"INBOX"];
+	[self populateTestEmailWithSendDate:sendDate andSubject:subject andFrom:fromSender andFolder:@"INBOX"];
 }
 
 -(void)populateFolderTestEmailWithSendDate:(NSString*)sendDate
 	andSubject:(NSString*)subject andFrom:(NSString*)fromSender andFolder:(NSString*)folderName
 {
 	[self populateTestEmailWithSendDate:sendDate andSubject:subject 
-		andFrom:fromSender andTrashed:FALSE andLocked:FALSE andFolder:folderName];
+		andFrom:fromSender andFolder:folderName];
 }
 
 // ------------------
@@ -144,66 +141,16 @@
     [super tearDown];
 }
 
-- (void)testTrashedMsgs
-{
-	[self resetCoreData];
-	
-	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane" andTrashed:TRUE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S02" andFrom:@"jane" andTrashed:TRUE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S03" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S04" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S05" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	
-	// Trashed messages
-	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S02", nil];
-	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering 
-		andFilterPredicate:[MsgPredicateHelper trashedByUser:TRUE]];
-	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering 
-		andFilterPredicate:[MsgPredicateHelper trashedByUser:YES]];
-		
-	// Not trashed messages
-	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S03",@"S04",@"S05", nil];
-	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering 
-		andFilterPredicate:[MsgPredicateHelper trashedByUser:FALSE]];
-	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering 
-		andFilterPredicate:[MsgPredicateHelper trashedByUser:NO]];
-}
-
-
-- (void)testLockedMsgs
-{
-	[self resetCoreData];
-	
-	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane" andTrashed:FALSE andLocked:TRUE];
-	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S02" andFrom:@"jane" andTrashed:FALSE andLocked:TRUE];
-	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S03" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S04" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S05" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	
-	// Locked messages
-	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S02", nil];
-	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering 
-		andFilterPredicate:[MsgPredicateHelper lockedByUser:TRUE]];
-	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering 
-		andFilterPredicate:[MsgPredicateHelper lockedByUser:YES]];
-		
-	// Unlocked messages
-	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S03",@"S04",@"S05", nil];
-	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering 
-		andFilterPredicate:[MsgPredicateHelper lockedByUser:FALSE]];
-	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering 
-		andFilterPredicate:[MsgPredicateHelper lockedByUser:NO]];
-}
 
 - (void)testMessageFilter
 {
 	[self resetCoreData];
 	
-	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane" andTrashed:FALSE andLocked:TRUE];
-	[self populateTestEmailWithSendDate:@"2012-12-30" andSubject:@"S02" andFrom:@"jane" andTrashed:FALSE andLocked:TRUE];
-	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S03" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2010-01-01" andSubject:@"S04" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S05" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2012-12-30" andSubject:@"S02" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S03" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2010-01-01" andSubject:@"S04" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S05" andFrom:@"jane"];
 	
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 
@@ -235,11 +182,11 @@
 
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 	
-	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-02-01" andSubject:@"S02" andFrom:@"bob" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-03-01" andSubject:@"S03" andFrom:@"dan" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-04-01" andSubject:@"S04" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-05-01" andSubject:@"S05" andFrom:@"sally" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2012-02-01" andSubject:@"S02" andFrom:@"bob"];
+	[self populateTestEmailWithSendDate:@"2012-03-01" andSubject:@"S03" andFrom:@"dan"];
+	[self populateTestEmailWithSendDate:@"2012-04-01" andSubject:@"S04" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2012-05-01" andSubject:@"S05" andFrom:@"sally"];
 
 	// Filtering for Jane should include S01 and S04
 	EmailAddress *janeEmailAddr = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
@@ -276,11 +223,11 @@
 
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 	
-	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane@localdomain" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-02-01" andSubject:@"S02" andFrom:@"bob@notlocaldomain" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-03-01" andSubject:@"S03" andFrom:@"dan@notlocaldomain" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-04-01" andSubject:@"S04" andFrom:@"jane@notlocaldomain" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-05-01" andSubject:@"S05" andFrom:@"sally@localdomain" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane@localdomain"];
+	[self populateTestEmailWithSendDate:@"2012-02-01" andSubject:@"S02" andFrom:@"bob@notlocaldomain"];
+	[self populateTestEmailWithSendDate:@"2012-03-01" andSubject:@"S03" andFrom:@"dan@notlocaldomain"];
+	[self populateTestEmailWithSendDate:@"2012-04-01" andSubject:@"S04" andFrom:@"jane@notlocaldomain"];
+	[self populateTestEmailWithSendDate:@"2012-05-01" andSubject:@"S05" andFrom:@"sally@localdomain"];
 
 	// Filtering email addresses with the localdomain should include S01 and S05.
 	EmailDomain *localDomain = (EmailDomain*)[self.appDataDmc insertObject:EMAIL_DOMAIN_ENTITY_NAME];
@@ -322,11 +269,11 @@
 {
 	[self resetCoreData];
 	
-	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane" andTrashed:TRUE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-12-30" andSubject:@"S02" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S03" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2010-01-01" andSubject:@"S04" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S05" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2012-12-30" andSubject:@"S02" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S03" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2010-01-01" andSubject:@"S04" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S05" andFrom:@"jane"];
 	
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 	
@@ -343,13 +290,6 @@
 	filterPredicate = [MsgPredicateHelper trashedByMsgRules:self.appDataDmc andBaseDate:baseDate];
 	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S03",@"S04",@"S05", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
-
-	// Expand the test to include messages trashed by the user - should include S01
-	filterPredicate = [MsgPredicateHelper trashedByUserOrRules:self.appDataDmc andBaseDate:baseDate];
-	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S03",@"S04",@"S05", nil];
-	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
-
-	
 }
 
 
@@ -357,11 +297,11 @@
 {
 	[self resetCoreData];
 	
-	[self populateTestEmailWithSendDate:@"2012-10-15" andSubject:@"S01" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-09-15" andSubject:@"S02" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S03" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2010-01-01" andSubject:@"S04" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S05" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2012-10-15" andSubject:@"S01" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2012-09-15" andSubject:@"S02" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S03" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2010-01-01" andSubject:@"S04" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S05" andFrom:@"jane"];
 	
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 	
@@ -404,12 +344,12 @@
 {
 	[self resetCoreData];
 	
-	[self populateTestEmailWithSendDate:@"2012-12-30" andSubject:@"S01" andFrom:@"jane" andTrashed:FALSE andLocked:TRUE];
-	[self populateTestEmailWithSendDate:@"2012-10-15" andSubject:@"S02" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-09-15" andSubject:@"S03" andFrom:@"jane" andTrashed:TRUE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-01-02" andSubject:@"S05" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S05" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S06" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2012-12-30" andSubject:@"S01" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2012-10-15" andSubject:@"S02" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2012-09-15" andSubject:@"S03" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2012-01-02" andSubject:@"S05" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S05" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S06" andFrom:@"jane"];
 	
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 	
@@ -421,12 +361,6 @@
 	NSPredicate *filterPredicate = [MsgPredicateHelper trashedByMsgRules:self.appDataDmc andBaseDate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S02",@"S05",@"S06",nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
-
-	// Including the user rules for locking should exclude S01 and add S03
-	filterPredicate = [MsgPredicateHelper trashedByUserOrRules:appDataDmc andBaseDate:baseDate];
-	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S02",@"S03",@"S05",@"S06",nil];
-	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
-	
 }
 
 
@@ -434,12 +368,12 @@
 {
 	[self resetCoreData];
 	
-	[self populateTestEmailWithSendDate:@"2012-12-30" andSubject:@"S01" andFrom:@"jane" andTrashed:FALSE andLocked:TRUE];
-	[self populateTestEmailWithSendDate:@"2012-10-15" andSubject:@"S02" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-09-15" andSubject:@"S03" andFrom:@"jane" andTrashed:TRUE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-01-02" andSubject:@"S05" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S05" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S06" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2012-12-30" andSubject:@"S01" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2012-10-15" andSubject:@"S02" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2012-09-15" andSubject:@"S03" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2012-01-02" andSubject:@"S05" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S05" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S06" andFrom:@"jane"];
 	
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 	
@@ -459,12 +393,12 @@
 {
 	[self resetCoreData];
 	
-	[self populateTestEmailWithSendDate:@"2012-12-30" andSubject:@"S01" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-10-15" andSubject:@"S02" andFrom:@"bob" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-09-15" andSubject:@"S03" andFrom:@"dan" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-01-02" andSubject:@"S05" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S05" andFrom:@"sally" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S06" andFrom:@"steve" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2012-12-30" andSubject:@"S01" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2012-10-15" andSubject:@"S02" andFrom:@"bob"];
+	[self populateTestEmailWithSendDate:@"2012-09-15" andSubject:@"S03" andFrom:@"dan"];
+	[self populateTestEmailWithSendDate:@"2012-01-02" andSubject:@"S05" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S05" andFrom:@"sally"];
+	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S06" andFrom:@"steve"];
 	
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 	
@@ -485,12 +419,12 @@
 {
 	[self resetCoreData];
 	
-	[self populateTestEmailWithSendDate:@"2012-12-30" andSubject:@"S01" andFrom:@"jane@localdomain" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-10-15" andSubject:@"S02" andFrom:@"bob@nonlocaldomain" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-09-15" andSubject:@"S03" andFrom:@"dan@localdomain" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-01-02" andSubject:@"S05" andFrom:@"jane@nonlocaldomain" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S05" andFrom:@"sally@nonlocaldomain" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S06" andFrom:@"steve@nonlocaldomain" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2012-12-30" andSubject:@"S01" andFrom:@"jane@localdomain"];
+	[self populateTestEmailWithSendDate:@"2012-10-15" andSubject:@"S02" andFrom:@"bob@nonlocaldomain"];
+	[self populateTestEmailWithSendDate:@"2012-09-15" andSubject:@"S03" andFrom:@"dan@localdomain"];
+	[self populateTestEmailWithSendDate:@"2012-01-02" andSubject:@"S05" andFrom:@"jane@nonlocaldomain"];
+	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S05" andFrom:@"sally@nonlocaldomain"];
+	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S06" andFrom:@"steve@nonlocaldomain"];
 	
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 	
@@ -538,11 +472,11 @@
 {
 	[self resetCoreData];
 	
-	[self populateTestEmailWithSendDate:@"2012-10-15" andSubject:@"S01" andFrom:@"bob" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-09-15" andSubject:@"S02" andFrom:@"bob" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S03" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2010-01-01" andSubject:@"S04" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S05" andFrom:@"jane" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2012-10-15" andSubject:@"S01" andFrom:@"bob"];
+	[self populateTestEmailWithSendDate:@"2012-09-15" andSubject:@"S02" andFrom:@"bob"];
+	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S03" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2010-01-01" andSubject:@"S04" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S05" andFrom:@"jane"];
 	
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 	
@@ -568,12 +502,12 @@
 {
 	[self resetCoreData];
 	
-	[self populateTestEmailWithSendDate:@"2012-12-30" andSubject:@"S01" andFrom:@"jane@localdomain" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-06-15" andSubject:@"S02" andFrom:@"bob@localdomain" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-04-15" andSubject:@"S03" andFrom:@"dan@nonlocaldomain" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2012-01-02" andSubject:@"S04" andFrom:@"jane@nonlocaldomain" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S05" andFrom:@"sally@nonlocaldomain" andTrashed:FALSE andLocked:FALSE];
-	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S06" andFrom:@"steve@nonlocaldomain" andTrashed:FALSE andLocked:FALSE];
+	[self populateTestEmailWithSendDate:@"2012-12-30" andSubject:@"S01" andFrom:@"jane@localdomain"];
+	[self populateTestEmailWithSendDate:@"2012-06-15" andSubject:@"S02" andFrom:@"bob@localdomain"];
+	[self populateTestEmailWithSendDate:@"2012-04-15" andSubject:@"S03" andFrom:@"dan@nonlocaldomain"];
+	[self populateTestEmailWithSendDate:@"2012-01-02" andSubject:@"S04" andFrom:@"jane@nonlocaldomain"];
+	[self populateTestEmailWithSendDate:@"2011-12-30" andSubject:@"S05" andFrom:@"sally@nonlocaldomain"];
+	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S06" andFrom:@"steve@nonlocaldomain"];
 	
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 	

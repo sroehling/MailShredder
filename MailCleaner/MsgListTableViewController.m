@@ -91,12 +91,7 @@
 	{
 		[self.msgListView.msgListTableView selectRowAtIndexPath:indexPath animated:FALSE scrollPosition:UITableViewScrollPositionNone];
 	}
-	cell.accessoryType =UITableViewCellAccessoryDetailDisclosureButton;
-	
-	cell.lockedIndicator.hidden = [info.locked boolValue]?FALSE:TRUE;
-	cell.trashIndicator.hidden = [info.trashed boolValue]?FALSE:TRUE;
-	
-	
+	cell.accessoryType =UITableViewCellAccessoryDetailDisclosureButton;	
 }
 
 -(NSFetchRequest*)allMsgsFetchRequest

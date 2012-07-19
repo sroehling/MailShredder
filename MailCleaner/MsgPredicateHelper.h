@@ -13,17 +13,12 @@
 
 @interface MsgPredicateHelper : NSObject
 
-+(NSPredicate*)trashedByUser:(BOOL)isTrashed;
-+(NSPredicate*)lockedByUser:(BOOL)isLocked;
 +(NSPredicate*)markedForDeletion;
 
 +(NSPredicate*)trashedByMsgRules:(DataModelController*)appDmc andBaseDate:(NSDate*)baseDate;
-+(NSPredicate*)trashedByUserOrRules:(DataModelController*)appDmc andBaseDate:(NSDate*)baseDate;
 
 +(NSPredicate*)trashedByOneRule:(TrashRule*)theTrashRule 
 	inDataModelController:(DataModelController*)appDmc andBaseDate:(NSDate*)baseDate;
 
-+(NSPredicate*)notTrashedByUserOrRules:(DataModelController*)appDmc
-	andBaseDate:(NSDate*)baseDate;
 
 @end

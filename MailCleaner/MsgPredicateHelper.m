@@ -14,18 +14,6 @@
 
 @implementation MsgPredicateHelper
 
-+(NSPredicate*)lockedByUser:(BOOL)isLocked
-{
-	return [NSPredicate predicateWithFormat:@"%K == %@",
-		EMAIL_INFO_LOCKED_KEY,[NSNumber numberWithBool:isLocked]];
-}
-
-+(NSPredicate*)trashedByUser:(BOOL)isTrashed
-{
-	return [NSPredicate predicateWithFormat:@"%K == %@",
-		EMAIL_INFO_TRASHED_KEY,[NSNumber numberWithBool:isTrashed]];
-}
-
 +(NSPredicate*)markedForDeletion
 {
 	return [NSPredicate predicateWithFormat:@"%K == %@",
@@ -117,36 +105,6 @@
 	}
 }
 
-+(NSPredicate*)trashedByUserOrRules:(DataModelController*)appDmc andBaseDate:(NSDate*)baseDate
-{
-	// ((Trashed by User) || (Trashed by Rules)) && (not (Locked by user))
 
-	NSPredicate *trashedByUserPredicate = [MsgPredicateHelper trashedByUser:TRUE];
-	assert(trashedByUserPredicate != nil);
-	
-	NSPredicate *trashedByRulesPredicate = [MsgPredicateHelper trashedByMsgRules:appDmc
-		andBaseDate:baseDate];
-	assert(trashedByRulesPredicate != nil);
-	
-	NSPredicate *trashedByUserOrRulesPredicate = 
-		[NSCompoundPredicate orPredicateWithSubpredicates:[NSArray arrayWithObjects:
-			trashedByUserPredicate,trashedByRulesPredicate, nil]];
-	
-	NSPredicate *notLocked = [MsgPredicateHelper lockedByUser:FALSE];
-	assert(notLocked != nil);
-	
-	NSPredicate *trashListPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:
-		[NSArray arrayWithObjects:trashedByUserOrRulesPredicate,notLocked, nil]];
-	
-	return trashListPredicate;
-
-}
-
-+(NSPredicate*)notTrashedByUserOrRules:(DataModelController*)appDmc
-	andBaseDate:(NSDate*)baseDate
-{
-	return [NSCompoundPredicate notPredicateWithSubpredicate:
-		[MsgPredicateHelper trashedByUserOrRules:appDmc andBaseDate:baseDate]];
-}
 
 @end

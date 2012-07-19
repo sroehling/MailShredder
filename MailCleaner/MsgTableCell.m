@@ -22,8 +22,6 @@ NSString *const MSG_TABLE_CELL_IDENTIFIER = @"MsgTableCell";
 @synthesize sendDateLabel;
 @synthesize fromLabel;
 @synthesize selectedCheckbox;
-@synthesize lockedIndicator;
-@synthesize trashIndicator;
 @synthesize subjectLabel;
 
 
@@ -72,16 +70,7 @@ NSString *const MSG_TABLE_CELL_IDENTIFIER = @"MsgTableCell";
 		[self.selectedCheckbox setHighlightedImage:[UIImage imageNamed:@"selectedMsgcheckbox.png"]];
 		[self.selectedCheckbox setImage:[UIImage imageNamed:@"unselectedMsgCheckbox.png"]];
 		[self.contentView addSubview:self.selectedCheckbox];
-		
-		self.lockedIndicator = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 11, 11)] autorelease];
-		[self.lockedIndicator setImage:[UIImage imageNamed:@"lock-closed"]];
-		[self.contentView addSubview:self.lockedIndicator];
 
-
-		self.trashIndicator = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 11, 11)] autorelease];
-		[self.trashIndicator setImage:[UIImage imageNamed:@"trash"]];
-		[self.contentView addSubview:self.trashIndicator];
-			   		   
 
 	}
 	return self;
@@ -121,25 +110,13 @@ NSString *const MSG_TABLE_CELL_IDENTIFIER = @"MsgTableCell";
 	
 	CGFloat secondRowYStart = MAX(sendDateFrame.origin.y + sendDateFrame.size.height,
 		fromFrame.origin.y + fromFrame.size.height) + 2;
-	CGRect lockFrame = self.lockedIndicator.frame;
 	
 	[self.subjectLabel sizeToFit];
 	CGRect subjectFrame = self.subjectLabel.frame;
 	subjectFrame.origin.x = fromFrame.origin.x;
 	subjectFrame.origin.y = secondRowYStart;
-	subjectFrame.size.width = contentFrame.size.width - lockFrame.size.width - MSG_TABLE_CELL_RIGHT_MARGIN - subjectFrame.origin.x;
+	subjectFrame.size.width = contentFrame.size.width - MSG_TABLE_CELL_RIGHT_MARGIN - subjectFrame.origin.x;
 	[self.subjectLabel setFrame:subjectFrame]; 
-
-	lockFrame.origin.x = contentFrame.size.width - lockFrame.size.width - MSG_TABLE_CELL_RIGHT_MARGIN;
-	lockFrame.origin.y =subjectFrame.origin.y + subjectFrame.size.height/2.0 - lockFrame.size.height/2.0;
-	[self.lockedIndicator setFrame:lockFrame];
-
-	
-	// Being trashed and locked are mutually exclusive for messages,
-	// so we can use the same frame for the lock and trash indicator, assuming
-	// only 1 or the other will be shown.
-	[self.trashIndicator setFrame:lockFrame];
-	
 }
 
 -(void)dealloc
@@ -147,8 +124,6 @@ NSString *const MSG_TABLE_CELL_IDENTIFIER = @"MsgTableCell";
 	[sendDateLabel release];
 	[fromLabel release];
 	[selectedCheckbox release];
-	[lockedIndicator release];
-	[trashIndicator release];
 	[subjectLabel release];
 	[super dealloc];
 }

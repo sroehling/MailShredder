@@ -82,33 +82,6 @@
 
 #pragma mark Button list call-backs
 
--(void)lockMsgsButtonPressed
-{
-	NSLog(@"Lock msgs button pressed");
-	NSArray *selectedMsgs = [self selectedInMsgList];
-	for (EmailInfo *info in selectedMsgs)
-	{
-		info.selectedInMsgList = [NSNumber numberWithBool:FALSE];
-		info.locked = [NSNumber numberWithBool:TRUE];
-		info.trashed= [NSNumber numberWithBool:FALSE];
-	}
-	[self.emailInfoDmc saveContext];
-	[self.msgListView.msgListTableView reloadData];
-}
-
--(void)untrashMsgsButtonPressed
-{
-	NSLog(@"Un-trash msgs button pressed");
-	NSArray *selectedMsgs = [self selectedInMsgList];
-	
-	for (EmailInfo *info in selectedMsgs)
-	{
-		info.selectedInMsgList = [NSNumber numberWithBool:FALSE];
-		info.trashed = [NSNumber numberWithBool:FALSE];
-	}
-	[self.emailInfoDmc saveContext];
-	[self.msgListView.msgListTableView reloadData];
-}
 
 -(void)deleteTrashedMsgList:(NSArray*)trashedMsgs
 {
@@ -148,13 +121,6 @@
 	
 	NSMutableArray *actionButtonInfo = [[[NSMutableArray alloc] init] autorelease];
 	
-	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
-		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_LOCK_MSGS_BUTTON_TITLE")
-		 andTarget:self andSelector:@selector(lockMsgsButtonPressed)] autorelease]];
-
-	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
-		initWithTitle:LOCALIZED_STR(@"TRASH_LIST_ACTION_UNTRASH_BUTTON_TITLE")
-		 andTarget:self andSelector:@selector(untrashMsgsButtonPressed)] autorelease]];
 
 	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
 		initWithTitle:LOCALIZED_STR(@"TRASH_LIST_ACTION_DELETE_SELECTED_BUTTON_TITLE")

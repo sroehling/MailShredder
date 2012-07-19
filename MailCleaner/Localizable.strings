@@ -23,10 +23,6 @@
 "MESSAGE_AGE_FILTER_PROMPT" = "Select a send date criterion";
 "MESSAGE_AGE_SUBTITLE" = "Filter by date the message was sent";
 
-"MESSAGE_LIST_ACTION_TRASH_MSGS_BUTTON_TITLE" = "Trash Messages";
-"MESSAGE_LIST_ACTION_LOCK_MSGS_BUTTON_TITLE" = "Lock Messages";
-"MESSAGE_LIST_ACTION_UNLOCK_MSGS_BUTTON_TITLE" = "Unlock Messages";
-"TRASH_LIST_ACTION_UNTRASH_BUTTON_TITLE" = "Recycle Trashed Messages";
 "TRASH_LIST_ACTION_DELETE_ALL_BUTTON_TITLE" = "Delete All Trashed Messages";
 "TRASH_LIST_ACTION_DELETE_SELECTED_BUTTON_TITLE" = "Delete Selected Messages";
 "TRASH_RULE_LIST_VIEW_TITLE" = "Matching";

@@ -5,12 +5,10 @@
         <attribute name="domain" attributeType="String" syncable="YES"/>
         <attribute name="folder" attributeType="String" syncable="YES"/>
         <attribute name="from" attributeType="String" syncable="YES"/>
-        <attribute name="locked" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="messageId" attributeType="String" syncable="YES"/>
         <attribute name="selectedInMsgList" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="sendDate" attributeType="Date" syncable="YES"/>
         <attribute name="subject" attributeType="String" syncable="YES"/>
-        <attribute name="trashed" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <relationship name="folderInfo" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="FolderInfo" inverseName="emailFolderInfo" inverseEntity="FolderInfo" syncable="YES"/>
     </entity>
     <entity name="FolderInfo" representedClassName="FolderInfo" syncable="YES">
@@ -18,7 +16,7 @@
         <relationship name="emailFolderInfo" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="EmailInfo" inverseName="folderInfo" inverseEntity="EmailInfo" syncable="YES"/>
     </entity>
     <elements>
-        <element name="EmailInfo" positionX="160" positionY="192" width="128" height="210"/>
+        <element name="EmailInfo" positionX="160" positionY="192" width="128" height="180"/>
         <element name="FolderInfo" positionX="160" positionY="192" width="128" height="75"/>
     </elements>
 </model>
