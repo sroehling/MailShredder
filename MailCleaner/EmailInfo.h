@@ -16,7 +16,6 @@ extern NSString * const EMAIL_INFO_DELETED_KEY;
 extern NSString * const EMAIL_INFO_FROM_KEY;
 extern NSString * const EMAIL_INFO_DOMAIN_KEY;
 extern NSString * const EMAIL_INFO_FOLDER_KEY;
-extern NSString * const EMAIL_INFO_SELECTED_IN_MSG_LIST_KEY;
 
 @class FolderInfo;
 
@@ -32,7 +31,6 @@ extern NSString * const EMAIL_INFO_SELECTED_IN_MSG_LIST_KEY;
 
 @property (nonatomic, retain) NSString * subject;
 
-@property (nonatomic, retain) NSNumber * selectedInMsgList;
 
 // If marked as deleted, it will be deleted on the server
 // as soon as possible.

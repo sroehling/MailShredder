@@ -98,7 +98,7 @@
 	
 	NSMutableArray *actionButtonInfo = [[[NSMutableArray alloc] init] autorelease];
 	
-	// TODO Add delete selected button
+	[self populateDeletePopupListActions:actionButtonInfo];
 
 	PopupButtonListView *popupActionList = [[[PopupButtonListView alloc]
 		initWithFrame:self.navigationController.view.frame 

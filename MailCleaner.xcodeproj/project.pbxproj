@@ -368,7 +368,8 @@
 				003D59A015641CDD00AD3D91 /* Data Model */,
 				00A8C31115838BB9006163EE /* Mail Sync */,
 				0039E5FA1566CD0800CB259D /* Application */,
-				0039E5FB1566CD2E00CB259D /* Message List Views */,
+				0039E5FB1566CD2E00CB259D /* Message List View (base) */,
+				008129E815B86E5A00533E36 /* All Messages View */,
 				00E980DA15B71CF4007CE0ED /* Trash List View */,
 				00D498731576D9C700F8FD2F /* Rules List View */,
 				00C8972815AF53120006FF2F /* Email Account */,
@@ -477,24 +478,20 @@
 			name = Application;
 			sourceTree = "<group>";
 		};
-		0039E5FB1566CD2E00CB259D /* Message List Views */ = {
+		0039E5FB1566CD2E00CB259D /* Message List View (base) */ = {
 			isa = PBXGroup;
 			children = (
 				00472B1815ACA02000C6BC82 /* Resources */,
-				0017B74A157928D7001D5D28 /* MsgPredicateHelper.h */,
-				0017B74B157928D7001D5D28 /* MsgPredicateHelper.m */,
-				00D498611575380600F8FD2F /* MsgListView.h */,
-				00D498621575380600F8FD2F /* MsgListView.m */,
-				003F2395156D43490009BFE3 /* MsgListTableViewController.h */,
-				003F2396156D43490009BFE3 /* MsgListTableViewController.m */,
-				00E9944815643244003B9771 /* EmailInfoTableViewController.h */,
-				005E6A8515647602004198B6 /* EmailInfoActionView.h */,
-				00E9944915643244003B9771 /* EmailInfoTableViewController.m */,
-				005E6A8615647602004198B6 /* EmailInfoActionView.m */,
 				006D6673156E8E2500074979 /* MsgTableCell.h */,
 				006D6674156E8E2500074979 /* MsgTableCell.m */,
+				00D498611575380600F8FD2F /* MsgListView.h */,
+				00D498621575380600F8FD2F /* MsgListView.m */,
+				005E6A8515647602004198B6 /* EmailInfoActionView.h */,
+				005E6A8615647602004198B6 /* EmailInfoActionView.m */,
+				003F2395156D43490009BFE3 /* MsgListTableViewController.h */,
+				003F2396156D43490009BFE3 /* MsgListTableViewController.m */,
 			);
-			name = "Message List Views";
+			name = "Message List View (base)";
 			sourceTree = "<group>";
 		};
 		0039E5FC1566CE0700CB259D /* Message Filter */ = {
@@ -627,6 +624,15 @@
 			name = "Development Docs";
 			sourceTree = "<group>";
 		};
+		008129E815B86E5A00533E36 /* All Messages View */ = {
+			isa = PBXGroup;
+			children = (
+				00E9944815643244003B9771 /* EmailInfoTableViewController.h */,
+				00E9944915643244003B9771 /* EmailInfoTableViewController.m */,
+			);
+			name = "All Messages View";
+			sourceTree = "<group>";
+		};
 		00A6FB3A159A48F600ED4D4B /* Catalogued Email Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -735,6 +741,8 @@
 		00D4988F1577F00F00F8FD2F /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				0017B74A157928D7001D5D28 /* MsgPredicateHelper.h */,
+				0017B74B157928D7001D5D28 /* MsgPredicateHelper.m */,
 				00A6FB56159B850900ED4D4B /* MailAddressHelper.h */,
 				00A6FB57159B850900ED4D4B /* MailAddressHelper.m */,
 				00D498901577F02B00F8FD2F /* MailCleanerFormPopulator.h */,

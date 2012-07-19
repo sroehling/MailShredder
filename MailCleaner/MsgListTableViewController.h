@@ -20,16 +20,26 @@
 		DataModelController *filterDmc;
 		NSFetchedResultsController *emailInfoFrc;
 		MsgListView *msgListView;
+		NSMutableSet *selectedEmailInfos;
 }
 
 @property(nonatomic,retain) DataModelController *emailInfoDmc;
 @property(nonatomic,retain) NSFetchedResultsController *emailInfoFrc;
 @property(nonatomic,retain) DataModelController *filterDmc;
 @property(nonatomic,retain) MsgListView *msgListView;
+@property(nonatomic,retain) NSMutableSet *selectedEmailInfos;
 
 -(NSPredicate*)msgListPredicate;
 -(NSArray *)selectedInMsgList;
+-(void)unselectAllMsgs;
 -(NSArray*)allMsgsInMsgList;
+
+// Reusable methods for deleting selected or all messages when
+// initiated in a popup list of actions.
+-(void)deleteTrashedMsgList:(NSArray*)trashedMsgs;
+-(void)deleteAllTrashedMsgsButtonPressed;
+-(void)deleteSelectedTrashedMsgsButtonPressed;
+-(void)populateDeletePopupListActions:(NSMutableArray *)actionButtonInfo;
 
 - (id)initWithEmailInfoDataModelController:(DataModelController*)theEmailInfoDmc
 	andAppDataModelController:(DataModelController*)theAppDmc;

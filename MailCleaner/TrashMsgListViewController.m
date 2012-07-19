@@ -68,10 +68,6 @@
 	[tableHeader resizeForChildren];
 	self.msgListView.headerView = tableHeader;
 	[self.msgListView addSubview:tableHeader];	
-
-
-	
-	
 }
 
 - (void)viewDidUnload
@@ -80,38 +76,6 @@
     // Release any retained subviews of the main view.
 }
 
-#pragma mark Button list call-backs
-
-
--(void)deleteTrashedMsgList:(NSArray*)trashedMsgs
-{
-	for (EmailInfo *info in trashedMsgs)
-	{
-		info.selectedInMsgList = [NSNumber numberWithBool:FALSE];
-		info.deleted = [NSNumber numberWithBool:TRUE];
-		
-	}
-	[self.emailInfoDmc saveContext];
-	[self.msgListView.msgListTableView reloadData];
-	
-	MailClientServerSyncController *mailSync = [[[MailClientServerSyncController alloc] 
-			initWithDataModelController:self.emailInfoDmc
-			andAppDataDmc:self.filterDmc] autorelease];
-	[mailSync deleteMarkedMsgs];	
-
-}
-
--(void)deleteAllTrashedMsgsButtonPressed
-{
-	NSLog(@"Delete All Trashed Messages button pressed");
-	[self deleteTrashedMsgList:[self allMsgsInMsgList]];
-}
-
--(void)deleteSelectedTrashedMsgsButtonPressed
-{
-	NSLog(@"Delete Selected Messages button pressed");
-	[self deleteTrashedMsgList:[self selectedInMsgList]];
-}
 
 #pragma mark EmailActionViewDelegate
 
@@ -121,15 +85,7 @@
 	
 	NSMutableArray *actionButtonInfo = [[[NSMutableArray alloc] init] autorelease];
 	
-
-	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
-		initWithTitle:LOCALIZED_STR(@"TRASH_LIST_ACTION_DELETE_SELECTED_BUTTON_TITLE")
-		 andTarget:self andSelector:@selector(deleteSelectedTrashedMsgsButtonPressed)] autorelease]];
-
-	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
-		initWithTitle:LOCALIZED_STR(@"TRASH_LIST_ACTION_DELETE_ALL_BUTTON_TITLE")
-		 andTarget:self andSelector:@selector(deleteAllTrashedMsgsButtonPressed)] autorelease]];
-
+	[self populateDeletePopupListActions:actionButtonInfo];
 	
 	PopupButtonListView *popupActionList = [[[PopupButtonListView alloc]
 		initWithFrame:self.navigationController.view.frame 

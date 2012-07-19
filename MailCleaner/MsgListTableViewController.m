@@ -17,6 +17,8 @@
 #import "MsgTableCell.h"
 #import "MsgListView.h"
 #import "UIHelper.h"
+#import "MailClientServerSyncController.h"
+#import "PopupButtonListItemInfo.h"
 
 
 @implementation MsgListTableViewController
@@ -25,6 +27,7 @@
 @synthesize emailInfoFrc;
 @synthesize filterDmc;
 @synthesize msgListView;
+@synthesize selectedEmailInfos;
 
 
 - (id)initWithEmailInfoDataModelController:(DataModelController*)theEmailInfoDmc
@@ -35,6 +38,8 @@
         // Custom initialization
 		self.emailInfoDmc = theEmailInfoDmc;
 		self.filterDmc = theAppDmc;
+		
+		self.selectedEmailInfos = [[[NSMutableSet alloc] init] autorelease]; 
     }
     return self;
 }
@@ -60,25 +65,7 @@
 
 -(NSArray *)selectedInMsgList
 {
-	NSPredicate *selectedPredicate = [NSPredicate predicateWithFormat:@"%K == %@",
-		EMAIL_INFO_SELECTED_IN_MSG_LIST_KEY,[NSNumber numberWithBool:YES]];
-	NSPredicate *selectedInMsgListPredicate =  [NSCompoundPredicate andPredicateWithSubpredicates:
-		[NSArray arrayWithObjects:[self msgListPredicate],selectedPredicate, nil]];
-
-	NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
-	NSEntityDescription *entity = [NSEntityDescription
-		entityForName:EMAIL_INFO_ENTITY_NAME 
-		inManagedObjectContext:self.emailInfoDmc.managedObjectContext];
-	[fetchRequest setEntity:entity];
- 
-	NSSortDescriptor *sort = [[NSSortDescriptor alloc]
-		initWithKey:EMAIL_INFO_SEND_DATE_KEY ascending:NO];
-	[fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-	[fetchRequest setPredicate:selectedInMsgListPredicate];	
-
-	return [CoreDataHelper executeFetchOrThrow:fetchRequest 
-		inManagedObectContext:self.emailInfoDmc.managedObjectContext];
-
+	return [self.selectedEmailInfos allObjects];
 }
 
 
@@ -87,9 +74,10 @@
     cell.fromLabel.text = info.from;
     cell.sendDateLabel.text = [DateHelper stringFromDate:info.sendDate];
 	cell.subjectLabel.text = info.subject;
-	if([info.selectedInMsgList boolValue])
+	if([self.selectedEmailInfos containsObject:info])
 	{
-		[self.msgListView.msgListTableView selectRowAtIndexPath:indexPath animated:FALSE scrollPosition:UITableViewScrollPositionNone];
+		[self.msgListView.msgListTableView selectRowAtIndexPath:indexPath 
+		animated:FALSE scrollPosition:UITableViewScrollPositionNone];
 	}
 	cell.accessoryType =UITableViewCellAccessoryDetailDisclosureButton;	
 }
@@ -114,6 +102,34 @@
 {
 	return [CoreDataHelper executeFetchOrThrow:[self allMsgsFetchRequest] 
 		inManagedObectContext:self.emailInfoDmc.managedObjectContext];
+}
+
+
+-(void)unselectAllMsgs
+{
+	UITableView *tableView = self.msgListView.msgListTableView;
+	
+	for (int sectionNum = 0; sectionNum < [tableView numberOfSections]; sectionNum++) 
+	{
+		for (int rowNum = 0; rowNum < [tableView numberOfRowsInSection:sectionNum]; rowNum++) {
+			[tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:rowNum	inSection:sectionNum] animated:FALSE];
+ 		}
+	}
+	[self.selectedEmailInfos removeAllObjects];
+}
+
+-(void)selectAllMsgs
+{
+	UITableView *tableView = self.msgListView.msgListTableView;
+	
+	for (int sectionNum = 0; sectionNum < [tableView numberOfSections]; sectionNum++) 
+	{
+		for (int rowNum = 0; rowNum < [tableView numberOfRowsInSection:sectionNum]; rowNum++) {
+            [tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:rowNum	inSection:sectionNum]
+                animated:FALSE scrollPosition:UITableViewScrollPositionNone];
+		}
+	}
+
 }
 
 -(void)configureFetchedResultsController
@@ -146,17 +162,14 @@
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	EmailInfo *info = [self.emailInfoFrc objectAtIndexPath:indexPath];
-	info.selectedInMsgList = [NSNumber numberWithBool:FALSE];
-	[self.emailInfoDmc saveContext];
+	[self.selectedEmailInfos removeObject:info];
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
 	EmailInfo *info = [self.emailInfoFrc objectAtIndexPath:indexPath];
-	info.selectedInMsgList = [NSNumber numberWithBool:TRUE];
-	[self.emailInfoDmc saveContext];
-	
+	[self.selectedEmailInfos addObject:info];	
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -238,12 +251,12 @@
 
 -(void)unselectAllButtonPressed
 {
-	NSLog(@"Unselect all");
+	[self unselectAllMsgs];
 }
 
 -(void)selectAllButtonPressed
-{
-	NSLog(@"Select all");
+{	
+	[self selectAllMsgs];
 }
 
 
@@ -267,6 +280,8 @@
  
         case NSFetchedResultsChangeDelete:
             [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+			// If the object happens to be selected, remove it from the selected list.
+			[self.selectedEmailInfos removeObject:anObject];
             break;
  
         case NSFetchedResultsChangeUpdate:
@@ -303,7 +318,49 @@
     [self.msgListView.msgListTableView endUpdates];
 }
 
+#pragma mark Button list call-backs
 
+
+-(void)deleteTrashedMsgList:(NSArray*)trashedMsgs
+{
+	for (EmailInfo *info in trashedMsgs)
+	{
+		info.deleted = [NSNumber numberWithBool:TRUE];		
+	}
+	[self.emailInfoDmc saveContext];
+	[self unselectAllMsgs];
+	[self.msgListView.msgListTableView reloadData];
+	
+	MailClientServerSyncController *mailSync = [[[MailClientServerSyncController alloc] 
+			initWithDataModelController:self.emailInfoDmc
+			andAppDataDmc:self.filterDmc] autorelease];
+	[mailSync deleteMarkedMsgs];	
+
+}
+
+-(void)deleteAllTrashedMsgsButtonPressed
+{
+	NSLog(@"Delete All Trashed Messages button pressed");
+	[self deleteTrashedMsgList:[self allMsgsInMsgList]];
+}
+
+-(void)deleteSelectedTrashedMsgsButtonPressed
+{
+	NSLog(@"Delete Selected Messages button pressed");
+	[self deleteTrashedMsgList:[self selectedInMsgList]];
+}
+
+-(void)populateDeletePopupListActions:(NSMutableArray *)actionButtonInfo 
+{
+	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
+		initWithTitle:LOCALIZED_STR(@"TRASH_LIST_ACTION_DELETE_SELECTED_BUTTON_TITLE")
+		 andTarget:self andSelector:@selector(deleteSelectedTrashedMsgsButtonPressed)] autorelease]];
+
+	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
+		initWithTitle:LOCALIZED_STR(@"TRASH_LIST_ACTION_DELETE_ALL_BUTTON_TITLE")
+		 andTarget:self andSelector:@selector(deleteAllTrashedMsgsButtonPressed)] autorelease]];
+
+}
 
 -(void)dealloc
 {
@@ -311,6 +368,7 @@
 	[filterDmc release];
 	[emailInfoFrc release];
 	[msgListView release];
+	[selectedEmailInfos release];
 	[super dealloc];
 }
 
