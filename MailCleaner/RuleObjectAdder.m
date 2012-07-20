@@ -9,7 +9,7 @@
 #import "RuleObjectAdder.h"
 #import "TableViewObjectAdder.h"
 #import "PopupButtonListView.h"
-#import "PopupButtonListItemInfo.h"
+#import "ButtonListItemInfo.h"
 #import "LocalizationHelper.h"
 #import "FormContext.h"
 #import "GenericFieldBasedTableAddViewController.h"
@@ -79,11 +79,11 @@
 	
 	NSMutableArray *actionButtonInfo = [[[NSMutableArray alloc] init] autorelease];
 	
-	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
+	[actionButtonInfo addObject:[[[ButtonListItemInfo alloc] 
 		initWithTitle:LOCALIZED_STR(@"RULES_ADD_TRASH_RULE_BUTTON_PRESSED")
 		 andTarget:self andSelector:@selector(addTrashRuleButtonPressed)] autorelease]];
 
-	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
+	[actionButtonInfo addObject:[[[ButtonListItemInfo alloc] 
 		initWithTitle:LOCALIZED_STR(@"RULES_ADD_EXCLUDE_RULE_BUTTON_PRESSED")
 		 andTarget:self andSelector:@selector(addExclusionRuleButtonPressed)] autorelease]];
 	

@@ -9,7 +9,6 @@
 #import "TrashMsgListViewController.h"
 #import "LocalizationHelper.h"
 #import "EmailInfo.h"
-#import "PopupButtonListItemInfo.h"
 #import "PopupButtonListView.h"
 #import "DataModelController.h"
 #import "MsgListView.h"

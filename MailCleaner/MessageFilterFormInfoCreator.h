@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 #import "FormInfoCreator.h"
-#import "SingleButtonTableFooter.h"
 
 @class MessageFilter;
 

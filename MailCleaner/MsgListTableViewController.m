@@ -18,7 +18,7 @@
 #import "MsgListView.h"
 #import "UIHelper.h"
 #import "MailClientServerSyncController.h"
-#import "PopupButtonListItemInfo.h"
+#import "ButtonListItemInfo.h"
 #import "DeleteMsgConfirmationView.h"
 
 
@@ -368,11 +368,11 @@
 
 -(void)populateDeletePopupListActions:(NSMutableArray *)actionButtonInfo 
 {
-	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
+	[actionButtonInfo addObject:[[[ButtonListItemInfo alloc] 
 		initWithTitle:LOCALIZED_STR(@"TRASH_LIST_ACTION_DELETE_SELECTED_BUTTON_TITLE")
 		 andTarget:self andSelector:@selector(deleteSelectedTrashedMsgsButtonPressed)] autorelease]];
 
-	[actionButtonInfo addObject:[[[PopupButtonListItemInfo alloc] 
+	[actionButtonInfo addObject:[[[ButtonListItemInfo alloc] 
 		initWithTitle:LOCALIZED_STR(@"TRASH_LIST_ACTION_DELETE_ALL_BUTTON_TITLE")
 		 andTarget:self andSelector:@selector(deleteAllTrashedMsgsButtonPressed)] autorelease]];
 

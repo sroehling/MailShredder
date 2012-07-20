@@ -17,10 +17,9 @@
 #import "ManagedObjectFieldInfo.h"
 #import "AgeFilter.h"
 #import "MailCleanerFormPopulator.h"
-#import "SingleButtonTableFooter.h"
-#import "MessageFilterResetter.h"
 #import "FormContext.h"
 #import "VariableHeightTableHeader.h"
+#import "MessageFilterTableFooterController.h"
 
 
 @implementation MessageFilterFormInfoCreator
@@ -44,8 +43,6 @@
 {
     MailCleanerFormPopulator *formPopulator = [[[MailCleanerFormPopulator alloc] 
 		initWithFormContext:parentContext] autorelease];
-		
-		
 			
     formPopulator.formInfo.title = LOCALIZED_STR(@"MESSAGE_FILTER_TITLE");
 	
@@ -68,10 +65,9 @@
 	[formPopulator populateEmailFolderFilter:self.msgFilter.folderFilter];
 	 
 	formPopulator.formInfo.footerController = 
-		[[[MessageFilterResetter alloc] initWithMessageFilter:self.msgFilter 
+		[[[MessageFilterTableFooterController alloc] initWithMessageFilter:self.msgFilter 
 			andFilterDataModelController:parentContext.dataModelController] autorelease];
 	
-					
 	return formPopulator.formInfo;
 }
 

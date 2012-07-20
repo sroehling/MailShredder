@@ -22,7 +22,6 @@
 #import "MessageFilter.h"
 #import "CoreDataHelper.h"
 #import "PopupButtonListView.h"
-#import "PopupButtonListItemInfo.h"
 #import "MsgListView.h"
 #import "EmailAccount.h"
 #import "MsgPredicateHelper.h"
