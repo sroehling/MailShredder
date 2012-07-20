@@ -19,6 +19,7 @@
 #import "UIHelper.h"
 #import "MailClientServerSyncController.h"
 #import "PopupButtonListItemInfo.h"
+#import "DeleteMsgConfirmationView.h"
 
 
 @implementation MsgListTableViewController
@@ -63,11 +64,59 @@
 	return nil;
 }
 
+-(void)selectEmailInfo:(EmailInfo*)emailInfo
+{
+	assert(emailInfo != nil);
+	[self.selectedEmailInfos addObject:emailInfo];
+}
+
+-(void)deselectEmailInfo:(EmailInfo*)emailInfo
+{
+	assert(emailInfo != nil);
+	[self.selectedEmailInfos removeObject:emailInfo];
+}
+
+
 -(NSArray *)selectedInMsgList
 {
 	return [self.selectedEmailInfos allObjects];
 }
 
+
+-(void)unselectAllMsgs
+{
+	UITableView *tableView = self.msgListView.msgListTableView;
+	
+	for (int sectionNum = 0; sectionNum < [tableView numberOfSections]; sectionNum++) 
+	{
+		for (int rowNum = 0; rowNum < [tableView numberOfRowsInSection:sectionNum]; rowNum++) {
+			NSIndexPath *emailInfoPath = [NSIndexPath indexPathForRow:rowNum	inSection:sectionNum];
+			[tableView deselectRowAtIndexPath:emailInfoPath animated:FALSE];
+			// Note that deselectRowAtIndexPath will not call didDeselectRowAtIndexPath,
+			// the selection needs to be updated.
+			[self deselectEmailInfo:[self.emailInfoFrc objectAtIndexPath:emailInfoPath]];
+ 		}
+	}
+	[self.selectedEmailInfos removeAllObjects];
+}
+
+-(void)selectAllMsgs
+{
+	UITableView *tableView = self.msgListView.msgListTableView;
+	
+	for (int sectionNum = 0; sectionNum < [tableView numberOfSections]; sectionNum++) 
+	{
+		for (int rowNum = 0; rowNum < [tableView numberOfRowsInSection:sectionNum]; rowNum++) {
+			NSIndexPath *emailInfoPath = [NSIndexPath indexPathForRow:rowNum	inSection:sectionNum];
+            [tableView selectRowAtIndexPath:emailInfoPath
+                animated:FALSE scrollPosition:UITableViewScrollPositionNone];
+			// Note that deselectRowAtIndexPath will not call didSelectRowAtIndexPath,
+			// the selection needs to be updated.
+			[self selectEmailInfo:[self.emailInfoFrc objectAtIndexPath:emailInfoPath]];
+		}
+	}
+
+}
 
 - (void)configureCell:(MsgTableCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     EmailInfo *info = [self.emailInfoFrc objectAtIndexPath:indexPath];
@@ -105,33 +154,6 @@
 }
 
 
--(void)unselectAllMsgs
-{
-	UITableView *tableView = self.msgListView.msgListTableView;
-	
-	for (int sectionNum = 0; sectionNum < [tableView numberOfSections]; sectionNum++) 
-	{
-		for (int rowNum = 0; rowNum < [tableView numberOfRowsInSection:sectionNum]; rowNum++) {
-			[tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:rowNum	inSection:sectionNum] animated:FALSE];
- 		}
-	}
-	[self.selectedEmailInfos removeAllObjects];
-}
-
--(void)selectAllMsgs
-{
-	UITableView *tableView = self.msgListView.msgListTableView;
-	
-	for (int sectionNum = 0; sectionNum < [tableView numberOfSections]; sectionNum++) 
-	{
-		for (int rowNum = 0; rowNum < [tableView numberOfRowsInSection:sectionNum]; rowNum++) {
-            [tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:rowNum	inSection:sectionNum]
-                animated:FALSE scrollPosition:UITableViewScrollPositionNone];
-		}
-	}
-
-}
-
 -(void)configureFetchedResultsController
 {
  
@@ -159,17 +181,16 @@
 	[UIHelper setCommonTitleForController:self withTitle:title];
 }
 
+
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	EmailInfo *info = [self.emailInfoFrc objectAtIndexPath:indexPath];
-	[self.selectedEmailInfos removeObject:info];
+	[self deselectEmailInfo:[self.emailInfoFrc objectAtIndexPath:indexPath]];
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-	EmailInfo *info = [self.emailInfoFrc objectAtIndexPath:indexPath];
-	[self.selectedEmailInfos addObject:info];	
+	[self selectEmailInfo:[self.emailInfoFrc objectAtIndexPath:indexPath]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -260,7 +281,6 @@
 }
 
 
-
 #pragma mark NSFetchedResultsControllerDelegate 
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
@@ -323,30 +343,26 @@
 
 -(void)deleteTrashedMsgList:(NSArray*)trashedMsgs
 {
-	for (EmailInfo *info in trashedMsgs)
+	if([trashedMsgs count] > 0)
 	{
-		info.deleted = [NSNumber numberWithBool:TRUE];		
+		DeleteMsgConfirmationView *deleteConfirmationView = [[[DeleteMsgConfirmationView alloc]
+			initWithFrame:self.navigationController.view.frame
+			andMsgsToDelete:trashedMsgs 
+			andEmailInfoDataModelController:self.emailInfoDmc 
+			andAppDataModelController:self.filterDmc] autorelease];
+		
+		[self.navigationController.view addSubview:deleteConfirmationView];
 	}
-	[self.emailInfoDmc saveContext];
-	[self unselectAllMsgs];
-	[self.msgListView.msgListTableView reloadData];
-	
-	MailClientServerSyncController *mailSync = [[[MailClientServerSyncController alloc] 
-			initWithDataModelController:self.emailInfoDmc
-			andAppDataDmc:self.filterDmc] autorelease];
-	[mailSync deleteMarkedMsgs];	
 
 }
 
 -(void)deleteAllTrashedMsgsButtonPressed
 {
-	NSLog(@"Delete All Trashed Messages button pressed");
 	[self deleteTrashedMsgList:[self allMsgsInMsgList]];
 }
 
 -(void)deleteSelectedTrashedMsgsButtonPressed
 {
-	NSLog(@"Delete Selected Messages button pressed");
 	[self deleteTrashedMsgList:[self selectedInMsgList]];
 }
 
