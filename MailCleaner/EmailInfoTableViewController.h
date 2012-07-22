@@ -12,15 +12,22 @@
 
 @class DataModelController;
 @class TableHeaderWithDisclosure;
+@class WEPopoverController;
 
+#import "WEPopoverController.h"
 #import "TableHeaderDisclosureButtonDelegate.h"
 
 @interface EmailInfoTableViewController : MsgListTableViewController 
-	<TableHeaderDisclosureButtonDelegate> {
+	<TableHeaderDisclosureButtonDelegate,WEPopoverControllerDelegate> {
 	@private
 		TableHeaderWithDisclosure *messageFilterHeader;
+		WEPopoverController *actionsPopupController;
+		UIBarButtonItem *actionButton;
+
 }
 
 @property(nonatomic,retain) TableHeaderWithDisclosure *messageFilterHeader;
+@property(nonatomic,retain) WEPopoverController *actionsPopupController;
+@property(nonatomic,retain) UIBarButtonItem *actionButton;
 
 @end

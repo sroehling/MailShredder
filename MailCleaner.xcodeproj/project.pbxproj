@@ -63,6 +63,7 @@
 		008129EB15B8ABED00533E36 /* DeleteMsgConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008129EA15B8ABED00533E36 /* DeleteMsgConfirmationView.m */; };
 		0098BCD4158BCCEC00C15243 /* EmailAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 0098BCD3158BCCEC00C15243 /* EmailAddress.m */; };
 		0098BCDB158BCD3000C15243 /* EmailAddressFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0098BCDA158BCD3000C15243 /* EmailAddressFilter.m */; };
+		009A092715BB4C0D0078880C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009A092615BB4C0D0078880C /* StoreKit.framework */; };
 		009E320A1567E4C500233276 /* AgeFilterFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */; };
 		00A6FB3E159A493200ED4D4B /* EmailDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB3D159A493200ED4D4B /* EmailDomain.m */; };
 		00A6FB41159A4C9F00ED4D4B /* EmailDomainFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB40159A4C9F00ED4D4B /* EmailDomainFilter.m */; };
@@ -222,6 +223,7 @@
 		0098BCD3158BCCEC00C15243 /* EmailAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddress.m; sourceTree = "<group>"; };
 		0098BCD9158BCD3000C15243 /* EmailAddressFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddressFilter.h; sourceTree = "<group>"; };
 		0098BCDA158BCD3000C15243 /* EmailAddressFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddressFilter.m; sourceTree = "<group>"; };
+		009A092615BB4C0D0078880C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		009E32081567E4C500233276 /* AgeFilterFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeFilterFieldEditInfo.h; sourceTree = "<group>"; };
 		009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgeFilterFieldEditInfo.m; sourceTree = "<group>"; };
 		00A6FB3C159A493200ED4D4B /* EmailDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailDomain.h; sourceTree = "<group>"; };
@@ -299,6 +301,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				009A092715BB4C0D0078880C /* StoreKit.framework in Frameworks */,
 				00AAF2E015B4B3ED00BFF03C /* Security.framework in Frameworks */,
 				00C4AB15158178FC00E0868A /* libiconv.dylib in Frameworks */,
 				00C4AB141581784900E0868A /* CFNetwork.framework in Frameworks */,
@@ -333,6 +336,7 @@
 		000566821562F94C003D114D = {
 			isa = PBXGroup;
 			children = (
+				009A092615BB4C0D0078880C /* StoreKit.framework */,
 				00AAF2DF15B4B3ED00BFF03C /* Security.framework */,
 				0065E3B91586A57400D59B2A /* Libs */,
 				006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */,
@@ -1012,6 +1016,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1030,6 +1035,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

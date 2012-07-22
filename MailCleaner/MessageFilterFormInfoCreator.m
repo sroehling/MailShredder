@@ -66,7 +66,7 @@
 	 
 	formPopulator.formInfo.footerController = 
 		[[[MessageFilterTableFooterController alloc] initWithMessageFilter:self.msgFilter 
-			andFilterDataModelController:parentContext.dataModelController] autorelease];
+			andParentContext:parentContext] autorelease];
 	
 	return formPopulator.formInfo;
 }

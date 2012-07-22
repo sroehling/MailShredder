@@ -9,21 +9,24 @@
 #import "TableFooterController.h"
 
 @class MessageFilter;
-@class DataModelController;
+@class FormContext;
+@class WEPopoverController;
 
 @interface MessageFilterTableFooterController : TableFooterController
 {
 	@private
 		MessageFilter *messageFilter;
-		DataModelController *filterDmc;
+		FormContext *parentContext;
+		WEPopoverController *filterOptionsPopupController;
 
 }
 
 @property(nonatomic,retain) MessageFilter *messageFilter;
-@property(nonatomic,retain) DataModelController *filterDmc;
+@property(nonatomic,retain) FormContext *parentContext;
+@property(nonatomic,retain) WEPopoverController *filterOptionsPopupController;
 
 -(id)initWithMessageFilter:(MessageFilter*)theMessageFilter 
-	andFilterDataModelController:(DataModelController*)theFilterDmc;
+	andParentContext:(FormContext*)theParentContext;
 
 
 

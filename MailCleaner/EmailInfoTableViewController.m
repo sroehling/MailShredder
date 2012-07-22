@@ -27,9 +27,17 @@
 #import "MsgPredicateHelper.h"
 #import "DateHelper.h"
 
+#import "TableMenuViewController.h"
+#import "TableMenuItem.h"
+#import "TableMenuSection.h"
+#import "WEPopoverController.h"
+#import "WEPopoverHelper.h"
+
 @implementation EmailInfoTableViewController
 
 @synthesize messageFilterHeader;
+@synthesize actionsPopupController;
+@synthesize actionButton;
 
 -(NSPredicate*)msgListPredicate
 {
@@ -58,6 +66,33 @@
 	
 	self.msgListView.headerView = self.messageFilterHeader;
 	[self.msgListView addSubview:self.messageFilterHeader];	
+	
+	
+	
+	self.actionButton = [[[UIBarButtonItem alloc] 
+		initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self 
+		action:@selector(topActionButtonPressed)] autorelease];
+
+	NSMutableArray *sections = [[[NSMutableArray alloc] init] autorelease];
+	TableMenuSection *section = [[[TableMenuSection alloc] 
+		initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_NARROW_FILTER_SECTION_TITLE")] autorelease];
+	[section addMenuItem:[[[TableMenuItem alloc] 
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_NARROW_FILTER_SELECTED_ADDRESSES_MENU_TITLE")
+		 andTarget:self andSelector:@selector(narrowToSelectedAddresses)] autorelease]];
+	[sections addObject:section];
+	
+	TableMenuViewController *popupMenuController = [[[TableMenuViewController alloc] 
+			initWithStyle:UITableViewStyleGrouped 
+			andMenuSections:sections andMenuHeight:50.0f] autorelease];
+	
+	self.actionsPopupController = [[[WEPopoverController alloc] 
+		initWithContentViewController:popupMenuController] autorelease];
+	self.actionsPopupController.delegate = self;
+
+	[actionsPopupController setContainerViewProperties:[WEPopoverHelper containerViewProperties]];
+
+
+	self.navigationItem.rightBarButtonItem = actionButton;        
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -110,8 +145,34 @@
 
 
 
+-(void)narrowToSelectedAddresses
+{
+	NSLog(@"Narrow to selected addresses");
+	[self.actionsPopupController dismissPopoverAnimated:TRUE];
+}
+
+-(void)topActionButtonPressed
+{		
+	[actionsPopupController presentPopoverFromBarButtonItem:self.actionButton 
+		permittedArrowDirections:UIPopoverArrowDirectionAny animated:TRUE];
+}
+
+- (void)popoverControllerDidDismissPopover:(WEPopoverController *)popoverController
+{
+}
+
+- (BOOL)popoverControllerShouldDismissPopover:(WEPopoverController *)popoverController
+{
+	return TRUE;
+}
+
+
+
 -(void)dealloc
 {
+	[actionButton release];
+	[actionsPopupController release];
+	[messageFilterHeader release];
 	[super dealloc];
 }
 

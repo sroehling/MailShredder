@@ -19,12 +19,18 @@
 "MESSAGE_FILTER_FORM_SUBHEADER_TEXT" = "The parameters below configure which messages are shown in the message list. A message must match all the parameters to be shown.";
 "MESSAGE_FILTER_RESET_FILTER_BUTTON_TITLE" = "Reset Filter";
 
+
+"MESSAGE_LIST_ACTION_NARROW_FILTER_SECTION_TITLE" = "Narrow Filtering";
+"MESSAGE_LIST_ACTION_NARROW_FILTER_SELECTED_ADDRESSES_MENU_TITLE" = "Selected Addresses";
+
 "MESSAGE_AGE_TITLE" = "Send Date";
 "MESSAGE_AGE_FILTER_PROMPT" = "Select a send date criterion";
 "MESSAGE_AGE_SUBTITLE" = "Filter by date the message was sent";
 
 "TRASH_LIST_ACTION_DELETE_ALL_BUTTON_TITLE" = "Delete All Trashed Messages";
 "TRASH_LIST_ACTION_DELETE_SELECTED_BUTTON_TITLE" = "Delete Selected Messages";
+
+
 "TRASH_RULE_LIST_VIEW_TITLE" = "Matching";
 "TRASH_RULE_LIST_VIEW_HEADER" = "Message Matching Rules";
 "TRASH_RULE_LIST_VIEW_SUBHEADER" = "Select from the list below to review messages matching different rules (not including messages excluded by exclusion rules).";
