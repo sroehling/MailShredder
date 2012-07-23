@@ -33,6 +33,8 @@
 #import "WEPopoverController.h"
 #import "WEPopoverHelper.h"
 
+CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
+
 @implementation EmailInfoTableViewController
 
 @synthesize messageFilterHeader;
@@ -77,13 +79,30 @@
 	TableMenuSection *section = [[[TableMenuSection alloc] 
 		initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_NARROW_FILTER_SECTION_TITLE")] autorelease];
 	[section addMenuItem:[[[TableMenuItem alloc] 
-		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_NARROW_FILTER_SELECTED_ADDRESSES_MENU_TITLE")
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_ADDRESSES_MENU_TITLE")
 		 andTarget:self andSelector:@selector(narrowToSelectedAddresses)] autorelease]];
+	[section addMenuItem:[[[TableMenuItem alloc] 
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_DOMAINS_MENU_TITLE")
+		 andTarget:self andSelector:@selector(narrowToSelectedDomains)] autorelease]];
 	[sections addObject:section];
+
+	section = [[[TableMenuSection alloc] 
+		initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_CREATE_TRASH_RULE_SECTION_TITLE")] autorelease];
+	[section addMenuItem:[[[TableMenuItem alloc] 
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_ADDRESSES_MENU_TITLE")
+		 andTarget:self andSelector:@selector(createTrashRuleSelectedAddresses)] autorelease]];
+	[section addMenuItem:[[[TableMenuItem alloc] 
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_DOMAINS_MENU_TITLE")
+		 andTarget:self andSelector:@selector(createTrashRuleSelectedDomains)] autorelease]];
+	[section addMenuItem:[[[TableMenuItem alloc] 
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_CURRENT_FILTER_MENU_TITLE")
+		 andTarget:self andSelector:@selector(createTrashRuleCurrentFilter)] autorelease]];
+	[sections addObject:section];
+
 	
 	TableMenuViewController *popupMenuController = [[[TableMenuViewController alloc] 
 			initWithStyle:UITableViewStyleGrouped 
-			andMenuSections:sections andMenuHeight:50.0f] autorelease];
+			andMenuSections:sections andMenuHeight:EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT] autorelease];
 	
 	self.actionsPopupController = [[[WEPopoverController alloc] 
 		initWithContentViewController:popupMenuController] autorelease];
@@ -148,6 +167,30 @@
 -(void)narrowToSelectedAddresses
 {
 	NSLog(@"Narrow to selected addresses");
+	[self.actionsPopupController dismissPopoverAnimated:TRUE];
+}
+
+-(void)narrowToSelectedDomains
+{
+	NSLog(@"Narrow to selected domains");
+	[self.actionsPopupController dismissPopoverAnimated:TRUE];
+}
+
+-(void)createTrashRuleSelectedAddresses
+{
+	NSLog(@"Create trash rule from selected addresses");
+	[self.actionsPopupController dismissPopoverAnimated:TRUE];
+}
+
+-(void)createTrashRuleSelectedDomains
+{
+	NSLog(@"Create trash rule from selected domains");
+	[self.actionsPopupController dismissPopoverAnimated:TRUE];
+}
+
+-(void)createTrashRuleCurrentFilter
+{
+	NSLog(@"Create trash rule from current filter settings");
 	[self.actionsPopupController dismissPopoverAnimated:TRUE];
 }
 
