@@ -7,6 +7,8 @@
 //
 
 #import "EmailDomain.h"
+#import "DataModelController.h"
+#import "StringValidation.h"
 
 NSString * const EMAIL_DOMAIN_ENTITY_NAME = @"EmailDomain";
 
@@ -19,5 +21,31 @@ NSString * const EMAIL_DOMAIN_ENTITY_NAME = @"EmailDomain";
 // selection of the EmailAddress in a table view.
 @synthesize isSelectedForSelectableObjectTableView;
 
+
++(NSMutableDictionary*)emailDomainsByDomainName:(DataModelController*)appDataDmc
+{
+	NSSet *currDomains = [appDataDmc fetchObjectsForEntityName:EMAIL_DOMAIN_ENTITY_NAME];
+	NSMutableDictionary *currDomainByDomainName = [[[NSMutableDictionary alloc] init] autorelease];
+	for(EmailDomain *currDomain in currDomains)
+	{
+		[currDomainByDomainName setObject:currDomain forKey:currDomain.domainName];
+	}
+	return currDomainByDomainName;
+}
+
+
++(EmailDomain*)findOrAddDomainName:(NSString*)domainName withCurrentDomains:(NSMutableDictionary*)currDomainsByName 
+			inDataModelController:(DataModelController*)appDataDmc
+{
+	assert([StringValidation nonEmptyString:domainName]);
+	EmailDomain *theDomain = [currDomainsByName objectForKey:domainName];
+	if(theDomain == nil)
+	{
+		theDomain = [appDataDmc insertObject:EMAIL_DOMAIN_ENTITY_NAME];
+		theDomain.domainName = domainName;
+		[currDomainsByName setObject:theDomain forKey:domainName];
+	}
+	return theDomain;
+}
 
 @end

@@ -96,5 +96,14 @@ NSInteger const MAX_SPECIFIC_DOMAIN_SYNOPSIS = 2;
 	}
 }
 
+-(void)setDomains:(NSSet*)selectedDomains
+{
+	// Clear out the list of current domains
+	NSSet *existingDomains = [NSSet setWithSet:self.selectedDomains];
+	[self removeSelectedDomains:existingDomains];
+	
+	// Add the selected domains
+	[self addSelectedDomains:selectedDomains];
+}
 
 @end

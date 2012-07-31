@@ -26,6 +26,8 @@ extern NSString * const EMAIL_ADDRESS_FILTER_ENTITY_NAME;
 
 @property (nonatomic, retain) NSSet *selectedAddresses;
 
+-(void)setAddresses:(NSSet *)selectedAddresses;
+
 @end
 
 @interface EmailAddressFilter (CoreDataGeneratedAccessors)

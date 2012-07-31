@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 
 @class EmailAddressFilterSelected;
+@class DataModelController;
 
 extern NSString * const EMAIL_ADDRESS_ENTITY_NAME;
 
@@ -26,6 +27,10 @@ extern NSString * const EMAIL_ADDRESS_ENTITY_NAME;
 
 @property BOOL isSelectedForSelectableObjectTableView;
 
++(NSMutableDictionary*)addressesByName:(DataModelController*)appDataDmc;
++(EmailAddress*)findOrAddAddress:(NSString*)emailAddress 
+	withCurrentAddresses:(NSMutableDictionary*)currAddressByName 
+			inDataModelController:(DataModelController*)appDataDmc;
 
 @end
 

@@ -8,6 +8,8 @@
 
 #import "EmailFolder.h"
 
+#import "DataModelController.h"
+
 NSString * const EMAIL_FOLDER_ENTITY_NAME = @"EmailFolder";
 
 @implementation EmailFolder
@@ -19,5 +21,30 @@ NSString * const EMAIL_FOLDER_ENTITY_NAME = @"EmailFolder";
 // selection of the EmailAddress in a table view.
 @synthesize isSelectedForSelectableObjectTableView;
 
+
++(NSMutableDictionary*)foldersByName:(DataModelController*)appDataDmc
+{
+	NSSet *currFolders = [appDataDmc fetchObjectsForEntityName:EMAIL_FOLDER_ENTITY_NAME];
+	NSMutableDictionary *currFolderByFolderName = [[[NSMutableDictionary alloc] init] autorelease];
+	for(EmailFolder *currFolder in currFolders)
+	{
+		[currFolderByFolderName setObject:currFolder forKey:currFolder.folderName];
+	}
+	return currFolderByFolderName;
+}
+
++(EmailFolder*)findOrAddFolder:(NSString*)folderName 
+	inExistingFolders:(NSMutableDictionary*)currFoldersByName
+	withDataModelController:(DataModelController*)appDataDmc
+{
+	EmailFolder *theFolder = [currFoldersByName objectForKey:folderName];
+	if(theFolder == nil)
+	{
+		theFolder = [appDataDmc insertObject:EMAIL_FOLDER_ENTITY_NAME];
+		theFolder.folderName = folderName;
+		[currFoldersByName setObject:theFolder forKey:folderName];
+	}
+	return theFolder;
+}
 
 @end

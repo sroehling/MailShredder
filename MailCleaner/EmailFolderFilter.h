@@ -25,6 +25,8 @@ extern NSString * const EMAIL_FOLDER_FILTER_ENTITY_NAME;
 
 -(NSPredicate*)filterPredicate;
 
+-(void)setFolders:(NSSet*)selectedFolders;
+
 @end
 
 @interface EmailFolderFilter (CoreDataGeneratedAccessors)

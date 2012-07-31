@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class DataModelController;
 
 extern NSString * const EMAIL_DOMAIN_ENTITY_NAME;
 
@@ -22,5 +23,10 @@ extern NSString * const EMAIL_DOMAIN_ENTITY_NAME;
 
 @property BOOL isSelectedForSelectableObjectTableView;
 
+
++(NSMutableDictionary*)emailDomainsByDomainName:(DataModelController*)appDataDmc;
++(EmailDomain*)findOrAddDomainName:(NSString*)domainName 
+		withCurrentDomains:(NSMutableDictionary*)currDomainsByName 
+			inDataModelController:(DataModelController*)appDataDmc;
 
 @end

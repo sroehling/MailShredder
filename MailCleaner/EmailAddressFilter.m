@@ -97,5 +97,12 @@ NSInteger const MAX_SPECIFIC_ADDRESS_SYNOPSIS = 2;
 	}
 }
 
+-(void)setAddresses:(NSSet *)selectedAddresses
+{
+	NSSet *existingAddresses = [NSSet setWithSet:self.selectedAddresses];
+	[self removeSelectedAddresses:existingAddresses];
+	
+	[self addSelectedAddresses:selectedAddresses];
+}
 
 @end

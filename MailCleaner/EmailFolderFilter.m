@@ -99,5 +99,14 @@ NSInteger const MAX_SPECIFIC_FOLDER_SYNOPSIS = 2;
 	}
 }
 
+-(void)setFolders:(NSSet*)selectedFolders
+{
+	// Clear out the list of current domains
+	NSSet *existingFolders = [NSSet setWithSet:self.selectedFolders];
+	[self removeSelectedFolders:existingFolders];
+	
+	// Add the selected domains
+	[self addSelectedFolders:selectedFolders];
+}
 
 @end

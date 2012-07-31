@@ -27,6 +27,8 @@ extern NSString * const EMAIL_DOMAIN_FILTER_ENTITY_NAME;
 
 -(NSPredicate*)filterPredicate;
 
+-(void)setDomains:(NSSet*)selectedDomains;
+
 @end
 
 @interface EmailDomainFilter (CoreDataGeneratedAccessors)

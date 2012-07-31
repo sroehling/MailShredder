@@ -94,27 +94,10 @@
 
 	[self connect];
 	
-	NSSet *currEmailAddresses = [self.appDataDmc fetchObjectsForEntityName:EMAIL_ADDRESS_ENTITY_NAME]; 
-	NSMutableDictionary *currEmailAddressByAddress = [[[NSMutableDictionary alloc] init] autorelease];
-	for(EmailAddress *currAddr in currEmailAddresses)
-	{
-		[currEmailAddressByAddress setObject:currAddr forKey:currAddr.address];
-	}
 	
-	NSSet *currDomains = [self.appDataDmc fetchObjectsForEntityName:EMAIL_DOMAIN_ENTITY_NAME];
-	NSMutableDictionary *currDomainByDomainName = [[[NSMutableDictionary alloc] init] autorelease];
-	for(EmailDomain *currDomain in currDomains)
-	{
-		[currDomainByDomainName setObject:currDomain forKey:currDomain.domainName];
-	}
-	
-	NSSet *currFolders = [self.appDataDmc fetchObjectsForEntityName:EMAIL_FOLDER_ENTITY_NAME];
-	NSMutableDictionary *currFolderByFolderName = [[[NSMutableDictionary alloc] init] autorelease];
-	for(EmailFolder *currFolder in currFolders)
-	{
-		[currFolderByFolderName setObject:currFolder forKey:currFolder.folderName];
-	}
-
+	NSMutableDictionary *currEmailAddressByAddress = [EmailAddress addressesByName:self.appDataDmc];
+	NSMutableDictionary *currDomainByDomainName = [EmailDomain emailDomainsByDomainName:self.appDataDmc];
+	NSMutableDictionary *currFolderByFolderName = [EmailFolder foldersByName:self.appDataDmc];
 	
 	NSSet *currFolderInfo = [self.emailInfoDmc fetchObjectsForEntityName:FOLDER_INFO_ENTITY_NAME];
 	for (FolderInfo *currFolder in currFolderInfo)
@@ -135,14 +118,8 @@
 		FolderInfo *folderInfo = (FolderInfo*)[self.emailInfoDmc insertObject:FOLDER_INFO_ENTITY_NAME];
 		folderInfo.fullyQualifiedName = currFolder.path;
 
-		EmailFolder *existingFolder = [currFolderByFolderName objectForKey:folderName];
-		if(existingFolder == nil)
-		{
-			EmailFolder *newFolder = [self.appDataDmc insertObject:EMAIL_FOLDER_ENTITY_NAME];
-			newFolder.folderName = folderName;
-			[currFolderByFolderName setObject:newFolder forKey:folderName];
-		}
-
+		[EmailFolder findOrAddFolder:folderName inExistingFolders:currFolderByFolderName 
+			withDataModelController:self.appDataDmc];
 		
 		if(currFolder.totalMessageCount > 0)
 		{
@@ -156,24 +133,11 @@
 					[DateHelper stringFromDate:msg.senderDate],msg.subject);
 				EmailInfo *newEmailInfo = [self emailInfoFromServerMsg:msg andFolderInfo:folderInfo];
 				
-				// Update the list of known senders' addresses, if the address is not
-				// already in the list.
-				EmailAddress *newEmailAddr = [currEmailAddressByAddress objectForKey:newEmailInfo.from];
-				if(newEmailAddr == nil)
-				{
-					newEmailAddr = [self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
-					newEmailAddr.address = newEmailInfo.from;
-					[currEmailAddressByAddress setObject:newEmailAddr forKey:newEmailAddr.address];
-				}
+				[EmailAddress findOrAddAddress:newEmailInfo.from 
+					withCurrentAddresses:currEmailAddressByAddress inDataModelController:self.appDataDmc];
 				
-				EmailDomain *existingDomain = [currDomainByDomainName objectForKey:newEmailInfo.domain];
-				if(existingDomain == nil)
-				{
-					EmailDomain *newDomain = [self.appDataDmc insertObject:EMAIL_DOMAIN_ENTITY_NAME];
-					newDomain.domainName = newEmailInfo.domain;
-					[currDomainByDomainName setObject:newDomain forKey:newDomain.domainName];
-				}
-
+				[EmailDomain findOrAddDomainName:newEmailInfo.domain 
+					withCurrentDomains:currDomainByDomainName inDataModelController:self.appDataDmc];
 				
 				numNewMsgs ++;
 					
