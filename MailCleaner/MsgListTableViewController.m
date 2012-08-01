@@ -153,6 +153,23 @@
 		inManagedObectContext:self.emailInfoDmc.managedObjectContext];
 }
 
+-(void)updateSelectionForCurrentResults
+{
+	NSArray *fetchedObjects = [self.emailInfoFrc fetchedObjects];
+
+	NSMutableSet *emailInfosToDeselect = [[[NSMutableSet alloc] init] autorelease];
+	for(EmailInfo *selectedInfo in self.selectedEmailInfos)
+	{
+		if(![fetchedObjects containsObject:selectedInfo])
+		{
+			[emailInfosToDeselect addObject:selectedInfo];
+		}
+	}
+	for(EmailInfo *emailInfoToDeselect in emailInfosToDeselect)
+	{
+		[self deselectEmailInfo:emailInfoToDeselect];
+	}
+}
 
 -(void)configureFetchedResultsController
 {
@@ -170,6 +187,11 @@
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		exit(-1);  // Fail
 	}
+	
+	// When the fetched results controller for this table is
+	// reconfigured, the list of selected objects also needs to be 
+	// changed to reflect the current visible/fetched results.
+	[self updateSelectionForCurrentResults];
 	
 	[self.msgListView.msgListTableView reloadData];
 
