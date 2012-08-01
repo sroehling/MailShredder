@@ -13,11 +13,14 @@
 @class EmailAddress;
 
 extern NSString * const EMAIL_ADDRESS_FILTER_ENTITY_NAME;
+extern NSString * const EMAIL_ADDRESS_FILTER_MATCH_UNSELECTED_KEY;
+
 
 @interface EmailAddressFilter : NSManagedObject
 
 @property (nonatomic, retain) NSSet *messageFilterEmailAddressFilter;
 @property (nonatomic, retain) NSSet *msgHandlingRuleEmailAddressFilter;
+@property (nonatomic, retain) NSNumber * matchUnselected;
 
 -(NSString*)filterSynopsis;
 -(NSString*)filterSynopsisShort;

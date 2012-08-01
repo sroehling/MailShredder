@@ -216,6 +216,37 @@
 	
 }
 
+- (void)testInvertedEmailAddressFilter
+{
+	[self resetCoreData];
+
+	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+	
+	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2012-02-01" andSubject:@"S02" andFrom:@"bob"];
+	[self populateTestEmailWithSendDate:@"2012-03-01" andSubject:@"S03" andFrom:@"dan"];
+	[self populateTestEmailWithSendDate:@"2012-04-01" andSubject:@"S04" andFrom:@"jane"];
+	[self populateTestEmailWithSendDate:@"2012-05-01" andSubject:@"S05" andFrom:@"sally"];
+
+	EmailAddress *janeEmailAddr = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
+	janeEmailAddr.address = @"jane";
+	[self.testAppVals.msgListFilter.emailAddressFilter addSelectedAddressesObject:janeEmailAddr];
+	
+	EmailAddress *danEmailAddr = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
+	danEmailAddr.address = @"dan";
+	[self.testAppVals.msgListFilter.emailAddressFilter addSelectedAddressesObject:danEmailAddr];
+
+	// Invert the selection
+	self.testAppVals.msgListFilter.emailAddressFilter.matchUnselected = [NSNumber numberWithBool:TRUE];
+	
+	// Filtering for address other than Jane or Dan should include S02,S05
+	NSPredicate *filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S02",@"S05", nil];
+	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
+	
+}
+
+
 
 - (void)testEmailDomainFilter
 {

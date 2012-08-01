@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0004B49A15C9AE6200EED41F /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009A092615BB4C0D0078880C /* StoreKit.framework */; };
+		0004B49C15C9AE9200EED41F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00AAF2DF15B4B3ED00BFF03C /* Security.framework */; };
+		0004B49D15C9AECD00EED41F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000566951562F94C003D114D /* CoreGraphics.framework */; };
 		000566921562F94C003D114D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000566911562F94C003D114D /* UIKit.framework */; };
 		000566941562F94C003D114D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000566931562F94C003D114D /* Foundation.framework */; };
 		000566961562F94C003D114D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000566951562F94C003D114D /* CoreGraphics.framework */; };
@@ -322,6 +325,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0004B49D15C9AECD00EED41F /* CoreGraphics.framework in Frameworks */,
+				0004B49C15C9AE9200EED41F /* Security.framework in Frameworks */,
+				0004B49A15C9AE6200EED41F /* StoreKit.framework in Frameworks */,
 				0017B75A15798C89001D5D28 /* CoreData.framework in Frameworks */,
 				0017B75915796A81001D5D28 /* libResultraGenericLib.a in Frameworks */,
 				000566BE1562F94D003D114D /* SenTestingKit.framework in Frameworks */,

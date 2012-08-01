@@ -66,6 +66,7 @@
 
 "EMAIL_ADDRESS_FILTER_NONE_TITLE" = "Any Address";
 "EMAIL_ADDRESS_FILTER_SELECTED" = "Specific Addresses";
+"EMAIL_ADDRESS_FILTER_UNSELECTED" = "Address Not in List";
 "EMAIL_FOLDER_FILTER_SELECTED_REMAINING_ADDRESSES_FORMAT" = "and %d more";
 "EMAIL_ADDRESS_TITLE" = "Sender Address";
 "EMAIL_ADDRESS_FILTER_TITLE" = "Email Address";
@@ -75,6 +76,9 @@
 "EMAIL_ADDRESS_FILTER_ADDRESS_LIST_TITLE"= "Match Addresses";
 "EMAIL_ADDRESS_FILTER_TABLE_HEADER_TITLE" = "Match Sender Email Addresses";
 "EMAIL_ADDRESS_FILTER_TABLE_HEADER_SUBTITLE" = "To match any address, leave this list empty. Or, to match specific addresses, edit this list to include the addresses.";
+"EMAIL_ADDRESS_FILTER_MATCH_UNSELECTED_FIELD_LABEL" = "Match Unselected?";
+"EMAIL_ADDRESS_FILTER_MATCH_UNSELECTED_FIELD_SUBTITLE" = "Match any address which is not in the address list?";
+"EMAIL_ADDRESS_FILTER_ADDRESS_LIST_SECTION_TITLE" = "Address List";
 
 "EMAIL_DOMAIN_FILTER_NONE_TITLE" = "Any Domain";
 "EMAIL_DOMAIN_FILTER_SELECTED" = "Specific Domains";

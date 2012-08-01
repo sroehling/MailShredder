@@ -14,14 +14,29 @@
 #import "EmailAddress.h"
 
 NSString * const EMAIL_ADDRESS_FILTER_ENTITY_NAME = @"EmailAddressFilter";
+NSString * const EMAIL_ADDRESS_FILTER_MATCH_UNSELECTED_KEY = @"matchUnselected";
+
 NSInteger const MAX_SPECIFIC_ADDRESS_SYNOPSIS = 2;
 
 @implementation EmailAddressFilter
 
 @dynamic messageFilterEmailAddressFilter;
 @dynamic msgHandlingRuleEmailAddressFilter;
+@dynamic matchUnselected;
 
 @dynamic selectedAddresses;
+
+-(NSString*)filterSelectionPrefix
+{
+	if([self.matchUnselected boolValue])
+	{
+		return LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_UNSELECTED");
+	}
+	else 
+	{
+		return LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_SELECTED");		
+	}
+}
 
 -(NSString*)filterSynopsisShort
 {
@@ -31,7 +46,7 @@ NSInteger const MAX_SPECIFIC_ADDRESS_SYNOPSIS = 2;
 	}
 	else 
 	{
-		return LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_SELECTED");
+		return [self filterSelectionPrefix];
 	}
 }
 
@@ -70,7 +85,7 @@ NSInteger const MAX_SPECIFIC_ADDRESS_SYNOPSIS = 2;
 	else 
 	{
 		return [NSString stringWithFormat:@"%@ (%@)",
-			LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_SELECTED"),
+			[self filterSelectionPrefix],
 			[self subFilterSynopsis]];
 	}
 }
@@ -93,7 +108,15 @@ NSInteger const MAX_SPECIFIC_ADDRESS_SYNOPSIS = 2;
 
 		NSPredicate *matchSpecificAddrs = 
 			[NSCompoundPredicate orPredicateWithSubpredicates:specificAddrPredicates];
-		return matchSpecificAddrs;
+			
+		if([self.matchUnselected boolValue])
+		{
+			return [NSCompoundPredicate notPredicateWithSubpredicate:matchSpecificAddrs];
+		}
+		else
+		{
+			return matchSpecificAddrs;
+		}
 	}
 }
 

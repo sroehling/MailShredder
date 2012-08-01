@@ -57,21 +57,35 @@
 	[tableHeader resizeForChildren];
 	formPopulator.formInfo.headerView = tableHeader;
 
-
-	
 	formPopulator.formInfo.objectAdder = [[[EmailAddressFilterAddressAdder alloc] 
 		initWithEmailAddressFilter:self.emailAddressFilter] autorelease];
-		
-	[formPopulator nextSection];
-		
+
+	
 	NSSet *senderAddresses = self.emailAddressFilter.selectedAddresses;
-	for(EmailAddress *senderAddress in senderAddresses)
+
+	if([senderAddresses count]>0)
 	{
-		EmailAddressFieldEditInfo *senderAddrFieldEditInfo = 
-			[[[EmailAddressFieldEditInfo alloc] 
-				initWithEmailAddress:senderAddress] autorelease];
-		senderAddrFieldEditInfo.parentFilter = self.emailAddressFilter;
-		[formPopulator.currentSection addFieldEditInfo:senderAddrFieldEditInfo];
+		
+			
+		[formPopulator nextSectionWithTitle:LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_ADDRESS_LIST_SECTION_TITLE")];
+			
+		for(EmailAddress *senderAddress in senderAddresses)
+		{
+			EmailAddressFieldEditInfo *senderAddrFieldEditInfo = 
+				[[[EmailAddressFieldEditInfo alloc] 
+					initWithEmailAddress:senderAddress] autorelease];
+			senderAddrFieldEditInfo.parentFilter = self.emailAddressFilter;
+			[formPopulator.currentSection addFieldEditInfo:senderAddrFieldEditInfo];
+		}
+
+
+		[formPopulator nextSection];
+		
+		[formPopulator populateBoolFieldInParentObj:self.emailAddressFilter 
+			withBoolField:EMAIL_ADDRESS_FILTER_MATCH_UNSELECTED_KEY 
+			andFieldLabel:LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_MATCH_UNSELECTED_FIELD_LABEL") 
+			andSubTitle:LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_MATCH_UNSELECTED_FIELD_SUBTITLE")];
+
 	}
 
 			
