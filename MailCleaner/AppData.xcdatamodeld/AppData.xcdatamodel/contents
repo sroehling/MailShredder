@@ -47,6 +47,7 @@
         <relationship name="emailDomainFilterSelectedDomains" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailDomainFilter" inverseName="selectedDomains" inverseEntity="EmailDomainFilter" syncable="YES"/>
     </entity>
     <entity name="EmailDomainFilter" representedClassName="EmailDomainFilter" syncable="YES">
+        <attribute name="matchUnselected" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <relationship name="messageFilterDomainFilter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="emailDomainFilter" inverseEntity="MessageFilter" syncable="YES"/>
         <relationship name="msgHandlingRuleDomainFilter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MsgHandlingRule" inverseName="emailDomainFilter" inverseEntity="MsgHandlingRule" syncable="YES"/>
         <relationship name="selectedDomains" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailDomain" inverseName="emailDomainFilterSelectedDomains" inverseEntity="EmailDomain" syncable="YES"/>
@@ -100,7 +101,7 @@
         <element name="EmailAddress" positionX="160" positionY="192" width="128" height="90"/>
         <element name="EmailAddressFilter" positionX="160" positionY="192" width="128" height="105"/>
         <element name="EmailDomain" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="EmailDomainFilter" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="EmailDomainFilter" positionX="160" positionY="192" width="128" height="105"/>
         <element name="EmailFolder" positionX="160" positionY="192" width="128" height="75"/>
         <element name="EmailFolderFilter" positionX="160" positionY="192" width="128" height="90"/>
         <element name="ExclusionRule" positionX="160" positionY="192" width="128" height="45"/>

@@ -58,22 +58,34 @@
 	[tableHeader resizeForChildren];
 	formPopulator.formInfo.headerView = tableHeader;
 
-
-	
 	formPopulator.formInfo.objectAdder = [[[EmailDomainFilterDomainAdder alloc] 
-		initWithEmailDomainFilter:self.emailDomainFilter] autorelease];
-		
-	[formPopulator nextSection];
+		initWithEmailDomainFilter:self.emailDomainFilter] autorelease];		
 		
 	NSSet *senderDomains = self.emailDomainFilter.selectedDomains;
-	for(EmailDomain *senderDomain in senderDomains)
+	if([senderDomains count] > 0)
 	{
-		EmailDomainFieldEditInfo *senderDomainFieldEditInfo = 
-			[[[EmailDomainFieldEditInfo alloc] 
-				initWithEmailDomain:senderDomain] autorelease];
-		senderDomainFieldEditInfo.parentFilter = self.emailDomainFilter;
-		[formPopulator.currentSection addFieldEditInfo:senderDomainFieldEditInfo];
+		[formPopulator nextSectionWithTitle:
+				LOCALIZED_STR(@"EMAIL_DOMAIN_FILTER_ADDRESS_LIST_SECTION_TITLE")];
+			
+		for(EmailDomain *senderDomain in senderDomains)
+		{
+			EmailDomainFieldEditInfo *senderDomainFieldEditInfo = 
+				[[[EmailDomainFieldEditInfo alloc] 
+					initWithEmailDomain:senderDomain] autorelease];
+			senderDomainFieldEditInfo.parentFilter = self.emailDomainFilter;
+			[formPopulator.currentSection addFieldEditInfo:senderDomainFieldEditInfo];
+		}
+
+		[formPopulator nextSection];
+		
+		[formPopulator populateBoolFieldInParentObj:self.emailDomainFilter 
+			withBoolField:EMAIL_DOMAIN_FILTER_MATCH_UNSELECTED_KEY 
+			andFieldLabel:LOCALIZED_STR(@"EMAIL_DOMAIN_FILTER_MATCH_UNSELECTED_FIELD_LABEL") 
+			andSubTitle:LOCALIZED_STR(@"EMAIL_DOMAIN_FILTER_MATCH_UNSELECTED_FIELD_SUBTITLE")];
+
+
 	}
+		
 
 			
 	return formPopulator.formInfo;

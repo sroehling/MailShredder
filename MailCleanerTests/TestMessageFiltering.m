@@ -271,6 +271,33 @@
 	
 }
 
+- (void)testInvertedEmailDomainFilter
+{
+	[self resetCoreData];
+
+	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+	
+	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane@localdomain"];
+	[self populateTestEmailWithSendDate:@"2012-02-01" andSubject:@"S02" andFrom:@"bob@notlocaldomain"];
+	[self populateTestEmailWithSendDate:@"2012-03-01" andSubject:@"S03" andFrom:@"dan@notlocaldomain"];
+	[self populateTestEmailWithSendDate:@"2012-04-01" andSubject:@"S04" andFrom:@"jane@notlocaldomain"];
+	[self populateTestEmailWithSendDate:@"2012-05-01" andSubject:@"S05" andFrom:@"sally@localdomain"];
+
+	// Filtering email addresses with the localdomain should include S01 and S05.
+	EmailDomain *localDomain = (EmailDomain*)[self.appDataDmc insertObject:EMAIL_DOMAIN_ENTITY_NAME];
+	localDomain.domainName = @"localdomain";
+	[self.testAppVals.msgListFilter.emailDomainFilter addSelectedDomainsObject:localDomain];
+	
+	testAppVals.msgListFilter.emailDomainFilter.matchUnselected = [NSNumber numberWithBool:TRUE];
+	
+	NSPredicate *filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S02",@"S03",@"S04", nil];
+	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
+	
+}
+
+
+
 - (void)testEmailFolderFilter
 {
 	[self resetCoreData];

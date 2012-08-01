@@ -14,15 +14,31 @@
 #import "LocalizationHelper.h"
 
 NSString * const EMAIL_DOMAIN_FILTER_ENTITY_NAME = @"EmailDomainFilter";
+NSString * const EMAIL_DOMAIN_FILTER_MATCH_UNSELECTED_KEY = @"matchUnselected";
+
 NSInteger const MAX_SPECIFIC_DOMAIN_SYNOPSIS = 2;
 
 @implementation EmailDomainFilter
 
 @dynamic selectedDomains;
+@dynamic matchUnselected;
+
 
 // Inverse relationships
 @dynamic messageFilterDomainFilter;
 @dynamic msgHandlingRuleDomainFilter;
+
+-(NSString*)filterSelectedPrefix
+{
+	if([self.matchUnselected boolValue])
+	{
+		return LOCALIZED_STR(@"EMAIL_DOMAIN_FILTER_UNSELECTED");
+	}
+	else 
+	{
+		return LOCALIZED_STR(@"EMAIL_DOMAIN_FILTER_SELECTED");
+	}
+}
 
 -(NSString*)filterSynopsisShort
 {
@@ -32,7 +48,7 @@ NSInteger const MAX_SPECIFIC_DOMAIN_SYNOPSIS = 2;
 	}
 	else 
 	{
-		return LOCALIZED_STR(@"EMAIL_DOMAIN_FILTER_SELECTED");
+		return [self filterSelectedPrefix];
 	}
 }
 
@@ -71,7 +87,7 @@ NSInteger const MAX_SPECIFIC_DOMAIN_SYNOPSIS = 2;
 	else 
 	{
 		return [NSString stringWithFormat:@"%@ (%@)",
-			LOCALIZED_STR(@"EMAIL_DOMAIN_FILTER_SELECTED"),[self subFilterSynopsis]];
+			[self filterSelectedPrefix],[self subFilterSynopsis]];
 	}
 }
 
@@ -92,7 +108,15 @@ NSInteger const MAX_SPECIFIC_DOMAIN_SYNOPSIS = 2;
 
 		NSPredicate *matchSpecificDomains = 
 			[NSCompoundPredicate orPredicateWithSubpredicates:specificDomainPredicates];
-		return matchSpecificDomains;
+			
+		if([self.matchUnselected boolValue])
+		{
+			return [NSCompoundPredicate notPredicateWithSubpredicate:matchSpecificDomains];
+		}
+		else 
+		{
+			return matchSpecificDomains;
+		}
 	}
 }
 

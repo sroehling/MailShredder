@@ -87,6 +87,11 @@
 "EMAIL_DOMAIN_FILTER_TABLE_HEADER_TITLE" = "Match Sender Domain Names";
 "EMAIL_DOMAIN_FILTER_TABLE_HEADER_SUBTITLE" = "To match any domain,leave this list empty. Or, to match specific domains, edit this list to include the domains.";
 "EMAIL_DOMAIN_TITLE" = "Sender Domain";
+"EMAIL_DOMAIN_FILTER_UNSELECTED" = "Domain Not in List";
+"EMAIL_DOMAIN_FILTER_MATCH_UNSELECTED_FIELD_LABEL" = "Match Unselected?";
+"EMAIL_DOMAIN_FILTER_MATCH_UNSELECTED_FIELD_SUBTITLE" = "Match any domain which is not in the domain list?";
+"EMAIL_DOMAIN_FILTER_ADDRESS_LIST_SECTION_TITLE" = "Domain List";
+
 
 "EMAIL_FOLDER_FILTER_NONE_TITLE" = "Any Folder";
 "EMAIL_FOLDER_FILTER_SELECTED" = "Specific Folders";
