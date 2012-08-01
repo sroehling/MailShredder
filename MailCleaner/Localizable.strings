@@ -101,6 +101,10 @@
 "EMAIL_FOLDER_FILTER_TABLE_HEADER_SUBTITLE" = "To match any folder, leave this list empty. Or, to match specific folder names, edit this list to include those names.";
 "EMAIL_FOLDER_TITLE" = "Folder";
 "EMAIL_FOLDER_FILTER_FOLDER_LIST_TITLE" = "Match Folders";
+"EMAIL_FOLDER_FILTER_UNSELECTED" = "Folder Not in List";
+"EMAIL_FOLDER_FILTER_MATCH_UNSELECTED_FIELD_LABEL" = "Match Unselected?";
+"EMAIL_FOLDER_FILTER_MATCH_UNSELECTED_FIELD_SUBTITLE" = "Match any folder which is not in the folder list?";
+"EMAIL_FOLDER_FILTER_ADDRESS_LIST_SECTION_TITLE" = "Folder List";
 
 "MORE_VIEW_TITLE" = "More";
 

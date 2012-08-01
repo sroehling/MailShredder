@@ -322,6 +322,34 @@
 	
 }
 
+- (void)testInvertedEmailFolderFilter
+{
+	[self resetCoreData];
+
+	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+	
+	[self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S01" 
+		andFrom:@"jane@localdomain" andFolder:@"INBOX"];
+	[self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S02" 
+		andFrom:@"jane@localdomain" andFolder:@"MYFOLDER"];
+	[self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S03"
+		andFrom:@"jane@localdomain" andFolder:@"INBOX"];
+		
+
+	EmailFolder *inbox = (EmailFolder*)[self.appDataDmc insertObject:EMAIL_FOLDER_ENTITY_NAME];
+	inbox.folderName = @"INBOX";
+	[self.testAppVals.msgListFilter.folderFilter addSelectedFoldersObject:inbox];
+	
+	// Invert the selection predicate
+	self.testAppVals.msgListFilter.folderFilter.matchUnselected = [NSNumber numberWithBool:TRUE];
+	
+	NSPredicate *filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S02", nil];
+	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
+	
+}
+
+
 
 - (void)testTrashRule
 {

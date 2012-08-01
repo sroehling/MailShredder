@@ -15,6 +15,7 @@
 #import "EmailInfo.h"
 
 NSString * const EMAIL_FOLDER_FILTER_ENTITY_NAME = @"EmailFolderFilter";
+NSString * const EMAIL_FOLDER_FILTER_MATCH_UNSELECTED_KEY = @"matchUnselected";
 NSInteger const MAX_SPECIFIC_FOLDER_SYNOPSIS = 2;
 
 @implementation EmailFolderFilter
@@ -24,6 +25,19 @@ NSInteger const MAX_SPECIFIC_FOLDER_SYNOPSIS = 2;
 // Inverse relationships
 @dynamic msgHandlingRuleFolderFilter;
 @dynamic messageFilterFolderFilter;
+@dynamic matchUnselected;
+
+-(NSString*)filterSelectedPrefix
+{
+	if([self.matchUnselected boolValue])
+	{
+		return LOCALIZED_STR(@"EMAIL_FOLDER_FILTER_UNSELECTED");
+	}
+	else 
+	{
+		return LOCALIZED_STR(@"EMAIL_FOLDER_FILTER_SELECTED");
+	}
+}
 
 -(NSString*)filterSynopsisShort
 {
@@ -33,7 +47,7 @@ NSInteger const MAX_SPECIFIC_FOLDER_SYNOPSIS = 2;
 	}
 	else 
 	{
-		return LOCALIZED_STR(@"EMAIL_FOLDER_FILTER_SELECTED");
+		return [self filterSelectedPrefix];
 	}
 }
 
@@ -73,7 +87,7 @@ NSInteger const MAX_SPECIFIC_FOLDER_SYNOPSIS = 2;
 	}
 	else 
 	{
-		return [NSString stringWithFormat:@"%@ (%@)",LOCALIZED_STR(@"EMAIL_FOLDER_FILTER_SELECTED"),
+		return [NSString stringWithFormat:@"%@ (%@)",[self filterSelectedPrefix],
 				[self subFilterSynopsis]];
 	}
 }
@@ -95,7 +109,16 @@ NSInteger const MAX_SPECIFIC_FOLDER_SYNOPSIS = 2;
 
 		NSPredicate *matchSpecificFolders = 
 			[NSCompoundPredicate orPredicateWithSubpredicates:specificFolderPredicates];
-		return matchSpecificFolders;
+			
+		if([self.matchUnselected boolValue])
+		{
+			return [NSCompoundPredicate notPredicateWithSubpredicate:matchSpecificFolders];
+		}
+		else
+		{
+			return matchSpecificFolders;
+		}
+
 	}
 }
 

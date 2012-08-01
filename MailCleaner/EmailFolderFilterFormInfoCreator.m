@@ -56,16 +56,29 @@
 	formPopulator.formInfo.objectAdder = [[[EmailFolderFilterFolderAdder alloc] 
 		initWithEmailFolderFilter:self.emailFolderFilter] autorelease];
 		
-	[formPopulator nextSection];
 		
 	NSSet *folders = self.emailFolderFilter.selectedFolders;
-	for(EmailFolder *folder in folders)
+	
+	if([folders count] > 0)
 	{
-		EmailFolderFieldEditInfo *folderFieldEditInfo = 
-			[[[EmailFolderFieldEditInfo alloc] 
-				initWithEmailFolder:folder] autorelease];
-		folderFieldEditInfo.parentFilter = self.emailFolderFilter;
-		[formPopulator.currentSection addFieldEditInfo:folderFieldEditInfo];
+		[formPopulator nextSectionWithTitle:LOCALIZED_STR(@"EMAIL_FOLDER_FILTER_ADDRESS_LIST_SECTION_TITLE")];
+		for(EmailFolder *folder in folders)
+		{
+			EmailFolderFieldEditInfo *folderFieldEditInfo = 
+				[[[EmailFolderFieldEditInfo alloc] 
+					initWithEmailFolder:folder] autorelease];
+			folderFieldEditInfo.parentFilter = self.emailFolderFilter;
+			[formPopulator.currentSection addFieldEditInfo:folderFieldEditInfo];
+		}
+
+		[formPopulator nextSection];
+		
+		[formPopulator populateBoolFieldInParentObj:self.emailFolderFilter 
+			withBoolField:EMAIL_FOLDER_FILTER_MATCH_UNSELECTED_KEY 
+			andFieldLabel:LOCALIZED_STR(@"EMAIL_FOLDER_FILTER_MATCH_UNSELECTED_FIELD_LABEL") 
+			andSubTitle:LOCALIZED_STR(@"EMAIL_FOLDER_FILTER_MATCH_UNSELECTED_FIELD_SUBTITLE")];
+
+
 	}
 
 			
