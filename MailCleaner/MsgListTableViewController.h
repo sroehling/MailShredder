@@ -16,16 +16,14 @@
 @interface MsgListTableViewController : UIViewController 
 	<NSFetchedResultsControllerDelegate,UITableViewDelegate,UITableViewDataSource,EmailActionViewDelegate> {
 	@private
-		DataModelController *emailInfoDmc;
-		DataModelController *filterDmc;
+		DataModelController *appDmc;
 		NSFetchedResultsController *emailInfoFrc;
 		MsgListView *msgListView;
 		NSMutableSet *selectedEmailInfos;
 }
 
-@property(nonatomic,retain) DataModelController *emailInfoDmc;
 @property(nonatomic,retain) NSFetchedResultsController *emailInfoFrc;
-@property(nonatomic,retain) DataModelController *filterDmc;
+@property(nonatomic,retain) DataModelController *appDmc;
 @property(nonatomic,retain) MsgListView *msgListView;
 @property(nonatomic,retain) NSMutableSet *selectedEmailInfos;
 
@@ -45,7 +43,6 @@
 -(void)deleteSelectedTrashedMsgsButtonPressed;
 -(void)populateDeletePopupListActions:(NSMutableArray *)actionButtonInfo;
 
-- (id)initWithEmailInfoDataModelController:(DataModelController*)theEmailInfoDmc
-	andAppDataModelController:(DataModelController*)theAppDmc;
+- (id)initWithAppDataModelController:(DataModelController*)theAppDmc;
 
 @end

@@ -14,12 +14,10 @@
 
 @synthesize listHeader;
 @synthesize listSubheader;
-@synthesize emailInfoDmc;
 @synthesize msgListPredicate;
 @synthesize appDmc;
 
--(id)initWithEmailInfoDataModelController:(DataModelController*)theEmailInfoDmc
-	andAppDataModelController:(DataModelController*)theAppDmc
+-(id)initWithAppDataModelController:(DataModelController*)theAppDmc
 	andMsgListPredicate:(NSPredicate *)theMsgListPredicate 
 	andListHeader:(NSString*)theHeader andListSubheader:(NSString*)theSubHeader
 {
@@ -28,11 +26,9 @@
 	{
 		assert([StringValidation nonEmptyString:theHeader]);
 		assert([StringValidation nonEmptyString:theSubHeader]);
-		assert(theEmailInfoDmc != nil);
 		assert(theAppDmc != nil);
 		assert(theMsgListPredicate != nil);
 	
-		self.emailInfoDmc = theEmailInfoDmc;
 		self.appDmc = theAppDmc;
 		self.listHeader = theHeader;
 		self.listSubheader = theSubHeader;
@@ -45,7 +41,6 @@
 {
 	[listHeader release];
 	[listSubheader release];
-	[emailInfoDmc release];
 	[appDmc release];
 	[msgListPredicate release];
 	[super dealloc];

@@ -27,7 +27,6 @@
 		NSUInteger currentMsgIndex;
 		NSMutableSet *msgsConfirmedForDeletion;
 		
-		DataModelController *emailInfoDmc;
 		DataModelController *appDmc;
 
 }
@@ -44,12 +43,10 @@
 @property(nonatomic,retain) NSArray *msgsToDelete;
 @property(nonatomic,retain) NSMutableSet *msgsConfirmedForDeletion;
 
-@property(nonatomic,retain) DataModelController *emailInfoDmc;
 @property(nonatomic,retain) DataModelController *appDmc;
 
 
 - (id)initWithFrame:(CGRect)frame andMsgsToDelete:(NSArray*)theMsgsToDelete
-	andEmailInfoDataModelController:(DataModelController*)theEmailInfoDmc
 	andAppDataModelController:(DataModelController*)theAppDmc;
 
 

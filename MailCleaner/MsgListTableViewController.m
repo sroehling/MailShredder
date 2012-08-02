@@ -24,21 +24,18 @@
 
 @implementation MsgListTableViewController
 
-@synthesize emailInfoDmc;
 @synthesize emailInfoFrc;
-@synthesize filterDmc;
+@synthesize appDmc;
 @synthesize msgListView;
 @synthesize selectedEmailInfos;
 
 
-- (id)initWithEmailInfoDataModelController:(DataModelController*)theEmailInfoDmc
-	andAppDataModelController:(DataModelController*)theAppDmc
+- (id)initWithAppDataModelController:(DataModelController*)theAppDmc
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
-		self.emailInfoDmc = theEmailInfoDmc;
-		self.filterDmc = theAppDmc;
+		self.appDmc = theAppDmc;
 		
 		self.selectedEmailInfos = [[[NSMutableSet alloc] init] autorelease]; 
     }
@@ -136,7 +133,7 @@
 	NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
 	NSEntityDescription *entity = [NSEntityDescription
 		entityForName:EMAIL_INFO_ENTITY_NAME 
-		inManagedObjectContext:self.emailInfoDmc.managedObjectContext];
+		inManagedObjectContext:self.appDmc.managedObjectContext];
 	[fetchRequest setEntity:entity];
  
 	NSSortDescriptor *sort = [[NSSortDescriptor alloc]
@@ -150,7 +147,7 @@
 -(NSArray*)allMsgsInMsgList
 {
 	return [CoreDataHelper executeFetchOrThrow:[self allMsgsFetchRequest] 
-		inManagedObectContext:self.emailInfoDmc.managedObjectContext];
+		inManagedObectContext:self.appDmc.managedObjectContext];
 }
 
 -(void)updateSelectionForCurrentResults
@@ -176,7 +173,7 @@
  
 	self.emailInfoFrc = [[[NSFetchedResultsController alloc] 
 			initWithFetchRequest:[self allMsgsFetchRequest]
-			managedObjectContext:self.emailInfoDmc.managedObjectContext 
+			managedObjectContext:self.appDmc.managedObjectContext 
 			sectionNameKeyPath:nil cacheName:nil] autorelease];
 	self.emailInfoFrc.delegate = self;
 
@@ -258,9 +255,9 @@
 	// If the filter has changed (and the view is appearing because of a return
 	// from editig the filter), the changes need to be saved, and the fetched results
 	// controller needs to be reconfigured.
-	if([self.filterDmc.managedObjectContext hasChanges])
+	if([self.appDmc.managedObjectContext hasChanges])
 	{
-		[self.filterDmc saveContextAndIgnoreErrors];
+		[self.appDmc saveContextAndIgnoreErrors];
 	}
 	[self configureFetchedResultsController];
 }
@@ -370,8 +367,7 @@
 		DeleteMsgConfirmationView *deleteConfirmationView = [[[DeleteMsgConfirmationView alloc]
 			initWithFrame:self.navigationController.view.frame
 			andMsgsToDelete:trashedMsgs 
-			andEmailInfoDataModelController:self.emailInfoDmc 
-			andAppDataModelController:self.filterDmc] autorelease];
+			andAppDataModelController:self.appDmc] autorelease];
 		
 		[self.navigationController.view addSubview:deleteConfirmationView];
 	}
@@ -402,8 +398,7 @@
 
 -(void)dealloc
 {
-	[emailInfoDmc release];
-	[filterDmc release];
+	[appDmc release];
 	[emailInfoFrc release];
 	[msgListView release];
 	[selectedEmailInfos release];

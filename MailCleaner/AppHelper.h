@@ -12,13 +12,10 @@
 
 @interface AppHelper : NSObject
 
-extern NSString * const EMAIL_INFO_DATA_MODEL_NAME;
-extern NSString * const EMAIL_INFO_STORE_NAME;
 extern NSString * const APP_DATA_DATA_MODEL_NAME;
 extern NSString * const APP_DATA_STORE_NAME;
 
 
-+(DataModelController*)emailInfoDataModelController;
 +(DataModelController*)appDataModelController;
 
 

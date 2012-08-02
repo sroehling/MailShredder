@@ -52,10 +52,7 @@
 			encoding:NSUTF8StringEncoding error:nil];
 	NSArray *lines = [dummyEmailData componentsSeparatedByString:@"\n"];
 	
-	DataModelController *emailInfoDmc = [AppHelper emailInfoDataModelController];
-	
-	
-	if(![emailInfoDmc entitiesExistForEntityName:EMAIL_INFO_ENTITY_NAME])
+	if(![self.appDmc entitiesExistForEntityName:EMAIL_INFO_ENTITY_NAME])
 	{
 		NSInteger msgNum =0;
 		for(NSString *line in lines)
@@ -65,7 +62,7 @@
 			NSLog(@"Loading dummy email info: D:%@ F:%@ S:%@",[fields objectAtIndex:0],
 				[fields objectAtIndex:1],[fields objectAtIndex:2]);
 				
-			EmailInfo *newEmailInfo = (EmailInfo*) [emailInfoDmc insertObject:EMAIL_INFO_ENTITY_NAME];
+			EmailInfo *newEmailInfo = (EmailInfo*) [self.appDmc insertObject:EMAIL_INFO_ENTITY_NAME];
 			newEmailInfo.sendDate = [DateHelper dateFromStr:[fields objectAtIndex:0]];
 			newEmailInfo.from = [fields objectAtIndex:1];
 			newEmailInfo.subject = [fields objectAtIndex:2];
@@ -73,10 +70,10 @@
 			msgNum++;
 		}
 		
-		[emailInfoDmc saveContext];
+		[self.appDmc saveContext];
 	}
 	
-	NSSet *emailInfos = [emailInfoDmc 
+	NSSet *emailInfos = [self.appDmc 
 			fetchObjectsForEntityName:EMAIL_INFO_ENTITY_NAME];
 	for(EmailInfo *emailInfo in emailInfos)
 	{
@@ -86,11 +83,10 @@
 
 }
 
--(void)retrieveEmails:(DataModelController *)emailInfoDmc 
-	andAppDataDmc:(DataModelController*)appDataDmc
+-(void)retrieveEmails:(DataModelController*)appDataDmc
 {
 	MailClientServerSyncController *mailSync = [[[MailClientServerSyncController alloc] 
-			initWithDataModelController:emailInfoDmc andAppDataDmc:appDataDmc] autorelease];
+			initWithDataModelController:appDataDmc] autorelease];
 	[mailSync syncWithServer];	
 }
 
@@ -163,15 +159,14 @@
     // Override point for customization after application launch.
 	
 	
-	DataModelController *emailInfoDmc = [AppHelper emailInfoDataModelController];
 	self.appDmc = [AppHelper appDataModelController];
-
-	[self retrieveEmails:emailInfoDmc andAppDataDmc:appDmc];
+	
+	[self retrieveEmails:appDmc];
 	
 	UIColor *navBarControllerColor = [ColorHelper navBarTintColor];
 	
 	EmailInfoTableViewController *msgListController = [[[EmailInfoTableViewController alloc] 
-		initWithEmailInfoDataModelController:emailInfoDmc andAppDataModelController:appDmc] autorelease];
+		initWithAppDataModelController:appDmc] autorelease];
 	UINavigationController *msgListNavController = [[[UINavigationController alloc] 
 			initWithRootViewController:msgListController] autorelease];
 	msgListNavController.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
@@ -181,7 +176,7 @@
 
 
 	RuleSelectionListFormInfoCreator *ruleSelectionFormInfoCreator = 
-		[[[RuleSelectionListFormInfoCreator alloc] initWithEmailInfoDataModelController:emailInfoDmc] autorelease];
+		[[[RuleSelectionListFormInfoCreator alloc] init] autorelease];
 	UIViewController *trashedRuleSelectionController =
 		[[[GenericFieldBasedTableViewController alloc] initWithFormInfoCreator:ruleSelectionFormInfoCreator 
 		andDataModelController:self.appDmc] autorelease];

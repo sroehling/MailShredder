@@ -10,7 +10,6 @@
 #import "DataModelController.h"
 #import "DateHelper.h"
 #import "EmailInfo.h"
-#import "FolderInfo.h"
 #import "MsgPredicateHelper.h"
 #import "EmailDomain.h"
 #import "EmailAddress.h"
@@ -20,18 +19,13 @@
 @implementation MailClientServerSyncController
 
 @synthesize mailAcct;
-@synthesize emailInfoDmc;
 @synthesize appDataDmc;
 
--(id)initWithDataModelController:(DataModelController*)theDmcForEmailInfo
-	andAppDataDmc:(DataModelController*)theAppDataDmc
+-(id)initWithDataModelController:(DataModelController*)theAppDataDmc
 {
 	self = [super init];
 	if(self)
-	{
-		assert(theDmcForEmailInfo != nil);
-		self.emailInfoDmc = theDmcForEmailInfo;
-		
+	{		
 		assert(theAppDataDmc != nil);
 		self.appDataDmc = theAppDataDmc;
 	
@@ -67,14 +61,13 @@
 -(void)dealloc
 {
 	[mailAcct release];
-	[emailInfoDmc release];
 	[appDataDmc release];
 	[super dealloc];
 }
 
--(EmailInfo*)emailInfoFromServerMsg:(CTCoreMessage*)msg andFolderInfo:(FolderInfo*)folderInfo
+-(EmailInfo*)emailInfoFromServerMsg:(CTCoreMessage*)msg andFolderInfo:(EmailFolder*)folderInfo
 {
-	EmailInfo *newEmailInfo = (EmailInfo*) [self.emailInfoDmc insertObject:EMAIL_INFO_ENTITY_NAME];
+	EmailInfo *newEmailInfo = (EmailInfo*) [self.appDataDmc insertObject:EMAIL_INFO_ENTITY_NAME];
 	
 	newEmailInfo.sendDate = msg.senderDate;
 	newEmailInfo.from = msg.sender.email;
@@ -83,7 +76,7 @@
 	newEmailInfo.domain = [MailAddressHelper emailAddressDomainName:msg.sender.email];
 	
 	newEmailInfo.folderInfo = folderInfo;
-	newEmailInfo.folder = folderInfo.fullyQualifiedName;
+	newEmailInfo.folder = folderInfo.folderName;
 	
 	return newEmailInfo;
 
@@ -94,19 +87,19 @@
 
 	[self connect];
 	
-	
 	NSMutableDictionary *currEmailAddressByAddress = [EmailAddress addressesByName:self.appDataDmc];
 	NSMutableDictionary *currDomainByDomainName = [EmailDomain emailDomainsByDomainName:self.appDataDmc];
 	NSMutableDictionary *currFolderByFolderName = [EmailFolder foldersByName:self.appDataDmc];
 	
-	NSSet *currFolderInfo = [self.emailInfoDmc fetchObjectsForEntityName:FOLDER_INFO_ENTITY_NAME];
-	for (FolderInfo *currFolder in currFolderInfo)
+	// Remove all the existing EmailInfo objects, since they'll be
+	// re-synchronized below.
+	NSSet *currEmailInfos = [self.appDataDmc fetchObjectsForEntityName:EMAIL_INFO_ENTITY_NAME];
+	for(EmailInfo *currEmailInfo in currEmailInfos)
 	{
-		[self.emailInfoDmc deleteObject:currFolder];
+		[self.appDataDmc deleteObject:currEmailInfo];
 	}
-	[self.emailInfoDmc saveContext];
-
-
+	[self.appDataDmc saveContext];
+	
 	NSSet *allFolders = [self.mailAcct allFolders];
 	NSInteger numNewMsgs = 0;
 	NSInteger totalMsgs = 0;
@@ -115,10 +108,8 @@
 		NSLog(@"%@: Processing folder",folderName);
 		CTCoreFolder *currFolder = [self.mailAcct folderWithPath:folderName];
 		
-		FolderInfo *folderInfo = (FolderInfo*)[self.emailInfoDmc insertObject:FOLDER_INFO_ENTITY_NAME];
-		folderInfo.fullyQualifiedName = currFolder.path;
 
-		[EmailFolder findOrAddFolder:folderName inExistingFolders:currFolderByFolderName 
+		EmailFolder *emailFolder = [EmailFolder findOrAddFolder:currFolder.path inExistingFolders:currFolderByFolderName 
 			withDataModelController:self.appDataDmc];
 		
 		if(currFolder.totalMessageCount > 0)
@@ -131,7 +122,7 @@
 			{
 				NSLog(@"Sync msg: uid= %@, msg id = %@, send date = %@, subj = %@", msg.uid,msg.messageId,
 					[DateHelper stringFromDate:msg.senderDate],msg.subject);
-				EmailInfo *newEmailInfo = [self emailInfoFromServerMsg:msg andFolderInfo:folderInfo];
+				EmailInfo *newEmailInfo = [self emailInfoFromServerMsg:msg andFolderInfo:emailFolder];
 				
 				[EmailAddress findOrAddAddress:newEmailInfo.from 
 					withCurrentAddresses:currEmailAddressByAddress inDataModelController:self.appDataDmc];
@@ -149,7 +140,6 @@
 		
 	}
 	
-	[self.emailInfoDmc saveContext];
 	[self.appDataDmc saveContext];
 
 	NSLog(@"Done synchronizing messages: new msgs = %d, total server msgs = %d",
@@ -175,14 +165,14 @@
 	
 	NSMutableSet *serverFoldersToExpunge = [[NSMutableSet alloc] init];
 		
-	NSArray *msgsMarkedForDeletion = [self.emailInfoDmc fetchObjectsForEntityName:EMAIL_INFO_ENTITY_NAME 
+	NSArray *msgsMarkedForDeletion = [self.appDataDmc fetchObjectsForEntityName:EMAIL_INFO_ENTITY_NAME 
 		andPredicate:[MsgPredicateHelper markedForDeletion]];
 	for(EmailInfo *markedForDeletion  in msgsMarkedForDeletion)
 	{
 		NSLog(@"Deleting msg: msg ID = %@, subject = %@",markedForDeletion.messageId,
 			markedForDeletion.subject);
 		CTCoreFolder *msgFolder = (CTCoreFolder*)[folderByPath 
-			objectForKey:markedForDeletion.folderInfo.fullyQualifiedName];
+			objectForKey:markedForDeletion.folderInfo.folderName];
 		if(msgFolder != nil)
 		{
 			NSLog(@"Deleting msg: uid= %@, send date = %@, subj = %@", markedForDeletion.messageId,
@@ -205,10 +195,9 @@
 	
 	for(EmailInfo *markedForDeletion  in msgsMarkedForDeletion)
 	{
-		[self.emailInfoDmc deleteObject:markedForDeletion];
+		[self.appDataDmc deleteObject:markedForDeletion];
 	}
 	
-	[self.emailInfoDmc saveContext];
 	[self.appDataDmc saveContext];
 
 	[serverFoldersToExpunge release];

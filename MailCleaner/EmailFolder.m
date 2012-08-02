@@ -16,6 +16,7 @@ NSString * const EMAIL_FOLDER_ENTITY_NAME = @"EmailFolder";
 
 @dynamic folderName;
 @dynamic emailFolderFilterSelectedFolders;
+@dynamic emailInfoFolder;
 
 // This property is not persisted via CoreData. It is used for tracking of 
 // selection of the EmailAddress in a table view.

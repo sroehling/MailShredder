@@ -24,8 +24,7 @@
 
 -(id)initWithViewInfo:(TrashMsgListViewInfo*)theViewInfo
 {
-	self = [super initWithEmailInfoDataModelController:theViewInfo.emailInfoDmc 
-			andAppDataModelController:theViewInfo.appDmc];
+	self = [super initWithAppDataModelController:theViewInfo.appDmc];
 	if(self)
 	{
 		assert(theViewInfo != nil);
@@ -35,7 +34,7 @@
 }
 
 
--(id)initWithEmailInfoDataModelController:(DataModelController *)theEmailInfoDmc andAppDataModelController:(DataModelController *)theAppDmc
+-(id)initWithAppDataModelController:(DataModelController *)theAppDmc
 {
 	assert(0);
 	return nil;

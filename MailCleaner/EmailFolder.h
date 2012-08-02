@@ -12,6 +12,7 @@
 extern NSString * const EMAIL_FOLDER_ENTITY_NAME;
 
 @class DataModelController;
+@class EmailInfo;
 
 @interface EmailFolder : NSManagedObject
 {
@@ -22,6 +23,7 @@ extern NSString * const EMAIL_FOLDER_ENTITY_NAME;
 
 @property (nonatomic, retain) NSString * folderName;
 @property (nonatomic, retain) NSSet *emailFolderFilterSelectedFolders;
+@property (nonatomic, retain) NSSet *emailInfoFolder;
 
 @property BOOL isSelectedForSelectableObjectTableView;
 
@@ -32,11 +34,18 @@ extern NSString * const EMAIL_FOLDER_ENTITY_NAME;
 
 @end
 
+
 @interface EmailFolder (CoreDataGeneratedAccessors)
 
 - (void)addEmailFolderFilterSelectedFoldersObject:(NSManagedObject *)value;
 - (void)removeEmailFolderFilterSelectedFoldersObject:(NSManagedObject *)value;
 - (void)addEmailFolderFilterSelectedFolders:(NSSet *)values;
 - (void)removeEmailFolderFilterSelectedFolders:(NSSet *)values;
+
+- (void)addEmailInfoFolderObject:(EmailInfo *)value;
+- (void)removeEmailInfoFolderObject:(EmailInfo *)value;
+- (void)addEmailInfoFolder:(NSSet *)values;
+- (void)removeEmailInfoFolder:(NSSet *)values;
+
 
 @end

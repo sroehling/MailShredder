@@ -36,7 +36,6 @@ const CGFloat DELETE_CONFIRMATION_BOTTOM_MARGIN = 10.0f;
 @synthesize msgsToDelete;
 @synthesize msgDisplayView;
 @synthesize msgsConfirmedForDeletion;
-@synthesize emailInfoDmc;
 @synthesize appDmc;
 
 -(EmailInfo*)currentMsg
@@ -55,13 +54,11 @@ const CGFloat DELETE_CONFIRMATION_BOTTOM_MARGIN = 10.0f;
 }
 
 - (id)initWithFrame:(CGRect)frame andMsgsToDelete:(NSArray*)theMsgsToDelete
-	andEmailInfoDataModelController:(DataModelController*)theEmailInfoDmc
 	andAppDataModelController:(DataModelController*)theAppDmc
 {
     self = [super initWithFrame:frame];
     if (self) {
 	
-		self.emailInfoDmc = theEmailInfoDmc;
 		self.appDmc = theAppDmc;
 	
 		assert(theMsgsToDelete != nil);
@@ -255,11 +252,10 @@ const CGFloat DELETE_CONFIRMATION_BOTTOM_MARGIN = 10.0f;
 		{
 			info.deleted = [NSNumber numberWithBool:TRUE];		
 		}
-		[self.emailInfoDmc saveContext];
+		[self.appDmc saveContext];
 		
 		MailClientServerSyncController *mailSync = [[[MailClientServerSyncController alloc] 
-				initWithDataModelController:self.emailInfoDmc
-				andAppDataDmc:self.appDmc] autorelease];
+				initWithDataModelController:self.appDmc] autorelease];
 		[mailSync deleteMarkedMsgs];
 
 		[self removeFromSuperview];
@@ -302,7 +298,6 @@ const CGFloat DELETE_CONFIRMATION_BOTTOM_MARGIN = 10.0f;
 	[msgsToDelete release];
 	[msgsConfirmedForDeletion release];
 
-	[emailInfoDmc release];
 	[appDmc release];
 
 	[super dealloc];

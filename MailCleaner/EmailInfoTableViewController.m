@@ -54,7 +54,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
 
 -(NSPredicate*)msgListPredicate
 {
-	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.filterDmc];
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
 	
 	NSDate *baseDate = [DateHelper today]; 
 	NSPredicate *filterPredicate = [sharedAppVals.msgListFilter filterPredicate:baseDate];
@@ -68,7 +68,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
     [super viewDidLoad];
   
     self.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
-	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.filterDmc];
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
 
 	self.messageFilterHeader  = [[[TableHeaderWithDisclosure alloc] initWithFrame:CGRectZero 
 				andDisclosureButtonDelegate:self] autorelease];
@@ -127,7 +127,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
 
 - (void)refreshMessageFilterHeader
 {
-	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.filterDmc];
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
 	self.messageFilterHeader.subTitle.text =  sharedAppVals.msgListFilter.filterSynopsis;
 	[self.messageFilterHeader resizeForChildren];
 
@@ -147,14 +147,14 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
 {
 	NSLog(@"Disclosure button pressed");
 		
-	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.filterDmc];
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
 	
 	MessageFilterFormInfoCreator *msgFilterFormInfoCreator = 
 		[[[MessageFilterFormInfoCreator alloc] initWithMsgFilter:sharedAppVals.msgListFilter] autorelease];
 		
 	GenericFieldBasedTableViewController *msgFilterViewController = 
 		[[[GenericFieldBasedTableViewController alloc] initWithFormInfoCreator:msgFilterFormInfoCreator 
-		andDataModelController:self.filterDmc] autorelease];
+		andDataModelController:self.appDmc] autorelease];
 		
 	[self.navigationController pushViewController:msgFilterViewController animated:YES];       
 
@@ -191,13 +191,13 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
 {
 	NSArray *selectedMsgs = [self selectedInMsgList];
 
-	NSMutableDictionary *currAddressesByAddress = [EmailAddress addressesByName:self.filterDmc];
+	NSMutableDictionary *currAddressesByAddress = [EmailAddress addressesByName:self.appDmc];
 	NSMutableSet *selectedAddresses = [[[NSMutableSet alloc] init] autorelease];
 	
 	for(EmailInfo *selectedEmailInfo in selectedMsgs)
 	{
 		[selectedAddresses addObject:[EmailAddress findOrAddAddress:selectedEmailInfo.from 
-			withCurrentAddresses:currAddressesByAddress inDataModelController:self.filterDmc]];
+			withCurrentAddresses:currAddressesByAddress inDataModelController:self.appDmc]];
 	}
 	return selectedAddresses;
 }
@@ -205,13 +205,13 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
 -(NSSet*)selectedDomains
 {
 	NSArray *selectedMsgs = [self selectedInMsgList];
-	NSMutableDictionary *currDomainsByName = [EmailDomain emailDomainsByDomainName:self.filterDmc];
+	NSMutableDictionary *currDomainsByName = [EmailDomain emailDomainsByDomainName:self.appDmc];
 	NSMutableSet *selectedDomains = [[[NSMutableSet alloc] init] autorelease];
 
 	for(EmailInfo *selectedEmailInfo in selectedMsgs)
 	{
 		[selectedDomains addObject:[EmailDomain findOrAddDomainName:selectedEmailInfo.domain 
-			withCurrentDomains:currDomainsByName inDataModelController:self.filterDmc]];
+			withCurrentDomains:currDomainsByName inDataModelController:self.appDmc]];
 	}
 	return selectedDomains;
 }
@@ -224,7 +224,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
 	
 	if([selectedAddresses count] > 0)
 	{
-		SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.filterDmc];
+		SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
 		[sharedAppVals.msgListFilter.emailAddressFilter setAddresses:selectedAddresses];
 		
 		[self refreshMessageList];
@@ -239,7 +239,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
 	NSSet *selectedDomains = [self selectedDomains];
 	if([selectedDomains count] > 0)
 	{
-		SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.filterDmc];		
+		SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];		
 		[sharedAppVals.msgListFilter.emailDomainFilter setDomains:selectedDomains];
 		
 		[self refreshMessageList];
@@ -255,7 +255,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
 	GenericFieldBasedTableAddViewController *addView =  
 		[[[GenericFieldBasedTableAddViewController alloc] 
 		initWithFormInfoCreator:ruleFormCreator andNewObject:newRule
-		andDataModelController:self.filterDmc] autorelease];
+		andDataModelController:self.appDmc] autorelease];
 	addView.popDepth = 1;
 
 	[self.actionsPopupController dismissPopoverAnimated:FALSE];
@@ -272,7 +272,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
 	
 	if([selectedAddresses count] > 0)
 	{
-		TrashRule *newRule = [TrashRule createNewDefaultRule:self.filterDmc];
+		TrashRule *newRule = [TrashRule createNewDefaultRule:self.appDmc];
 		[newRule.emailAddressFilter setAddresses:selectedAddresses];
 
 		[self pushNewRuleForm:newRule];
@@ -292,7 +292,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
 	NSSet *selectedDomains = [self selectedDomains];
 	if([selectedDomains count] > 0)
 	{
-		TrashRule *newRule = [TrashRule createNewDefaultRule:self.filterDmc];
+		TrashRule *newRule = [TrashRule createNewDefaultRule:self.appDmc];
 		[newRule.emailDomainFilter setDomains:selectedDomains];
 		[self pushNewRuleForm:newRule];
 	}
@@ -306,8 +306,8 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
 {
 	NSLog(@"Create trash rule from current filter settings");
 	
-	TrashRule *newRule = [TrashRule createNewDefaultRule:self.filterDmc];
-	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.filterDmc];		
+	TrashRule *newRule = [TrashRule createNewDefaultRule:self.appDmc];
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];		
 	
 	[newRule.emailDomainFilter setDomains:sharedAppVals.msgListFilter.emailDomainFilter.selectedDomains];
 	[newRule.emailAddressFilter setAddresses:sharedAppVals.msgListFilter.emailAddressFilter.selectedAddresses];

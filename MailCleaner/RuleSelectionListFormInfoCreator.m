@@ -23,31 +23,6 @@
 
 @implementation RuleSelectionListFormInfoCreator
 
-@synthesize emailInfoDmc;
-
--(id)initWithEmailInfoDataModelController:(DataModelController*)theEmailInfoDmc
-{
-	self = [super init];
-	if(self)
-	{
-		assert(theEmailInfoDmc != nil);
-		self.emailInfoDmc = theEmailInfoDmc;
-	}
-	return self;
-}
-
--(id)init
-{
-	assert(0);
-	return nil;
-}
-
--(void)dealloc
-{
-	[emailInfoDmc release];
-	[super dealloc];
-}
-
 - (FormInfo*)createFormInfoWithContext:(FormContext*)parentContext
 {
     FormPopulator *formPopulator = [[[FormPopulator alloc] 
@@ -74,8 +49,7 @@
 		NSPredicate *allMsgsPredicate = [MsgPredicateHelper 
 			trashedByMsgRules:parentContext.dataModelController andBaseDate:baseDate];
 		TrashMsgListViewInfo *allMsgsViewInfo = [[[TrashMsgListViewInfo alloc]
-			initWithEmailInfoDataModelController:self.emailInfoDmc 
-			andAppDataModelController:parentContext.dataModelController
+			initWithAppDataModelController:parentContext.dataModelController
 			andMsgListPredicate:allMsgsPredicate
 			andListHeader:LOCALIZED_STR(@"TRASH_RULE_LIST_ALL_MESSAGES_FIELD_CAPTION") 
 			andListSubheader:LOCALIZED_STR(@"TRASH_RULE_LIST_ALL_MESSAGES_FIELD_SUBTITLE")] autorelease];
@@ -106,8 +80,7 @@
 				trashedByOneRule:trashRule 
 				inDataModelController:parentContext.dataModelController andBaseDate:baseDate];
 			TrashMsgListViewInfo *trashRuleViewInfo = [[[TrashMsgListViewInfo alloc]
-				initWithEmailInfoDataModelController:self.emailInfoDmc 
-				andAppDataModelController:parentContext.dataModelController 
+				initWithAppDataModelController:parentContext.dataModelController 
 				andMsgListPredicate:trashRuleMsgsPredicate 
 				andListHeader:trashRule.ruleName 
 				andListSubheader:trashRule.ruleSynopsis] autorelease];

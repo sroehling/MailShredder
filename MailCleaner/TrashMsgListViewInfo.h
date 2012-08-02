@@ -13,7 +13,6 @@
 @interface TrashMsgListViewInfo : NSObject
 {
 	@private
-		DataModelController *emailInfoDmc;
 		DataModelController *appDmc;
 		NSPredicate *msgListPredicate;
 		NSString *listHeader;
@@ -21,14 +20,12 @@
 
 }
 
-@property(nonatomic,retain) DataModelController *emailInfoDmc;
 @property(nonatomic,retain) DataModelController *appDmc;
 @property(nonatomic,retain) NSPredicate *msgListPredicate;
 @property(nonatomic,retain) NSString *listHeader;
 @property(nonatomic,retain) NSString *listSubheader;
 
--(id)initWithEmailInfoDataModelController:(DataModelController*)theEmailInfoDmc
-	andAppDataModelController:(DataModelController*)theAppDmc
+-(id)initWithAppDataModelController:(DataModelController*)theAppDmc
 	andMsgListPredicate:(NSPredicate *)theMsgListPredicate 
 	andListHeader:(NSString*)theHeader andListSubheader:(NSString*)theSubHeader;
 

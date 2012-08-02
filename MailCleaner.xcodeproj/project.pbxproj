@@ -44,7 +44,6 @@
 		0039E6021566D78B00CB259D /* MessageFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039E6011566D78A00CB259D /* MessageFilterFormInfoCreator.m */; };
 		0039E6051566FED000CB259D /* AgeFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039E6041566FED000CB259D /* AgeFilterFormInfoCreator.m */; };
 		003D599515641A3F00AD3D91 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003D599415641A3F00AD3D91 /* CoreData.framework */; };
-		003D599815641A9A00AD3D91 /* EmailInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 003D599615641A9A00AD3D91 /* EmailInfo.xcdatamodeld */; };
 		003D599F15641B8A00AD3D91 /* AppHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 003D599E15641B8A00AD3D91 /* AppHelper.m */; };
 		003D59A315641D2600AD3D91 /* EmailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 003D59A215641D2600AD3D91 /* EmailInfo.m */; };
 		003F2397156D43490009BFE3 /* MsgListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 003F2396156D43490009BFE3 /* MsgListTableViewController.m */; };
@@ -54,7 +53,6 @@
 		0053EFCD1590EEB5003F6B6E /* EmailAddressSelectionFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0053EFCC1590EEB3003F6B6E /* EmailAddressSelectionFormInfoCreator.m */; };
 		0054D2EA15ADF49D00270679 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 0054D2E915ADF49D00270679 /* search.png */; };
 		005E6A8715647602004198B6 /* EmailInfoActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 005E6A8615647602004198B6 /* EmailInfoActionView.m */; };
-		0065E3BE158A7A4C00D59B2A /* FolderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0065E3BD158A7A4C00D59B2A /* FolderInfo.m */; };
 		00699543157D77E3008D50A4 /* libmailcore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00699542157D77E3008D50A4 /* libmailcore.a */; };
 		006D6641156D4BC800074979 /* TrashMsgListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 006D6640156D4BC800074979 /* TrashMsgListViewController.m */; };
 		006D6650156D70A300074979 /* ResultraGenericLibResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */; };
@@ -188,7 +186,6 @@
 		0039E6041566FED000CB259D /* AgeFilterFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgeFilterFormInfoCreator.m; sourceTree = "<group>"; };
 		003D59911564028200AD3D91 /* dummyEmails.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dummyEmails.txt; sourceTree = "<group>"; };
 		003D599415641A3F00AD3D91 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		003D599715641A9A00AD3D91 /* EmailInfo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EmailInfo.xcdatamodel; sourceTree = "<group>"; };
 		003D599D15641B8A00AD3D91 /* AppHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppHelper.h; sourceTree = "<group>"; };
 		003D599E15641B8A00AD3D91 /* AppHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppHelper.m; sourceTree = "<group>"; };
 		003D59A115641D2600AD3D91 /* EmailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfo.h; sourceTree = "<group>"; };
@@ -207,8 +204,6 @@
 		005E6A8515647602004198B6 /* EmailInfoActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoActionView.h; sourceTree = "<group>"; };
 		005E6A8615647602004198B6 /* EmailInfoActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoActionView.m; sourceTree = "<group>"; };
 		0065E3BB158920D500D59B2A /* SyncDesign.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = SyncDesign.md; sourceTree = "<group>"; };
-		0065E3BC158A7A4B00D59B2A /* FolderInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderInfo.h; sourceTree = "<group>"; };
-		0065E3BD158A7A4C00D59B2A /* FolderInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderInfo.m; sourceTree = "<group>"; };
 		00699542157D77E3008D50A4 /* libmailcore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmailcore.a; path = "../MailCore/build/Release-iphoneos/libmailcore.a"; sourceTree = "<group>"; };
 		006D663F156D4BC800074979 /* TrashMsgListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrashMsgListViewController.h; sourceTree = "<group>"; };
 		006D6640156D4BC800074979 /* TrashMsgListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrashMsgListViewController.m; sourceTree = "<group>"; };
@@ -440,18 +435,6 @@
 			name = "Email Folder Filter";
 			sourceTree = "<group>";
 		};
-		0039E5E21566B44700CB259D /* Email Info */ = {
-			isa = PBXGroup;
-			children = (
-				003D599615641A9A00AD3D91 /* EmailInfo.xcdatamodeld */,
-				003D59A115641D2600AD3D91 /* EmailInfo.h */,
-				003D59A215641D2600AD3D91 /* EmailInfo.m */,
-				0065E3BC158A7A4B00D59B2A /* FolderInfo.h */,
-				0065E3BD158A7A4C00D59B2A /* FolderInfo.m */,
-			);
-			name = "Email Info";
-			sourceTree = "<group>";
-		};
 		0039E5E31566B45300CB259D /* App Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -530,7 +513,6 @@
 			isa = PBXGroup;
 			children = (
 				0039E5E31566B45300CB259D /* App Data */,
-				0039E5E21566B44700CB259D /* Email Info */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -651,6 +633,8 @@
 		00A6FB3A159A48F600ED4D4B /* Catalogued Email Info */ = {
 			isa = PBXGroup;
 			children = (
+				003D59A115641D2600AD3D91 /* EmailInfo.h */,
+				003D59A215641D2600AD3D91 /* EmailInfo.m */,
 				000BBA99159CE800003A7158 /* EmailFolder.h */,
 				000BBA9A159CE800003A7158 /* EmailFolder.m */,
 				0098BCD2158BCCEC00C15243 /* EmailAddress.h */,
@@ -898,7 +882,6 @@
 			files = (
 				0005669E1562F94C003D114D /* main.m in Sources */,
 				000566A21562F94C003D114D /* AppDelegate.m in Sources */,
-				003D599815641A9A00AD3D91 /* EmailInfo.xcdatamodeld in Sources */,
 				003D599F15641B8A00AD3D91 /* AppHelper.m in Sources */,
 				003D59A315641D2600AD3D91 /* EmailInfo.m in Sources */,
 				00E9944A15643244003B9771 /* EmailInfoTableViewController.m in Sources */,
@@ -928,7 +911,6 @@
 				00D4989C1578371E00F8FD2F /* MsgHandlingRuleFieldEditInfo.m in Sources */,
 				0017B74C157928D7001D5D28 /* MsgPredicateHelper.m in Sources */,
 				00A8C31515838C1D006163EE /* MailClientServerSyncController.m in Sources */,
-				0065E3BE158A7A4C00D59B2A /* FolderInfo.m in Sources */,
 				0098BCD4158BCCEC00C15243 /* EmailAddress.m in Sources */,
 				0098BCDB158BCD3000C15243 /* EmailAddressFilter.m in Sources */,
 				0053EFBF158FE371003F6B6E /* EmailAddressFilterFormInfoCreator.m in Sources */,
@@ -1163,16 +1145,6 @@
 			);
 			currentVersion = 0039E5DB1566B14000CB259D /* AppData.xcdatamodel */;
 			path = AppData.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		003D599615641A9A00AD3D91 /* EmailInfo.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				003D599715641A9A00AD3D91 /* EmailInfo.xcdatamodel */,
-			);
-			currentVersion = 003D599715641A9A00AD3D91 /* EmailInfo.xcdatamodel */;
-			path = EmailInfo.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

@@ -19,7 +19,6 @@
 #import "AgeFilterComparison.h"
 #import "AgeFilterNone.h"
 #import "TrashRule.h"
-#import "FolderInfo.h"
 #import "ExclusionRule.h"
 #import "EmailAddress.h"
 #import "EmailAddressFilter.h"
@@ -33,7 +32,6 @@
 
 @synthesize testAppVals;
 @synthesize appDataDmc;
-@synthesize emailInfoDmc;
 @synthesize testFolder;
 
 - (void)setUp
@@ -47,7 +45,7 @@
 	andSubject:(NSString*)subject andFrom:(NSString*)fromSender
 	andFolder:(NSString*)folderName
 {
-	EmailInfo *newEmailInfo = (EmailInfo*) [self.emailInfoDmc insertObject:EMAIL_INFO_ENTITY_NAME];
+	EmailInfo *newEmailInfo = (EmailInfo*) [self.appDataDmc insertObject:EMAIL_INFO_ENTITY_NAME];
 	newEmailInfo.sendDate = [DateHelper dateFromStr:sendDate];
 	newEmailInfo.from = fromSender;
 	newEmailInfo.subject = subject;
@@ -56,7 +54,7 @@
 	newEmailInfo.folder = folderName;
 	newEmailInfo.domain = [MailAddressHelper emailAddressDomainName:fromSender];
 	currMessageId ++;
-	[self.emailInfoDmc saveContext];
+	[self.appDataDmc saveContext];
 }
 
 -(void)populateTestEmailWithSendDate:(NSString*)sendDate 
@@ -82,13 +80,8 @@
 			
 	self.testAppVals = [SharedAppVals createWithDataModelController:self.appDataDmc];
 	
-	
-	self.emailInfoDmc = [[[DataModelController alloc] 
-			initForInMemoryStorageWithDataModelNamed:EMAIL_INFO_DATA_MODEL_NAME 
-			andStoreNamed:EMAIL_INFO_STORE_NAME] autorelease];
-
-	self.testFolder = (FolderInfo*)[self.emailInfoDmc insertObject:FOLDER_INFO_ENTITY_NAME];
-	self.testFolder.fullyQualifiedName = @"TESTINBOX";
+	self.testFolder = (EmailFolder*)[self.appDataDmc insertObject:EMAIL_FOLDER_ENTITY_NAME];
+	self.testFolder.folderName = @"TESTINBOX";
 			
 	currMessageId = 0;
 }
@@ -100,13 +93,13 @@
 	NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
 	NSEntityDescription *entity = [NSEntityDescription
 		entityForName:EMAIL_INFO_ENTITY_NAME 
-		inManagedObjectContext:self.emailInfoDmc.managedObjectContext];
+		inManagedObjectContext:self.appDataDmc.managedObjectContext];
 	[fetchRequest setEntity:entity];
 	[fetchRequest setPredicate:msgFilterPredicate];	
 	
 	NSArray *msgsMatchingFilter = 
 		[CoreDataHelper executeFetchOrThrow:fetchRequest 
-		inManagedObectContext:self.emailInfoDmc.managedObjectContext];
+		inManagedObectContext:self.appDataDmc.managedObjectContext];
 
 	NSMutableSet *subjectsInResults = [[[NSMutableSet alloc] init] autorelease];
 	for(EmailInfo *emailInfo in msgsMatchingFilter)
@@ -134,7 +127,6 @@
     // Tear-down code here.
 	
 	[appDataDmc release];
-	[emailInfoDmc release];
 	[testAppVals release];
 	[testFolder release];
     

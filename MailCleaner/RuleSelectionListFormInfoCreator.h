@@ -10,12 +10,6 @@
 
 @interface RuleSelectionListFormInfoCreator : NSObject <FormInfoCreator>
 {
-	@private
-		DataModelController *emailInfoDmc;
 }
-
-@property(nonatomic,retain) DataModelController *emailInfoDmc;
-
--(id)initWithEmailInfoDataModelController:(DataModelController*)theEmailInfoDmc;
 
 @end
