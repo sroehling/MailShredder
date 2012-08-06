@@ -14,6 +14,7 @@
 #import "StaticNavFieldEditInfo.h"
 #import "StringValidation.h"
 #import "LocalizationHelper.h"
+#import "EmailAddressFilter.h"
 #import "AgeFilter.h"
 #import "SectionInfo.h"
 #import "EmailFolderFilter.h"
@@ -68,7 +69,7 @@
 
 	StaticNavFieldEditInfo *messageAddrFieldEditInfo = 
 		[[[StaticNavFieldEditInfo alloc] 
-			initWithCaption:LOCALIZED_STR(@"EMAIL_ADDRESS_TITLE") 
+			initWithCaption:[emailAddressFilter fieldCaption]
 		andSubtitle:[emailAddressFilter subFilterSynopsis]
 		andContentDescription:[emailAddressFilter filterSynopsisShort]
 		andSubFormInfoCreator:addrFilterFormInfoCreator] autorelease];

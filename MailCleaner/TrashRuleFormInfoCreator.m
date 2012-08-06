@@ -13,6 +13,8 @@
 #import "FormInfo.h"
 #import "FormPopulator.h"
 #import "ManagedObjectFieldInfo.h"
+#import "FromAddressFilter.h"
+#import "RecipientAddressFilter.h"
 #import "BoolFieldEditInfo.h"
 #import "TrashRule.h"
 #import "SectionInfo.h"
@@ -60,7 +62,9 @@
 
 	[formPopulator populateAgeFilterInParentObj:self.rule withAgeFilterPropertyKey:RULE_AGE_FILTER_KEY];
 
-	[formPopulator populateEmailAddressFilter:self.rule.emailAddressFilter];
+	[formPopulator populateEmailAddressFilter:self.rule.fromAddressFilter];
+		
+	[formPopulator populateEmailAddressFilter:self.rule.recipientAddressFilter];
 
 	[formPopulator populateEmailDomainFilter:self.rule.emailDomainFilter];
 

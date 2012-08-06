@@ -13,36 +13,40 @@
 #import "EmailInfo.h"
 #import "EmailAddress.h"
 
-NSString * const EMAIL_ADDRESS_FILTER_ENTITY_NAME = @"EmailAddressFilter";
 NSString * const EMAIL_ADDRESS_FILTER_MATCH_UNSELECTED_KEY = @"matchUnselected";
 
 NSInteger const MAX_SPECIFIC_ADDRESS_SYNOPSIS = 2;
 
 @implementation EmailAddressFilter
 
-@dynamic messageFilterEmailAddressFilter;
-@dynamic msgHandlingRuleEmailAddressFilter;
 @dynamic matchUnselected;
-
 @dynamic selectedAddresses;
 
 -(NSString*)filterSelectionPrefix
 {
 	if([self.matchUnselected boolValue])
 	{
-		return LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_UNSELECTED");
+		return [NSString stringWithFormat:LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_UNSELECTED_FORMAT"),
+			[self addressType]];
 	}
 	else 
 	{
-		return LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_SELECTED");		
+		return [NSString stringWithFormat:LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_SELECTED_FORMAT"),
+			[self addressTypePlural]];		
 	}
+}
+
+-(NSString*)matchAnyAddressTitle
+{	
+	return [NSString stringWithFormat:LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_ANY_ADDRESS_TITLE_FORMAT"),
+		[self addressType]];
 }
 
 -(NSString*)filterSynopsisShort
 {
 	if([self.selectedAddresses count] == 0)
 	{
-		return LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_NONE_TITLE");
+		return [self matchAnyAddressTitle];
 	}
 	else 
 	{
@@ -80,7 +84,7 @@ NSInteger const MAX_SPECIFIC_ADDRESS_SYNOPSIS = 2;
 {
 	if([self.selectedAddresses count] == 0)
 	{
-		return LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_NONE_TITLE");
+		return [self matchAnyAddressTitle];
 	}
 	else 
 	{
@@ -90,6 +94,11 @@ NSInteger const MAX_SPECIFIC_ADDRESS_SYNOPSIS = 2;
 	}
 }
 
+-(NSPredicate*)emailInfoMatchSelectedAddrPredicate:(EmailAddress*)selectedAddr
+{
+	assert(0); // must be overridden
+	return nil;
+}
 
 -(NSPredicate*)filterPredicate
 {
@@ -100,10 +109,9 @@ NSInteger const MAX_SPECIFIC_ADDRESS_SYNOPSIS = 2;
 	else 
 	{
 		NSMutableArray *specificAddrPredicates = [[[NSMutableArray alloc] init] autorelease];
-		for(EmailAddress *senderAddress in self.selectedAddresses)
+		for(EmailAddress *selectedAddr in self.selectedAddresses)
 		{
-			[specificAddrPredicates addObject:[NSPredicate predicateWithFormat:@"%K == %@",
-				EMAIL_INFO_FROM_KEY,senderAddress.address]];
+			[specificAddrPredicates addObject:[self emailInfoMatchSelectedAddrPredicate:selectedAddr]];
 		}
 
 		NSPredicate *matchSpecificAddrs = 
@@ -126,6 +134,24 @@ NSInteger const MAX_SPECIFIC_ADDRESS_SYNOPSIS = 2;
 	[self removeSelectedAddresses:existingAddresses];
 	
 	[self addSelectedAddresses:selectedAddresses];
+}
+
+-(NSString*)fieldCaption
+{
+	assert(0); // must be overridden
+	return nil;
+}
+
+-(NSString*)addressType
+{
+	assert(0); // must be overridden
+	return nil;	
+}
+
+-(NSString*)addressTypePlural
+{
+	assert(0); // must be overridden
+	return nil;	
 }
 
 @end

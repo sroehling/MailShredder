@@ -11,6 +11,7 @@
 
 @class EmailAddressFilterSelected;
 @class DataModelController;
+@class EmailInfo;
 
 extern NSString * const EMAIL_ADDRESS_ENTITY_NAME;
 
@@ -31,6 +32,7 @@ extern NSString * const EMAIL_ADDRESS_ENTITY_NAME;
 +(EmailAddress*)findOrAddAddress:(NSString*)emailAddress 
 	withCurrentAddresses:(NSMutableDictionary*)currAddressByName 
 			inDataModelController:(DataModelController*)appDataDmc;
+@property (nonatomic, retain) NSSet *emailInfoRecipientAddress;
 
 @end
 
@@ -40,5 +42,11 @@ extern NSString * const EMAIL_ADDRESS_ENTITY_NAME;
 - (void)removeSelectedAddressEmailAddressObject:(EmailAddressFilterSelected *)value;
 - (void)addSelectedAddressEmailAddress:(NSSet *)values;
 - (void)removeSelectedAddressEmailAddress:(NSSet *)values;
+
+- (void)addEmailInfoRecipientAddressObject:(EmailInfo *)value;
+- (void)removeEmailInfoRecipientAddressObject:(EmailInfo *)value;
+- (void)addEmailInfoRecipientAddress:(NSSet *)values;
+- (void)removeEmailInfoRecipientAddress:(NSSet *)values;
+
 
 @end

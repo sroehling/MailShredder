@@ -24,6 +24,7 @@ NSString * const EMAIL_INFO_DELETED_KEY = @"deleted";
 @dynamic folder;
 @dynamic subject;
 @dynamic deleted;
+@dynamic recipientAddresses;
 
 @dynamic folderInfo;
 

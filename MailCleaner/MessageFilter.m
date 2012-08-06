@@ -10,8 +10,11 @@
 #import "AgeFilter.h"
 #import "EmailAddressFilter.h"
 #import "EmailDomainFilter.h"
+#import "RecipientAddressFilter.h"
 #import "EmailFolderFilter.h"
 #import "DataModelController.h"
+#import "FromAddressFilter.h"
+#import "RecipientAddressFilter.h"
 #import "SharedAppVals.h"
 #import "AgeFilterNone.h"
 
@@ -22,10 +25,10 @@ NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
 
 @dynamic filterName;
 @dynamic ageFilter;
-@dynamic emailAddressFilter;
 @dynamic emailDomainFilter;
 @dynamic folderFilter;
-
+@dynamic recipientAddressFilter;
+@dynamic fromAddressFilter;
 
 // Inverse
 @dynamic sharedAppValsMsgListFilter;
@@ -38,9 +41,13 @@ NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
 	assert(agePredicate != nil);
 	[predicates addObject:agePredicate];
 
-	NSPredicate *emailAddressPredicate = [self.emailAddressFilter filterPredicate];
+	NSPredicate *emailAddressPredicate = [self.fromAddressFilter filterPredicate];
 	assert(emailAddressPredicate != nil);
 	[predicates addObject:emailAddressPredicate];
+	
+	NSPredicate *recipientAddressPredicate = [self.recipientAddressFilter filterPredicate];
+	assert(recipientAddressPredicate != nil);
+	[predicates addObject:recipientAddressPredicate]; 
 
 	NSPredicate *emailDomainPredicate = [self.emailDomainFilter filterPredicate];
 	assert(emailDomainPredicate != nil);
@@ -61,9 +68,13 @@ NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
 	
 	self.ageFilter = sharedVals.defaultAgeFilterNone;
 	
-	[filterDmc deleteObject:self.emailAddressFilter];
-	self.emailAddressFilter = (EmailAddressFilter*)
-		[filterDmc insertObject:EMAIL_ADDRESS_FILTER_ENTITY_NAME];
+	[filterDmc deleteObject:self.fromAddressFilter];
+	self.fromAddressFilter = (FromAddressFilter*)
+		[filterDmc insertObject:FROM_ADDRESS_FILTER_ENTITY_NAME];
+		
+	[filterDmc deleteObject:self.recipientAddressFilter];
+	self.recipientAddressFilter = (RecipientAddressFilter*)
+		[filterDmc insertObject:RECIPIENT_ADDRESS_FILTER_ENTITY_NAME];
 		
 	[filterDmc deleteObject:self.emailDomainFilter];
 	self.emailDomainFilter = (EmailDomainFilter*)
@@ -78,8 +89,10 @@ NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
 -(NSString*)filterSynopsis
 {
 	NSMutableArray *synopsisParts = [[[NSMutableArray alloc] init] autorelease];
+	
 	[synopsisParts addObject:[self.ageFilter filterSynopsis]];
-	[synopsisParts addObject:[self.emailAddressFilter filterSynopsis]];
+	[synopsisParts addObject:[self.fromAddressFilter filterSynopsis]];
+	[synopsisParts addObject:[self.recipientAddressFilter filterSynopsis]];	
 	[synopsisParts addObject:[self.emailDomainFilter filterSynopsis]];
 	[synopsisParts addObject:[self.folderFilter filterSynopsis]];
 	

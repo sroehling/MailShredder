@@ -65,7 +65,8 @@
 	[super dealloc];
 }
 
--(EmailInfo*)emailInfoFromServerMsg:(CTCoreMessage*)msg andFolderInfo:(EmailFolder*)folderInfo
+-(EmailInfo*)emailInfoFromServerMsg:(CTCoreMessage*)msg 
+		andFolderInfo:(EmailFolder*)folderInfo andCurrentAddresses:(NSMutableDictionary*)currEmailAddressByAddress
 {
 	EmailInfo *newEmailInfo = (EmailInfo*) [self.appDataDmc insertObject:EMAIL_INFO_ENTITY_NAME];
 	
@@ -74,6 +75,17 @@
 	newEmailInfo.subject = msg.subject;
 	newEmailInfo.messageId = msg.uid;
 	newEmailInfo.domain = [MailAddressHelper emailAddressDomainName:msg.sender.email];
+	
+	NSSet *recipients = [msg to];
+	for(CTCoreAddress *toAddress in recipients)
+	{
+		NSLog(@"Recipient: %@",toAddress.email);
+		EmailAddress *recipientAddress = [EmailAddress findOrAddAddress:toAddress.email 
+					withCurrentAddresses:currEmailAddressByAddress 
+					inDataModelController:self.appDataDmc];
+		[newEmailInfo addRecipientAddressesObject:recipientAddress];
+
+	}
 	
 	newEmailInfo.folderInfo = folderInfo;
 	newEmailInfo.folder = folderInfo.folderName;
@@ -122,7 +134,8 @@
 			{
 				NSLog(@"Sync msg: uid= %@, msg id = %@, send date = %@, subj = %@", msg.uid,msg.messageId,
 					[DateHelper stringFromDate:msg.senderDate],msg.subject);
-				EmailInfo *newEmailInfo = [self emailInfoFromServerMsg:msg andFolderInfo:emailFolder];
+				EmailInfo *newEmailInfo = [self emailInfoFromServerMsg:msg andFolderInfo:emailFolder 
+					andCurrentAddresses:currEmailAddressByAddress];
 				
 				[EmailAddress findOrAddAddress:newEmailInfo.from 
 					withCurrentAddresses:currEmailAddressByAddress inDataModelController:self.appDataDmc];

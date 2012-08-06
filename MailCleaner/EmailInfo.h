@@ -18,7 +18,7 @@ extern NSString * const EMAIL_INFO_DOMAIN_KEY;
 extern NSString * const EMAIL_INFO_FOLDER_KEY;
 
 @class EmailFolder;
-
+@class EmailAddress;
 
 @interface EmailInfo : NSManagedObject
 
@@ -38,5 +38,15 @@ extern NSString * const EMAIL_INFO_FOLDER_KEY;
 
 @property (nonatomic, retain) EmailFolder *folderInfo;
 
+@property (nonatomic, retain) NSSet *recipientAddresses;
+
+@end
+
+@interface EmailInfo (CoreDataGeneratedAccessors)
+
+- (void)addRecipientAddressesObject:(EmailAddress *)value;
+- (void)removeRecipientAddressesObject:(EmailAddress *)value;
+- (void)addRecipientAddresses:(NSSet *)values;
+- (void)removeRecipientAddresses:(NSSet *)values;
 
 @end

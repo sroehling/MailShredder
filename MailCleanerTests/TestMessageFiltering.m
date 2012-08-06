@@ -20,6 +20,7 @@
 #import "AgeFilterNone.h"
 #import "TrashRule.h"
 #import "ExclusionRule.h"
+#import "FromAddressFilter.h"
 #import "EmailAddress.h"
 #import "EmailAddressFilter.h"
 #import "EmailDomain.h"
@@ -27,6 +28,8 @@
 #import "MailAddressHelper.h"
 #import "EmailFolder.h"
 #import "EmailFolderFilter.h"
+#import "EmailAddress.h"
+#import "RecipientAddressFilter.h"
 
 @implementation TestMessageFiltering
 
@@ -41,9 +44,11 @@
     // Set-up code here.
 }
 
+
+
 -(void)populateTestEmailWithSendDate:(NSString*)sendDate 
 	andSubject:(NSString*)subject andFrom:(NSString*)fromSender
-	andFolder:(NSString*)folderName
+	andFolder:(NSString*)folderName andRecipientAddress:(NSString*)recipientAddr
 {
 	EmailInfo *newEmailInfo = (EmailInfo*) [self.appDataDmc insertObject:EMAIL_INFO_ENTITY_NAME];
 	newEmailInfo.sendDate = [DateHelper dateFromStr:sendDate];
@@ -53,6 +58,13 @@
 	newEmailInfo.folderInfo = self.testFolder;
 	newEmailInfo.folder = folderName;
 	newEmailInfo.domain = [MailAddressHelper emailAddressDomainName:fromSender];
+	
+	NSMutableDictionary *currEmailAddressByAddress = [EmailAddress addressesByName:self.appDataDmc];
+	EmailAddress *recipientAddress = [EmailAddress findOrAddAddress:recipientAddr 
+					withCurrentAddresses:currEmailAddressByAddress 
+					inDataModelController:self.appDataDmc];
+	[newEmailInfo addRecipientAddressesObject:recipientAddress];
+
 	currMessageId ++;
 	[self.appDataDmc saveContext];
 }
@@ -60,14 +72,15 @@
 -(void)populateTestEmailWithSendDate:(NSString*)sendDate 
 	andSubject:(NSString*)subject andFrom:(NSString*)fromSender
 {
-	[self populateTestEmailWithSendDate:sendDate andSubject:subject andFrom:fromSender andFolder:@"INBOX"];
+	[self populateTestEmailWithSendDate:sendDate andSubject:subject 
+		andFrom:fromSender andFolder:@"INBOX" andRecipientAddress:@"jane@example.com"];
 }
 
 -(void)populateFolderTestEmailWithSendDate:(NSString*)sendDate
 	andSubject:(NSString*)subject andFrom:(NSString*)fromSender andFolder:(NSString*)folderName
 {
 	[self populateTestEmailWithSendDate:sendDate andSubject:subject 
-		andFrom:fromSender andFolder:folderName];
+		andFrom:fromSender andFolder:folderName andRecipientAddress:@"jane@example.com"];
 }
 
 // ------------------
@@ -183,7 +196,7 @@
 	// Filtering for Jane should include S01 and S04
 	EmailAddress *janeEmailAddr = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
 	janeEmailAddr.address = @"jane";
-	[self.testAppVals.msgListFilter.emailAddressFilter addSelectedAddressesObject:janeEmailAddr];
+	[self.testAppVals.msgListFilter.fromAddressFilter addSelectedAddressesObject:janeEmailAddr];
 	NSPredicate *filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S04", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
@@ -191,7 +204,7 @@
 	// Also filtering for Dan should additionally include S03
 	EmailAddress *danEmailAddr = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
 	danEmailAddr.address = @"dan";
-	[self.testAppVals.msgListFilter.emailAddressFilter addSelectedAddressesObject:danEmailAddr];
+	[self.testAppVals.msgListFilter.fromAddressFilter addSelectedAddressesObject:danEmailAddr];
 	filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
 	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S03",@"S04", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
@@ -200,12 +213,55 @@
 	// Filtering for Steve shouldn't change the results, since there are no messages from Steve
 	EmailAddress *steveEmailAddr = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
 	steveEmailAddr.address = @"steve";
-	[self.testAppVals.msgListFilter.emailAddressFilter addSelectedAddressesObject:danEmailAddr];
+	[self.testAppVals.msgListFilter.fromAddressFilter addSelectedAddressesObject:danEmailAddr];
 	filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
 	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S03",@"S04", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
 
 	
+}
+
+
+- (void)testRecipientAddressFilter
+{
+	[self resetCoreData];
+
+	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+	
+	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane" 
+		andFolder:@"INBOX" andRecipientAddress:@"jane@example.com"];
+		
+	[self populateTestEmailWithSendDate:@"2012-02-01" andSubject:@"S02" andFrom:@"bob" 
+		andFolder:@"INBOX" andRecipientAddress:@"jane@example.com"];
+		
+	[self populateTestEmailWithSendDate:@"2012-03-01" andSubject:@"S03" andFrom:@"dan" 
+		andFolder:@"INBOX" andRecipientAddress:@"john@example.com"];
+		
+	[self populateTestEmailWithSendDate:@"2012-04-01" andSubject:@"S04" andFrom:@"jane" 
+		andFolder:@"INBOX" andRecipientAddress:@"john@example.com"];
+		
+	[self populateTestEmailWithSendDate:@"2012-05-01" andSubject:@"S05" andFrom:@"sally" 
+		andFolder:@"INBOX" andRecipientAddress:@"bob@example.com"];
+		
+	NSMutableDictionary *currEmailAddressByAddress = [EmailAddress addressesByName:self.appDataDmc];
+	[self.testAppVals.msgListFilter.recipientAddressFilter addSelectedAddressesObject:
+		[EmailAddress findOrAddAddress:@"jane@example.com" withCurrentAddresses:currEmailAddressByAddress 
+					inDataModelController:self.appDataDmc]];
+	[self.testAppVals.msgListFilter.recipientAddressFilter addSelectedAddressesObject:
+		[EmailAddress findOrAddAddress:@"bob@example.com" withCurrentAddresses:currEmailAddressByAddress 
+					inDataModelController:self.appDataDmc]];
+					
+	NSPredicate *filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S02",@"S05", nil];
+	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
+	
+	// Invert the matching
+	self.testAppVals.msgListFilter.recipientAddressFilter.matchUnselected = [NSNumber numberWithBool:TRUE];
+	filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S03",@"S04", nil];
+	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
+
+		
 }
 
 - (void)testInvertedEmailAddressFilter
@@ -222,14 +278,14 @@
 
 	EmailAddress *janeEmailAddr = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
 	janeEmailAddr.address = @"jane";
-	[self.testAppVals.msgListFilter.emailAddressFilter addSelectedAddressesObject:janeEmailAddr];
+	[self.testAppVals.msgListFilter.fromAddressFilter addSelectedAddressesObject:janeEmailAddr];
 	
 	EmailAddress *danEmailAddr = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
 	danEmailAddr.address = @"dan";
-	[self.testAppVals.msgListFilter.emailAddressFilter addSelectedAddressesObject:danEmailAddr];
+	[self.testAppVals.msgListFilter.fromAddressFilter addSelectedAddressesObject:danEmailAddr];
 
 	// Invert the selection
-	self.testAppVals.msgListFilter.emailAddressFilter.matchUnselected = [NSNumber numberWithBool:TRUE];
+	self.testAppVals.msgListFilter.fromAddressFilter.matchUnselected = [NSNumber numberWithBool:TRUE];
 	
 	// Filtering for address other than Jane or Dan should include S02,S05
 	NSPredicate *filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
@@ -486,7 +542,7 @@
 	EmailAddress *janeEmailAddr = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
 	janeEmailAddr.address = @"jane";
 	
-	[trashRule01.emailAddressFilter addSelectedAddressesObject:janeEmailAddr];
+	[trashRule01.fromAddressFilter addSelectedAddressesObject:janeEmailAddr];
 	NSPredicate *filterPredicate = [MsgPredicateHelper trashedByMsgRules:self.appDataDmc andBaseDate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S05", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
@@ -568,7 +624,7 @@
 	// The results should be S03, S04, S05 (S02 got excluded)
 	EmailAddress *bobEmailAddress = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
 	bobEmailAddress.address = @"bob";
-	[exclusionRule.emailAddressFilter addSelectedAddressesObject:bobEmailAddress];
+	[exclusionRule.fromAddressFilter addSelectedAddressesObject:bobEmailAddress];
 
 	NSPredicate *filterPredicate = [MsgPredicateHelper trashedByMsgRules:self.appDataDmc andBaseDate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S03",@"S04",@"S05",nil];

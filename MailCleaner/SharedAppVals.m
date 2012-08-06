@@ -10,10 +10,12 @@
 #import "MessageFilter.h"
 #import "DataModelController.h"
 #import "AppHelper.h"
+#import "FromAddressFilter.h"
 #import "AgeFilterNone.h"
 #import "CoreDataHelper.h"
 #import "AgeFilterComparison.h"
 #import "EmailAddressFilter.h"
+#import "RecipientAddressFilter.h"
 #import "EmailDomainFilter.h"
 #import "EmailFolderFilter.h"
 
@@ -66,8 +68,10 @@ NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY = @"currentEmailAcct"
 		
 	sharedVals.msgListFilter = (MessageFilter*)[dataModelController insertObject:MESSAGE_FILTER_ENTITY_NAME];
 	sharedVals.msgListFilter.ageFilter = sharedVals.defaultAgeFilterNone;
-	sharedVals.msgListFilter.emailAddressFilter = (EmailAddressFilter*)
-		[dataModelController insertObject:EMAIL_ADDRESS_FILTER_ENTITY_NAME];
+	sharedVals.msgListFilter.fromAddressFilter = (FromAddressFilter*)
+		[dataModelController insertObject:FROM_ADDRESS_FILTER_ENTITY_NAME];
+	sharedVals.msgListFilter.recipientAddressFilter = (RecipientAddressFilter*)
+		[dataModelController insertObject:RECIPIENT_ADDRESS_FILTER_ENTITY_NAME];
 	sharedVals.msgListFilter.emailDomainFilter = (EmailDomainFilter*)
 		[dataModelController insertObject:EMAIL_DOMAIN_FILTER_ENTITY_NAME];
 	sharedVals.msgListFilter.folderFilter = (EmailFolderFilter*)

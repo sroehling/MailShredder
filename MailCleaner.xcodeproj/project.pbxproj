@@ -62,6 +62,8 @@
 		007ABE8F156ACADE004BA8BF /* dummyEmails.txt in Resources */ = {isa = PBXBuildFile; fileRef = 003D59911564028200AD3D91 /* dummyEmails.txt */; };
 		008129E515B75D0D00533E36 /* TrashMsgListViewInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 008129E415B75D0D00533E36 /* TrashMsgListViewInfo.m */; };
 		008129EB15B8ABED00533E36 /* DeleteMsgConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008129EA15B8ABED00533E36 /* DeleteMsgConfirmationView.m */; };
+		009106C015CC577700994F69 /* RecipientAddressFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 009106BF15CC577700994F69 /* RecipientAddressFilter.m */; };
+		009106C315CC582000994F69 /* FromAddressFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 009106C215CC582000994F69 /* FromAddressFilter.m */; };
 		0098BCD4158BCCEC00C15243 /* EmailAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 0098BCD3158BCCEC00C15243 /* EmailAddress.m */; };
 		0098BCDB158BCD3000C15243 /* EmailAddressFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0098BCDA158BCD3000C15243 /* EmailAddressFilter.m */; };
 		009A092715BB4C0D0078880C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009A092615BB4C0D0078880C /* StoreKit.framework */; };
@@ -217,6 +219,10 @@
 		008129E415B75D0D00533E36 /* TrashMsgListViewInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrashMsgListViewInfo.m; sourceTree = "<group>"; };
 		008129E915B8ABEC00533E36 /* DeleteMsgConfirmationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteMsgConfirmationView.h; sourceTree = "<group>"; };
 		008129EA15B8ABED00533E36 /* DeleteMsgConfirmationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteMsgConfirmationView.m; sourceTree = "<group>"; };
+		009106BE15CC577700994F69 /* RecipientAddressFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipientAddressFilter.h; sourceTree = "<group>"; };
+		009106BF15CC577700994F69 /* RecipientAddressFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipientAddressFilter.m; sourceTree = "<group>"; };
+		009106C115CC582000994F69 /* FromAddressFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FromAddressFilter.h; sourceTree = "<group>"; };
+		009106C215CC582000994F69 /* FromAddressFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FromAddressFilter.m; sourceTree = "<group>"; };
 		0098BCD2158BCCEC00C15243 /* EmailAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddress.h; sourceTree = "<group>"; };
 		0098BCD3158BCCEC00C15243 /* EmailAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddress.m; sourceTree = "<group>"; };
 		0098BCD9158BCD3000C15243 /* EmailAddressFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddressFilter.h; sourceTree = "<group>"; };
@@ -495,10 +501,11 @@
 		0039E5FC1566CE0700CB259D /* Message Filter */ = {
 			isa = PBXGroup;
 			children = (
+				009106BC15CC45A600994F69 /* Email Recipient Filter */,
 				000BBAA0159CF39D003A7158 /* Email Folder Filter */,
 				00A6FB46159A594C00ED4D4B /* Age Filter */,
 				00A6FB42159A575B00ED4D4B /* Email Domain Filter */,
-				0053EFCE1590EEC9003F6B6E /* Email Address Filter */,
+				0053EFCE1590EEC9003F6B6E /* Email Address Filter (Sender) */,
 				0039E5FD1566CE3600CB259D /* MessageFilterFieldEditInfo.h */,
 				0039E5FE1566CE3600CB259D /* MessageFilterFieldEditInfo.m */,
 				0039E6001566D78A00CB259D /* MessageFilterFormInfoCreator.h */,
@@ -535,6 +542,10 @@
 			children = (
 				0098BCD9158BCD3000C15243 /* EmailAddressFilter.h */,
 				0098BCDA158BCD3000C15243 /* EmailAddressFilter.m */,
+				009106BE15CC577700994F69 /* RecipientAddressFilter.h */,
+				009106BF15CC577700994F69 /* RecipientAddressFilter.m */,
+				009106C115CC582000994F69 /* FromAddressFilter.h */,
+				009106C215CC582000994F69 /* FromAddressFilter.m */,
 			);
 			name = "Address Filter";
 			sourceTree = "<group>";
@@ -569,7 +580,7 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		0053EFCE1590EEC9003F6B6E /* Email Address Filter */ = {
+		0053EFCE1590EEC9003F6B6E /* Email Address Filter (Sender) */ = {
 			isa = PBXGroup;
 			children = (
 				0053EFC8158FFC3A003F6B6E /* EmailAddressFieldEditInfo.h */,
@@ -581,7 +592,7 @@
 				0053EFC5158FF3E2003F6B6E /* EmailAddressFilterAddressAdder.h */,
 				0053EFC6158FF3E3003F6B6E /* EmailAddressFilterAddressAdder.m */,
 			);
-			name = "Email Address Filter";
+			name = "Email Address Filter (Sender)";
 			sourceTree = "<group>";
 		};
 		0054D2F715AE08DC00270679 /* Rule Views */ = {
@@ -628,6 +639,13 @@
 				00E9944915643244003B9771 /* EmailInfoTableViewController.m */,
 			);
 			name = "All Messages View";
+			sourceTree = "<group>";
+		};
+		009106BC15CC45A600994F69 /* Email Recipient Filter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Email Recipient Filter";
 			sourceTree = "<group>";
 		};
 		00A6FB3A159A48F600ED4D4B /* Catalogued Email Info */ = {
@@ -943,6 +961,8 @@
 				008129E515B75D0D00533E36 /* TrashMsgListViewInfo.m in Sources */,
 				008129EB15B8ABED00533E36 /* DeleteMsgConfirmationView.m in Sources */,
 				0027518315B9E77B0025FDB8 /* MessageFilterTableFooterController.m in Sources */,
+				009106C015CC577700994F69 /* RecipientAddressFilter.m in Sources */,
+				009106C315CC582000994F69 /* FromAddressFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

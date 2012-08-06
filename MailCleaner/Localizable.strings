@@ -22,6 +22,7 @@
 
 "MESSAGE_LIST_ACTION_NARROW_FILTER_SECTION_TITLE" = "Narrow Filtering";
 "MESSAGE_LIST_ACTION_SELECTED_ADDRESSES_MENU_TITLE" = "Selected Senders";
+"MESSAGE_LIST_ACTION_SELECTED_RECIPIENTS_MENU_TITLE" = "Selected Recipients";
 "MESSAGE_LIST_ACTION_SELECTED_DOMAINS_MENU_TITLE" = "Selected Domains";
 "MESSAGE_LIST_ACTION_CREATE_TRASH_RULE_SECTION_TITLE" = "Create Trash Rule";
 "MESSAGE_LIST_ACTION_CURRENT_FILTER_MENU_TITLE" = "Current Filter Settings";
@@ -64,21 +65,27 @@
 "AGE_FILTER_COMPARISON_NEWER" = "Newer Than";
 "AGE_FILTER_SYNOPSIS_FORMAT" = "%@ %d %@";
 
-"EMAIL_ADDRESS_FILTER_NONE_TITLE" = "Any Address";
-"EMAIL_ADDRESS_FILTER_SELECTED" = "Specific Addresses";
-"EMAIL_ADDRESS_FILTER_UNSELECTED" = "Address Not in List";
+"EMAIL_ADDRESS_FILTER_ANY_ADDRESS_TITLE_FORMAT" = "Any %@";
+"EMAIL_ADDRESS_FILTER_SELECTED_FORMAT" = "Specific %@";
+"EMAIL_ADDRESS_FILTER_UNSELECTED_FORMAT" = "%@ Not in List";
+
 "EMAIL_FOLDER_FILTER_SELECTED_REMAINING_ADDRESSES_FORMAT" = "and %d more";
-"EMAIL_ADDRESS_TITLE" = "Sender Address";
+"FROM_ADDRESS_TITLE" = "Sender Address";
+"RECIPIENT_ADDRESS_TITLE" = "Recipient Address";
 "EMAIL_ADDRESS_FILTER_TITLE" = "Email Address";
 "EMAIL_ADDRESS_FILTER_PROMPT" = "Select email addresses";
 "EMAIL_ADDRESS_FILTER__ADD_BUTTON_CAPTION" = "Tap here to match specific email addresses, or leave the list empty to match any address.";
 "EMAIL_ADDRESS_FILTER__ADD_BUTTON_MORE_INFO_CAPTION" = "Learn more ...";
 "EMAIL_ADDRESS_FILTER_ADDRESS_LIST_TITLE"= "Match Addresses";
-"EMAIL_ADDRESS_FILTER_TABLE_HEADER_TITLE" = "Match Sender Email Addresses";
+"EMAIL_ADDRESS_FILTER_TABLE_HEADER_TITLE_FORMAT" = "Match %@ Email Addresses";
 "EMAIL_ADDRESS_FILTER_TABLE_HEADER_SUBTITLE" = "To match any address, leave this list empty. Or, to match specific addresses, edit this list to include the addresses.";
 "EMAIL_ADDRESS_FILTER_MATCH_UNSELECTED_FIELD_LABEL" = "Match Unselected?";
 "EMAIL_ADDRESS_FILTER_MATCH_UNSELECTED_FIELD_SUBTITLE" = "Match any address which is not in the address list?";
 "EMAIL_ADDRESS_FILTER_ADDRESS_LIST_SECTION_TITLE" = "Address List";
+"RECIPIENT_ADDRESS_TYPE" = "Recipient";
+"RECIPIENT_ADDRESS_TYPE_PLURAL" = "Recipients";
+"FROM_ADDRESS_TYPE" = "Sender";
+"FROM_ADDRESS_TYPE_PLURAL" = "Senders";
 
 "EMAIL_DOMAIN_FILTER_NONE_TITLE" = "Any Domain";
 "EMAIL_DOMAIN_FILTER_SELECTED" = "Specific Domains";

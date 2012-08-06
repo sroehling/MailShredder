@@ -12,6 +12,7 @@
 #import "FormPopulator.h"
 #import "StaticNavFieldEditInfo.h"
 #import "SectionInfo.h"
+#import "RecipientAddressFilter.h"
 #import "SelectableObjectTableViewControllerFactory.h"
 #import "AgeFilterFormInfoCreator.h"
 #import "ManagedObjectFieldInfo.h"
@@ -20,7 +21,7 @@
 #import "FormContext.h"
 #import "VariableHeightTableHeader.h"
 #import "MessageFilterTableFooterController.h"
-
+#import "FromAddressFilter.h"
 
 @implementation MessageFilterFormInfoCreator
 
@@ -58,7 +59,9 @@
 	[formPopulator populateAgeFilterInParentObj:self.msgFilter 
 		withAgeFilterPropertyKey:MESSAGE_FILTER_AGE_FILTER_KEY];
 		
-	[formPopulator populateEmailAddressFilter:self.msgFilter.emailAddressFilter];
+	[formPopulator populateEmailAddressFilter:self.msgFilter.fromAddressFilter];
+	
+	[formPopulator populateEmailAddressFilter:self.msgFilter.recipientAddressFilter];
 
 	[formPopulator populateEmailDomainFilter:self.msgFilter.emailDomainFilter];
 

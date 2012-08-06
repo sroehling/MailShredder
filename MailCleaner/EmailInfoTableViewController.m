@@ -34,7 +34,7 @@
 #import "WEPopoverHelper.h"
 
 #import "EmailDomainFilter.h"
-#import "EmailAddressFilter.h"
+#import "FromAddressFilter.h"
 #import "EmailDomain.h"
 #import "EmailAddress.h"
 #import "TrashRule.h"
@@ -43,8 +43,9 @@
 #import "AgeFilter.h"
 #import "EmailFolderFilter.h"
 #import "EmailFolder.h"
+#import "RecipientAddressFilter.h"
 
-CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
+CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 
 @implementation EmailInfoTableViewController
 
@@ -93,6 +94,9 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
 		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_ADDRESSES_MENU_TITLE")
 		 andTarget:self andSelector:@selector(narrowToSelectedAddresses)] autorelease]];
 	[section addMenuItem:[[[TableMenuItem alloc] 
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_RECIPIENTS_MENU_TITLE")
+		 andTarget:self andSelector:@selector(narrowToSelectedRecipients)] autorelease]];	
+	[section addMenuItem:[[[TableMenuItem alloc] 
 		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_DOMAINS_MENU_TITLE")
 		 andTarget:self andSelector:@selector(narrowToSelectedDomains)] autorelease]];
 	[sections addObject:section];
@@ -102,6 +106,9 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
 	[section addMenuItem:[[[TableMenuItem alloc] 
 		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_ADDRESSES_MENU_TITLE")
 		 andTarget:self andSelector:@selector(createTrashRuleSelectedAddresses)] autorelease]];
+	[section addMenuItem:[[[TableMenuItem alloc] 
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_RECIPIENTS_MENU_TITLE")
+		 andTarget:self andSelector:@selector(createTrashRuleSelectedRecipients)] autorelease]];		 
 	[section addMenuItem:[[[TableMenuItem alloc] 
 		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_DOMAINS_MENU_TITLE")
 		 andTarget:self andSelector:@selector(createTrashRuleSelectedDomains)] autorelease]];
@@ -132,6 +139,15 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
 	[self.messageFilterHeader resizeForChildren];
 
 }
+
+-(void)refreshMessageList
+{
+	[self refreshMessageFilterHeader];
+		// TODO - Need to update selection to only include those messages which are seen.
+
+	[self configureFetchedResultsController];
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -179,12 +195,20 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
 
 #pragma mark Button list call-backs
 
--(void)refreshMessageList
+-(NSSet*)selectedRecipients
 {
-	[self refreshMessageFilterHeader];
-		// TODO - Need to update selection to only include those messages which are seen.
+	NSArray *selectedMsgs = [self selectedInMsgList];
+	NSMutableSet *selectedRecipients = [[[NSMutableSet alloc] init] autorelease];
+	
+	for(EmailInfo *selectedEmailInfo in selectedMsgs)
+	{
+		for(EmailAddress *selectedRecipient in selectedEmailInfo.recipientAddresses)
+		{
+			[selectedRecipients addObject:selectedRecipient];
+		}
+	}
+	return selectedRecipients;
 
-	[self configureFetchedResultsController];
 }
 
 -(NSSet*)selectedAddresses
@@ -225,11 +249,28 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
 	if([selectedAddresses count] > 0)
 	{
 		SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
-		[sharedAppVals.msgListFilter.emailAddressFilter setAddresses:selectedAddresses];
+		[sharedAppVals.msgListFilter.fromAddressFilter setAddresses:selectedAddresses];
 		
 		[self refreshMessageList];
 	}
 	[self.actionsPopupController dismissPopoverAnimated:TRUE];
+}
+
+-(void)narrowToSelectedRecipients
+{
+	NSLog(@"Narrow to selected recipients");
+	
+	NSSet *selectedRecipients = [self selectedRecipients];
+	
+	if([selectedRecipients count] > 0)
+	{
+		SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
+		[sharedAppVals.msgListFilter.recipientAddressFilter setAddresses:selectedRecipients];
+		
+		[self refreshMessageList];
+	}
+	[self.actionsPopupController dismissPopoverAnimated:TRUE];
+
 }
 
 -(void)narrowToSelectedDomains
@@ -273,7 +314,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
 	if([selectedAddresses count] > 0)
 	{
 		TrashRule *newRule = [TrashRule createNewDefaultRule:self.appDmc];
-		[newRule.emailAddressFilter setAddresses:selectedAddresses];
+		[newRule.fromAddressFilter setAddresses:selectedAddresses];
 
 		[self pushNewRuleForm:newRule];
 	}
@@ -284,6 +325,24 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
 
 }
 
+-(void)createTrashRuleSelectedRecipients
+{
+	NSLog(@"Create trash rule from selected recipients");
+	
+	NSSet *selectedRecipients = [self selectedRecipients];
+	
+	if([selectedRecipients count] > 0)
+	{
+		TrashRule *newRule = [TrashRule createNewDefaultRule:self.appDmc];
+		[newRule.recipientAddressFilter setAddresses:selectedRecipients];
+
+		[self pushNewRuleForm:newRule];
+	}
+	else 
+	{
+		[self.actionsPopupController dismissPopoverAnimated:TRUE];
+	}
+}
 
 -(void)createTrashRuleSelectedDomains
 {
@@ -310,7 +369,8 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 182.0f;
 	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];		
 	
 	[newRule.emailDomainFilter setDomains:sharedAppVals.msgListFilter.emailDomainFilter.selectedDomains];
-	[newRule.emailAddressFilter setAddresses:sharedAppVals.msgListFilter.emailAddressFilter.selectedAddresses];
+	[newRule.fromAddressFilter setAddresses:sharedAppVals.msgListFilter.fromAddressFilter.selectedAddresses];
+	[newRule.recipientAddressFilter setAddresses:sharedAppVals.msgListFilter.recipientAddressFilter.selectedAddresses];
 	[newRule.folderFilter setFolders:sharedAppVals.msgListFilter.folderFilter.selectedFolders];
 	newRule.ageFilter = sharedAppVals.msgListFilter.ageFilter;
 

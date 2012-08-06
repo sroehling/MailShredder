@@ -18,6 +18,7 @@ NSString * const EMAIL_ADDRESS_ENTITY_NAME = @"EmailAddress";
 @dynamic address;
 @dynamic name;
 @dynamic selectedAddressEmailAddress;
+@dynamic emailInfoRecipientAddress;
 
 // This property is not persisted via CoreData. It is used for tracking of 
 // selection of the EmailAddress in a table view.

@@ -7,8 +7,16 @@
 //
 
 #import "MsgHandlingRule.h"
+
+#import "DataModelController.h"
 #import "AgeFilter.h"
 #import "EmailAddressFilter.h"
+#import "FromAddressFilter.h"
+#import "EmailFolderFilter.h"
+#import "RecipientAddressFilter.h"
+#import "SharedAppVals.h"
+#import "AgeFilter.h"
+#import "AgeFilterNone.h"
 #import "EmailDomainFilter.h"
 #import "EmailFolderFilter.h"
 
@@ -21,7 +29,8 @@ NSInteger const RULE_NAME_MAX_LENGTH = 32;
 
 @dynamic enabled;
 @dynamic ageFilter;
-@dynamic emailAddressFilter;
+@dynamic fromAddressFilter;
+@dynamic recipientAddressFilter;
 @dynamic emailDomainFilter;
 @dynamic folderFilter;
 @dynamic ruleName;
@@ -37,10 +46,13 @@ NSInteger const RULE_NAME_MAX_LENGTH = 32;
 {
 
 	NSMutableArray *synopsisParts = [[[NSMutableArray alloc] init] autorelease];
+	
 	[synopsisParts addObject:[self.ageFilter filterSynopsis]];
-	[synopsisParts addObject:[self.emailAddressFilter filterSynopsis]];
+	[synopsisParts addObject:[self.fromAddressFilter filterSynopsis]];
+	[synopsisParts addObject:[self.recipientAddressFilter filterSynopsis]];
 	[synopsisParts addObject:[self.emailDomainFilter filterSynopsis]];
 	[synopsisParts addObject:[self.folderFilter filterSynopsis]];
+	
 	return [synopsisParts componentsJoinedByString:@", "];
 
 }
@@ -55,9 +67,13 @@ NSInteger const RULE_NAME_MAX_LENGTH = 32;
 		assert(agePredicate != nil);
 		[predicates addObject:agePredicate];
 		
-		NSPredicate *emailAddressPredicate = [self.emailAddressFilter filterPredicate];
+		NSPredicate *emailAddressPredicate = [self.fromAddressFilter filterPredicate];
 		assert(emailAddressPredicate != nil);
 		[predicates addObject:emailAddressPredicate];
+		
+		NSPredicate *recipientAddressPredicate = [self.recipientAddressFilter filterPredicate];
+		assert(recipientAddressPredicate != nil);
+		[predicates addObject:recipientAddressPredicate]; 
 		
 		NSPredicate *emailDomainPredicate = [self.emailDomainFilter filterPredicate];
 		assert(emailDomainPredicate != nil);
@@ -75,6 +91,26 @@ NSInteger const RULE_NAME_MAX_LENGTH = 32;
 	{
 		return [NSPredicate predicateWithValue:FALSE];
 	}
+}
+
++(void)populateDefaultRuleCriteria:(MsgHandlingRule*)msgHandlingRule 
+	usingDataModelController:(DataModelController*)dmcForNewRule
+{
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:dmcForNewRule];
+
+	msgHandlingRule.ageFilter = sharedAppVals.defaultAgeFilterNone;
+	
+	msgHandlingRule.fromAddressFilter = (FromAddressFilter*)
+		[dmcForNewRule insertObject:FROM_ADDRESS_FILTER_ENTITY_NAME];
+		
+	msgHandlingRule.recipientAddressFilter = (RecipientAddressFilter*)
+			[dmcForNewRule insertObject:RECIPIENT_ADDRESS_FILTER_ENTITY_NAME];
+			
+	msgHandlingRule.emailDomainFilter = (EmailDomainFilter*)
+		[dmcForNewRule insertObject:EMAIL_DOMAIN_FILTER_ENTITY_NAME];
+
+	msgHandlingRule.folderFilter = (EmailFolderFilter*)
+		[dmcForNewRule insertObject:EMAIL_FOLDER_FILTER_ENTITY_NAME];
 }
 
 @end

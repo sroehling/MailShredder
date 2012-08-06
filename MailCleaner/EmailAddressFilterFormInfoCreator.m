@@ -52,7 +52,10 @@
 
 	VariableHeightTableHeader *tableHeader = 
 		[[[VariableHeightTableHeader alloc] initWithFrame:CGRectZero] autorelease];
-	tableHeader.header.text = LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_TABLE_HEADER_TITLE");
+	
+	tableHeader.header.text = [NSString stringWithFormat:
+		LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_TABLE_HEADER_TITLE_FORMAT"),
+		[self.emailAddressFilter addressType]];
 	tableHeader.subHeader.text = LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_TABLE_HEADER_SUBTITLE");
 	[tableHeader resizeForChildren];
 	formPopulator.formInfo.headerView = tableHeader;
@@ -65,8 +68,6 @@
 
 	if([senderAddresses count]>0)
 	{
-		
-			
 		[formPopulator nextSectionWithTitle:LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_ADDRESS_LIST_SECTION_TITLE")];
 			
 		for(EmailAddress *senderAddress in senderAddresses)

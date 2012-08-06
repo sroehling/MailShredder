@@ -10,11 +10,12 @@
 #import <CoreData/CoreData.h>
 
 @class AgeFilter;
-@class EmailAddressFilter;
+@class FromAddressFilter;
 @class SharedAppVals;
 @class EmailDomainFilter;
 @class EmailFolderFilter;
 @class DataModelController;
+@class RecipientAddressFilter;
 
 extern NSString * const MESSAGE_FILTER_ENTITY_NAME;
 extern NSString * const MESSAGE_FILTER_AGE_FILTER_KEY;
@@ -23,10 +24,11 @@ extern NSString * const MESSAGE_FILTER_AGE_FILTER_KEY;
 
 @property (nonatomic, retain) NSString * filterName;
 @property (nonatomic, retain) AgeFilter *ageFilter;
-@property (nonatomic, retain) EmailAddressFilter *emailAddressFilter;
 @property (nonatomic, retain) EmailDomainFilter *emailDomainFilter;
 @property (nonatomic, retain) EmailFolderFilter *folderFilter;
 
+@property (nonatomic, retain) FromAddressFilter *fromAddressFilter;
+@property (nonatomic, retain) RecipientAddressFilter *recipientAddressFilter;
 
 // Inverse
 @property (nonatomic, retain) SharedAppVals *sharedAppValsMsgListFilter;
