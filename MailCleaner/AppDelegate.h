@@ -11,17 +11,21 @@
 #import "GenericFieldBasedTableAddViewController.h"
 
 @class DataModelController;
+@class MailClientServerSyncController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate,
 			GenericTableAddViewSaveCompleteDelegate>
 {
 	@private
 		DataModelController *appDmc;
+		MailClientServerSyncController *mailSyncController;
+		
 }
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UITabBarController *tabBarController;
 
 @property(nonatomic,retain) DataModelController *appDmc;
+@property(nonatomic,retain) MailClientServerSyncController *mailSyncController;
 
 @end

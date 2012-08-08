@@ -26,6 +26,7 @@ extern NSString * const EMAIL_ACCOUNT_UNIQUEACCTID_KEY;
 
 @class DataModelController;
 @class SharedAppVals;
+@class KeychainFieldInfo;
 
 @interface EmailAccount : NSManagedObject
 {
@@ -52,5 +53,6 @@ extern NSString * const EMAIL_ACCOUNT_UNIQUEACCTID_KEY;
 
 
 +(EmailAccount*)defaultNewEmailAcctWithDataModelController:(DataModelController*)acctDmc;
+-(KeychainFieldInfo*)passwordFieldInfo;
 
 @end

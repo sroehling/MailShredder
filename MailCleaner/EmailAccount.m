@@ -9,6 +9,8 @@
 #import "EmailAccount.h"
 #import "DataModelController.h"
 #import "StringValidation.h"
+#import "KeychainFieldInfo.h"
+#import "LocalizationHelper.h"
 
 NSString * const EMAIL_ACCOUNT_ENTITY_NAME = @"EmailAccount";
 NSString * const EMAIL_ACCOUNT_NAME_KEY = @"acctName";
@@ -60,6 +62,20 @@ NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX = @"EmailAccountLoginInfo";
 	
 	return newAcct;
 }
+
+
+-(KeychainFieldInfo*)passwordFieldInfo
+{
+	NSString *keychainID = [NSString stringWithFormat:@"%@-%@",EMAIL_ACCOUNT_KEYCHAIN_PREFIX,
+		self.uniqueAcctID];
+	KeychainFieldInfo *passwordFieldInfo = [[[KeychainFieldInfo alloc] 
+		initWithFieldLabel:LOCALIZED_STR(@"EMAIL_ACCOUNT_PASSWORD_FIELD_LABEL")  
+		andFieldPlaceholder:LOCALIZED_STR(@"EMAIL_ACCOUNT_PASSWORD_PLACEHOLDER") 
+		andKeyChainID:keychainID andKeychainKey:kSecValueData] autorelease];
+	
+	return passwordFieldInfo;
+}
+
 
 
 @end

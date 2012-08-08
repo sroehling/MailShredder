@@ -9,20 +9,19 @@
 #import <Foundation/Foundation.h>
 
 @class DataModelController;
+@class EmailAccount;
 
 @interface MailClientServerSyncController : NSObject
 {
 	@private
-		CTCoreAccount *mailAcct;
-		DataModelController *appDataDmc;
+		DataModelController *mainThreadDmc;
 }
 
-@property(nonatomic,retain) CTCoreAccount *mailAcct;
-@property(nonatomic,retain) DataModelController *appDataDmc;
+@property(nonatomic,retain) DataModelController *mainThreadDmc;
 
--(id)initWithDataModelController:(DataModelController*)theAppDataDmc;
+-(id)initWithMainThreadDataModelController:(DataModelController*)theMainThreadDmc;
 
--(void)syncWithServer;
--(void)deleteMarkedMsgs;
+-(void)syncWithServerInBackgroundThread;
+-(void)deleteMarkedMsgsInBackgroundThread;
 
 @end

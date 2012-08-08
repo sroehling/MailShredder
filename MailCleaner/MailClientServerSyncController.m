@@ -15,42 +15,30 @@
 #import "EmailAddress.h"
 #import "MailAddressHelper.h"
 #import "EmailFolder.h"
+#import "AppHelper.h"
+#import "EmailAccount.h"
+#import "KeychainFieldInfo.h"
+#import "SharedAppVals.h"
+#import "MailSyncConnectionContext.h"
+
 
 @implementation MailClientServerSyncController
 
-@synthesize mailAcct;
-@synthesize appDataDmc;
+@synthesize mainThreadDmc;
 
--(id)initWithDataModelController:(DataModelController*)theAppDataDmc
+-(id)initWithMainThreadDataModelController:(DataModelController*)theMainThreadDmc
 {
 	self = [super init];
 	if(self)
 	{		
-		assert(theAppDataDmc != nil);
-		self.appDataDmc = theAppDataDmc;
-	
+		assert(theMainThreadDmc != nil);
+		self.mainThreadDmc = theMainThreadDmc;
+
 	}
 	return self;
 }
 
--(void)connect
-{
-	self.mailAcct = [[CTCoreAccount alloc] init];
-	[self.mailAcct connectToServer:@"debianvm" port:143
-		connectionType:CONNECTION_TYPE_PLAIN
-		authType:IMAP_AUTH_TYPE_PLAIN 
-		login:@"testimapuser@debianvm.local" password:@"pass"]; 
-	
-}
 
--(void)disconnect
-{
-	if(self.mailAcct != nil)
-	{
-		[self.mailAcct disconnect];
-		self.mailAcct = nil;
-	}
-}
 
 -(id)init
 {
@@ -60,15 +48,15 @@
 
 -(void)dealloc
 {
-	[mailAcct release];
-	[appDataDmc release];
+	[mainThreadDmc release];
 	[super dealloc];
 }
 
 -(EmailInfo*)emailInfoFromServerMsg:(CTCoreMessage*)msg 
 		andFolderInfo:(EmailFolder*)folderInfo andCurrentAddresses:(NSMutableDictionary*)currEmailAddressByAddress
+		inDataModelController:(DataModelController*)mailSyncDmc
 {
-	EmailInfo *newEmailInfo = (EmailInfo*) [self.appDataDmc insertObject:EMAIL_INFO_ENTITY_NAME];
+	EmailInfo *newEmailInfo = (EmailInfo*) [mailSyncDmc insertObject:EMAIL_INFO_ENTITY_NAME];
 	
 	newEmailInfo.sendDate = msg.senderDate;
 	newEmailInfo.from = msg.sender.email;
@@ -82,7 +70,7 @@
 		NSLog(@"Recipient: %@",toAddress.email);
 		EmailAddress *recipientAddress = [EmailAddress findOrAddAddress:toAddress.email 
 					withCurrentAddresses:currEmailAddressByAddress 
-					inDataModelController:self.appDataDmc];
+					inDataModelController:mailSyncDmc];
 		[newEmailInfo addRecipientAddressesObject:recipientAddress];
 
 	}
@@ -94,35 +82,74 @@
 
 }
 
--(void)syncWithServer
+- (void)mailSyncThreadDidSaveNotificationHandler:(NSNotification *)notification
+{
+    // This method is invoked as a subscriber/call-back for saves the to NSManagedObjectContext
+	// used to synchronize the email information on a dedicated thread. This will in turn 
+	// trigger the main thread to perform updates on to the appropriate NSFetchedResultsControllers,
+	// table views, etc.
+    [self.mainThreadDmc.managedObjectContext 
+		performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) 
+		withObject:notification waitUntilDone:NO];
+
+}
+
+-(MailSyncConnectionContext*)establishConnection
+{
+	MailSyncConnectionContext *connectionContext = [[MailSyncConnectionContext alloc] init];
+
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+		selector:@selector(mailSyncThreadDidSaveNotificationHandler:)
+		name:NSManagedObjectContextDidSaveNotification 
+		object:connectionContext.syncDmc.managedObjectContext];
+
+	[connectionContext connect];
+
+	return connectionContext;
+}
+
+-(void)teardownConnection:(MailSyncConnectionContext*)connectionContext
+{
+	[connectionContext.syncDmc saveContext];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self 
+			name:NSManagedObjectContextDidSaveNotification 
+			object:connectionContext.syncDmc.managedObjectContext];
+	
+	[connectionContext disconnect];
+							
+	[connectionContext release];
+
+}
+
+-(void)syncWithServerThread
 {
 
-	[self connect];
+	MailSyncConnectionContext *connectionContext = [self establishConnection];
 	
-	NSMutableDictionary *currEmailAddressByAddress = [EmailAddress addressesByName:self.appDataDmc];
-	NSMutableDictionary *currDomainByDomainName = [EmailDomain emailDomainsByDomainName:self.appDataDmc];
-	NSMutableDictionary *currFolderByFolderName = [EmailFolder foldersByName:self.appDataDmc];
+	NSMutableDictionary *currEmailAddressByAddress = [EmailAddress addressesByName:connectionContext.syncDmc];
+	NSMutableDictionary *currDomainByDomainName = [EmailDomain emailDomainsByDomainName:connectionContext.syncDmc];
+	NSMutableDictionary *currFolderByFolderName = [EmailFolder foldersByName:connectionContext.syncDmc];
 	
 	// Remove all the existing EmailInfo objects, since they'll be
 	// re-synchronized below.
-	NSSet *currEmailInfos = [self.appDataDmc fetchObjectsForEntityName:EMAIL_INFO_ENTITY_NAME];
+	NSSet *currEmailInfos = [connectionContext.syncDmc fetchObjectsForEntityName:EMAIL_INFO_ENTITY_NAME];
 	for(EmailInfo *currEmailInfo in currEmailInfos)
 	{
-		[self.appDataDmc deleteObject:currEmailInfo];
+		[connectionContext.syncDmc deleteObject:currEmailInfo];
 	}
-	[self.appDataDmc saveContext];
 	
-	NSSet *allFolders = [self.mailAcct allFolders];
+	NSSet *allFolders = [connectionContext.mailAcct allFolders];
 	NSInteger numNewMsgs = 0;
 	NSInteger totalMsgs = 0;
 	for (NSString *folderName in allFolders)
 	{
 		NSLog(@"%@: Processing folder",folderName);
-		CTCoreFolder *currFolder = [self.mailAcct folderWithPath:folderName];
+		CTCoreFolder *currFolder = [connectionContext.mailAcct folderWithPath:folderName];
 		
 
 		EmailFolder *emailFolder = [EmailFolder findOrAddFolder:currFolder.path inExistingFolders:currFolderByFolderName 
-			withDataModelController:self.appDataDmc];
+			withDataModelController:connectionContext.syncDmc];
 		
 		if(currFolder.totalMessageCount > 0)
 		{
@@ -135,13 +162,13 @@
 				NSLog(@"Sync msg: uid= %@, msg id = %@, send date = %@, subj = %@", msg.uid,msg.messageId,
 					[DateHelper stringFromDate:msg.senderDate],msg.subject);
 				EmailInfo *newEmailInfo = [self emailInfoFromServerMsg:msg andFolderInfo:emailFolder 
-					andCurrentAddresses:currEmailAddressByAddress];
+					andCurrentAddresses:currEmailAddressByAddress inDataModelController:connectionContext.syncDmc];
 				
 				[EmailAddress findOrAddAddress:newEmailInfo.from 
-					withCurrentAddresses:currEmailAddressByAddress inDataModelController:self.appDataDmc];
+					withCurrentAddresses:currEmailAddressByAddress inDataModelController:connectionContext.syncDmc];
 				
 				[EmailDomain findOrAddDomainName:newEmailInfo.domain 
-					withCurrentDomains:currDomainByDomainName inDataModelController:self.appDataDmc];
+					withCurrentDomains:currDomainByDomainName inDataModelController:connectionContext.syncDmc];
 				
 				numNewMsgs ++;
 					
@@ -152,33 +179,34 @@
 		NSLog(@"-------");
 		
 	}
-	
-	[self.appDataDmc saveContext];
 
 	NSLog(@"Done synchronizing messages: new msgs = %d, total server msgs = %d",
 		numNewMsgs, totalMsgs);
-
-	[self disconnect];
-
+		
+	[self teardownConnection:connectionContext];
 }
 
--(void)deleteMarkedMsgs
+-(void)syncWithServerInBackgroundThread
+{
+	[NSThread detachNewThreadSelector:@selector(syncWithServerThread) toTarget:self withObject:nil];		
+}
+
+-(void)deleteMarkedMsgsThread
 {
 
-	[self connect];
+	MailSyncConnectionContext *connectionContext = [self establishConnection];	
 	
-	
-	NSSet *allFolders = [self.mailAcct allFolders];
+	NSSet *allFolders = [connectionContext.mailAcct allFolders];
 	NSMutableDictionary *folderByPath = [[NSMutableDictionary alloc] init];
 	for (NSString *folderName in allFolders)
 	{
-		CTCoreFolder *serverFolder = [self.mailAcct folderWithPath:folderName];
+		CTCoreFolder *serverFolder = [connectionContext.mailAcct folderWithPath:folderName];
 		[folderByPath setObject:serverFolder forKey:folderName];
 	}
 	
 	NSMutableSet *serverFoldersToExpunge = [[NSMutableSet alloc] init];
 		
-	NSArray *msgsMarkedForDeletion = [self.appDataDmc fetchObjectsForEntityName:EMAIL_INFO_ENTITY_NAME 
+	NSArray *msgsMarkedForDeletion = [connectionContext.syncDmc fetchObjectsForEntityName:EMAIL_INFO_ENTITY_NAME 
 		andPredicate:[MsgPredicateHelper markedForDeletion]];
 	for(EmailInfo *markedForDeletion  in msgsMarkedForDeletion)
 	{
@@ -208,17 +236,20 @@
 	
 	for(EmailInfo *markedForDeletion  in msgsMarkedForDeletion)
 	{
-		[self.appDataDmc deleteObject:markedForDeletion];
+		[connectionContext.syncDmc deleteObject:markedForDeletion];
 	}
 	
-	[self.appDataDmc saveContext];
-
 	[serverFoldersToExpunge release];
 	[folderByPath release];
-
 	
-	[self disconnect];
+	[self teardownConnection:connectionContext];
 
 }
+
+-(void)deleteMarkedMsgsInBackgroundThread
+{
+	[NSThread detachNewThreadSelector:@selector(deleteMarkedMsgsThread) toTarget:self withObject:nil];		
+}
+
 
 @end

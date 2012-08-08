@@ -35,12 +35,14 @@
 @synthesize appDmc;
 @synthesize window = _window;
 @synthesize tabBarController = _tabBarController;
+@synthesize mailSyncController;
 
 - (void)dealloc
 {
 	[_window release];
 	[_tabBarController release];
 	[appDmc release];
+	[mailSyncController release];
     [super dealloc];
 }
 
@@ -83,13 +85,6 @@
 
 }
 
--(void)retrieveEmails:(DataModelController*)appDataDmc
-{
-	MailClientServerSyncController *mailSync = [[[MailClientServerSyncController alloc] 
-			initWithDataModelController:appDataDmc] autorelease];
-	[mailSync syncWithServer];	
-}
-
 -(void)promptForEmailAcctInfoForDataModelController
 {
 
@@ -117,6 +112,16 @@
 
 }
 
+-(void)finishStartupWithDefinedEmailAcctSettings
+{
+	self.window.rootViewController = self.tabBarController;
+	
+    [self.window makeKeyAndVisible];
+	
+	[self.mailSyncController syncWithServerInBackgroundThread];
+	
+}
+
 -(void)genericAddViewSaveCompleteForObject:(NSManagedObject*)addedObject
 {
 
@@ -126,10 +131,10 @@
 	
 	// The first account becomes the current email account
 	sharedAppVals.currentEmailAcct = (EmailAccount*)addedObject;
-
-	self.window.rootViewController = self.tabBarController;
 	
-    [self.window makeKeyAndVisible];
+	[self.appDmc saveContext];
+	
+	[self finishStartupWithDefinedEmailAcctSettings];
 
 }
 
@@ -144,6 +149,8 @@
 		EmailAccount *firstAcct = [emailAccounts objectAtIndex:0];
 		assert(firstAcct != nil);
 		sharedVals.currentEmailAcct = firstAcct;
+		
+		[self.appDmc saveContext];
 	}
 }
 
@@ -159,9 +166,17 @@
     // Override point for customization after application launch.
 	
 	
+	// For the top level DataModelController(actually its underlying NSManagedObjectContext), the
+	// merge policy must be set to give priority to external changes. This is accounts for the scenario
+	// where changes are made in the separate thread for mail synchronization, but need to be merged
+	// back into this thread.
 	self.appDmc = [AppHelper appDataModelController];
+	[self.appDmc.managedObjectContext setMergePolicy:NSMergeByPropertyStoreTrumpMergePolicy];
 	
-	[self retrieveEmails:appDmc];
+	
+	self.mailSyncController = [[[MailClientServerSyncController alloc] 
+		initWithMainThreadDataModelController:self.appDmc] autorelease];
+	
 	
 	UIColor *navBarControllerColor = [ColorHelper navBarTintColor];
 	
@@ -221,10 +236,9 @@
 	else 
 	{
 		[self assignFirstEmailAccountToCurrentIfNotSelected];
-	
-		self.window.rootViewController = self.tabBarController;
 		
-		[self.window makeKeyAndVisible];
+		[self finishStartupWithDefinedEmailAcctSettings];
+
 	}
 	
 	return YES;

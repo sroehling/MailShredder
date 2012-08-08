@@ -124,12 +124,7 @@
 		TextFieldValidator *passwordValidator = [[[RegExpTextFieldValidator alloc] 
 			initWithValidationMsg:LOCALIZED_STR(@"EMAIL_ACCOUNT_PASSWORD_VALIDATION_MSG")
 			andPattern:passwordRegExPattern] autorelease];
-		NSString *keychainID = [NSString stringWithFormat:@"%@-%@",EMAIL_ACCOUNT_KEYCHAIN_PREFIX,
-		self.emailAccount.uniqueAcctID];
-		KeychainFieldInfo *passwordFieldInfo = [[[KeychainFieldInfo alloc] 
-			initWithFieldLabel:LOCALIZED_STR(@"EMAIL_ACCOUNT_PASSWORD_FIELD_LABEL")  
-			andFieldPlaceholder:LOCALIZED_STR(@"EMAIL_ACCOUNT_PASSWORD_PLACEHOLDER") 
-			andKeyChainID:keychainID andKeychainKey:kSecValueData] autorelease];
+		KeychainFieldInfo *passwordFieldInfo = [self.emailAccount passwordFieldInfo];		
 		TextFieldEditInfo *passwordFieldEditInfo = [[[TextFieldEditInfo alloc]
 			initWithFieldInfo:passwordFieldInfo andValidator:passwordValidator 
 			andSecureTextEntry:YES andAutoCorrection:UITextAutocorrectionTypeNo] autorelease];
