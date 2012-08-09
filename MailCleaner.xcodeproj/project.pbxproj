@@ -68,6 +68,9 @@
 		0098BCD4158BCCEC00C15243 /* EmailAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 0098BCD3158BCCEC00C15243 /* EmailAddress.m */; };
 		0098BCDB158BCD3000C15243 /* EmailAddressFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0098BCDA158BCD3000C15243 /* EmailAddressFilter.m */; };
 		009A092715BB4C0D0078880C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009A092615BB4C0D0078880C /* StoreKit.framework */; };
+		009CAD9415D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 009CAD9315D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.m */; };
+		009CAD9615D2F02900C2C19F /* 01-refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 009CAD9515D2F02900C2C19F /* 01-refresh.png */; };
+		009CAD9A15D2F80900C2C19F /* deleteMsgs.png in Resources */ = {isa = PBXBuildFile; fileRef = 009CAD9915D2F80900C2C19F /* deleteMsgs.png */; };
 		009E320A1567E4C500233276 /* AgeFilterFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */; };
 		00A6FB3E159A493200ED4D4B /* EmailDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB3D159A493200ED4D4B /* EmailDomain.m */; };
 		00A6FB41159A4C9F00ED4D4B /* EmailDomainFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB40159A4C9F00ED4D4B /* EmailDomainFilter.m */; };
@@ -231,6 +234,11 @@
 		0098BCD9158BCD3000C15243 /* EmailAddressFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddressFilter.h; sourceTree = "<group>"; };
 		0098BCDA158BCD3000C15243 /* EmailAddressFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddressFilter.m; sourceTree = "<group>"; };
 		009A092615BB4C0D0078880C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		009CAD9015D2D49A00C2C19F /* MailSyncProgressDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MailSyncProgressDelegate.h; sourceTree = "<group>"; };
+		009CAD9215D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompositeMailSyncProgressDelegate.h; sourceTree = "<group>"; };
+		009CAD9315D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompositeMailSyncProgressDelegate.m; sourceTree = "<group>"; };
+		009CAD9515D2F02900C2C19F /* 01-refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "01-refresh.png"; sourceTree = "<group>"; };
+		009CAD9915D2F80900C2C19F /* deleteMsgs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deleteMsgs.png; sourceTree = "<group>"; };
 		009E32081567E4C500233276 /* AgeFilterFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeFilterFieldEditInfo.h; sourceTree = "<group>"; };
 		009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgeFilterFieldEditInfo.m; sourceTree = "<group>"; };
 		00A6FB3C159A493200ED4D4B /* EmailDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailDomain.h; sourceTree = "<group>"; };
@@ -574,6 +582,8 @@
 		00472B1815ACA02000C6BC82 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				009CAD9915D2F80900C2C19F /* deleteMsgs.png */,
+				009CAD9515D2F02900C2C19F /* 01-refresh.png */,
 				0054D2E915ADF49D00270679 /* search.png */,
 				00394EFB156EFE00006C3AE5 /* msgActionButton.png */,
 				00F9A77D156EC66A00BB4C92 /* msgCheckbox.psd */,
@@ -695,10 +705,13 @@
 		00A8C31115838BB9006163EE /* Mail Sync */ = {
 			isa = PBXGroup;
 			children = (
+				009CAD9015D2D49A00C2C19F /* MailSyncProgressDelegate.h */,
 				004AA26315D1B3BA00BA76B0 /* MailSyncConnectionContext.h */,
 				004AA26415D1B3BA00BA76B0 /* MailSyncConnectionContext.m */,
 				00A8C31315838C1D006163EE /* MailClientServerSyncController.h */,
 				00A8C31415838C1D006163EE /* MailClientServerSyncController.m */,
+				009CAD9215D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.h */,
+				009CAD9315D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.m */,
 			);
 			name = "Mail Sync";
 			sourceTree = "<group>";
@@ -869,6 +882,8 @@
 				0054D2EA15ADF49D00270679 /* search.png in Resources */,
 				00C8971915AF3F0E0006FF2F /* about.md in Resources */,
 				00C8971B15AF40340006FF2F /* markdown.css in Resources */,
+				009CAD9615D2F02900C2C19F /* 01-refresh.png in Resources */,
+				009CAD9A15D2F80900C2C19F /* deleteMsgs.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -969,6 +984,7 @@
 				009106C015CC577700994F69 /* RecipientAddressFilter.m in Sources */,
 				009106C315CC582000994F69 /* FromAddressFilter.m in Sources */,
 				004AA26515D1B3BA00BA76B0 /* MailSyncConnectionContext.m in Sources */,
+				009CAD9415D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

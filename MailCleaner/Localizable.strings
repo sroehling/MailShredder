@@ -11,9 +11,10 @@
 "TRASH_VIEW_TITLE" = "Trash";
 "RULES_VIEW_TITLE" = "Rules";
 
-"MSGS_ACTION_BUTTON_TITLE" = "Actions";
 "MSGS_ACTION_UNSELECT_ALL" = "Unselect All";
 "MSGS_ACTION_SELECT_ALL" = "Select All";
+"MSGS_ACTION_LAST_UPDATED_FORMAT" = "Last Updated: %@";
+"MSGS_ACTION_UPDATING_STATUS_FORMAT" = "Updating ...";
 
 "MESSAGE_FILTER_TITLE" = "Message Filter";
 "MESSAGE_FILTER_FORM_SUBHEADER_TEXT" = "The parameters below configure which messages are shown in the message list. A message must match all the parameters to be shown.";

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "MailSyncProgressDelegate.h"
+
 @class DataModelController;
 @class EmailAccount;
 
@@ -15,11 +17,14 @@
 {
 	@private
 		DataModelController *mainThreadDmc;
+		id<MailSyncProgressDelegate> progressDelegate;
 }
 
 @property(nonatomic,retain) DataModelController *mainThreadDmc;
+@property(nonatomic,assign) id<MailSyncProgressDelegate> progressDelegate;
 
--(id)initWithMainThreadDataModelController:(DataModelController*)theMainThreadDmc;
+-(id)initWithMainThreadDataModelController:(DataModelController*)theMainThreadDmc
+	andProgressDelegate:(id<MailSyncProgressDelegate>)theProgressDelegate;
 
 -(void)syncWithServerInBackgroundThread;
 -(void)deleteMarkedMsgsInBackgroundThread;

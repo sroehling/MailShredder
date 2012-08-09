@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class DataModelController;
+@class AppDelegate;
 
 @interface AppHelper : NSObject
 
@@ -17,6 +18,7 @@ extern NSString * const APP_DATA_STORE_NAME;
 
 
 +(DataModelController*)appDataModelController;
++(AppDelegate*)theAppDelegate;
 
 
 @end

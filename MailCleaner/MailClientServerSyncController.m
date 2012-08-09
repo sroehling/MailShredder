@@ -21,18 +21,24 @@
 #import "SharedAppVals.h"
 #import "MailSyncConnectionContext.h"
 
+#define SYNC_PROGRESS_UPDATE_THRESHOLD 0.05
 
 @implementation MailClientServerSyncController
 
 @synthesize mainThreadDmc;
+@synthesize progressDelegate;
 
 -(id)initWithMainThreadDataModelController:(DataModelController*)theMainThreadDmc
+	andProgressDelegate:(id<MailSyncProgressDelegate>)theProgressDelegate
 {
 	self = [super init];
 	if(self)
 	{		
 		assert(theMainThreadDmc != nil);
 		self.mainThreadDmc = theMainThreadDmc;
+		
+		assert(theProgressDelegate != nil);
+		self.progressDelegate = theProgressDelegate;
 
 	}
 	return self;
@@ -102,14 +108,20 @@
 		selector:@selector(mailSyncThreadDidSaveNotificationHandler:)
 		name:NSManagedObjectContextDidSaveNotification 
 		object:connectionContext.syncDmc.managedObjectContext];
+		
+	[self.progressDelegate mailSyncConnectionStarted]; 	
 
 	[connectionContext connect];
+
+	[self.progressDelegate mailSyncConnectionEstablished];
 
 	return connectionContext;
 }
 
 -(void)teardownConnection:(MailSyncConnectionContext*)connectionContext
 {
+	[self.progressDelegate mailSyncConnectionTeardownStarted];
+
 	[connectionContext.syncDmc saveContext];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self 
@@ -119,6 +131,8 @@
 	[connectionContext disconnect];
 							
 	[connectionContext release];
+	
+	[self.progressDelegate mailSyncConnectionTeardownFinished];
 
 }
 
@@ -206,6 +220,9 @@
 	
 	NSMutableSet *serverFoldersToExpunge = [[NSMutableSet alloc] init];
 		
+	CGFloat deleteProgress = 0.0;
+	NSUInteger numMsgsDeleted = 0;
+		
 	NSArray *msgsMarkedForDeletion = [connectionContext.syncDmc fetchObjectsForEntityName:EMAIL_INFO_ENTITY_NAME 
 		andPredicate:[MsgPredicateHelper markedForDeletion]];
 	for(EmailInfo *markedForDeletion  in msgsMarkedForDeletion)
@@ -222,6 +239,14 @@
 			CTCoreMessage *msgMarkedForDeletion = [msgFolder messageWithUID:markedForDeletion.messageId];
 			[msgFolder setFlags:CTFlagDeleted forMessage:msgMarkedForDeletion];
 			[serverFoldersToExpunge addObject:msgFolder];
+		}
+		
+		numMsgsDeleted ++;
+		CGFloat currentProgress = (CGFloat)numMsgsDeleted/((CGFloat)[msgsMarkedForDeletion count]);
+		if((currentProgress - deleteProgress) >= SYNC_PROGRESS_UPDATE_THRESHOLD)
+		{
+			deleteProgress = currentProgress;
+			[self.progressDelegate mailSyncUpdateProgress:deleteProgress];
 		}
 			
 	}

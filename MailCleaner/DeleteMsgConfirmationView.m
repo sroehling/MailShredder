@@ -15,6 +15,7 @@
 #import "MailClientServerSyncController.h"
 #import "DataModelController.h"
 #import "AppDelegate.h"
+#import "AppHelper.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -255,8 +256,7 @@ const CGFloat DELETE_CONFIRMATION_BOTTOM_MARGIN = 10.0f;
 		}
 		[self.appDmc saveContext];
 		
-		AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-		assert(appDelegate != nil);
+		AppDelegate *appDelegate = [AppHelper theAppDelegate];
 		[appDelegate.mailSyncController deleteMarkedMsgsInBackgroundThread];
 		
 

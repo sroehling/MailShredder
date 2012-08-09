@@ -12,6 +12,7 @@
 
 @class DataModelController;
 @class MailClientServerSyncController;
+@class CompositeMailSyncProgressDelegate;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate,
 			GenericTableAddViewSaveCompleteDelegate>
@@ -19,7 +20,7 @@
 	@private
 		DataModelController *appDmc;
 		MailClientServerSyncController *mailSyncController;
-		
+		CompositeMailSyncProgressDelegate *mailSyncProgressDelegates;
 }
 
 @property (strong, nonatomic) UIWindow *window;
@@ -27,5 +28,6 @@
 
 @property(nonatomic,retain) DataModelController *appDmc;
 @property(nonatomic,retain) MailClientServerSyncController *mailSyncController;
+@property(nonatomic,retain) CompositeMailSyncProgressDelegate *mailSyncProgressDelegates;
 
 @end

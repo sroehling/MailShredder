@@ -24,6 +24,7 @@
 #import "ColorHelper.h"
 
 #import "RuleSelectionListFormInfoCreator.h"
+#import "CompositeMailSyncProgressDelegate.h"
 
 #import "EmailAccount.h"
 #import "EmailAccountFormInfoCreator.h"
@@ -36,6 +37,7 @@
 @synthesize window = _window;
 @synthesize tabBarController = _tabBarController;
 @synthesize mailSyncController;
+@synthesize mailSyncProgressDelegates;
 
 - (void)dealloc
 {
@@ -43,6 +45,7 @@
 	[_tabBarController release];
 	[appDmc release];
 	[mailSyncController release];
+	[mailSyncProgressDelegates release];
     [super dealloc];
 }
 
@@ -174,8 +177,10 @@
 	[self.appDmc.managedObjectContext setMergePolicy:NSMergeByPropertyStoreTrumpMergePolicy];
 	
 	
+	self.mailSyncProgressDelegates = [[[CompositeMailSyncProgressDelegate alloc] init] autorelease];
 	self.mailSyncController = [[[MailClientServerSyncController alloc] 
-		initWithMainThreadDataModelController:self.appDmc] autorelease];
+		initWithMainThreadDataModelController:self.appDmc
+		andProgressDelegate:self.mailSyncProgressDelegates] autorelease];
 	
 	
 	UIColor *navBarControllerColor = [ColorHelper navBarTintColor];

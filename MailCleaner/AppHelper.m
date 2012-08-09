@@ -9,6 +9,7 @@
 #import "AppHelper.h"
 
 #import "DataModelController.h"
+#import "AppDelegate.h"
 
 NSString * const APP_DATA_DATA_MODEL_NAME = @"AppData";
 NSString * const APP_DATA_STORE_NAME = @"AppData.sqlite";
@@ -23,6 +24,13 @@ NSString * const APP_DATA_STORE_NAME = @"AppData.sqlite";
 			initForDatabaseUsageWithDataModelNamed:APP_DATA_DATA_MODEL_NAME
 			andStoreNamed:APP_DATA_STORE_NAME] autorelease];
 	return appDmc;
+}
+
++(AppDelegate*)theAppDelegate
+{
+	AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+	assert(appDelegate != nil);
+	return appDelegate;	
 }
 
 

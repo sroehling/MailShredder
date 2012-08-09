@@ -19,6 +19,9 @@
 #import "UIHelper.h"
 #import "MailClientServerSyncController.h"
 #import "ButtonListItemInfo.h"
+#import "AppDelegate.h"
+#import "AppHelper.h"
+#import "CompositeMailSyncProgressDelegate.h"
 #import "DeleteMsgConfirmationView.h"
 
 
@@ -252,6 +255,14 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+
+	// Register the footer view for progress updates when the mail synchronization
+	// takes place.
+	AppDelegate *appDelegate = [AppHelper theAppDelegate];
+	assert(appDelegate.mailSyncProgressDelegates != nil);
+	[appDelegate.mailSyncProgressDelegates addSubDelegate:self.msgListView.msgListActionFooter];
+
+
 	// If the filter has changed (and the view is appearing because of a return
 	// from editig the filter), the changes need to be saved, and the fetched results
 	// controller needs to be reconfigured.
@@ -262,6 +273,16 @@
 	[self configureFetchedResultsController];
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+
+	// De-register the footer view for progress updates when the mail synchronization
+	// takes place.
+	AppDelegate *appDelegate = [AppHelper theAppDelegate];
+	assert(appDelegate.mailSyncProgressDelegates != nil);
+	[appDelegate.mailSyncProgressDelegates removeSubDelegate:self.msgListView.msgListActionFooter];	
+}
 
 - (void)viewDidUnload 
 {

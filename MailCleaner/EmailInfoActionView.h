@@ -8,22 +8,32 @@
 
 #import <UIKit/UIKit.h>
 
-extern const NSInteger EMAIL_ACTION_VIEW_HEIGHT;
+#import "MailSyncProgressDelegate.h"
+
+extern const CGFloat EMAIL_ACTION_VIEW_HEIGHT;
 
 @protocol EmailActionViewDelegate;
 
-@interface EmailInfoActionView : UIView
+@interface EmailInfoActionView : UIView <MailSyncProgressDelegate>
 {
 	@private
 		UIButton *emailActionsButton;
 		UIButton *unselectAllButton;
 		UIButton *selectAllButton;
+		UIButton *refreshMsgsButton;
+		
+		UIActivityIndicatorView *refeshActivityIndicator;
+		UILabel *statusLabel;
+		
 		id<EmailActionViewDelegate> delegate;
 }
 
 @property(nonatomic,retain) UIButton *emailActionsButton;
 @property(nonatomic,retain) UIButton *selectAllButton;
 @property(nonatomic,retain) UIButton *unselectAllButton;
+@property(nonatomic,retain) UIButton *refreshMsgsButton;
+@property(nonatomic,retain) UIActivityIndicatorView *refeshActivityIndicator;
+@property(nonatomic,retain) UILabel *statusLabel;
 
 @property(nonatomic,assign) id<EmailActionViewDelegate> delegate;
 
