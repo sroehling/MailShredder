@@ -13,6 +13,9 @@
 #import "AppHelper.h"
 #import "AppDelegate.h"
 #import "MailClientServerSyncController.h"
+#import "SharedAppVals.h"
+#import "EmailAccount.h"
+#import "DateHelper.h"
 
 const CGFloat EMAIL_ACTION_VIEW_HEIGHT = 45.0;
 const CGFloat EMAIL_ACTION_VIEW_TOP_ROW_VERT_CENTER = 15.0;
@@ -36,8 +39,19 @@ const CGFloat ACTION_BUTTON_SPACE = 5.0f;
 
 -(NSString*)lastUpdatedStatus
 {
+	EmailAccount *currAcct = [AppHelper theAppDelegate].sharedAppVals.currentEmailAcct;
+	if(currAcct != nil)
+	{
+		[currAcct.managedObjectContext refreshObject:currAcct mergeChanges:TRUE];
+		if(currAcct.lastSync != nil)
+		{
+			return [NSString stringWithFormat:LOCALIZED_STR(@"MSGS_ACTION_LAST_UPDATED_FORMAT"),
+				[[DateHelper theHelper].longDateFormatter stringFromDate:currAcct.lastSync]];
+		}
+	}
 	return [NSString stringWithFormat:LOCALIZED_STR(@"MSGS_ACTION_LAST_UPDATED_FORMAT"),
-		@"TBD"];;
+				LOCALIZED_STR(@"MSGS_ACTION_LAST_UPDATED_NEVER")];
+
 }
 
 -(id)init
@@ -193,6 +207,11 @@ const CGFloat ACTION_BUTTON_SPACE = 5.0f;
 	[self.refeshActivityIndicator setHidden:FALSE];
 	[self.refreshMsgsButton setHidden:TRUE];
 	[self.refeshActivityIndicator startAnimating];	
+	self.statusLabel.text = LOCALIZED_STR(@"MSGS_ACTION_CONNECTING_STATUS");
+}
+
+-(void)startingUpdateStatus
+{
 	self.statusLabel.text = LOCALIZED_STR(@"MSGS_ACTION_UPDATING_STATUS_FORMAT");
 }
 
@@ -214,6 +233,8 @@ const CGFloat ACTION_BUTTON_SPACE = 5.0f;
 
 -(void)mailSyncConnectionEstablished
 {
+	[self performSelectorOnMainThread:@selector(startingUpdateStatus) 
+		withObject:self waitUntilDone:FALSE];
 }
 
 -(void)mailSyncUpdateProgress:(CGFloat)percentProgress
@@ -226,12 +247,15 @@ const CGFloat ACTION_BUTTON_SPACE = 5.0f;
 
 -(void)mailSyncConnectionTeardownFinished
 {
+}
+
+-(void)mailSyncComplete:(BOOL)successfulCompletion
+{
 	NSLog(@"mail sync teardown finished in EmailActionView");
 	// The UI updates need to be performedon the main thread.
 	[self performSelectorOnMainThread:@selector(stopRefreshIndicator) 
 		withObject:self waitUntilDone:FALSE];
 }
-
 
 
 

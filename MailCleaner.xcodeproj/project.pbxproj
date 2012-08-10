@@ -708,10 +708,10 @@
 				009CAD9015D2D49A00C2C19F /* MailSyncProgressDelegate.h */,
 				004AA26315D1B3BA00BA76B0 /* MailSyncConnectionContext.h */,
 				004AA26415D1B3BA00BA76B0 /* MailSyncConnectionContext.m */,
-				00A8C31315838C1D006163EE /* MailClientServerSyncController.h */,
-				00A8C31415838C1D006163EE /* MailClientServerSyncController.m */,
 				009CAD9215D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.h */,
 				009CAD9315D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.m */,
+				00A8C31315838C1D006163EE /* MailClientServerSyncController.h */,
+				00A8C31415838C1D006163EE /* MailClientServerSyncController.m */,
 			);
 			name = "Mail Sync";
 			sourceTree = "<group>";

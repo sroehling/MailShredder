@@ -38,6 +38,7 @@
 @synthesize tabBarController = _tabBarController;
 @synthesize mailSyncController;
 @synthesize mailSyncProgressDelegates;
+@synthesize sharedAppVals;
 
 - (void)dealloc
 {
@@ -46,6 +47,7 @@
 	[appDmc release];
 	[mailSyncController release];
 	[mailSyncProgressDelegates release];
+	[sharedAppVals release];
     [super dealloc];
 }
 
@@ -115,6 +117,29 @@
 
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    if ([keyPath isEqual:SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY]) 
+	{
+		NSNumber *changeKind = (NSNumber*)[change objectForKey:NSKeyValueChangeKindKey];
+		if([changeKind integerValue] == NSKeyValueChangeSetting)
+		{
+			EmailAccount *oldAcct = (EmailAccount*)[change objectForKey:NSKeyValueChangeOldKey];
+			EmailAccount *newAcct = (EmailAccount*)[change objectForKey:NSKeyValueChangeNewKey];
+			if(oldAcct != newAcct)
+			{
+				NSLog(@"Current email account changed: Synchronizing messages");
+				[self.mailSyncController syncWithServerInBackgroundThread];
+			}
+		}
+
+
+    }
+}
+
 -(void)finishStartupWithDefinedEmailAcctSettings
 {
 	self.window.rootViewController = self.tabBarController;
@@ -123,17 +148,20 @@
 	
 	[self.mailSyncController syncWithServerInBackgroundThread];
 	
+	// If the currently selected email account changes, then update re-sync the email
+	// messages.
+	[self.sharedAppVals addObserver:self forKeyPath:SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY 
+			options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+	
 }
 
 -(void)genericAddViewSaveCompleteForObject:(NSManagedObject*)addedObject
 {
 
 	assert([addedObject isKindOfClass:[EmailAccount class]]);
-	
-	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
-	
+		
 	// The first account becomes the current email account
-	sharedAppVals.currentEmailAcct = (EmailAccount*)addedObject;
+	self.sharedAppVals.currentEmailAcct = (EmailAccount*)addedObject;
 	
 	[self.appDmc saveContext];
 	
@@ -145,13 +173,12 @@
 {
 	// If the currentEmailAcct isn't set when the first EmailAccount is created, go 
 	// ahead and set it here.
-	SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:self.appDmc];
-	if(sharedVals.currentEmailAcct == nil)
+	if(self.sharedAppVals.currentEmailAcct == nil)
 	{
 		NSArray *emailAccounts = [[self.appDmc fetchObjectsForEntityName:EMAIL_ACCOUNT_ENTITY_NAME] allObjects];
 		EmailAccount *firstAcct = [emailAccounts objectAtIndex:0];
 		assert(firstAcct != nil);
-		sharedVals.currentEmailAcct = firstAcct;
+		self.sharedAppVals.currentEmailAcct = firstAcct;
 		
 		[self.appDmc saveContext];
 	}
@@ -174,6 +201,7 @@
 	// where changes are made in the separate thread for mail synchronization, but need to be merged
 	// back into this thread.
 	self.appDmc = [AppHelper appDataModelController];
+	self.sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
 	[self.appDmc.managedObjectContext setMergePolicy:NSMergeByPropertyStoreTrumpMergePolicy];
 	
 	
@@ -275,6 +303,7 @@
 {
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
 
 
 @end

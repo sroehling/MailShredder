@@ -25,6 +25,7 @@
         <attribute name="acctName" attributeType="String" syncable="YES"/>
         <attribute name="emailAddress" attributeType="String" syncable="YES"/>
         <attribute name="imapServer" attributeType="String" syncable="YES"/>
+        <attribute name="lastSync" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="portNumber" attributeType="Integer 32" defaultValueString="143" syncable="YES"/>
         <attribute name="uniqueAcctID" attributeType="String" syncable="YES"/>
         <attribute name="userName" attributeType="String" syncable="YES"/>
@@ -119,7 +120,7 @@
         <element name="AgeFilter" positionX="160" positionY="192" width="128" height="75"/>
         <element name="AgeFilterComparison" positionX="160" positionY="192" width="128" height="225"/>
         <element name="AgeFilterNone" positionX="160" positionY="192" width="128" height="60"/>
-        <element name="EmailAccount" positionX="160" positionY="192" width="128" height="150"/>
+        <element name="EmailAccount" positionX="160" positionY="192" width="128" height="180"/>
         <element name="EmailAddress" positionX="160" positionY="192" width="128" height="105"/>
         <element name="EmailAddressFilter" positionX="160" positionY="192" width="128" height="105"/>
         <element name="EmailDomain" positionX="160" positionY="192" width="128" height="75"/>

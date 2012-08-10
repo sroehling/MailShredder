@@ -38,6 +38,7 @@ NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX = @"EmailAccountLoginInfo";
 @dynamic portNumber;
 @dynamic uniqueAcctID;
 @dynamic sharedAppValsCurrentEmailAcct;
+@dynamic lastSync;
 
 @synthesize isSelectedForSelectableObjectTableView;
 

@@ -40,6 +40,11 @@ extern NSString * const EMAIL_ACCOUNT_UNIQUEACCTID_KEY;
 @property (nonatomic, retain) NSString * userName;
 @property (nonatomic, retain) NSNumber * useSSL;
 @property (nonatomic, retain) NSNumber * portNumber;
+
+// The last time a successful synchronization with the 
+// server took place. This is displaying status in the UI.
+@property (nonatomic, retain) NSDate * lastSync;
+
 @property BOOL isSelectedForSelectableObjectTableView;
 
 

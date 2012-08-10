@@ -11,6 +11,7 @@
 #import "GenericFieldBasedTableAddViewController.h"
 
 @class DataModelController;
+@class SharedAppVals;
 @class MailClientServerSyncController;
 @class CompositeMailSyncProgressDelegate;
 
@@ -19,6 +20,7 @@
 {
 	@private
 		DataModelController *appDmc;
+		SharedAppVals *sharedAppVals;
 		MailClientServerSyncController *mailSyncController;
 		CompositeMailSyncProgressDelegate *mailSyncProgressDelegates;
 }
@@ -27,6 +29,7 @@
 @property (strong, nonatomic) UITabBarController *tabBarController;
 
 @property(nonatomic,retain) DataModelController *appDmc;
+@property(nonatomic,retain) SharedAppVals *sharedAppVals;
 @property(nonatomic,retain) MailClientServerSyncController *mailSyncController;
 @property(nonatomic,retain) CompositeMailSyncProgressDelegate *mailSyncProgressDelegates;
 

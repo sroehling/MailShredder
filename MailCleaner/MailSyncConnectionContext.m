@@ -11,13 +11,15 @@
 #import "EmailAccount.h"
 #import "KeychainFieldInfo.h"
 #import "AppHelper.h"
+#import "DataModelController.h"
 
 @implementation MailSyncConnectionContext
 
 @synthesize syncDmc;
 @synthesize mailAcct;
+@synthesize emailAcctInfo;
 
--(id)init
+-(id)initWithMainThreadDmc:(DataModelController*)mainThreadDmc
 {
 	self = [super init];
 	if(self)
@@ -28,10 +30,24 @@
 		// Objects need to be allocated and deallocated in the same thread, since release pools
 		// are thread specific.
 
-		self.syncDmc = [AppHelper appDataModelController];
+		self.syncDmc = [[[DataModelController alloc] 
+			initWithPersistentStoreCoord:mainThreadDmc.managedObjectContext.persistentStoreCoordinator] autorelease];
+		
+		
 		self.mailAcct = [[CTCoreAccount alloc] init];
+		SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:self.syncDmc];
+		assert(sharedVals.currentEmailAcct != nil);
+
+		self.emailAcctInfo = sharedVals.currentEmailAcct;
+
 	}
 	return self;
+}
+
+-(id)init
+{
+	assert(0);
+	return nil;
 }
 
 
@@ -39,27 +55,23 @@
 {
 	self.mailAcct = [[CTCoreAccount alloc] init];
 	
-	SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:self.syncDmc];
-	assert(sharedVals.currentEmailAcct != nil);
-
-	EmailAccount *currentAcctSettings = sharedVals.currentEmailAcct;
 	
-	int connectionType = [currentAcctSettings.useSSL boolValue]?
+	int connectionType = [self.emailAcctInfo .useSSL boolValue]?
 		CONNECTION_TYPE_TLS:CONNECTION_TYPE_PLAIN;
 		
-	KeychainFieldInfo *passwordFieldInfo = [currentAcctSettings passwordFieldInfo];
+	KeychainFieldInfo *passwordFieldInfo = [self.emailAcctInfo  passwordFieldInfo];
 	NSString *password = (NSString*)[passwordFieldInfo getFieldValue];
 	
 	NSLog(@"Mail connection: server=%@, login=%@, pass=%@",
-		currentAcctSettings.imapServer,
-		currentAcctSettings.userName,
+		self.emailAcctInfo .imapServer,
+		self.emailAcctInfo .userName,
 		password);
 	
-	[self.mailAcct connectToServer:currentAcctSettings.imapServer 
-		port:[currentAcctSettings.portNumber intValue]
+	[self.mailAcct connectToServer:self.emailAcctInfo .imapServer 
+		port:[self.emailAcctInfo .portNumber intValue]
 		connectionType:connectionType
 		authType:IMAP_AUTH_TYPE_PLAIN 
-		login:currentAcctSettings.userName
+		login:self.emailAcctInfo.userName
 		password:password]; 
 	
 }
@@ -78,6 +90,7 @@
 {
 	[syncDmc release];
 	[mailAcct release];
+	[emailAcctInfo release];
 	[super dealloc];
 }
 

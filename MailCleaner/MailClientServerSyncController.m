@@ -20,6 +20,7 @@
 #import "KeychainFieldInfo.h"
 #import "SharedAppVals.h"
 #import "MailSyncConnectionContext.h"
+#import "LocalizationHelper.h"
 
 #define SYNC_PROGRESS_UPDATE_THRESHOLD 0.05
 
@@ -100,22 +101,48 @@
 
 }
 
--(MailSyncConnectionContext*)establishConnection
+-(MailSyncConnectionContext *)setupConnectionContext
 {
-	MailSyncConnectionContext *connectionContext = [[MailSyncConnectionContext alloc] init];
+	MailSyncConnectionContext *connectionContext = [[MailSyncConnectionContext alloc] 
+		initWithMainThreadDmc:self.mainThreadDmc];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self 
 		selector:@selector(mailSyncThreadDidSaveNotificationHandler:)
 		name:NSManagedObjectContextDidSaveNotification 
 		object:connectionContext.syncDmc.managedObjectContext];
-		
-	[self.progressDelegate mailSyncConnectionStarted]; 	
-
-	[connectionContext connect];
-
-	[self.progressDelegate mailSyncConnectionEstablished];
 
 	return connectionContext;
+}
+
+-(void)teardownConnectionContext:(MailSyncConnectionContext*)connectionContext
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self 
+			name:NSManagedObjectContextDidSaveNotification 
+			object:connectionContext.syncDmc.managedObjectContext];
+	[connectionContext release];
+}
+
+-(MailSyncConnectionContext*)establishConnection
+{
+	MailSyncConnectionContext *connectionContext = [self setupConnectionContext];
+		
+	[self.progressDelegate mailSyncConnectionStarted]; 
+	
+	@try
+	{
+    	[connectionContext connect];
+		
+		[self.progressDelegate mailSyncConnectionEstablished];
+
+		return connectionContext;
+
+	}
+	@catch (NSException *exception) 
+	{
+		NSLog(@"Connection error");
+		[self teardownConnectionContext:connectionContext];
+		return nil;
+	}
 }
 
 -(void)teardownConnection:(MailSyncConnectionContext*)connectionContext
@@ -123,24 +150,17 @@
 	[self.progressDelegate mailSyncConnectionTeardownStarted];
 
 	[connectionContext.syncDmc saveContext];
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self 
-			name:NSManagedObjectContextDidSaveNotification 
-			object:connectionContext.syncDmc.managedObjectContext];
-	
+		
 	[connectionContext disconnect];
-							
-	[connectionContext release];
-	
+		
+	[self teardownConnectionContext:connectionContext];						
+																	
 	[self.progressDelegate mailSyncConnectionTeardownFinished];
 
 }
 
--(void)syncWithServerThread
+-(void)syncMsgs:(MailSyncConnectionContext *)connectionContext
 {
-
-	MailSyncConnectionContext *connectionContext = [self establishConnection];
-	
 	NSMutableDictionary *currEmailAddressByAddress = [EmailAddress addressesByName:connectionContext.syncDmc];
 	NSMutableDictionary *currDomainByDomainName = [EmailDomain emailDomainsByDomainName:connectionContext.syncDmc];
 	NSMutableDictionary *currFolderByFolderName = [EmailFolder foldersByName:connectionContext.syncDmc];
@@ -161,7 +181,6 @@
 		NSLog(@"%@: Processing folder",folderName);
 		CTCoreFolder *currFolder = [connectionContext.mailAcct folderWithPath:folderName];
 		
-
 		EmailFolder *emailFolder = [EmailFolder findOrAddFolder:currFolder.path inExistingFolders:currFolderByFolderName 
 			withDataModelController:connectionContext.syncDmc];
 		
@@ -196,8 +215,43 @@
 
 	NSLog(@"Done synchronizing messages: new msgs = %d, total server msgs = %d",
 		numNewMsgs, totalMsgs);
+
+}
+
+-(void)syncFailedAlert
+{
+		UIAlertView *syncFailedAlert = [[[UIAlertView alloc] initWithTitle:
+				LOCALIZED_STR(@"MESSAGE_SYNC_FAILURE_ALERT_TITLE")
+			message:LOCALIZED_STR(@"MESSAGE_SYNC_FAILURE_ALERT_MSG") delegate:self 
+			cancelButtonTitle:LOCALIZED_STR(@"MESSAGE_SYNC_FAILURE_ALERT_BUTTON_TITLE") 
+			otherButtonTitles:nil] autorelease];
+		[syncFailedAlert show];
+}
+
+-(void)syncWithServerThread
+{
+	MailSyncConnectionContext *connectionContext = [self establishConnection];
+	
+	if(connectionContext != nil)
+	{
+		[self syncMsgs:connectionContext];
 		
-	[self teardownConnection:connectionContext];
+		connectionContext.emailAcctInfo.lastSync = [NSDate date];
+			
+		[self teardownConnection:connectionContext];
+
+		[self.progressDelegate mailSyncComplete:TRUE];
+
+	}
+	else 
+	{
+		[self performSelectorOnMainThread:@selector(syncFailedAlert) 
+			withObject:self waitUntilDone:FALSE];
+	
+		[self.progressDelegate mailSyncComplete:FALSE];
+		
+	}
+	
 }
 
 -(void)syncWithServerInBackgroundThread
@@ -205,11 +259,8 @@
 	[NSThread detachNewThreadSelector:@selector(syncWithServerThread) toTarget:self withObject:nil];		
 }
 
--(void)deleteMarkedMsgsThread
+-(void)deleteMarkedMsgs:(MailSyncConnectionContext*)connectionContext
 {
-
-	MailSyncConnectionContext *connectionContext = [self establishConnection];	
-	
 	NSSet *allFolders = [connectionContext.mailAcct allFolders];
 	NSMutableDictionary *folderByPath = [[NSMutableDictionary alloc] init];
 	for (NSString *folderName in allFolders)
@@ -266,9 +317,28 @@
 	
 	[serverFoldersToExpunge release];
 	[folderByPath release];
-	
-	[self teardownConnection:connectionContext];
 
+}
+
+-(void)deleteMarkedMsgsThread
+{
+
+	MailSyncConnectionContext *connectionContext = [self establishConnection];	
+	
+	if(connectionContext != nil)
+	{
+		[self deleteMarkedMsgs:connectionContext];
+		[self teardownConnection:connectionContext];
+		[self.progressDelegate mailSyncComplete:TRUE];
+	}
+	else 
+	{
+		[self performSelectorOnMainThread:@selector(syncFailedAlert) 
+			withObject:self waitUntilDone:FALSE];
+
+		[self.progressDelegate mailSyncComplete:FALSE];
+	}
+	
 }
 
 -(void)deleteMarkedMsgsInBackgroundThread

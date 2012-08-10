@@ -73,6 +73,13 @@
 	}
 }
 
+-(void)mailSyncComplete:(BOOL)successfulCompletion
+{
+	for(id<MailSyncProgressDelegate> subDelegate in self.subDelegates)
+	{
+		[subDelegate mailSyncComplete:successfulCompletion];
+	}
+}
 
 -(void)dealloc
 {

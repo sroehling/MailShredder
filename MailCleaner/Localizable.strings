@@ -14,7 +14,13 @@
 "MSGS_ACTION_UNSELECT_ALL" = "Unselect All";
 "MSGS_ACTION_SELECT_ALL" = "Select All";
 "MSGS_ACTION_LAST_UPDATED_FORMAT" = "Last Updated: %@";
+"MSGS_ACTION_CONNECTING_STATUS" = "Connecting ...";
 "MSGS_ACTION_UPDATING_STATUS_FORMAT" = "Updating ...";
+"MSGS_ACTION_LAST_UPDATED_NEVER" = "None";
+
+"MESSAGE_SYNC_FAILURE_ALERT_TITLE" = "Failure Connecting to Email Account";
+"MESSAGE_SYNC_FAILURE_ALERT_MSG" = "There was a failure connecting to the current email account. Double-check the email account settings and your internet connection then try again.";
+"MESSAGE_SYNC_FAILURE_ALERT_BUTTON_TITLE" = "Ok";
 
 "MESSAGE_FILTER_TITLE" = "Message Filter";
 "MESSAGE_FILTER_FORM_SUBHEADER_TEXT" = "The parameters below configure which messages are shown in the message list. A message must match all the parameters to be shown.";

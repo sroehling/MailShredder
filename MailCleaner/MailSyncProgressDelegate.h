@@ -17,5 +17,6 @@
 
 -(void)mailSyncConnectionTeardownStarted;
 -(void)mailSyncConnectionTeardownFinished;
+-(void)mailSyncComplete:(BOOL)successfulCompletion;
 
 @end

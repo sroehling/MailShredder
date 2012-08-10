@@ -10,18 +10,23 @@
 
 @class DataModelController;
 @class CTCoreAccount;
+@class EmailAccount;
 
 @interface MailSyncConnectionContext : NSObject
 {
 	@private
 		DataModelController *syncDmc;
 		CTCoreAccount *mailAcct;
+		EmailAccount *emailAcctInfo;
 }
 
 @property(nonatomic,retain) DataModelController *syncDmc;
 @property(nonatomic,retain) CTCoreAccount *mailAcct;
+@property(nonatomic,retain) EmailAccount *emailAcctInfo;
 
 -(void)connect;
 -(void)disconnect;
+
+-(id)initWithMainThreadDmc:(DataModelController*)mainThreadDmc;
 
 @end
