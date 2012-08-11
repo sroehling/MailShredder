@@ -60,9 +60,12 @@
 		006D6675156E8E2500074979 /* MsgTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 006D6674156E8E2500074979 /* MsgTableCell.m */; };
 		006D6678156E9DAB00074979 /* unselectedMsgCheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 006D6676156E9DAA00074979 /* unselectedMsgCheckbox.png */; };
 		006D6679156E9DAB00074979 /* selectedMsgCheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 006D6677156E9DAB00074979 /* selectedMsgCheckbox.png */; };
+		00707D7315D59AB700DC8DA5 /* MailOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00707D7215D59AB700DC8DA5 /* MailOperation.m */; };
+		00707D7715D59B9B00DC8DA5 /* MailDeleteOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00707D7615D59B9B00DC8DA5 /* MailDeleteOperation.m */; };
 		007ABE8F156ACADE004BA8BF /* dummyEmails.txt in Resources */ = {isa = PBXBuildFile; fileRef = 003D59911564028200AD3D91 /* dummyEmails.txt */; };
 		008129E515B75D0D00533E36 /* TrashMsgListViewInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 008129E415B75D0D00533E36 /* TrashMsgListViewInfo.m */; };
 		008129EB15B8ABED00533E36 /* DeleteMsgConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008129EA15B8ABED00533E36 /* DeleteMsgConfirmationView.m */; };
+		008FE31115D57D860066A75D /* MailSyncOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 008FE31015D57D850066A75D /* MailSyncOperation.m */; };
 		009106C015CC577700994F69 /* RecipientAddressFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 009106BF15CC577700994F69 /* RecipientAddressFilter.m */; };
 		009106C315CC582000994F69 /* FromAddressFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 009106C215CC582000994F69 /* FromAddressFilter.m */; };
 		0098BCD4158BCCEC00C15243 /* EmailAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 0098BCD3158BCCEC00C15243 /* EmailAddress.m */; };
@@ -220,11 +223,17 @@
 		006D6674156E8E2500074979 /* MsgTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgTableCell.m; sourceTree = "<group>"; };
 		006D6676156E9DAA00074979 /* unselectedMsgCheckbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselectedMsgCheckbox.png; sourceTree = "<group>"; };
 		006D6677156E9DAB00074979 /* selectedMsgCheckbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectedMsgCheckbox.png; sourceTree = "<group>"; };
+		00707D7115D59AB700DC8DA5 /* MailOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailOperation.h; sourceTree = "<group>"; };
+		00707D7215D59AB700DC8DA5 /* MailOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailOperation.m; sourceTree = "<group>"; };
+		00707D7515D59B9B00DC8DA5 /* MailDeleteOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailDeleteOperation.h; sourceTree = "<group>"; };
+		00707D7615D59B9B00DC8DA5 /* MailDeleteOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailDeleteOperation.m; sourceTree = "<group>"; };
 		007ABE8B156AB618004BA8BF /* MailCleanerSpec.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MailCleanerSpec.md; sourceTree = "<group>"; };
 		008129E315B75D0D00533E36 /* TrashMsgListViewInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrashMsgListViewInfo.h; sourceTree = "<group>"; };
 		008129E415B75D0D00533E36 /* TrashMsgListViewInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrashMsgListViewInfo.m; sourceTree = "<group>"; };
 		008129E915B8ABEC00533E36 /* DeleteMsgConfirmationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteMsgConfirmationView.h; sourceTree = "<group>"; };
 		008129EA15B8ABED00533E36 /* DeleteMsgConfirmationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteMsgConfirmationView.m; sourceTree = "<group>"; };
+		008FE30F15D57D850066A75D /* MailSyncOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailSyncOperation.h; sourceTree = "<group>"; };
+		008FE31015D57D850066A75D /* MailSyncOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailSyncOperation.m; sourceTree = "<group>"; };
 		009106BE15CC577700994F69 /* RecipientAddressFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipientAddressFilter.h; sourceTree = "<group>"; };
 		009106BF15CC577700994F69 /* RecipientAddressFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipientAddressFilter.m; sourceTree = "<group>"; };
 		009106C115CC582000994F69 /* FromAddressFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FromAddressFilter.h; sourceTree = "<group>"; };
@@ -705,6 +714,12 @@
 		00A8C31115838BB9006163EE /* Mail Sync */ = {
 			isa = PBXGroup;
 			children = (
+				00707D7115D59AB700DC8DA5 /* MailOperation.h */,
+				00707D7215D59AB700DC8DA5 /* MailOperation.m */,
+				008FE30F15D57D850066A75D /* MailSyncOperation.h */,
+				008FE31015D57D850066A75D /* MailSyncOperation.m */,
+				00707D7515D59B9B00DC8DA5 /* MailDeleteOperation.h */,
+				00707D7615D59B9B00DC8DA5 /* MailDeleteOperation.m */,
 				009CAD9015D2D49A00C2C19F /* MailSyncProgressDelegate.h */,
 				004AA26315D1B3BA00BA76B0 /* MailSyncConnectionContext.h */,
 				004AA26415D1B3BA00BA76B0 /* MailSyncConnectionContext.m */,
@@ -985,6 +1000,9 @@
 				009106C315CC582000994F69 /* FromAddressFilter.m in Sources */,
 				004AA26515D1B3BA00BA76B0 /* MailSyncConnectionContext.m in Sources */,
 				009CAD9415D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.m in Sources */,
+				008FE31115D57D860066A75D /* MailSyncOperation.m in Sources */,
+				00707D7315D59AB700DC8DA5 /* MailOperation.m in Sources */,
+				00707D7715D59B9B00DC8DA5 /* MailDeleteOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,8 +18,10 @@
 	@private
 		DataModelController *mainThreadDmc;
 		id<MailSyncProgressDelegate> progressDelegate;
+		NSOperationQueue *mailServerOperationQueue;
 }
 
+@property(nonatomic,retain) NSOperationQueue *mailServerOperationQueue;
 @property(nonatomic,retain) DataModelController *mainThreadDmc;
 @property(nonatomic,assign) id<MailSyncProgressDelegate> progressDelegate;
 

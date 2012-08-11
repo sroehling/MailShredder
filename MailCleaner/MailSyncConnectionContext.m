@@ -16,29 +16,50 @@
 @implementation MailSyncConnectionContext
 
 @synthesize syncDmc;
+@synthesize mainThreadDmc;
+@synthesize progressDelegate;
 @synthesize mailAcct;
 @synthesize emailAcctInfo;
 
--(id)initWithMainThreadDmc:(DataModelController*)mainThreadDmc
+- (void)mailSyncThreadDidSaveNotificationHandler:(NSNotification *)notification
+{
+    // This method is invoked as a subscriber/call-back for saves the to NSManagedObjectContext
+	// used to synchronize the email information on a dedicated thread. This will in turn 
+	// trigger the main thread to perform updates on to the appropriate NSFetchedResultsControllers,
+	// table views, etc.
+    [self.mainThreadDmc.managedObjectContext 
+		performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) 
+		withObject:notification waitUntilDone:NO];
+
+}
+
+
+-(id)initWithMainThreadDmc:(DataModelController*)theMainThreadDmc
+	andProgressDelegate:(id<MailSyncProgressDelegate>)theProgressDelegate
 {
 	self = [super init];
 	if(self)
 	{
+	
+		self.mainThreadDmc = theMainThreadDmc;
+	
+		self.progressDelegate = theProgressDelegate;
 	
 		// NSManagedObjectContext is not thread safe, so we need to create a dedicated DataModelController
 		// wrapper for NSManagedObjectContext, where we'll perform the sync.
 		// Objects need to be allocated and deallocated in the same thread, since release pools
 		// are thread specific.
 
-		self.syncDmc = [[[DataModelController alloc] 
-			initWithPersistentStoreCoord:mainThreadDmc.managedObjectContext.persistentStoreCoordinator] autorelease];
-		
+//		self.syncDmc = [[[DataModelController alloc] 
+//			initWithPersistentStoreCoord:self.mainThreadDmc.managedObjectContext.persistentStoreCoordinator] autorelease];
+//		self.syncDmc = [AppHelper appDataModelController];
 		
 		self.mailAcct = [[CTCoreAccount alloc] init];
-		SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:self.syncDmc];
+		SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:self.mainThreadDmc];
 		assert(sharedVals.currentEmailAcct != nil);
 
 		self.emailAcctInfo = sharedVals.currentEmailAcct;
+		
 
 	}
 	return self;
@@ -54,7 +75,6 @@
 -(void)connect
 {
 	self.mailAcct = [[CTCoreAccount alloc] init];
-	
 	
 	int connectionType = [self.emailAcctInfo .useSSL boolValue]?
 		CONNECTION_TYPE_TLS:CONNECTION_TYPE_PLAIN;
@@ -76,6 +96,52 @@
 	
 }
 
+-(void)setupContext
+{
+	// The per-thread DataModelController (and underlynig NSManagedObjectContext) must be 
+	// allocated in the worker thread.
+	self.syncDmc = [[[DataModelController alloc] 
+			initWithPersistentStoreCoord:self.mainThreadDmc.managedObjectContext.persistentStoreCoordinator] autorelease];
+			
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+		selector:@selector(mailSyncThreadDidSaveNotificationHandler:)
+		name:NSManagedObjectContextDidSaveNotification 
+		object:self.syncDmc.managedObjectContext];
+}
+
+-(void)teardownContext
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self 
+			name:NSManagedObjectContextDidSaveNotification 
+			object:self.syncDmc.managedObjectContext];
+			
+	[syncDmc release];
+}
+
+-(BOOL)establishConnection
+{
+	[self setupContext];
+		
+	[self.progressDelegate mailSyncConnectionStarted]; 
+	
+	@try
+	{
+    	[self connect];
+		
+		[self.progressDelegate mailSyncConnectionEstablished];
+
+		return TRUE;
+
+	}
+	@catch (NSException *exception) 
+	{
+		NSLog(@"Connection error");
+		[self teardownContext];
+		return FALSE;
+	}
+}
+
+
 -(void)disconnect
 {
 	if(self.mailAcct != nil)
@@ -86,9 +152,27 @@
 }
 
 
+-(void)teardownConnection
+{
+	[self.progressDelegate mailSyncConnectionTeardownStarted];
+		
+	[self disconnect];
+
+	// Process any pending deletes before saving.
+	[self.syncDmc.managedObjectContext processPendingChanges];
+	
+	[self.syncDmc saveContext];
+		
+	[self teardownContext];						
+																	
+	[self.progressDelegate mailSyncConnectionTeardownFinished];
+
+}
+
+
 -(void)dealloc
 {
-	[syncDmc release];
+	[mainThreadDmc release];
 	[mailAcct release];
 	[emailAcctInfo release];
 	[super dealloc];
