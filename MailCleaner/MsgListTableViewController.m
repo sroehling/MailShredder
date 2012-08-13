@@ -118,10 +118,22 @@
 
 }
 
+-(NSString*)formattedMsgDate:(NSDate*)sendDate
+{
+	if([DateHelper dateIsEqual:sendDate otherDate:[DateHelper today]])
+	{
+		return [[DateHelper theHelper].shortTimeFormatter stringFromDate:sendDate];
+	}
+	else 
+	{
+		return [[DateHelper theHelper].shortDateFormatter stringFromDate:sendDate];
+	}
+}
+
 - (void)configureCell:(MsgTableCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     EmailInfo *info = [self.emailInfoFrc objectAtIndexPath:indexPath];
     cell.fromLabel.text = info.from;
-    cell.sendDateLabel.text = [DateHelper stringFromDate:info.sendDate];
+    cell.sendDateLabel.text = [self formattedMsgDate:info.sendDate];
 	cell.subjectLabel.text = info.subject;
 	if([self.selectedEmailInfos containsObject:info])
 	{
