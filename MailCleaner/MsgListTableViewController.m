@@ -23,6 +23,7 @@
 #import "AppHelper.h"
 #import "CompositeMailSyncProgressDelegate.h"
 #import "DeleteMsgConfirmationView.h"
+#import "MsgDetailViewController.h"
 
 
 @implementation MsgListTableViewController
@@ -245,7 +246,13 @@
 
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
-	NSLog(@"Detail button pressed");
+	EmailInfo *info = [self.emailInfoFrc objectAtIndexPath:indexPath];
+
+	MsgDetailViewController *msgDetailViewCtlr = 
+		[[[MsgDetailViewController alloc] initWithEmailInfo:info 
+		andMainThreadDmc:self.appDmc] autorelease];
+		
+	[self.navigationController pushViewController:msgDetailViewCtlr animated:TRUE];	
 }
 
 

@@ -48,5 +48,7 @@ extern NSString * const EMAIL_ADDRESS_ENTITY_NAME;
 - (void)addEmailInfoRecipientAddress:(NSSet *)values;
 - (void)removeEmailInfoRecipientAddress:(NSSet *)values;
 
++(NSString*)formattedAddresses:(NSSet*)addresses;
+-(NSString*)formattedAddress;
 
 @end

@@ -53,5 +53,26 @@ NSString * const EMAIL_ADDRESS_ENTITY_NAME = @"EmailAddress";
 	return theAddr;
 }
 
+-(NSString*)formattedAddress
+{
+	if([self.name length] > 0)
+	{
+		return [NSString stringWithFormat:@"%@ <%@>",self.name,self.address];
+	}
+	else {
+		return self.address;
+	}
+}
+
++(NSString*)formattedAddresses:(NSSet*)addresses
+{
+	NSMutableArray *formattedAddresses = [[[NSMutableArray alloc] init] autorelease];
+	for(EmailAddress *address in addresses)
+	{
+		[formattedAddresses addObject:[address formattedAddress]];
+	}
+	return [formattedAddresses componentsJoinedByString:@","];
+	
+}
 
 @end
