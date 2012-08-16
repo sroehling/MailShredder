@@ -40,6 +40,8 @@ extern NSString * const EMAIL_INFO_FOLDER_KEY;
 
 @property (nonatomic, retain) NSSet *recipientAddresses;
 
+-(NSString*)formattedSendDate;
+
 @end
 
 @interface EmailInfo (CoreDataGeneratedAccessors)

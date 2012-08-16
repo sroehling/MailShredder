@@ -51,7 +51,7 @@ const CGFloat DELETE_CONFIRMATION_BOTTOM_MARGIN = 10.0f;
 {
     EmailInfo *currentMsgInfo = [self currentMsg];
     self.fromLabel.text = currentMsgInfo.from;
-    self.sendDateLabel.text = [DateHelper stringFromDate:currentMsgInfo.sendDate];
+    self.sendDateLabel.text = [currentMsgInfo formattedSendDate];;
 	self.subjectLabel.text = currentMsgInfo.subject;
 }
 
