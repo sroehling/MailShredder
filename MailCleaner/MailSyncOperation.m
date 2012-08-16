@@ -50,19 +50,11 @@
 
 }
 
-
--(void)syncMsgs
+-(void)deleteLocalEmailInfos:(NSArray*)msgsToDelete
 {
-	NSMutableDictionary *currEmailAddressByAddress = [EmailAddress addressesByName:self.connectionContext.syncDmc];
-	NSMutableDictionary *currDomainByDomainName = [EmailDomain emailDomainsByDomainName:self.connectionContext.syncDmc];
-	NSMutableDictionary *currFolderByFolderName = [EmailFolder foldersByName:self.connectionContext.syncDmc];
-	
-	// Remove all the existing EmailInfo objects, since they'll be
-	// re-synchronized below.
-	NSSet *currEmailInfos = [self.connectionContext.syncDmc fetchObjectsForEntityName:EMAIL_INFO_ENTITY_NAME];
-	for(EmailInfo *currEmailInfo in currEmailInfos)
+	for(EmailInfo *msgToDelete in msgsToDelete)
 	{
-		[self.connectionContext.syncDmc deleteObject:currEmailInfo];
+		[self.connectionContext.syncDmc deleteObject:msgToDelete];
 	}
 	// Propagate the deletes, so the changes will be immediately available. Otherwise,
 	// strange CoreData errors can occur (see Stackoverflow posts about 
@@ -71,17 +63,45 @@
 	// in this case?
 	[self.connectionContext.syncDmc.managedObjectContext processPendingChanges];
 
+}
+
+
+-(void)syncMsgs
+{
+	NSMutableDictionary *currEmailAddressByAddress = [EmailAddress addressesByName:self.connectionContext.syncDmc];
+	NSMutableDictionary *currDomainByDomainName = [EmailDomain emailDomainsByDomainName:self.connectionContext.syncDmc];
+
+	NSMutableDictionary *currFolderByFolderName = [EmailFolder foldersByName:self.connectionContext.syncDmc];
+	NSMutableDictionary *foldersNoLongerOnServer = [EmailFolder foldersByName:self.connectionContext.syncDmc];
 	
-	NSSet *allFolders = [self.connectionContext.mailAcct allFolders];
+	NSSet *allFoldersOnServer = [self.connectionContext.mailAcct allFolders];
 	NSInteger numNewMsgs = 0;
 	NSInteger totalMsgs = 0;
-	for (NSString *folderName in allFolders)
+	for (NSString *folderName in allFoldersOnServer)
 	{
 		NSLog(@"%@: Processing folder",folderName);
 		CTCoreFolder *currFolder = [self.connectionContext.mailAcct folderWithPath:folderName];
 		
-		EmailFolder *emailFolder = [EmailFolder findOrAddFolder:currFolder.path inExistingFolders:currFolderByFolderName 
-			withDataModelController:self.connectionContext.syncDmc];
+		EmailFolder *emailFolder = [currFolderByFolderName objectForKey:currFolder.path];
+		if(emailFolder == nil)
+		{
+			emailFolder = [EmailFolder findOrAddFolder:currFolder.path 
+				inExistingFolders:currFolderByFolderName 
+				withDataModelController:self.connectionContext.syncDmc];
+		}
+		else 
+		{
+			// There is an existing EmailFolder object for the folder on the server,
+			// so we "account for" the folder and remove it from the set of folders
+			// not on the server.
+			[foldersNoLongerOnServer removeObjectForKey:currFolder.path];
+		}
+			
+		// If emailFolder is an existing folder, then it might have existing EmailInfo objects in its 
+		// emailInfoFolder relationship. If a local EmailInfo object already exists with the same UID,
+		// then there is no need to create a new one. To perform this check, we need a dictionary of 
+		// existing EmailInfo objects, whereby the key is the UID.
+		NSMutableDictionary *existingEmailInfoByUID = [emailFolder emailInfosInFolderByUID];
 		
 		if(currFolder.totalMessageCount > 0)
 		{
@@ -91,26 +111,60 @@
 
 			for(CTCoreMessage *msg in serverMsgSet)
 			{
-				NSLog(@"Sync msg: uid= %@, msg id = %@, send date = %@, subj = %@", msg.uid,msg.messageId,
-					[DateHelper stringFromDate:msg.senderDate],msg.subject);
-				EmailInfo *newEmailInfo = [self emailInfoFromServerMsg:msg andFolderInfo:emailFolder 
-					andCurrentAddresses:currEmailAddressByAddress inDataModelController:self.connectionContext.syncDmc];
-				
-				[EmailAddress findOrAddAddress:newEmailInfo.from 
-					withCurrentAddresses:currEmailAddressByAddress inDataModelController:self.connectionContext.syncDmc];
-				
-				[EmailDomain findOrAddDomainName:newEmailInfo.domain 
-					withCurrentDomains:currDomainByDomainName inDataModelController:self.connectionContext.syncDmc];
-				
-				numNewMsgs ++;
+			
+				EmailInfo *existingEmailInfo =[existingEmailInfoByUID objectForKey:msg.uid];
+				if(existingEmailInfo != nil)
+				{
+					// The EmailInfo's remaining in the dictionary after the folder 
+					// synchronization represent messages which are no longer on the server,
+					// but there's still a local EmailInfo.
+					[existingEmailInfoByUID removeObjectForKey:msg.uid];
+				}
+				else 
+				{
+					// Allocate a new local EmailInfo, since there's not an existing local
+					// one with the same UID.
+					NSLog(@"Sync msg: uid= %@, msg id = %@, send date = %@, subj = %@", msg.uid,msg.messageId,
+						[DateHelper stringFromDate:msg.senderDate],msg.subject);
+					EmailInfo *newEmailInfo = [self emailInfoFromServerMsg:msg andFolderInfo:emailFolder 
+						andCurrentAddresses:currEmailAddressByAddress inDataModelController:self.connectionContext.syncDmc];
 					
-			}
-		}
+					[EmailAddress findOrAddAddress:newEmailInfo.from 
+						withCurrentAddresses:currEmailAddressByAddress inDataModelController:self.connectionContext.syncDmc];
+					
+					[EmailDomain findOrAddDomainName:newEmailInfo.domain 
+						withCurrentDomains:currDomainByDomainName inDataModelController:self.connectionContext.syncDmc];
+					
+					numNewMsgs ++;
+
+				}
+				
+					
+			} // For each message in the folder
+			
+			
+		} // if(currFolder.totalMessageCount > 0)
+		
+		// Delete any local EmailInfo's which are unacounted after 
+		// synchronizing this folder with the server.
+		[self deleteLocalEmailInfos:[existingEmailInfoByUID allValues]];
+		
 		
 		NSLog(@"%@: ... done synchronizing message list",folderName);
 		NSLog(@"-------");
 		
+	} // For each folder
+	
+	// After processing all the folders, remove the local messages from folders which
+	// are no longer on the server. We keep the local folder object, since it 
+	// may be referenced within matching rules (the alternative would be to delete
+	// the folder, cascading to any rules including the folder).
+	for(EmailFolder *folderNoLongerOnServer in [foldersNoLongerOnServer allValues])
+	{
+		NSLog(@"Folder removed or renamed on server, deleting messages from local folder");
+		[self deleteLocalEmailInfos:[folderNoLongerOnServer.emailInfoFolder allObjects]];
 	}
+
 
 	NSLog(@"Done synchronizing messages: new msgs = %d, total server msgs = %d",
 		numNewMsgs, totalMsgs);

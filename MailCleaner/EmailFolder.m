@@ -9,6 +9,7 @@
 #import "EmailFolder.h"
 
 #import "DataModelController.h"
+#import "EmailInfo.h"
 
 NSString * const EMAIL_FOLDER_ENTITY_NAME = @"EmailFolder";
 
@@ -46,6 +47,16 @@ NSString * const EMAIL_FOLDER_ENTITY_NAME = @"EmailFolder";
 		[currFoldersByName setObject:theFolder forKey:folderName];
 	}
 	return theFolder;
+}
+
+-(NSMutableDictionary*)emailInfosInFolderByUID
+{
+	NSMutableDictionary *emailInfoByUID = [[[NSMutableDictionary alloc] init] autorelease];
+	for(EmailInfo *emailInfoInCurrFolder in self.emailInfoFolder)
+	{
+		[emailInfoByUID setObject:emailInfoInCurrFolder forKey:emailInfoInCurrFolder.messageId];
+	}
+	return emailInfoByUID;
 }
 
 @end

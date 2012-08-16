@@ -31,6 +31,7 @@ extern NSString * const EMAIL_FOLDER_ENTITY_NAME;
 +(EmailFolder*)findOrAddFolder:(NSString*)folderName 
 	inExistingFolders:(NSMutableDictionary*)currFoldersByName
 	withDataModelController:(DataModelController*)appDataDmc;
+-(NSMutableDictionary*)emailInfosInFolderByUID;
 
 @end
 
