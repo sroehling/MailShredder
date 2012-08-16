@@ -17,6 +17,7 @@
 #import "DateHelper.h"
 #import "MailAddressHelper.h"
 #import "LocalizationHelper.h"
+#import "PercentProgressCounter.h"
 
 @implementation MailSyncOperation
 
@@ -65,6 +66,18 @@
 
 }
 
+-(NSUInteger)totalServerMsgCount:(CTCoreAccount*)mailAcct
+{
+	CGFloat totalMsgs = 0;
+	NSSet *allFoldersOnServer = [self.connectionContext.mailAcct allFolders];
+	for (NSString *folderName in allFoldersOnServer)
+	{
+		CTCoreFolder *currFolder = [mailAcct folderWithPath:folderName];
+		totalMsgs += currFolder.totalMessageCount;
+	}
+	return totalMsgs;
+}
+
 
 -(void)syncMsgs
 {
@@ -73,6 +86,9 @@
 
 	NSMutableDictionary *currFolderByFolderName = [EmailFolder foldersByName:self.connectionContext.syncDmc];
 	NSMutableDictionary *foldersNoLongerOnServer = [EmailFolder foldersByName:self.connectionContext.syncDmc];
+	
+	PercentProgressCounter *syncProgressCounter = [[PercentProgressCounter alloc] 
+		initWithTotalCount:[self totalServerMsgCount:self.connectionContext.mailAcct]];
 	
 	NSSet *allFoldersOnServer = [self.connectionContext.mailAcct allFolders];
 	NSInteger numNewMsgs = 0;
@@ -139,6 +155,12 @@
 
 				}
 				
+				BOOL progressThresholdCrossed = [syncProgressCounter incrementProgressCount];
+				if(progressThresholdCrossed)
+				{
+					[self.connectionContext.progressDelegate mailSyncUpdateProgress:
+						[syncProgressCounter currentProgress]];
+				}
 					
 			} // For each message in the folder
 			
@@ -168,6 +190,7 @@
 
 	NSLog(@"Done synchronizing messages: new msgs = %d, total server msgs = %d",
 		numNewMsgs, totalMsgs);
+	[syncProgressCounter release];
 
 }
 

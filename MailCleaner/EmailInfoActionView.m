@@ -237,12 +237,30 @@ const CGFloat ACTION_BUTTON_SPACE = 5.0f;
 		withObject:self waitUntilDone:FALSE];
 }
 
+-(void)updateStatusWithPercProgress
+{
+	self.statusLabel.text = [NSString stringWithFormat:@"%@ (%.0f%%)",
+		LOCALIZED_STR(@"MSGS_ACTION_UPDATING_STATUS_FORMAT"),syncProgress*100.0];
+}
+
 -(void)mailSyncUpdateProgress:(CGFloat)percentProgress
 {
+	syncProgress = percentProgress;
+	[self performSelectorOnMainThread:@selector(updateStatusWithPercProgress) 
+		withObject:self waitUntilDone:TRUE];
+}
+
+-(void)updateProgressForTeardown
+{
+	self.statusLabel.text = LOCALIZED_STR(@"MSGS_ACTION_FINISHING_STATUS_FORMAT");
+
 }
 
 -(void)mailSyncConnectionTeardownStarted
 {
+	[self performSelectorOnMainThread:@selector(updateProgressForTeardown) 
+		withObject:self waitUntilDone:FALSE];
+
 }
 
 -(void)mailSyncConnectionTeardownFinished

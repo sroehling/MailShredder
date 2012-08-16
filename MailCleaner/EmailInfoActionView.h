@@ -24,6 +24,7 @@ extern const CGFloat EMAIL_ACTION_VIEW_HEIGHT;
 		
 		UIActivityIndicatorView *refeshActivityIndicator;
 		UILabel *statusLabel;
+		CGFloat syncProgress;
 		
 		id<EmailActionViewDelegate> delegate;
 }
