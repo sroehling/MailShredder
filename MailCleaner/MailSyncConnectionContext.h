@@ -39,5 +39,6 @@
 	
 -(BOOL)establishConnection;
 -(void)teardownConnection;
+-(void)saveLocalChanges;
 
 @end

@@ -44,15 +44,6 @@
 		self.mainThreadDmc = theMainThreadDmc;
 	
 		self.progressDelegate = theProgressDelegate;
-	
-		// NSManagedObjectContext is not thread safe, so we need to create a dedicated DataModelController
-		// wrapper for NSManagedObjectContext, where we'll perform the sync.
-		// Objects need to be allocated and deallocated in the same thread, since release pools
-		// are thread specific.
-
-//		self.syncDmc = [[[DataModelController alloc] 
-//			initWithPersistentStoreCoord:self.mainThreadDmc.managedObjectContext.persistentStoreCoordinator] autorelease];
-//		self.syncDmc = [AppHelper appDataModelController];
 		
 		self.mailAcct = [[CTCoreAccount alloc] init];
 		SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:self.mainThreadDmc];
@@ -98,6 +89,11 @@
 
 -(void)setupContext
 {
+
+	// NSManagedObjectContext is not thread safe, so we need to create a dedicated DataModelController
+	// wrapper for NSManagedObjectContext, where we'll perform the sync.
+	// Objects need to be allocated and deallocated in the same thread, since release pools
+	// are thread specific.
 	// The per-thread DataModelController (and underlynig NSManagedObjectContext) must be 
 	// allocated in the worker thread.
 	self.syncDmc = [[[DataModelController alloc] 
@@ -151,6 +147,14 @@
 	}
 }
 
+-(void)saveLocalChanges
+{
+	// Process any pending deletes before saving.
+	[self.syncDmc.managedObjectContext processPendingChanges];
+	
+	[self.syncDmc saveContext];
+
+}
 
 -(void)teardownConnection
 {
@@ -158,13 +162,10 @@
 		
 	[self disconnect];
 
-	// Process any pending deletes before saving.
-	[self.syncDmc.managedObjectContext processPendingChanges];
-	
-	[self.syncDmc saveContext];
+	[self saveLocalChanges];
 		
 	[self teardownContext];						
-																	
+															
 	[self.progressDelegate mailSyncConnectionTeardownFinished];
 
 }
