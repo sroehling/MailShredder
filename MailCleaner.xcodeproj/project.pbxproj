@@ -65,6 +65,7 @@
 		006D6679156E9DAB00074979 /* selectedMsgCheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 006D6677156E9DAB00074979 /* selectedMsgCheckbox.png */; };
 		00707D7315D59AB700DC8DA5 /* MailOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00707D7215D59AB700DC8DA5 /* MailOperation.m */; };
 		00707D7715D59B9B00DC8DA5 /* MailDeleteOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00707D7615D59B9B00DC8DA5 /* MailDeleteOperation.m */; };
+		007860CF15DD99F600DC333B /* FolderSyncContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 007860CE15DD99F600DC333B /* FolderSyncContext.m */; };
 		007ABE8F156ACADE004BA8BF /* dummyEmails.txt in Resources */ = {isa = PBXBuildFile; fileRef = 003D59911564028200AD3D91 /* dummyEmails.txt */; };
 		008129E515B75D0D00533E36 /* TrashMsgListViewInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 008129E415B75D0D00533E36 /* TrashMsgListViewInfo.m */; };
 		008129EB15B8ABED00533E36 /* DeleteMsgConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008129EA15B8ABED00533E36 /* DeleteMsgConfirmationView.m */; };
@@ -88,6 +89,7 @@
 		00A8C31515838C1D006163EE /* MailClientServerSyncController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A8C31415838C1D006163EE /* MailClientServerSyncController.m */; };
 		00AAF2E015B4B3ED00BFF03C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00AAF2DF15B4B3ED00BFF03C /* Security.framework */; };
 		00AAF2E815B61ED000BFF03C /* EmailAcctFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AAF2E715B61ED000BFF03C /* EmailAcctFieldEditInfo.m */; };
+		00B3B71D15DDA62C00A8FFCD /* MsgSyncContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B3B71C15DDA62C00A8FFCD /* MsgSyncContext.m */; };
 		00C4AB0C1581764900E0868A /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB081581764900E0868A /* libcrypto.a */; };
 		00C4AB0D1581764900E0868A /* libetpan_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB091581764900E0868A /* libetpan_ios.a */; };
 		00C4AB0E1581764900E0868A /* libsasl2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB0A1581764900E0868A /* libsasl2.a */; };
@@ -236,6 +238,8 @@
 		00707D7215D59AB700DC8DA5 /* MailOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailOperation.m; sourceTree = "<group>"; };
 		00707D7515D59B9B00DC8DA5 /* MailDeleteOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailDeleteOperation.h; sourceTree = "<group>"; };
 		00707D7615D59B9B00DC8DA5 /* MailDeleteOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailDeleteOperation.m; sourceTree = "<group>"; };
+		007860CD15DD99F600DC333B /* FolderSyncContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderSyncContext.h; sourceTree = "<group>"; };
+		007860CE15DD99F600DC333B /* FolderSyncContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderSyncContext.m; sourceTree = "<group>"; };
 		007ABE8B156AB618004BA8BF /* MailCleanerSpec.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MailCleanerSpec.md; sourceTree = "<group>"; };
 		008129E315B75D0D00533E36 /* TrashMsgListViewInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrashMsgListViewInfo.h; sourceTree = "<group>"; };
 		008129E415B75D0D00533E36 /* TrashMsgListViewInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrashMsgListViewInfo.m; sourceTree = "<group>"; };
@@ -278,6 +282,8 @@
 		00AAF2DF15B4B3ED00BFF03C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		00AAF2E615B61ECF00BFF03C /* EmailAcctFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAcctFieldEditInfo.h; sourceTree = "<group>"; };
 		00AAF2E715B61ED000BFF03C /* EmailAcctFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAcctFieldEditInfo.m; sourceTree = "<group>"; };
+		00B3B71B15DDA62C00A8FFCD /* MsgSyncContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgSyncContext.h; sourceTree = "<group>"; };
+		00B3B71C15DDA62C00A8FFCD /* MsgSyncContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgSyncContext.m; sourceTree = "<group>"; };
 		00C4AB081581764900E0868A /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../MailCore/iOSPorts/ports/security/openssl/build/Release-iphoneos/libcrypto.a"; sourceTree = "<group>"; };
 		00C4AB091581764900E0868A /* libetpan_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libetpan_ios.a; path = "../MailCore/libetpan/build-mac/build/Release-iphoneos/libetpan_ios.a"; sourceTree = "<group>"; };
 		00C4AB0A1581764900E0868A /* libsasl2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsasl2.a; path = "../MailCore/iOSPorts/ports/security/cyrus-sasl/build/Release-iphoneos/libsasl2.a"; sourceTree = "<group>"; };
@@ -409,7 +415,7 @@
 			children = (
 				00D4988F1577F00F00F8FD2F /* Helper */,
 				003D59A015641CDD00AD3D91 /* Data Model */,
-				00A8C31115838BB9006163EE /* Mail Sync */,
+				00A8C31115838BB9006163EE /* Mail Client Operations */,
 				0039E5FA1566CD0800CB259D /* Application */,
 				0039E5FB1566CD2E00CB259D /* Message List View (base) */,
 				008129E815B86E5A00533E36 /* All Messages View */,
@@ -734,24 +740,52 @@
 			name = "Age Filter";
 			sourceTree = "<group>";
 		};
-		00A8C31115838BB9006163EE /* Mail Sync */ = {
+		00A8C31115838BB9006163EE /* Mail Client Operations */ = {
 			isa = PBXGroup;
 			children = (
-				00707D7115D59AB700DC8DA5 /* MailOperation.h */,
-				00707D7215D59AB700DC8DA5 /* MailOperation.m */,
-				008FE30F15D57D850066A75D /* MailSyncOperation.h */,
-				008FE31015D57D850066A75D /* MailSyncOperation.m */,
-				00707D7515D59B9B00DC8DA5 /* MailDeleteOperation.h */,
-				00707D7615D59B9B00DC8DA5 /* MailDeleteOperation.m */,
 				009CAD9015D2D49A00C2C19F /* MailSyncProgressDelegate.h */,
-				004AA26315D1B3BA00BA76B0 /* MailSyncConnectionContext.h */,
-				004AA26415D1B3BA00BA76B0 /* MailSyncConnectionContext.m */,
 				009CAD9215D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.h */,
 				009CAD9315D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.m */,
+				00707D7115D59AB700DC8DA5 /* MailOperation.h */,
+				00707D7215D59AB700DC8DA5 /* MailOperation.m */,
+				00B3B72115DDE21800A8FFCD /* Connection */,
+				00B3B71F15DDE1E000A8FFCD /* Mail Synch */,
+				00B3B72015DDE1FC00A8FFCD /* Delete Mail */,
 				00A8C31315838C1D006163EE /* MailClientServerSyncController.h */,
 				00A8C31415838C1D006163EE /* MailClientServerSyncController.m */,
 			);
-			name = "Mail Sync";
+			name = "Mail Client Operations";
+			sourceTree = "<group>";
+		};
+		00B3B71F15DDE1E000A8FFCD /* Mail Synch */ = {
+			isa = PBXGroup;
+			children = (
+				00B3B71B15DDA62C00A8FFCD /* MsgSyncContext.h */,
+				00B3B71C15DDA62C00A8FFCD /* MsgSyncContext.m */,
+				007860CD15DD99F600DC333B /* FolderSyncContext.h */,
+				007860CE15DD99F600DC333B /* FolderSyncContext.m */,
+				008FE30F15D57D850066A75D /* MailSyncOperation.h */,
+				008FE31015D57D850066A75D /* MailSyncOperation.m */,
+			);
+			name = "Mail Synch";
+			sourceTree = "<group>";
+		};
+		00B3B72015DDE1FC00A8FFCD /* Delete Mail */ = {
+			isa = PBXGroup;
+			children = (
+				00707D7515D59B9B00DC8DA5 /* MailDeleteOperation.h */,
+				00707D7615D59B9B00DC8DA5 /* MailDeleteOperation.m */,
+			);
+			name = "Delete Mail";
+			sourceTree = "<group>";
+		};
+		00B3B72115DDE21800A8FFCD /* Connection */ = {
+			isa = PBXGroup;
+			children = (
+				004AA26315D1B3BA00BA76B0 /* MailSyncConnectionContext.h */,
+				004AA26415D1B3BA00BA76B0 /* MailSyncConnectionContext.m */,
+			);
+			name = Connection;
 			sourceTree = "<group>";
 		};
 		00C8970615AF34400006FF2F /* More View */ = {
@@ -1029,6 +1063,8 @@
 				004A74FA15D965FE00A5F4FB /* MsgDetailViewController.m in Sources */,
 				004A74FE15D966A300A5F4FB /* MsgDetailView.m in Sources */,
 				004A750215D993AD00A5F4FB /* GetMessageBodyOperation.m in Sources */,
+				007860CF15DD99F600DC333B /* FolderSyncContext.m in Sources */,
+				00B3B71D15DDA62C00A8FFCD /* MsgSyncContext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
