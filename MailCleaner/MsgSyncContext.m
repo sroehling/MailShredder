@@ -72,7 +72,7 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 	newEmailInfo.sendDate = msg.senderDate;
 	newEmailInfo.from = msg.sender.email;
 	newEmailInfo.subject = msg.subject;
-	newEmailInfo.messageId = msg.uid;
+	newEmailInfo.uid = [NSNumber numberWithUnsignedInt:msg.uid];	
 	newEmailInfo.domain = [MailAddressHelper emailAddressDomainName:msg.sender.email];
 	
 	NSSet *recipients = [msg to];
@@ -95,13 +95,14 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 
 -(void)syncOneMsg:(CTCoreMessage*)msg
 {
-	EmailInfo *existingEmailInfo =[existingEmailInfoByUID objectForKey:msg.uid];
+	NSNumber *msgKey = [NSNumber numberWithUnsignedInt:msg.uid];
+	EmailInfo *existingEmailInfo =[existingEmailInfoByUID objectForKey:msgKey];
 	if(existingEmailInfo != nil)
 	{
 		// The EmailInfo's remaining in the dictionary after the folder 
 		// synchronization represent messages which are no longer on the server,
 		// but there's still a local EmailInfo.
-		[existingEmailInfoByUID removeObjectForKey:msg.uid];
+		[existingEmailInfoByUID removeObjectForKey:msgKey];
 	}
 	else 
 	{

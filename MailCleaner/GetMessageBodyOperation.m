@@ -47,7 +47,7 @@
 				[self.connectionContext.progressDelegate mailSyncComplete:TRUE];
 				return;
 			}
-			CTCoreMessage *serverEmailMsg = [emailFolder messageWithUID:self.emailInfo.messageId];
+			CTCoreMessage *serverEmailMsg = [emailFolder messageWithUID:[self.emailInfo.uid unsignedIntValue]];
 			if(serverEmailMsg == nil)
 			{
 				[self.connectionContext teardownConnection];

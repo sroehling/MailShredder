@@ -18,7 +18,7 @@ NSString * const EMAIL_INFO_DELETED_KEY = @"deleted";
 
 @implementation EmailInfo
 
-@dynamic messageId;
+@dynamic uid;
 @dynamic sendDate;
 @dynamic from;
 @dynamic domain;
@@ -26,6 +26,7 @@ NSString * const EMAIL_INFO_DELETED_KEY = @"deleted";
 @dynamic subject;
 @dynamic deleted;
 @dynamic recipientAddresses;
+
 
 @dynamic folderInfo;
 

@@ -59,9 +59,22 @@
 					findOrCreateLocalEmailFolderForServerFolderWithName:currFolder.path];
 					
 				[msgSyncContext startMsgSyncForFolder:emailFolder];
-				if(currFolder.totalMessageCount > 0)
+				NSUInteger totalMessageCount;
+				if(![currFolder totalMessageCount:&totalMessageCount])
 				{
-					NSSet *serverMsgSet = [currFolder messageObjectsFromIndex:1 toIndex:0];
+					@throw [NSException exceptionWithName:@"FailureRetrievingFolderMsgCount" 
+						reason:@"Failure retrievig message count for folder" userInfo:nil];
+				}
+			
+				if(totalMessageCount > 0)
+				{
+					NSArray *serverMsgSet = [currFolder messagesFromUID:1 to:0 withFetchAttributes:CTFetchAttrEnvelope];
+					if(serverMsgSet == nil)
+					{
+						@throw [NSException exceptionWithName:@"FailureRetrievingMsgSet" 
+							reason:@"Failure retrievig message set for folder" userInfo:nil];
+					}
+					
 					for(CTCoreMessage *msg in serverMsgSet)
 					{			
 						[msgSyncContext syncOneMsg:msg];

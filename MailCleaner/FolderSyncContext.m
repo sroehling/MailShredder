@@ -46,7 +46,12 @@
 		CTCoreFolder *currFolder = [self.connectionContext.mailAcct
 			folderWithPath:folderName];
 		
-		NSUInteger messagesInFolder = [currFolder totalMessageCount];
+		NSUInteger messagesInFolder;
+		if(![currFolder totalMessageCount:&messagesInFolder])
+		{
+			@throw [NSException exceptionWithName:@"FailureRetrievingFolderMsgCount" 
+				reason:@"Failure retrievig message count for folder" userInfo:nil];
+		}
 		NSLog(@"total messages in folder %@:%d",folderName,messagesInFolder);
 	
 		totalMsgs += messagesInFolder;

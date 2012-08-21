@@ -68,9 +68,9 @@
         <attribute name="domain" attributeType="String" syncable="YES"/>
         <attribute name="folder" attributeType="String" syncable="YES"/>
         <attribute name="from" attributeType="String" syncable="YES"/>
-        <attribute name="messageId" attributeType="String" syncable="YES"/>
         <attribute name="sendDate" attributeType="Date" syncable="YES"/>
         <attribute name="subject" attributeType="String" syncable="YES"/>
+        <attribute name="uid" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="folderInfo" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailFolder" inverseName="emailInfoFolder" inverseEntity="EmailFolder" syncable="YES"/>
         <relationship name="recipientAddresses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailAddress" inverseName="emailInfoRecipientAddress" inverseEntity="EmailAddress" syncable="YES"/>
     </entity>

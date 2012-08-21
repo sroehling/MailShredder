@@ -54,7 +54,7 @@ NSString * const EMAIL_FOLDER_ENTITY_NAME = @"EmailFolder";
 	NSMutableDictionary *emailInfoByUID = [[[NSMutableDictionary alloc] init] autorelease];
 	for(EmailInfo *emailInfoInCurrFolder in self.emailInfoFolder)
 	{
-		[emailInfoByUID setObject:emailInfoInCurrFolder forKey:emailInfoInCurrFolder.messageId];
+		[emailInfoByUID setObject:emailInfoInCurrFolder forKey:emailInfoInCurrFolder.uid];
 	}
 	return emailInfoByUID;
 }

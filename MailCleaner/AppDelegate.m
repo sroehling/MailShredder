@@ -76,7 +76,7 @@
 			newEmailInfo.sendDate = [DateHelper dateFromStr:[fields objectAtIndex:0]];
 			newEmailInfo.from = [fields objectAtIndex:1];
 			newEmailInfo.subject = [fields objectAtIndex:2];
-			newEmailInfo.messageId = [NSString stringWithFormat:@"%04d",msgNum];
+			newEmailInfo.uid = [NSNumber numberWithInt:msgNum];
 			msgNum++;
 		}
 		

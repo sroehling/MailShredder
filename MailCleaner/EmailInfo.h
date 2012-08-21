@@ -22,8 +22,7 @@ extern NSString * const EMAIL_INFO_FOLDER_KEY;
 
 @interface EmailInfo : NSManagedObject
 
-@property (nonatomic, retain) NSString * messageId;
-
+@property (nonatomic, retain) NSNumber * uid;
 @property (nonatomic, retain) NSDate * sendDate;
 @property (nonatomic, retain) NSString * from;
 @property (nonatomic, retain) NSString * domain;

@@ -38,18 +38,21 @@
 		andPredicate:[MsgPredicateHelper markedForDeletion]];
 	for(EmailInfo *markedForDeletion  in msgsMarkedForDeletion)
 	{
-		NSLog(@"Deleting msg: msg ID = %@, subject = %@",markedForDeletion.messageId,
+		NSLog(@"Deleting msg: msg ID = %d, subject = %@",[markedForDeletion.uid integerValue],
 			markedForDeletion.subject);
 		CTCoreFolder *msgFolder = (CTCoreFolder*)[folderByPath 
 			objectForKey:markedForDeletion.folderInfo.folderName];
 		if(msgFolder != nil)
 		{
-			NSLog(@"Deleting msg: uid= %@, send date = %@, subj = %@", markedForDeletion.messageId,
+			NSLog(@"Deleting msg: uid= %d, send date = %@, subj = %@", [markedForDeletion.uid integerValue],
 					[DateHelper stringFromDate:markedForDeletion.sendDate],markedForDeletion.subject);
 
-			CTCoreMessage *msgMarkedForDeletion = [msgFolder messageWithUID:markedForDeletion.messageId];
-			[msgFolder setFlags:CTFlagDeleted forMessage:msgMarkedForDeletion];
-			[serverFoldersToExpunge addObject:msgFolder];
+			CTCoreMessage *msgMarkedForDeletion = [msgFolder messageWithUID:[markedForDeletion.uid unsignedIntValue]];
+			if(msgMarkedForDeletion != nil)
+			{
+				[msgFolder setFlags:CTFlagDeleted forMessage:msgMarkedForDeletion];
+				[serverFoldersToExpunge addObject:msgFolder];
+			}
 		}
 		
 		numMsgsDeleted ++;
