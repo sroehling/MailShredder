@@ -9,7 +9,21 @@
 #import <Foundation/Foundation.h>
 
 #import "TableViewObjectAdder.h"
+#import "GenericFieldBasedTableAddViewController.h"
 
-@interface EmailAccountAdder : NSObject <TableViewObjectAdder>
+@class FormContext;
+
+@interface EmailAccountAdder : NSObject <TableViewObjectAdder,GenericTableAddViewSaveCompleteDelegate>
+{
+	@private
+		FormContext *currParentContext;
+		id<GenericTableAddViewSaveCompleteDelegate> acctSaveCompleteDelegate;
+}
+
+@property(nonatomic,retain) FormContext *currParentContext;
+@property(nonatomic, assign) id<GenericTableAddViewSaveCompleteDelegate> acctSaveCompleteDelegate; // optional
+
+-(GenericFieldBasedTableAddViewController*)addViewControllerForNewAccountAddr:
+	(DataModelController*)dmcForNewAcct;
 
 @end

@@ -58,7 +58,6 @@
 				EmailFolder *emailFolder = [folderSyncContext 
 					findOrCreateLocalEmailFolderForServerFolderWithName:currFolder.path];
 					
-				
 				[msgSyncContext startMsgSyncForFolder:emailFolder];
 				if(currFolder.totalMessageCount > 0)
 				{

@@ -11,5 +11,6 @@
 @interface MailAddressHelper : NSObject
 
 +(NSString*)emailAddressDomainName:(NSString*)fullAddress;
++(NSString*)emailAddressUserName:(NSString*)fullAddress;
 
 @end

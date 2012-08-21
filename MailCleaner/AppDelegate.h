@@ -14,6 +14,7 @@
 @class SharedAppVals;
 @class MailClientServerSyncController;
 @class CompositeMailSyncProgressDelegate;
+@class EmailAccountAdder;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate,
 			GenericTableAddViewSaveCompleteDelegate>
@@ -23,6 +24,9 @@
 		SharedAppVals *sharedAppVals;
 		MailClientServerSyncController *mailSyncController;
 		CompositeMailSyncProgressDelegate *mailSyncProgressDelegates;
+		EmailAccountAdder *emailAccountAdder;
+		
+		
 }
 
 @property (strong, nonatomic) UIWindow *window;
@@ -32,5 +36,6 @@
 @property(nonatomic,retain) SharedAppVals *sharedAppVals;
 @property(nonatomic,retain) MailClientServerSyncController *mailSyncController;
 @property(nonatomic,retain) CompositeMailSyncProgressDelegate *mailSyncProgressDelegates;
+@property(nonatomic,retain) EmailAccountAdder *emailAccountAdder;
 
 @end

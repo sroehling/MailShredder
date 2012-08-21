@@ -56,6 +56,7 @@
 		0053EFCA158FFC3B003F6B6E /* EmailAddressFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0053EFC9158FFC3A003F6B6E /* EmailAddressFieldEditInfo.m */; };
 		0053EFCD1590EEB5003F6B6E /* EmailAddressSelectionFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0053EFCC1590EEB3003F6B6E /* EmailAddressSelectionFormInfoCreator.m */; };
 		0054D2EA15ADF49D00270679 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 0054D2E915ADF49D00270679 /* search.png */; };
+		005BA6F615E2B0F000D5D11C /* ImapAcctPreset.m in Sources */ = {isa = PBXBuildFile; fileRef = 005BA6F515E2B0F000D5D11C /* ImapAcctPreset.m */; };
 		005E6A8715647602004198B6 /* EmailInfoActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 005E6A8615647602004198B6 /* EmailInfoActionView.m */; };
 		00699543157D77E3008D50A4 /* libmailcore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00699542157D77E3008D50A4 /* libmailcore.a */; };
 		006D6641156D4BC800074979 /* TrashMsgListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 006D6640156D4BC800074979 /* TrashMsgListViewController.m */; };
@@ -69,6 +70,7 @@
 		007ABE8F156ACADE004BA8BF /* dummyEmails.txt in Resources */ = {isa = PBXBuildFile; fileRef = 003D59911564028200AD3D91 /* dummyEmails.txt */; };
 		008129E515B75D0D00533E36 /* TrashMsgListViewInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 008129E415B75D0D00533E36 /* TrashMsgListViewInfo.m */; };
 		008129EB15B8ABED00533E36 /* DeleteMsgConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008129EA15B8ABED00533E36 /* DeleteMsgConfirmationView.m */; };
+		008FDF3415E2A14000BC4C61 /* EmailAddrFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 008FDF3315E2A14000BC4C61 /* EmailAddrFormInfoCreator.m */; };
 		008FE31115D57D860066A75D /* MailSyncOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 008FE31015D57D850066A75D /* MailSyncOperation.m */; };
 		009106C015CC577700994F69 /* RecipientAddressFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 009106BF15CC577700994F69 /* RecipientAddressFilter.m */; };
 		009106C315CC582000994F69 /* FromAddressFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 009106C215CC582000994F69 /* FromAddressFilter.m */; };
@@ -118,6 +120,7 @@
 		00E980DE15B71D75007CE0ED /* RuleSelectionListFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E980DD15B71D75007CE0ED /* RuleSelectionListFormInfoCreator.m */; };
 		00E980E115B7267D007CE0ED /* TrashMsgListViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E980E015B7267D007CE0ED /* TrashMsgListViewFactory.m */; };
 		00E9944A15643244003B9771 /* EmailInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9944915643244003B9771 /* EmailInfoTableViewController.m */; };
+		00F4A9BD15E2AFB100595C95 /* imapAcctPresets.txt in Resources */ = {isa = PBXBuildFile; fileRef = 00F4A9BC15E2AFB100595C95 /* imapAcctPresets.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -223,6 +226,8 @@
 		0053EFCB1590EEB2003F6B6E /* EmailAddressSelectionFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddressSelectionFormInfoCreator.h; sourceTree = "<group>"; };
 		0053EFCC1590EEB3003F6B6E /* EmailAddressSelectionFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddressSelectionFormInfoCreator.m; sourceTree = "<group>"; };
 		0054D2E915ADF49D00270679 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
+		005BA6F415E2B0F000D5D11C /* ImapAcctPreset.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ImapAcctPreset.h; sourceTree = "<group>"; };
+		005BA6F515E2B0F000D5D11C /* ImapAcctPreset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImapAcctPreset.m; sourceTree = "<group>"; };
 		005E6A8515647602004198B6 /* EmailInfoActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoActionView.h; sourceTree = "<group>"; };
 		005E6A8615647602004198B6 /* EmailInfoActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoActionView.m; sourceTree = "<group>"; };
 		0065E3BB158920D500D59B2A /* SyncDesign.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = SyncDesign.md; sourceTree = "<group>"; };
@@ -245,12 +250,16 @@
 		008129E415B75D0D00533E36 /* TrashMsgListViewInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrashMsgListViewInfo.m; sourceTree = "<group>"; };
 		008129E915B8ABEC00533E36 /* DeleteMsgConfirmationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteMsgConfirmationView.h; sourceTree = "<group>"; };
 		008129EA15B8ABED00533E36 /* DeleteMsgConfirmationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteMsgConfirmationView.m; sourceTree = "<group>"; };
+		008FDF3215E2A14000BC4C61 /* EmailAddrFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddrFormInfoCreator.h; sourceTree = "<group>"; };
+		008FDF3315E2A14000BC4C61 /* EmailAddrFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddrFormInfoCreator.m; sourceTree = "<group>"; };
 		008FE30F15D57D850066A75D /* MailSyncOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailSyncOperation.h; sourceTree = "<group>"; };
 		008FE31015D57D850066A75D /* MailSyncOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailSyncOperation.m; sourceTree = "<group>"; };
 		009106BE15CC577700994F69 /* RecipientAddressFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipientAddressFilter.h; sourceTree = "<group>"; };
 		009106BF15CC577700994F69 /* RecipientAddressFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipientAddressFilter.m; sourceTree = "<group>"; };
 		009106C115CC582000994F69 /* FromAddressFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FromAddressFilter.h; sourceTree = "<group>"; };
 		009106C215CC582000994F69 /* FromAddressFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FromAddressFilter.m; sourceTree = "<group>"; };
+		009856B115E2F087001BECCE /* libetpan.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libetpan.framework; path = "../MailCore/libetpan/build-mac/build/Release/libetpan.framework"; sourceTree = "<group>"; };
+		009856B215E2F087001BECCE /* MailCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MailCore.framework; path = ../MailCore/build/Release/MailCore.framework; sourceTree = "<group>"; };
 		0098BCD2158BCCEC00C15243 /* EmailAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddress.h; sourceTree = "<group>"; };
 		0098BCD3158BCCEC00C15243 /* EmailAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddress.m; sourceTree = "<group>"; };
 		0098BCD9158BCD3000C15243 /* EmailAddressFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddressFilter.h; sourceTree = "<group>"; };
@@ -332,6 +341,7 @@
 		00E980E015B7267D007CE0ED /* TrashMsgListViewFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrashMsgListViewFactory.m; sourceTree = "<group>"; };
 		00E9944815643244003B9771 /* EmailInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoTableViewController.h; sourceTree = "<group>"; };
 		00E9944915643244003B9771 /* EmailInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoTableViewController.m; sourceTree = "<group>"; };
+		00F4A9BC15E2AFB100595C95 /* imapAcctPresets.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = imapAcctPresets.txt; sourceTree = "<group>"; };
 		00F9A77D156EC66A00BB4C92 /* msgCheckbox.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = msgCheckbox.psd; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -378,6 +388,8 @@
 		000566821562F94C003D114D = {
 			isa = PBXGroup;
 			children = (
+				009856B115E2F087001BECCE /* libetpan.framework */,
+				009856B215E2F087001BECCE /* MailCore.framework */,
 				009A092615BB4C0D0078880C /* StoreKit.framework */,
 				00AAF2DF15B4B3ED00BFF03C /* Security.framework */,
 				0065E3B91586A57400D59B2A /* Libs */,
@@ -806,6 +818,8 @@
 				00C8777315B306EE0063F88B /* PortNumFieldEditInfo.m */,
 				00C8972515AF52FD0006FF2F /* EmailAccountAdder.h */,
 				00C8972615AF52FD0006FF2F /* EmailAccountAdder.m */,
+				008FDF3215E2A14000BC4C61 /* EmailAddrFormInfoCreator.h */,
+				008FDF3315E2A14000BC4C61 /* EmailAddrFormInfoCreator.m */,
 				00C8971C15AF4BF20006FF2F /* EmailAccountFormInfoCreator.h */,
 				00C8971D15AF4BF20006FF2F /* EmailAccountFormInfoCreator.m */,
 				00C8972215AF52540006FF2F /* EmailAccountListFormInfoCreator.h */,
@@ -814,6 +828,9 @@
 				00C8972A15AF690F0006FF2F /* PortNumberValidator.m */,
 				00AAF2E615B61ECF00BFF03C /* EmailAcctFieldEditInfo.h */,
 				00AAF2E715B61ED000BFF03C /* EmailAcctFieldEditInfo.m */,
+				00F4A9BC15E2AFB100595C95 /* imapAcctPresets.txt */,
+				005BA6F415E2B0F000D5D11C /* ImapAcctPreset.h */,
+				005BA6F515E2B0F000D5D11C /* ImapAcctPreset.m */,
 			);
 			name = "Email Account";
 			sourceTree = "<group>";
@@ -956,6 +973,7 @@
 				00C8971B15AF40340006FF2F /* markdown.css in Resources */,
 				009CAD9615D2F02900C2C19F /* 01-refresh.png in Resources */,
 				009CAD9A15D2F80900C2C19F /* deleteMsgs.png in Resources */,
+				00F4A9BD15E2AFB100595C95 /* imapAcctPresets.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1065,6 +1083,8 @@
 				004A750215D993AD00A5F4FB /* GetMessageBodyOperation.m in Sources */,
 				007860CF15DD99F600DC333B /* FolderSyncContext.m in Sources */,
 				00B3B71D15DDA62C00A8FFCD /* MsgSyncContext.m in Sources */,
+				008FDF3415E2A14000BC4C61 /* EmailAddrFormInfoCreator.m in Sources */,
+				005BA6F615E2B0F000D5D11C /* ImapAcctPreset.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

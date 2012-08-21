@@ -1,0 +1,1 @@
+gmail.com	imap.gmail.com	Y	993	Y

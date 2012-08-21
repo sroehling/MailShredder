@@ -48,18 +48,21 @@
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-    if ([keyPath isEqual:EMAIL_ACCOUNT_USESSL_KEY]) {
-		NSLog(@"Use SSL Field change: Updating default port number");
-		NSNumber *newValue = (NSNumber*)[change objectForKey:NSKeyValueChangeNewKey];
-		
-		if([newValue boolValue]== TRUE)
-		{
-			[self.fieldInfo setFieldValue:[NSNumber numberWithInt:EMAIL_ACCOUNT_DEFAULT_PORT_SSL]];
+	if([self.fieldInfo fieldAccessEnabled])
+	{
+		if ([keyPath isEqual:EMAIL_ACCOUNT_USESSL_KEY]) {
+			NSLog(@"Use SSL Field change: Updating default port number");
+			NSNumber *newValue = (NSNumber*)[change objectForKey:NSKeyValueChangeNewKey];
+			
+			if([newValue boolValue]== TRUE)
+			{
+				[self.fieldInfo setFieldValue:[NSNumber numberWithInt:EMAIL_ACCOUNT_DEFAULT_PORT_SSL]];
+			}
+			else {
+				[self.fieldInfo setFieldValue:[NSNumber numberWithInt:EMAIL_ACCOUNT_DEFAULT_PORT_NOSSL]];
+			}
+			[self refreshFieldValue];
 		}
-		else {
-			[self.fieldInfo setFieldValue:[NSNumber numberWithInt:EMAIL_ACCOUNT_DEFAULT_PORT_NOSSL]];
-		}
-		[self refreshFieldValue];
     }
 }
 

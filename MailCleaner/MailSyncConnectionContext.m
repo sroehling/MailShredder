@@ -67,19 +67,20 @@
 {
 	self.mailAcct = [[CTCoreAccount alloc] init];
 	
-	int connectionType = [self.emailAcctInfo .useSSL boolValue]?
+	int connectionType = [self.emailAcctInfo.useSSL boolValue]?
 		CONNECTION_TYPE_TLS:CONNECTION_TYPE_PLAIN;
-		
+	
 	KeychainFieldInfo *passwordFieldInfo = [self.emailAcctInfo  passwordFieldInfo];
 	NSString *password = (NSString*)[passwordFieldInfo getFieldValue];
 	
 	NSLog(@"Mail connection: server=%@, login=%@, pass=%@",
-		self.emailAcctInfo .imapServer,
-		self.emailAcctInfo .userName,
+		self.emailAcctInfo.imapServer,
+		self.emailAcctInfo.userName,
 		password);
+		
 	
-	[self.mailAcct connectToServer:self.emailAcctInfo .imapServer 
-		port:[self.emailAcctInfo .portNumber intValue]
+	[self.mailAcct connectToServer:self.emailAcctInfo.imapServer 
+		port:[self.emailAcctInfo.portNumber intValue]
 		connectionType:connectionType
 		authType:IMAP_AUTH_TYPE_PLAIN 
 		login:self.emailAcctInfo.userName

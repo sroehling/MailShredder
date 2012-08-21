@@ -24,4 +24,19 @@
 	}
 }
 
++(NSString*)emailAddressUserName:(NSString*)fullAddress
+{
+	assert(fullAddress != nil);
+	NSArray *addrParts = [fullAddress componentsSeparatedByString:@"@"];
+	if([addrParts count] == 2)
+	{
+		return [addrParts objectAtIndex:0];
+	}
+	else 
+	{
+		return @"";
+	}
+
+}
+
 @end

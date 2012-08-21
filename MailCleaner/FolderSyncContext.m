@@ -43,8 +43,15 @@
 	NSSet *allFoldersOnServer = [self.connectionContext.mailAcct allFolders];
 	for (NSString *folderName in allFoldersOnServer)
 	{
-		CTCoreFolder *currFolder = [self.connectionContext.mailAcct folderWithPath:folderName];
-		totalMsgs += currFolder.totalMessageCount;
+		CTCoreFolder *currFolder = [self.connectionContext.mailAcct
+			folderWithPath:folderName];
+		
+		NSUInteger messagesInFolder = [currFolder totalMessageCount];
+		NSLog(@"total messages in folder %@:%d",folderName,messagesInFolder);
+	
+		totalMsgs += messagesInFolder;
+		
+		[currFolder disconnect];
 	}
 	return totalMsgs;
 }

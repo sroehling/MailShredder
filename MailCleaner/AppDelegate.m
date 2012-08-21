@@ -29,7 +29,8 @@
 #import "EmailAccount.h"
 #import "EmailAccountFormInfoCreator.h"
 #import "GenericFieldBasedTableAddViewController.h"
-
+#import "EmailAccountAdder.h"
+#import "FormContext.h"
 
 @implementation AppDelegate
 
@@ -39,6 +40,7 @@
 @synthesize mailSyncController;
 @synthesize mailSyncProgressDelegates;
 @synthesize sharedAppVals;
+@synthesize emailAccountAdder;
 
 - (void)dealloc
 {
@@ -48,6 +50,7 @@
 	[mailSyncController release];
 	[mailSyncProgressDelegates release];
 	[sharedAppVals release];
+	[emailAccountAdder release];
     [super dealloc];
 }
 
@@ -92,19 +95,18 @@
 
 -(void)promptForEmailAcctInfoForDataModelController
 {
-
-	EmailAccount *newAcct = [EmailAccount defaultNewEmailAcctWithDataModelController:self.appDmc];	
-	
-	EmailAccountFormInfoCreator *emailAcctFormInfoCreator = 
-		[[[EmailAccountFormInfoCreator alloc] initWithEmailAcct:newAcct] autorelease];
-	
-    GenericFieldBasedTableAddViewController *addView =  
-		[[[GenericFieldBasedTableAddViewController alloc] 
-        initWithFormInfoCreator:emailAcctFormInfoCreator andNewObject:newAcct
-		andDataModelController:appDmc] autorelease];
+    GenericFieldBasedTableAddViewController *addView = 
+		[self.emailAccountAdder addViewControllerForNewAccountAddr:self.appDmc];
 	addView.popDepth = 0;
 	addView.showCancelButton = FALSE;
-	addView.addCompleteDelegate = self;
+	
+	// Setup self.emailAccountAddr so it uses addView as the parent view controller
+	// when the final form for the account settings is presented. Also setup
+	// self.emailAccountAddr so it calls the delegate method when the final save is complete.
+	FormContext *parentContext = [[[FormContext alloc] 
+		initWithParentController:addView andDataModelController:self.appDmc] autorelease];
+	self.emailAccountAdder.currParentContext = parentContext;
+	self.emailAccountAdder.acctSaveCompleteDelegate = self;
 
 	UINavigationController *emailAcctNavController = [[[UINavigationController alloc] 
 			initWithRootViewController:addView] autorelease];
@@ -192,9 +194,10 @@
 	[SharedAppVals initFromDatabase];
 
 
+	self.emailAccountAdder = [[[EmailAccountAdder alloc] init] autorelease];
+	
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
-	
 	
 	// For the top level DataModelController(actually its underlying NSManagedObjectContext), the
 	// merge policy must be set to give priority to external changes. This is accounts for the scenario
