@@ -57,8 +57,8 @@ CGFloat const MSG_DETAIL_FONT_SIZE = 14.0;
 	textLabel.textAlignment = UITextAlignmentLeft;
 	textLabel.highlightedTextColor = [UIColor grayColor];
 	textLabel.font = [UIFont systemFontOfSize:MSG_DETAIL_FONT_SIZE];        
-	textLabel.lineBreakMode = UILineBreakModeTailTruncation;
-	textLabel.numberOfLines = 1;
+	textLabel.lineBreakMode = UILineBreakModeWordWrap;
+	textLabel.numberOfLines = 0;
 	
 	return textLabel;
 
