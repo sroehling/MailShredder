@@ -85,18 +85,20 @@
 	KeychainFieldInfo *passwordFieldInfo = [self.emailAcctInfo  passwordFieldInfo];
 	NSString *password = (NSString*)[passwordFieldInfo getFieldValue];
 	
-	NSLog(@"Mail connection: server=%@, login=%@, pass=%@",
+	NSLog(@"Mail connection: server=%@, login=%@, pass=<hidden>",
 		self.emailAcctInfo.imapServer,
-		self.emailAcctInfo.userName,
-		password);
+		self.emailAcctInfo.userName);
 		
-	
-	[self.mailAcct connectToServer:self.emailAcctInfo.imapServer 
+	BOOL connectionSucceeded = [self.mailAcct connectToServer:self.emailAcctInfo.imapServer 
 		port:[self.emailAcctInfo.portNumber intValue]
 		connectionType:connectionType
 		authType:IMAP_AUTH_TYPE_PLAIN 
 		login:self.emailAcctInfo.userName
-		password:password]; 
+		password:password];
+	if(!connectionSucceeded)
+	{
+		@throw [NSException exceptionWithName:@"IMAPServerConnectionFailed" reason:@"Connection to IMAP server failed" userInfo:nil];
+	}
 	
 }
 
