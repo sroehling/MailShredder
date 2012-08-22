@@ -16,6 +16,7 @@
 @class EmailFolderFilter;
 @class DataModelController;
 @class RecipientAddressFilter;
+@class EmailAccount;
 
 extern NSString * const MESSAGE_FILTER_ENTITY_NAME;
 extern NSString * const MESSAGE_FILTER_AGE_FILTER_KEY;
@@ -30,12 +31,12 @@ extern NSString * const MESSAGE_FILTER_AGE_FILTER_KEY;
 @property (nonatomic, retain) FromAddressFilter *fromAddressFilter;
 @property (nonatomic, retain) RecipientAddressFilter *recipientAddressFilter;
 
-// Inverse
-@property (nonatomic, retain) SharedAppVals *sharedAppValsMsgListFilter;
-
+@property (nonatomic, retain) EmailAccount *emailAcctMsgListFilter;
 
 -(NSPredicate*)filterPredicate:(NSDate*)baseDate;
 -(void)resetToDefault:(DataModelController*)filterDmc;
 -(NSString*)filterSynopsis;
+
++(MessageFilter*)defaultMessageFilter:(DataModelController*)filterDmc;
 
 @end

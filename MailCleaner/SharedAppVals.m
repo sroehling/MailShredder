@@ -24,7 +24,6 @@ NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY = @"currentEmailAcct"
 
 @implementation SharedAppVals
 
-@dynamic msgListFilter;
 @dynamic currentEmailAcct;
 
 @dynamic defaultAgeFilterNone;
@@ -65,17 +64,6 @@ NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY = @"currentEmailAcct"
 		andComparisonType:AGE_FILTER_COMPARISON_OLDER andInterval:3 andTimeUnit:AGE_FILTER_COMPARISON_TIME_UNIT_MONTHS];
 	sharedVals.defaultAgeFilterOlder6Months = [AgeFilterComparison filterWithDataModelController:dataModelController 
 		andComparisonType:AGE_FILTER_COMPARISON_OLDER andInterval:6 andTimeUnit:AGE_FILTER_COMPARISON_TIME_UNIT_MONTHS];
-		
-	sharedVals.msgListFilter = (MessageFilter*)[dataModelController insertObject:MESSAGE_FILTER_ENTITY_NAME];
-	sharedVals.msgListFilter.ageFilter = sharedVals.defaultAgeFilterNone;
-	sharedVals.msgListFilter.fromAddressFilter = (FromAddressFilter*)
-		[dataModelController insertObject:FROM_ADDRESS_FILTER_ENTITY_NAME];
-	sharedVals.msgListFilter.recipientAddressFilter = (RecipientAddressFilter*)
-		[dataModelController insertObject:RECIPIENT_ADDRESS_FILTER_ENTITY_NAME];
-	sharedVals.msgListFilter.emailDomainFilter = (EmailDomainFilter*)
-		[dataModelController insertObject:EMAIL_DOMAIN_FILTER_ENTITY_NAME];
-	sharedVals.msgListFilter.folderFilter = (EmailFolderFilter*)
-		[dataModelController insertObject:EMAIL_FOLDER_FILTER_ENTITY_NAME];
 
 	return sharedVals;
 }

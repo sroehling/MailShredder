@@ -37,6 +37,8 @@
 -(id)initWithMainThreadDmc:(DataModelController*)theMainThreadDmc
 	andProgressDelegate:(id<MailSyncProgressDelegate>)theProgressDelegate;
 	
+-(EmailAccount*)acctInSyncObjectContext;	
+	
 -(BOOL)establishConnection;
 -(void)teardownConnection;
 -(void)saveLocalChanges;

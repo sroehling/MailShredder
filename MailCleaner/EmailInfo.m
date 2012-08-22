@@ -15,6 +15,7 @@ NSString * const EMAIL_INFO_FROM_KEY = @"from";
 NSString * const EMAIL_INFO_DOMAIN_KEY = @"domain";
 NSString * const EMAIL_INFO_FOLDER_KEY = @"folder";
 NSString * const EMAIL_INFO_DELETED_KEY = @"deleted";
+NSString * const EMAIL_INFO_ACCT_KEY = @"emailAcct";
 
 @implementation EmailInfo
 
@@ -26,6 +27,8 @@ NSString * const EMAIL_INFO_DELETED_KEY = @"deleted";
 @dynamic subject;
 @dynamic deleted;
 @dynamic recipientAddresses;
+@dynamic emailAcct;
+
 
 
 @dynamic folderInfo;

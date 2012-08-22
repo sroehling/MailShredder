@@ -8,6 +8,7 @@
 
 #import "FolderSyncContext.h"
 #import "EmailFolder.h"
+#import "EmailAccount.h"
 #import "MailSyncConnectionContext.h"
 #import "DataModelController.h"
 
@@ -24,8 +25,10 @@
 	{
 		self.connectionContext = theConnectionContext;
 		
-		self.currFolderByFolderName = [EmailFolder foldersByName:self.connectionContext.syncDmc];
-		self.foldersNoLongerOnServer = [EmailFolder foldersByName:self.connectionContext.syncDmc];
+		EmailAccount *currAcct = self.connectionContext.acctInSyncObjectContext;
+		
+		self.currFolderByFolderName = [currAcct foldersByName];
+		self.foldersNoLongerOnServer = [currAcct foldersByName];
 
 	}
 	return self;
@@ -69,7 +72,8 @@
 	{
 		emailFolder = [EmailFolder findOrAddFolder:folderName 
 			inExistingFolders:currFolderByFolderName 
-			withDataModelController:self.connectionContext.syncDmc];
+			withDataModelController:self.connectionContext.syncDmc
+			andFolderAcct:self.connectionContext.acctInSyncObjectContext];
 	}
 	else 
 	{

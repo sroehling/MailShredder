@@ -10,9 +10,11 @@
 #import <CoreData/CoreData.h>
 
 extern NSString * const EMAIL_FOLDER_ENTITY_NAME;
+extern NSString * const EMAIL_FOLDER_ACCT_KEY;
 
 @class DataModelController;
 @class EmailInfo;
+@class EmailAccount;
 
 @interface EmailFolder : NSManagedObject
 {
@@ -27,11 +29,17 @@ extern NSString * const EMAIL_FOLDER_ENTITY_NAME;
 
 @property BOOL isSelectedForSelectableObjectTableView;
 
-+(NSMutableDictionary*)foldersByName:(DataModelController*)appDataDmc;
+// EmailAccount this folder belongs to
+@property (nonatomic, retain) EmailAccount *folderAccount;
+
 +(EmailFolder*)findOrAddFolder:(NSString*)folderName 
 	inExistingFolders:(NSMutableDictionary*)currFoldersByName
-	withDataModelController:(DataModelController*)appDataDmc;
+	withDataModelController:(DataModelController*)appDataDmc
+	andFolderAcct:(EmailAccount*)acctForFolder;
+	
 -(NSMutableDictionary*)emailInfosInFolderByUID;
+
+
 
 @end
 

@@ -9,33 +9,25 @@
 #import "EmailDomain.h"
 #import "DataModelController.h"
 #import "StringValidation.h"
+#import "EmailAccount.h"
 
 NSString * const EMAIL_DOMAIN_ENTITY_NAME = @"EmailDomain";
+NSString * const EMAIL_DOMAIN_ACCT_KEY = @"domainAcct";
 
 @implementation EmailDomain
 
 @dynamic domainName;
-
+@dynamic domainAcct;
 
 // This property is not persisted via CoreData. It is used for tracking of 
 // selection of the EmailAddress in a table view.
 @synthesize isSelectedForSelectableObjectTableView;
 
 
-+(NSMutableDictionary*)emailDomainsByDomainName:(DataModelController*)appDataDmc
-{
-	NSSet *currDomains = [appDataDmc fetchObjectsForEntityName:EMAIL_DOMAIN_ENTITY_NAME];
-	NSMutableDictionary *currDomainByDomainName = [[[NSMutableDictionary alloc] init] autorelease];
-	for(EmailDomain *currDomain in currDomains)
-	{
-		[currDomainByDomainName setObject:currDomain forKey:currDomain.domainName];
-	}
-	return currDomainByDomainName;
-}
-
-
-+(EmailDomain*)findOrAddDomainName:(NSString*)domainName withCurrentDomains:(NSMutableDictionary*)currDomainsByName 
++(EmailDomain*)findOrAddDomainName:(NSString*)domainName 
+			withCurrentDomains:(NSMutableDictionary*)currDomainsByName 
 			inDataModelController:(DataModelController*)appDataDmc
+			andEmailAcct:(EmailAccount*)emailAcct
 {
 	assert([StringValidation nonEmptyString:domainName]);
 	EmailDomain *theDomain = [currDomainsByName objectForKey:domainName];
@@ -43,6 +35,7 @@ NSString * const EMAIL_DOMAIN_ENTITY_NAME = @"EmailDomain";
 	{
 		theDomain = [appDataDmc insertObject:EMAIL_DOMAIN_ENTITY_NAME];
 		theDomain.domainName = domainName;
+		theDomain.domainAcct = emailAcct;
 		[currDomainsByName setObject:theDomain forKey:domainName];
 	}
 	return theDomain;

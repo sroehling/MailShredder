@@ -20,6 +20,7 @@
 #import "EmailAddressFieldEditInfo.h"
 #import "SectionInfo.h"
 #import "FormInfo.h"
+#import "SharedAppVals.h"
 
 @implementation EmailAddressSelectionFormInfoCreator
 
@@ -54,9 +55,13 @@
 		initWithEmailAddressFilter:self.emailAddressFilter] autorelease];
 		
 	[formPopulator nextSection];
+	
+	SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:parentContext.dataModelController];
+	NSPredicate *currentAcctPredicate = [NSPredicate predicateWithFormat:@"%K=%@",
+		EMAIL_ADDRESS_ACCT_KEY,sharedVals.currentEmailAcct];
 		
-	NSSet *senderAddresses = [parentContext.dataModelController 
-		fetchObjectsForEntityName:EMAIL_ADDRESS_ENTITY_NAME];
+	NSArray *senderAddresses = [parentContext.dataModelController 
+		fetchObjectsForEntityName:EMAIL_ADDRESS_ENTITY_NAME andPredicate:currentAcctPredicate];
 	for(EmailAddress *senderAddress in senderAddresses)
 	{
 		// Only display the address for selection if 

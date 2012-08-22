@@ -16,6 +16,7 @@
 #import "EmailAddress.h"
 #import "EmailFolder.h"
 #import "EmailInfo.h"
+#import "EmailAccount.h"
 #import "PercentProgressCounter.h"
 
 NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
@@ -28,6 +29,7 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 @synthesize existingEmailInfoByUID;
 @synthesize currFolder;
 @synthesize syncProgressCounter;
+@synthesize syncAcct;
 
 -(id)initWithConnectionContext:(MailSyncConnectionContext *)theConnectionContext
 	andTotalExpectedMsgs:(NSUInteger)totalMsgs
@@ -37,8 +39,10 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 	{
 		self.connectionContext = theConnectionContext;
 		
-		self.currEmailAddressByAddress = [EmailAddress addressesByName:self.connectionContext.syncDmc];
-		self.currDomainByDomainName = [EmailDomain emailDomainsByDomainName:self.connectionContext.syncDmc];
+		self.syncAcct = [self.connectionContext acctInSyncObjectContext];
+		
+		self.currEmailAddressByAddress = [syncAcct emailAddressesByName];
+		self.currDomainByDomainName = [syncAcct emailDomainsByDomainName];
 		
 		newLocalMsgsCreated=0;
 		self.syncProgressCounter = [[PercentProgressCounter alloc] 
@@ -74,13 +78,15 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 	newEmailInfo.subject = msg.subject;
 	newEmailInfo.uid = [NSNumber numberWithUnsignedInt:msg.uid];	
 	newEmailInfo.domain = [MailAddressHelper emailAddressDomainName:msg.sender.email];
+	newEmailInfo.emailAcct = self.syncAcct;
 	
 	NSSet *recipients = [msg to];
 	for(CTCoreAddress *toAddress in recipients)
 	{
 		EmailAddress *recipientAddress = [EmailAddress findOrAddAddress:toAddress.email 
 					withCurrentAddresses:self.currEmailAddressByAddress 
-					inDataModelController:self.connectionContext.syncDmc];
+					inDataModelController:self.connectionContext.syncDmc
+					andEmailAcct:self.syncAcct];
 		[newEmailInfo addRecipientAddressesObject:recipientAddress];
 
 	}
@@ -112,11 +118,13 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 		
 		[EmailAddress findOrAddAddress:newEmailInfo.from 
 			withCurrentAddresses:self.currEmailAddressByAddress 
-				inDataModelController:self.connectionContext.syncDmc];
+				inDataModelController:self.connectionContext.syncDmc
+				andEmailAcct:self.syncAcct];
 		
 		[EmailDomain findOrAddDomainName:newEmailInfo.domain 
 			withCurrentDomains:self.currDomainByDomainName 
-			inDataModelController:self.connectionContext.syncDmc];
+			inDataModelController:self.connectionContext.syncDmc
+			andEmailAcct:self.syncAcct];
 		
 		newLocalMsgsCreated ++;
 
@@ -153,6 +161,8 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 	
 	[existingEmailInfoByUID release];
 	[currFolder release];
+	
+	[syncAcct release];
 	
 	[syncProgressCounter release];
 	[super dealloc];

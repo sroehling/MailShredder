@@ -19,6 +19,8 @@
 #import "TrashRule.h"
 #import "MsgHandlingRuleFieldEditInfo.h"
 #import "TrashRuleFormInfoCreator.h"
+#import "SharedAppVals.h"
+#import "MsgPredicateHelper.h"
 
 @implementation RulesFormInfoCreator
 
@@ -31,8 +33,11 @@
 	
 	formPopulator.formInfo.objectAdder = [[[RuleObjectAdder alloc] init] autorelease];
 	
-	NSSet *trashRules = [parentContext.dataModelController
-		fetchObjectsForEntityName:TRASH_RULE_ENTITY_NAME];
+	NSPredicate *rulesInCurrentAcctPredicate = [MsgPredicateHelper 
+		rulesInCurrentAcctPredicate:parentContext.dataModelController];	
+	
+	NSArray *trashRules = [parentContext.dataModelController fetchObjectsForEntityName:TRASH_RULE_ENTITY_NAME 
+			andPredicate:rulesInCurrentAcctPredicate];
 	if([trashRules count] > 0)
 	{
 		[formPopulator nextSectionWithTitle:LOCALIZED_STR(@"RULES_TRASH_RULES_SECTION_TITLE")];
@@ -50,8 +55,8 @@
 	}
 	
 	
-	NSSet *exclusionRules = [parentContext.dataModelController
-		fetchObjectsForEntityName:EXCLUSION_RULE_ENTITY_NAME];
+	NSArray *exclusionRules = [parentContext.dataModelController
+		fetchObjectsForEntityName:EXCLUSION_RULE_ENTITY_NAME andPredicate:rulesInCurrentAcctPredicate];
 	if([exclusionRules count] > 0)
 	{
 		[formPopulator nextSectionWithTitle:LOCALIZED_STR(@"RULES_EXCLUSION_RULES_SECTION_TITLE")];

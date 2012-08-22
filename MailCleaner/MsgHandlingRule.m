@@ -23,6 +23,7 @@
 NSString * const RULE_ENABLED_KEY = @"enabled";
 NSString * const RULE_AGE_FILTER_KEY = @"ageFilter";
 NSString * const RULE_NAME_KEY = @"ruleName";
+NSString * const RULE_EMAIL_ACCT_KEY = @"emailAcct";
 NSInteger const RULE_NAME_MAX_LENGTH = 32;
 
 @implementation MsgHandlingRule
@@ -34,7 +35,7 @@ NSInteger const RULE_NAME_MAX_LENGTH = 32;
 @dynamic emailDomainFilter;
 @dynamic folderFilter;
 @dynamic ruleName;
-
+@dynamic emailAcct;
 
 -(NSString*)ruleSynopsis
 {
@@ -111,6 +112,9 @@ NSInteger const RULE_NAME_MAX_LENGTH = 32;
 
 	msgHandlingRule.folderFilter = (EmailFolderFilter*)
 		[dmcForNewRule insertObject:EMAIL_FOLDER_FILTER_ENTITY_NAME];
+		
+	assert(sharedAppVals.currentEmailAcct != nil);
+	msgHandlingRule.emailAcct = sharedAppVals.currentEmailAcct;
 }
 
 @end

@@ -10,6 +10,7 @@
 #import "TrashRule.h"
 #import "ExclusionRule.h"
 #import "DataModelController.h"
+#import "SharedAppVals.h"
 #import "EmailInfo.h"
 
 @implementation MsgPredicateHelper
@@ -69,11 +70,39 @@
 
 }
 
++(NSPredicate*)emailInfoInCurrentAcctPredicate:(DataModelController*)appDmc
+{
+	SharedAppVals *sharedVals =  [SharedAppVals getUsingDataModelController:appDmc];
+	NSPredicate *matchingCurrentAcctPredicate = [NSPredicate predicateWithFormat:@"%K=%@",
+		EMAIL_INFO_ACCT_KEY,sharedVals.currentEmailAcct];
+	return matchingCurrentAcctPredicate;
+}
+
++(NSPredicate*)rulesInCurrentAcctPredicate:(DataModelController*)appDmc
+{
+	// TODO - Double check if we should use = or ==
+	SharedAppVals *sharedVals =  [SharedAppVals getUsingDataModelController:appDmc];
+	NSPredicate *matchingCurrentAcctPredicate = [NSPredicate predicateWithFormat:@"%K=%@",
+		RULE_EMAIL_ACCT_KEY,sharedVals.currentEmailAcct];
+	return matchingCurrentAcctPredicate;
+}
+
++(NSPredicate*)enabledInCurrentAcctPredicate:(DataModelController*)appDmc
+{	
+	NSPredicate *enabledRulesPredicate = [NSPredicate predicateWithFormat:@"%K==%@",
+		RULE_ENABLED_KEY,[NSNumber numberWithBool:TRUE]];
+	NSPredicate *matchingCurrentAcctPredicate = [MsgPredicateHelper rulesInCurrentAcctPredicate:appDmc];
+	NSPredicate *enabledInCurrentAcctPredicate = [NSCompoundPredicate
+			andPredicateWithSubpredicates:
+				[NSArray arrayWithObjects:matchingCurrentAcctPredicate, enabledRulesPredicate,nil]];
+	return enabledInCurrentAcctPredicate;
+
+}
+
 +(NSPredicate*)trashedByMsgRules:(DataModelController*)appDmc andBaseDate:(NSDate*)baseDate
 {
 
-	NSPredicate *enabledTrashRulesPredicate = [NSPredicate predicateWithFormat:@"%K == %@",
-		RULE_ENABLED_KEY,[NSNumber numberWithBool:TRUE]];
+	NSPredicate *enabledTrashRulesPredicate = [MsgPredicateHelper enabledInCurrentAcctPredicate:appDmc];
 	NSArray *trashRules = [appDmc fetchObjectsForEntityName:TRASH_RULE_ENTITY_NAME
 		andPredicate:enabledTrashRulesPredicate];
 		

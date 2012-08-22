@@ -24,6 +24,8 @@
 #import "CompositeMailSyncProgressDelegate.h"
 #import "DeleteMsgConfirmationView.h"
 #import "MsgDetailViewController.h"
+#import "SharedAppVals.h"
+#import "MsgPredicateHelper.h"
 
 
 @implementation MsgListTableViewController
@@ -144,7 +146,13 @@
 	NSSortDescriptor *sort = [[NSSortDescriptor alloc]
 		initWithKey:EMAIL_INFO_SEND_DATE_KEY ascending:NO];
 	[fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-	[fetchRequest setPredicate:[self msgListPredicate]];	
+	
+	NSPredicate *currentAcctPredicate = [MsgPredicateHelper emailInfoInCurrentAcctPredicate:self.appDmc];
+		
+	NSPredicate *matchFilterInCurrentAcct = [NSCompoundPredicate andPredicateWithSubpredicates:
+		[NSArray arrayWithObjects:currentAcctPredicate, [self msgListPredicate],nil]];
+
+	[fetchRequest setPredicate:matchFilterInCurrentAcct];
 	[fetchRequest setFetchBatchSize:20];
 	return fetchRequest;
 }

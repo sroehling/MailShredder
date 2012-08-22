@@ -30,6 +30,7 @@
 #import "EmailFolderFilter.h"
 #import "EmailAddress.h"
 #import "RecipientAddressFilter.h"
+#import "EmailAccount.h"
 
 @implementation TestMessageFiltering
 
@@ -54,15 +55,17 @@
 	newEmailInfo.sendDate = [DateHelper dateFromStr:sendDate];
 	newEmailInfo.from = fromSender;
 	newEmailInfo.subject = subject;
-	newEmailInfo.messageId = [NSString stringWithFormat:@"MSG%06d",currMessageId];
+	newEmailInfo.uid = [NSNumber numberWithInt:currMessageId];
 	newEmailInfo.folderInfo = self.testFolder;
 	newEmailInfo.folder = folderName;
 	newEmailInfo.domain = [MailAddressHelper emailAddressDomainName:fromSender];
+	newEmailInfo.emailAcct = testAppVals.currentEmailAcct;
 	
-	NSMutableDictionary *currEmailAddressByAddress = [EmailAddress addressesByName:self.appDataDmc];
+	NSMutableDictionary *currEmailAddressByAddress = [self.testAppVals.currentEmailAcct emailAddressesByName];
 	EmailAddress *recipientAddress = [EmailAddress findOrAddAddress:recipientAddr 
 					withCurrentAddresses:currEmailAddressByAddress 
-					inDataModelController:self.appDataDmc];
+					inDataModelController:self.appDataDmc
+					andEmailAcct:self.testAppVals.currentEmailAcct];
 	[newEmailInfo addRecipientAddressesObject:recipientAddress];
 
 	currMessageId ++;
@@ -93,8 +96,18 @@
 			
 	self.testAppVals = [SharedAppVals createWithDataModelController:self.appDataDmc];
 	
+	EmailAccount *testAcct = [EmailAccount defaultNewEmailAcctWithDataModelController:self.appDataDmc];
+	testAcct.userName = @"testuser";
+	testAcct.imapServer = @"testserver";
+	testAcct.emailAddress = @"testemail";
+	testAcct.acctName = @"testacct";
+	
+	self.testAppVals.currentEmailAcct = testAcct;
+	
+		
 	self.testFolder = (EmailFolder*)[self.appDataDmc insertObject:EMAIL_FOLDER_ENTITY_NAME];
 	self.testFolder.folderName = @"TESTINBOX";
+	self.testFolder.folderAccount = testAcct;
 			
 	currMessageId = 0;
 }
@@ -159,26 +172,31 @@
 	
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 
-	self.testAppVals.msgListFilter.ageFilter = testAppVals.defaultAgeFilterNewer1Year;
-	NSPredicate *filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	self.messageFilterForTest.ageFilter = testAppVals.defaultAgeFilterNewer1Year;
+	NSPredicate *filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S02", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
 
-	self.testAppVals.msgListFilter.ageFilter = testAppVals.defaultAgeFilterNewer3Months;
-	filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	self.messageFilterForTest.ageFilter = testAppVals.defaultAgeFilterNewer3Months;
+	filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S02", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
 
-	self.testAppVals.msgListFilter.ageFilter = testAppVals.defaultAgeFilterOlder1Year;
-	filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	self.messageFilterForTest.ageFilter = testAppVals.defaultAgeFilterOlder1Year;
+	filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S03",@"S04",@"S05", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
 
-	self.testAppVals.msgListFilter.ageFilter = testAppVals.defaultAgeFilterNone;
-	filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	self.messageFilterForTest.ageFilter = testAppVals.defaultAgeFilterNone;
+	filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S02",@"S03",@"S04",@"S05", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
 	
+}
+
+-(MessageFilter*)messageFilterForTest
+{
+	return self.testAppVals.currentEmailAcct.msgListFilter;
 }
 
 - (void)testEmailAddressFilter
@@ -196,16 +214,16 @@
 	// Filtering for Jane should include S01 and S04
 	EmailAddress *janeEmailAddr = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
 	janeEmailAddr.address = @"jane";
-	[self.testAppVals.msgListFilter.fromAddressFilter addSelectedAddressesObject:janeEmailAddr];
-	NSPredicate *filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	[self.messageFilterForTest.fromAddressFilter addSelectedAddressesObject:janeEmailAddr];
+	NSPredicate *filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S04", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
 	
 	// Also filtering for Dan should additionally include S03
 	EmailAddress *danEmailAddr = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
 	danEmailAddr.address = @"dan";
-	[self.testAppVals.msgListFilter.fromAddressFilter addSelectedAddressesObject:danEmailAddr];
-	filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	[self.messageFilterForTest.fromAddressFilter addSelectedAddressesObject:danEmailAddr];
+	filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S03",@"S04", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
 
@@ -213,8 +231,8 @@
 	// Filtering for Steve shouldn't change the results, since there are no messages from Steve
 	EmailAddress *steveEmailAddr = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
 	steveEmailAddr.address = @"steve";
-	[self.testAppVals.msgListFilter.fromAddressFilter addSelectedAddressesObject:danEmailAddr];
-	filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	[self.messageFilterForTest.fromAddressFilter addSelectedAddressesObject:danEmailAddr];
+	filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S03",@"S04", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
 
@@ -243,21 +261,23 @@
 	[self populateTestEmailWithSendDate:@"2012-05-01" andSubject:@"S05" andFrom:@"sally" 
 		andFolder:@"INBOX" andRecipientAddress:@"bob@example.com"];
 		
-	NSMutableDictionary *currEmailAddressByAddress = [EmailAddress addressesByName:self.appDataDmc];
-	[self.testAppVals.msgListFilter.recipientAddressFilter addSelectedAddressesObject:
+	NSMutableDictionary *currEmailAddressByAddress = [self.testAppVals.currentEmailAcct emailAddressesByName];
+	[self.messageFilterForTest.recipientAddressFilter addSelectedAddressesObject:
 		[EmailAddress findOrAddAddress:@"jane@example.com" withCurrentAddresses:currEmailAddressByAddress 
-					inDataModelController:self.appDataDmc]];
-	[self.testAppVals.msgListFilter.recipientAddressFilter addSelectedAddressesObject:
+					inDataModelController:self.appDataDmc
+					andEmailAcct:self.testAppVals.currentEmailAcct]];
+	[self.messageFilterForTest.recipientAddressFilter addSelectedAddressesObject:
 		[EmailAddress findOrAddAddress:@"bob@example.com" withCurrentAddresses:currEmailAddressByAddress 
-					inDataModelController:self.appDataDmc]];
+					inDataModelController:self.appDataDmc
+					andEmailAcct:self.testAppVals.currentEmailAcct]];
 					
-	NSPredicate *filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	NSPredicate *filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S02",@"S05", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
 	
 	// Invert the matching
-	self.testAppVals.msgListFilter.recipientAddressFilter.matchUnselected = [NSNumber numberWithBool:TRUE];
-	filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	self.messageFilterForTest.recipientAddressFilter.matchUnselected = [NSNumber numberWithBool:TRUE];
+	filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S03",@"S04", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
 
@@ -278,17 +298,17 @@
 
 	EmailAddress *janeEmailAddr = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
 	janeEmailAddr.address = @"jane";
-	[self.testAppVals.msgListFilter.fromAddressFilter addSelectedAddressesObject:janeEmailAddr];
+	[self.messageFilterForTest.fromAddressFilter addSelectedAddressesObject:janeEmailAddr];
 	
 	EmailAddress *danEmailAddr = (EmailAddress*)[self.appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
 	danEmailAddr.address = @"dan";
-	[self.testAppVals.msgListFilter.fromAddressFilter addSelectedAddressesObject:danEmailAddr];
+	[self.messageFilterForTest.fromAddressFilter addSelectedAddressesObject:danEmailAddr];
 
 	// Invert the selection
-	self.testAppVals.msgListFilter.fromAddressFilter.matchUnselected = [NSNumber numberWithBool:TRUE];
+	self.messageFilterForTest.fromAddressFilter.matchUnselected = [NSNumber numberWithBool:TRUE];
 	
 	// Filtering for address other than Jane or Dan should include S02,S05
-	NSPredicate *filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	NSPredicate *filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S02",@"S05", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
 	
@@ -311,9 +331,9 @@
 	// Filtering email addresses with the localdomain should include S01 and S05.
 	EmailDomain *localDomain = (EmailDomain*)[self.appDataDmc insertObject:EMAIL_DOMAIN_ENTITY_NAME];
 	localDomain.domainName = @"localdomain";
-	[self.testAppVals.msgListFilter.emailDomainFilter addSelectedDomainsObject:localDomain];
+	[self.messageFilterForTest.emailDomainFilter addSelectedDomainsObject:localDomain];
 	
-	NSPredicate *filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	NSPredicate *filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S05", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
 	
@@ -334,16 +354,15 @@
 	// Filtering email addresses with the localdomain should include S01 and S05.
 	EmailDomain *localDomain = (EmailDomain*)[self.appDataDmc insertObject:EMAIL_DOMAIN_ENTITY_NAME];
 	localDomain.domainName = @"localdomain";
-	[self.testAppVals.msgListFilter.emailDomainFilter addSelectedDomainsObject:localDomain];
+	[self.messageFilterForTest.emailDomainFilter addSelectedDomainsObject:localDomain];
 	
-	testAppVals.msgListFilter.emailDomainFilter.matchUnselected = [NSNumber numberWithBool:TRUE];
+	self.messageFilterForTest.emailDomainFilter.matchUnselected = [NSNumber numberWithBool:TRUE];
 	
-	NSPredicate *filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	NSPredicate *filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S02",@"S03",@"S04", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
 	
 }
-
 
 
 - (void)testEmailFolderFilter
@@ -362,9 +381,10 @@
 	// Filtering email addresses with the localdomain should include S01 and S05.
 	EmailFolder *inbox = (EmailFolder*)[self.appDataDmc insertObject:EMAIL_FOLDER_ENTITY_NAME];
 	inbox.folderName = @"INBOX";
-	[self.testAppVals.msgListFilter.folderFilter addSelectedFoldersObject:inbox];
+	inbox.folderAccount = self.testAppVals.currentEmailAcct;
+	[self.messageFilterForTest.folderFilter addSelectedFoldersObject:inbox];
 	
-	NSPredicate *filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	NSPredicate *filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S03", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
 	
@@ -386,12 +406,13 @@
 
 	EmailFolder *inbox = (EmailFolder*)[self.appDataDmc insertObject:EMAIL_FOLDER_ENTITY_NAME];
 	inbox.folderName = @"INBOX";
-	[self.testAppVals.msgListFilter.folderFilter addSelectedFoldersObject:inbox];
+	inbox.folderAccount = self.testAppVals.currentEmailAcct;
+	[self.messageFilterForTest.folderFilter addSelectedFoldersObject:inbox];
 	
 	// Invert the selection predicate
-	self.testAppVals.msgListFilter.folderFilter.matchUnselected = [NSNumber numberWithBool:TRUE];
+	self.messageFilterForTest.folderFilter.matchUnselected = [NSNumber numberWithBool:TRUE];
 	
-	NSPredicate *filterPredicate = [self.testAppVals.msgListFilter filterPredicate:baseDate];
+	NSPredicate *filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S02", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
 	
@@ -593,6 +614,7 @@
 	// Filtering email by the INBOX folder should result in S01 and S03
 	EmailFolder *inbox = (EmailFolder*)[self.appDataDmc insertObject:EMAIL_FOLDER_ENTITY_NAME];
 	inbox.folderName = @"INBOX";
+	inbox.folderAccount = self.testAppVals.currentEmailAcct;
 	[trashRule01.folderFilter addSelectedFoldersObject:inbox];
 
 	NSPredicate *filterPredicate = [MsgPredicateHelper trashedByMsgRules:self.appDataDmc andBaseDate:baseDate];
@@ -693,6 +715,7 @@
 	// The results should be S03, S04, S06 (S02,S05 got excluded)
 	EmailFolder *saveFolder = (EmailFolder*)[self.appDataDmc insertObject:EMAIL_FOLDER_ENTITY_NAME];
 	saveFolder.folderName = @"SAVE";
+	saveFolder.folderAccount = self.testAppVals.currentEmailAcct;
 	[exclusionRule.folderFilter addSelectedFoldersObject:saveFolder];
 
 	NSPredicate *filterPredicate = [MsgPredicateHelper trashedByMsgRules:self.appDataDmc andBaseDate:baseDate];

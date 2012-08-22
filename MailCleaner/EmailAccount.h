@@ -27,6 +27,12 @@ extern NSString * const EMAIL_ACCOUNT_UNIQUEACCTID_KEY;
 @class DataModelController;
 @class SharedAppVals;
 @class KeychainFieldInfo;
+@class EmailFolder;
+@class EmailDomain;
+@class EmailAddress;
+@class EmailInfo;
+@class MsgHandlingRule;
+@class MessageFilter;
 
 @interface EmailAccount : NSManagedObject
 {
@@ -40,6 +46,9 @@ extern NSString * const EMAIL_ACCOUNT_UNIQUEACCTID_KEY;
 @property (nonatomic, retain) NSString * userName;
 @property (nonatomic, retain) NSNumber * useSSL;
 @property (nonatomic, retain) NSNumber * portNumber;
+
+@property (nonatomic, retain) MessageFilter *msgListFilter;
+
 
 // The last time a successful synchronization with the 
 // server took place. This is displaying status in the UI.
@@ -55,9 +64,51 @@ extern NSString * const EMAIL_ACCOUNT_UNIQUEACCTID_KEY;
 // Inverse relationship
 @property (nonatomic, retain) SharedAppVals *sharedAppValsCurrentEmailAcct;
 
-
-
 +(EmailAccount*)defaultNewEmailAcctWithDataModelController:(DataModelController*)acctDmc;
 -(KeychainFieldInfo*)passwordFieldInfo;
+
+// Folders belonging to this account
+@property (nonatomic, retain) NSSet *foldersInAcct;
+
+// Domains, addresses used by messages in this account
+@property (nonatomic, retain) NSSet *domainsInAcct;
+@property (nonatomic, retain) NSSet *addressesInAcct;
+
+@property (nonatomic, retain) NSSet *emailsInAcct;
+
+@property (nonatomic, retain) NSSet *msgHandlingRules;
+
+-(NSMutableDictionary*)foldersByName;
+-(NSMutableDictionary*)emailDomainsByDomainName;
+-(NSMutableDictionary*)emailAddressesByName;
+
+@end
+
+@interface EmailAccount (CoreDataGeneratedAccessors)
+
+- (void)addFoldersInAcctObject:(EmailFolder *)value;
+- (void)removeFoldersInAcctObject:(EmailFolder *)value;
+- (void)addFoldersInAcct:(NSSet *)values;
+- (void)removeFoldersInAcct:(NSSet *)values;
+
+- (void)addDomainsInAcctObject:(EmailDomain *)value;
+- (void)removeDomainsInAcctObject:(EmailDomain *)value;
+- (void)addDomainsInAcct:(NSSet *)values;
+- (void)removeDomainsInAcct:(NSSet *)values;
+
+- (void)addAddressesInAcctObject:(EmailAddress *)value;
+- (void)removeAddressesInAcctObject:(EmailAddress *)value;
+- (void)addAddressesInAcct:(NSSet *)values;
+- (void)removeAddressesInAcct:(NSSet *)values;
+
+- (void)addEmailsInAcctObject:(EmailInfo *)value;
+- (void)removeEmailsInAcctObject:(EmailInfo *)value;
+- (void)addEmailsInAcct:(NSSet *)values;
+- (void)removeEmailsInAcct:(NSSet *)values;
+
+- (void)addMsgHandlingRulesObject:(MsgHandlingRule *)value;
+- (void)removeMsgHandlingRulesObject:(MsgHandlingRule *)value;
+- (void)addMsgHandlingRules:(NSSet *)values;
+- (void)removeMsgHandlingRules:(NSSet *)values;
 
 @end

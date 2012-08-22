@@ -12,6 +12,7 @@
 
 
 NSString * const EMAIL_ADDRESS_ENTITY_NAME = @"EmailAddress";
+NSString * const EMAIL_ADDRESS_ACCT_KEY = @"addressAccount";
 
 @implementation EmailAddress
 
@@ -19,25 +20,16 @@ NSString * const EMAIL_ADDRESS_ENTITY_NAME = @"EmailAddress";
 @dynamic name;
 @dynamic selectedAddressEmailAddress;
 @dynamic emailInfoRecipientAddress;
+@dynamic addressAccount;
 
 // This property is not persisted via CoreData. It is used for tracking of 
 // selection of the EmailAddress in a table view.
 @synthesize isSelectedForSelectableObjectTableView;
 
-+(NSMutableDictionary*)addressesByName:(DataModelController*)appDataDmc
-{
-	NSSet *currEmailAddresses = [appDataDmc fetchObjectsForEntityName:EMAIL_ADDRESS_ENTITY_NAME]; 
-	NSMutableDictionary *currEmailAddressByAddress = [[[NSMutableDictionary alloc] init] autorelease];
-	for(EmailAddress *currAddr in currEmailAddresses)
-	{
-		[currEmailAddressByAddress setObject:currAddr forKey:currAddr.address];
-	}
-	return currEmailAddressByAddress;
-}
-
 +(EmailAddress*)findOrAddAddress:(NSString*)emailAddress 
 	withCurrentAddresses:(NSMutableDictionary*)currAddressByName 
 			inDataModelController:(DataModelController*)appDataDmc
+			andEmailAcct:(EmailAccount*)emailAcct
 {
 
 	assert([StringValidation nonEmptyString:emailAddress]);
@@ -48,6 +40,7 @@ NSString * const EMAIL_ADDRESS_ENTITY_NAME = @"EmailAddress";
 	{
 		theAddr = [appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
 		theAddr.address = emailAddress;
+		theAddr.addressAccount = emailAcct;
 		[currAddressByName setObject:theAddr forKey:emailAddress];
 	}
 	return theAddr;

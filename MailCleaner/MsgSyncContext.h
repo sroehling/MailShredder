@@ -10,6 +10,7 @@
 
 @class MailSyncConnectionContext;
 @class EmailFolder;
+@class EmailAccount;
 @class PercentProgressCounter;
 
 @interface MsgSyncContext : NSObject
@@ -28,6 +29,8 @@
 		NSMutableDictionary *existingEmailInfoByUID;
 		EmailFolder *currFolder;
 		
+		EmailAccount *syncAcct;
+		
 		NSUInteger newLocalMsgsCreated;
 		PercentProgressCounter *syncProgressCounter;
 
@@ -39,6 +42,7 @@
 @property(nonatomic,retain) NSMutableDictionary *currDomainByDomainName;
 
 @property(nonatomic,retain) NSMutableDictionary *existingEmailInfoByUID;
+@property(nonatomic,retain) EmailAccount *syncAcct;
 @property(nonatomic,retain) EmailFolder *currFolder;
 
 @property(nonatomic,retain) PercentProgressCounter *syncProgressCounter;

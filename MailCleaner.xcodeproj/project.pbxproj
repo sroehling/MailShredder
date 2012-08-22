@@ -292,11 +292,11 @@
 		00B3B71C15DDA62C00A8FFCD /* MsgSyncContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgSyncContext.m; sourceTree = "<group>"; };
 		00C4AB11158177C400E0868A /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		00C4AB131581784900E0868A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		00C6F64015E3E86900B37F6C /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libcrypto.a; path = "../MailCore/iOSPorts/ports/security/openssl/build/Release-iphoneos/libcrypto.a"; sourceTree = "<group>"; };
-		00C6F64115E3E86900B37F6C /* libetpan_ios.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libetpan_ios.a; path = "../MailCore/libetpan/build-mac/build/Release-iphoneos/libetpan_ios.a"; sourceTree = "<group>"; };
-		00C6F64215E3E86900B37F6C /* libmailcore.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libmailcore.a; path = "../MailCore/build/Release-iphoneos/libmailcore.a"; sourceTree = "<group>"; };
-		00C6F64315E3E86900B37F6C /* libsasl2.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libsasl2.a; path = "../MailCore/iOSPorts/ports/security/cyrus-sasl/build/Release-iphoneos/libsasl2.a"; sourceTree = "<group>"; };
-		00C6F64415E3E86900B37F6C /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libssl.a; path = "../MailCore/iOSPorts/ports/security/openssl/build/Release-iphoneos/libssl.a"; sourceTree = "<group>"; };
+		00C6F64015E3E86900B37F6C /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../MailCore/iOSPorts/ports/security/openssl/build/Release-iphoneos/libcrypto.a"; sourceTree = "<group>"; };
+		00C6F64115E3E86900B37F6C /* libetpan_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libetpan_ios.a; path = "../MailCore/libetpan/build-mac/build/Release-iphoneos/libetpan_ios.a"; sourceTree = "<group>"; };
+		00C6F64215E3E86900B37F6C /* libmailcore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmailcore.a; path = "../MailCore/build/Release-iphoneos/libmailcore.a"; sourceTree = "<group>"; };
+		00C6F64315E3E86900B37F6C /* libsasl2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsasl2.a; path = "../MailCore/iOSPorts/ports/security/cyrus-sasl/build/Release-iphoneos/libsasl2.a"; sourceTree = "<group>"; };
+		00C6F64415E3E86900B37F6C /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "../MailCore/iOSPorts/ports/security/openssl/build/Release-iphoneos/libssl.a"; sourceTree = "<group>"; };
 		00C8777215B306EE0063F88B /* PortNumFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PortNumFieldEditInfo.h; sourceTree = "<group>"; };
 		00C8777315B306EE0063F88B /* PortNumFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PortNumFieldEditInfo.m; sourceTree = "<group>"; };
 		00C8970815AF34560006FF2F /* MoreFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreFormInfoCreator.h; sourceTree = "<group>"; };
@@ -757,7 +757,7 @@
 				00707D7115D59AB700DC8DA5 /* MailOperation.h */,
 				00707D7215D59AB700DC8DA5 /* MailOperation.m */,
 				00B3B72115DDE21800A8FFCD /* Connection */,
-				00B3B71F15DDE1E000A8FFCD /* Mail Synch */,
+				00B3B71F15DDE1E000A8FFCD /* Mail Sync */,
 				00B3B72015DDE1FC00A8FFCD /* Delete Mail */,
 				00A8C31315838C1D006163EE /* MailClientServerSyncController.h */,
 				00A8C31415838C1D006163EE /* MailClientServerSyncController.m */,
@@ -765,7 +765,7 @@
 			name = "Mail Client Operations";
 			sourceTree = "<group>";
 		};
-		00B3B71F15DDE1E000A8FFCD /* Mail Synch */ = {
+		00B3B71F15DDE1E000A8FFCD /* Mail Sync */ = {
 			isa = PBXGroup;
 			children = (
 				00B3B71B15DDA62C00A8FFCD /* MsgSyncContext.h */,
@@ -775,7 +775,7 @@
 				008FE30F15D57D850066A75D /* MailSyncOperation.h */,
 				008FE31015D57D850066A75D /* MailSyncOperation.m */,
 			);
-			name = "Mail Synch";
+			name = "Mail Sync";
 			sourceTree = "<group>";
 		};
 		00B3B72015DDE1FC00A8FFCD /* Delete Mail */ = {

@@ -16,6 +16,7 @@
 #import "EmailDomainFieldEditInfo.h"
 #import "SectionInfo.h"
 #import "EmailDomainFilterDomainAdder.h"
+#import "SharedAppVals.h"
 
 @implementation EmailDomainSelectionFormInfoCreator
 
@@ -50,9 +51,14 @@
 		initWithEmailDomainFilter:self.emailDomainFilter] autorelease];
 		
 	[formPopulator nextSection];
+	
+	SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:parentContext.dataModelController];
+	NSPredicate *currentAcctPredicate = [NSPredicate predicateWithFormat:@"%K=%@",
+		EMAIL_DOMAIN_ACCT_KEY,sharedVals.currentEmailAcct];
+
 		
-	NSSet *senderDomains = [parentContext.dataModelController 
-		fetchObjectsForEntityName:EMAIL_DOMAIN_ENTITY_NAME];
+	NSArray *senderDomains = [parentContext.dataModelController 
+		fetchObjectsForEntityName:EMAIL_DOMAIN_ENTITY_NAME andPredicate:currentAcctPredicate];
 	for(EmailDomain *senderDomain in senderDomains)
 	{
 		// Only display the domain for selection if 

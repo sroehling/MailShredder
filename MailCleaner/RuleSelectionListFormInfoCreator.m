@@ -20,6 +20,8 @@
 #import "MsgPredicateHelper.h"
 #import "DateHelper.h"
 #import "TrashMsgListViewInfo.h"
+#import "MsgHandlingRule.h"
+#import "SharedAppVals.h"
 
 @implementation RuleSelectionListFormInfoCreator
 
@@ -64,11 +66,12 @@
 	}
 
 	
-	NSPredicate *enabledRulesPredicate = [NSPredicate predicateWithFormat:@"%K = %@",
-		RULE_ENABLED_KEY,[NSNumber numberWithBool:TRUE]];
+	NSPredicate *enabledInCurrentAcctPredicate = [MsgPredicateHelper 
+		enabledInCurrentAcctPredicate:parentContext.dataModelController];
+		
 	NSArray *trashRules = [parentContext.dataModelController 
 		fetchObjectsForEntityName:TRASH_RULE_ENTITY_NAME 
-		andPredicate:enabledRulesPredicate andSortKey:RULE_NAME_KEY andSortAscending:TRUE];
+		andPredicate:enabledInCurrentAcctPredicate andSortKey:RULE_NAME_KEY andSortAscending:TRUE];
 	
 	if([trashRules count] > 0)
 	{

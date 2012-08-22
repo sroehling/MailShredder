@@ -17,6 +17,7 @@
 #import "EmailFolderFilter.h"
 #import "SectionInfo.h"
 #import "EmailFolderFilterFolderAdder.h"
+#import "SharedAppVals.h"
 
 
 @implementation EmailFolderSelectionFormInfoCreator
@@ -52,9 +53,14 @@
 		initWithEmailFolderFilter:self.emailFolderFilter] autorelease];
 		
 	[formPopulator nextSection];
+	
+	SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:parentContext.dataModelController];
+	NSPredicate *currentAcctPredicate = [NSPredicate predicateWithFormat:@"%K=%@",
+		EMAIL_FOLDER_ACCT_KEY,sharedVals.currentEmailAcct];
+
 		
-	NSSet *folders = [parentContext.dataModelController 
-		fetchObjectsForEntityName:EMAIL_FOLDER_ENTITY_NAME];
+	NSArray *folders = [parentContext.dataModelController 
+		fetchObjectsForEntityName:EMAIL_FOLDER_ENTITY_NAME andPredicate:currentAcctPredicate];
 	for(EmailFolder *folder in folders)
 	{
 		// Only display the domain for selection if 

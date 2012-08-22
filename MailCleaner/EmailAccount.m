@@ -9,8 +9,12 @@
 #import "EmailAccount.h"
 #import "DataModelController.h"
 #import "StringValidation.h"
+#import "EmailFolder.h"
 #import "KeychainFieldInfo.h"
+#import "EmailDomain.h"
 #import "LocalizationHelper.h"
+#import "MessageFilter.h"
+#import "EmailAddress.h"
 
 NSString * const EMAIL_ACCOUNT_ENTITY_NAME = @"EmailAccount";
 NSString * const EMAIL_ACCOUNT_NAME_KEY = @"acctName";
@@ -39,6 +43,13 @@ NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX = @"EmailAccountLoginInfo";
 @dynamic uniqueAcctID;
 @dynamic sharedAppValsCurrentEmailAcct;
 @dynamic lastSync;
+@dynamic foldersInAcct;
+@dynamic domainsInAcct;
+@dynamic addressesInAcct;
+@dynamic emailsInAcct;
+
+@dynamic msgListFilter;
+@dynamic msgHandlingRules;
 
 @synthesize isSelectedForSelectableObjectTableView;
 
@@ -61,6 +72,8 @@ NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX = @"EmailAccountLoginInfo";
 	
 	newAcct.uniqueAcctID = uniqueIDCandidate;
 	
+	newAcct.msgListFilter = [MessageFilter defaultMessageFilter:acctDmc];	
+	
 	return newAcct;
 }
 
@@ -77,6 +90,34 @@ NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX = @"EmailAccountLoginInfo";
 	return passwordFieldInfo;
 }
 
+-(NSMutableDictionary*)foldersByName
+{
+	NSMutableDictionary *currFolderByFolderName = [[[NSMutableDictionary alloc] init] autorelease];
+	for(EmailFolder *currFolder in self.foldersInAcct)
+	{
+		[currFolderByFolderName setObject:currFolder forKey:currFolder.folderName];
+	}
+	return currFolderByFolderName;
+}
 
+-(NSMutableDictionary*)emailDomainsByDomainName
+{
+	NSMutableDictionary *currDomainByDomainName = [[[NSMutableDictionary alloc] init] autorelease];
+	for(EmailDomain *currDomain in self.domainsInAcct)
+	{
+		[currDomainByDomainName setObject:currDomain forKey:currDomain.domainName];
+	}
+	return currDomainByDomainName;
+}
+
+-(NSMutableDictionary*)emailAddressesByName
+{
+	NSMutableDictionary *currEmailAddressByAddress = [[[NSMutableDictionary alloc] init] autorelease];
+	for(EmailAddress *currAddr in self.addressesInAcct)
+	{
+		[currEmailAddressByAddress setObject:currAddr forKey:currAddr.address];
+	}
+	return currEmailAddressByAddress;
+}
 
 @end

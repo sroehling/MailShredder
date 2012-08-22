@@ -20,7 +20,6 @@ extern NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY;
 
 @interface SharedAppVals : NSManagedObject
 
-@property (nonatomic, retain) MessageFilter *msgListFilter;
 @property (nonatomic, retain) EmailAccount *currentEmailAcct;
 
 // Defaults and "singleton" objects only

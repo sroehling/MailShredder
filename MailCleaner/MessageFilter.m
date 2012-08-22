@@ -17,6 +17,7 @@
 #import "RecipientAddressFilter.h"
 #import "SharedAppVals.h"
 #import "AgeFilterNone.h"
+#import "EmailAccount.h"
 
 NSString * const MESSAGE_FILTER_ENTITY_NAME = @"MessageFilter";
 NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
@@ -31,7 +32,26 @@ NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
 @dynamic fromAddressFilter;
 
 // Inverse
-@dynamic sharedAppValsMsgListFilter;
+@dynamic emailAcctMsgListFilter;
+
++(MessageFilter*)defaultMessageFilter:(DataModelController*)filterDmc
+{
+	SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:filterDmc];
+
+	MessageFilter *msgListFilter = (MessageFilter*)[filterDmc insertObject:MESSAGE_FILTER_ENTITY_NAME];
+	msgListFilter.ageFilter = sharedVals.defaultAgeFilterNone;
+	msgListFilter.fromAddressFilter = (FromAddressFilter*)
+		[filterDmc insertObject:FROM_ADDRESS_FILTER_ENTITY_NAME];
+	msgListFilter.recipientAddressFilter = (RecipientAddressFilter*)
+		[filterDmc insertObject:RECIPIENT_ADDRESS_FILTER_ENTITY_NAME];
+	msgListFilter.emailDomainFilter = (EmailDomainFilter*)
+		[filterDmc insertObject:EMAIL_DOMAIN_FILTER_ENTITY_NAME];
+	msgListFilter.folderFilter = (EmailFolderFilter*)
+		[filterDmc insertObject:EMAIL_FOLDER_FILTER_ENTITY_NAME];
+		
+	return msgListFilter;
+}
+
 
 -(NSPredicate*)filterPredicate:(NSDate*)baseDate
 {

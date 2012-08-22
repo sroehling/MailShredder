@@ -16,9 +16,11 @@ extern NSString * const EMAIL_INFO_DELETED_KEY;
 extern NSString * const EMAIL_INFO_FROM_KEY;
 extern NSString * const EMAIL_INFO_DOMAIN_KEY;
 extern NSString * const EMAIL_INFO_FOLDER_KEY;
+extern NSString * const EMAIL_INFO_ACCT_KEY;
 
 @class EmailFolder;
 @class EmailAddress;
+@class EmailAccount;
 
 @interface EmailInfo : NSManagedObject
 
@@ -36,6 +38,7 @@ extern NSString * const EMAIL_INFO_FOLDER_KEY;
 @property (nonatomic, retain) NSNumber * deleted;
 
 @property (nonatomic, retain) EmailFolder *folderInfo;
+@property (nonatomic, retain) EmailAccount *emailAcct;
 
 @property (nonatomic, retain) NSSet *recipientAddresses;
 

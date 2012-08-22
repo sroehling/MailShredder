@@ -12,8 +12,10 @@
 @class EmailAddressFilterSelected;
 @class DataModelController;
 @class EmailInfo;
+@class EmailAccount;
 
 extern NSString * const EMAIL_ADDRESS_ENTITY_NAME;
+extern NSString * const EMAIL_ADDRESS_ACCT_KEY;
 
 @interface EmailAddress : NSManagedObject
 {
@@ -28,11 +30,15 @@ extern NSString * const EMAIL_ADDRESS_ENTITY_NAME;
 
 @property BOOL isSelectedForSelectableObjectTableView;
 
-+(NSMutableDictionary*)addressesByName:(DataModelController*)appDataDmc;
+@property (nonatomic, retain) NSSet *emailInfoRecipientAddress;
+
+@property (nonatomic, retain) EmailAccount *addressAccount;
+
 +(EmailAddress*)findOrAddAddress:(NSString*)emailAddress 
 	withCurrentAddresses:(NSMutableDictionary*)currAddressByName 
-			inDataModelController:(DataModelController*)appDataDmc;
-@property (nonatomic, retain) NSSet *emailInfoRecipientAddress;
+			inDataModelController:(DataModelController*)appDataDmc
+			andEmailAcct:(EmailAccount*)emailAcct;
+
 
 @end
 
