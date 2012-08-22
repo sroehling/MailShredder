@@ -386,10 +386,7 @@
 		000566821562F94C003D114D = {
 			isa = PBXGroup;
 			children = (
-				009A092615BB4C0D0078880C /* StoreKit.framework */,
-				00AAF2DF15B4B3ED00BFF03C /* Security.framework */,
 				0065E3B91586A57400D59B2A /* Libs */,
-				006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */,
 				007ABE8E156AB631004BA8BF /* Development Docs */,
 				000566971562F94C003D114D /* MailCleaner */,
 				000566C31562F94D003D114D /* MailCleanerTests */,
@@ -668,6 +665,9 @@
 		0065E3B91586A57400D59B2A /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */,
+				009A092615BB4C0D0078880C /* StoreKit.framework */,
+				00AAF2DF15B4B3ED00BFF03C /* Security.framework */,
 				00C6F64015E3E86900B37F6C /* libcrypto.a */,
 				00C6F64115E3E86900B37F6C /* libetpan_ios.a */,
 				00C6F64215E3E86900B37F6C /* libmailcore.a */,
