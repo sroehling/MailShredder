@@ -76,7 +76,6 @@
     <entity name="EmailInfo" representedClassName="EmailInfo" syncable="YES">
         <attribute name="deleted" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="domain" attributeType="String" syncable="YES"/>
-        <attribute name="folder" attributeType="String" syncable="YES"/>
         <attribute name="sendDate" attributeType="Date" syncable="YES"/>
         <attribute name="subject" attributeType="String" syncable="YES"/>
         <attribute name="uid" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -138,7 +137,7 @@
         <element name="EmailDomainFilter" positionX="160" positionY="192" width="128" height="105"/>
         <element name="EmailFolder" positionX="160" positionY="192" width="128" height="90"/>
         <element name="EmailFolderFilter" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="EmailInfo" positionX="160" positionY="192" width="128" height="195"/>
+        <element name="EmailInfo" positionX="160" positionY="192" width="128" height="180"/>
         <element name="ExclusionRule" positionX="160" positionY="192" width="128" height="45"/>
         <element name="FromAddressFilter" positionX="160" positionY="192" width="128" height="75"/>
         <element name="MessageFilter" positionX="160" positionY="192" width="128" height="135"/>

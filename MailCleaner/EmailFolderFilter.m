@@ -104,7 +104,7 @@ NSInteger const MAX_SPECIFIC_FOLDER_SYNOPSIS = 2;
 		for(EmailFolder *folder in self.selectedFolders)
 		{
 			[specificFolderPredicates addObject:[NSPredicate predicateWithFormat:@"%K == %@",
-				EMAIL_INFO_FOLDER_KEY,folder.folderName]];
+				EMAIL_INFO_FOLDER_INFO_KEY,folder]];
 		}
 
 		NSPredicate *matchSpecificFolders = 

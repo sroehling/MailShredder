@@ -97,7 +97,6 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 	}
 	
 	newEmailInfo.folderInfo = self.currFolder;
-	newEmailInfo.folder = self.currFolder.folderName;
 	
 	return newEmailInfo;
 

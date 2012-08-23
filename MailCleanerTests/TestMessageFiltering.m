@@ -63,8 +63,14 @@
 					
 	newEmailInfo.subject = subject;
 	newEmailInfo.uid = [NSNumber numberWithInt:currMessageId];
-	newEmailInfo.folderInfo = self.testFolder;
-	newEmailInfo.folder = folderName;
+	
+	NSMutableDictionary *currFoldersByName = [self.testAppVals.currentEmailAcct foldersByName];
+	newEmailInfo.folderInfo = [EmailFolder findOrAddFolder:folderName
+		inExistingFolders:currFoldersByName withDataModelController:self.appDataDmc
+		andFolderAcct:self.testAppVals.currentEmailAcct];
+	
+	
+	
 	newEmailInfo.domain = [MailAddressHelper emailAddressDomainName:fromSender];
 	newEmailInfo.emailAcct = testAppVals.currentEmailAcct;
 	
@@ -371,7 +377,7 @@
 
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 	
-	[self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S01" 
+	EmailInfo *inboxMsg = [self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S01" 
 		andFrom:@"jane@localdomain" andFolder:@"INBOX"];
 	[self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S02" 
 		andFrom:@"jane@localdomain" andFolder:@"MYFOLDER"];
@@ -379,10 +385,7 @@
 		andFrom:@"jane@localdomain" andFolder:@"INBOX"];
 
 	// Filtering email addresses with the localdomain should include S01 and S05.
-	EmailFolder *inbox = (EmailFolder*)[self.appDataDmc insertObject:EMAIL_FOLDER_ENTITY_NAME];
-	inbox.folderName = @"INBOX";
-	inbox.folderAccount = self.testAppVals.currentEmailAcct;
-	[self.messageFilterForTest.folderFilter addSelectedFoldersObject:inbox];
+	[self.messageFilterForTest.folderFilter addSelectedFoldersObject:inboxMsg.folderInfo];
 	
 	NSPredicate *filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S03", nil];
@@ -396,7 +399,7 @@
 
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 	
-	[self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S01" 
+	EmailInfo *inboxMsg = [self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S01" 
 		andFrom:@"jane@localdomain" andFolder:@"INBOX"];
 	[self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S02" 
 		andFrom:@"jane@localdomain" andFolder:@"MYFOLDER"];
@@ -404,10 +407,7 @@
 		andFrom:@"jane@localdomain" andFolder:@"INBOX"];
 		
 
-	EmailFolder *inbox = (EmailFolder*)[self.appDataDmc insertObject:EMAIL_FOLDER_ENTITY_NAME];
-	inbox.folderName = @"INBOX";
-	inbox.folderAccount = self.testAppVals.currentEmailAcct;
-	[self.messageFilterForTest.folderFilter addSelectedFoldersObject:inbox];
+	[self.messageFilterForTest.folderFilter addSelectedFoldersObject:inboxMsg.folderInfo];
 	
 	// Invert the selection predicate
 	self.messageFilterForTest.folderFilter.matchUnselected = [NSNumber numberWithBool:TRUE];
@@ -596,7 +596,7 @@
 {
 	[self resetCoreData];
 	
-	[self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S01" 
+	EmailInfo *inboxMsg = [self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S01" 
 		andFrom:@"jane@localdomain" andFolder:@"INBOX"];
 	[self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S02" 
 		andFrom:@"jane@localdomain" andFolder:@"MYFOLDER"];
@@ -608,10 +608,7 @@
 	TrashRule *trashRule01 = [TrashRule createNewDefaultRule:self.appDataDmc];
 
 	// Filtering email by the INBOX folder should result in S01 and S03
-	EmailFolder *inbox = (EmailFolder*)[self.appDataDmc insertObject:EMAIL_FOLDER_ENTITY_NAME];
-	inbox.folderName = @"INBOX";
-	inbox.folderAccount = self.testAppVals.currentEmailAcct;
-	[trashRule01.folderFilter addSelectedFoldersObject:inbox];
+	[trashRule01.folderFilter addSelectedFoldersObject:inboxMsg.folderInfo];
 
 	NSPredicate *filterPredicate = [MsgPredicateHelper trashedByMsgRules:self.appDataDmc andBaseDate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S03", nil];
@@ -684,7 +681,7 @@
 {
 	[self resetCoreData];
 	
-	[self populateFolderTestEmailWithSendDate:@"2012-12-30" andSubject:@"S01" 
+	EmailInfo *saveFolderMsg = [self populateFolderTestEmailWithSendDate:@"2012-12-30" andSubject:@"S01" 
 		andFrom:@"jane@localdomain" andFolder:@"SAVE"];
 	[self populateFolderTestEmailWithSendDate:@"2012-10-02" andSubject:@"S02" 
 		andFrom:@"jane@localdomain" andFolder:@"SAVE"];
@@ -707,10 +704,7 @@
 	
 	// Excluding messages belonging to the "SAVE" folder includes S01,S02,S05
 	// The results should be S03, S04, S06 (S02,S05 got excluded)
-	EmailFolder *saveFolder = (EmailFolder*)[self.appDataDmc insertObject:EMAIL_FOLDER_ENTITY_NAME];
-	saveFolder.folderName = @"SAVE";
-	saveFolder.folderAccount = self.testAppVals.currentEmailAcct;
-	[exclusionRule.folderFilter addSelectedFoldersObject:saveFolder];
+	[exclusionRule.folderFilter addSelectedFoldersObject:saveFolderMsg.folderInfo];
 
 	NSPredicate *filterPredicate = [MsgPredicateHelper trashedByMsgRules:self.appDataDmc andBaseDate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S03",@"S04",@"S06",nil];
