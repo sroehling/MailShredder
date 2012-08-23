@@ -34,11 +34,15 @@ extern NSString * const EMAIL_ADDRESS_ACCT_KEY;
 
 @property (nonatomic, retain) EmailAccount *addressAccount;
 
+@property (nonatomic, retain) NSSet *emailInfosWithSenderAddress;
+
 +(EmailAddress*)findOrAddAddress:(NSString*)emailAddress 
 	withCurrentAddresses:(NSMutableDictionary*)currAddressByName 
 			inDataModelController:(DataModelController*)appDataDmc
 			andEmailAcct:(EmailAccount*)emailAcct;
 
++(NSString*)formattedAddresses:(NSSet*)addresses;
+-(NSString*)formattedAddress;
 
 @end
 
@@ -54,7 +58,9 @@ extern NSString * const EMAIL_ADDRESS_ACCT_KEY;
 - (void)addEmailInfoRecipientAddress:(NSSet *)values;
 - (void)removeEmailInfoRecipientAddress:(NSSet *)values;
 
-+(NSString*)formattedAddresses:(NSSet*)addresses;
--(NSString*)formattedAddress;
+- (void)addEmailInfosWithSenderAddressObject:(EmailInfo *)value;
+- (void)removeEmailInfosWithSenderAddressObject:(EmailInfo *)value;
+- (void)addEmailInfosWithSenderAddress:(NSSet *)values;
+- (void)removeEmailInfosWithSenderAddress:(NSSet *)values;
 
 @end

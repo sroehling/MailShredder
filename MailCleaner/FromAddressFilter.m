@@ -22,7 +22,7 @@ NSString * const FROM_ADDRESS_FILTER_ENTITY_NAME = @"FromAddressFilter";
 -(NSPredicate*)emailInfoMatchSelectedAddrPredicate:(EmailAddress*)selectedAddr
 {
 	return [NSPredicate predicateWithFormat:@"%K == %@",
-				EMAIL_INFO_FROM_KEY,selectedAddr.address];
+				EMAIL_INFO_SENDER_ADDRESS_KEY,selectedAddr];
 }
 
 -(NSString*)fieldCaption

@@ -16,6 +16,7 @@
 #import "DataModelController.h"
 #import "AppDelegate.h"
 #import "AppHelper.h"
+#import "EmailAddress.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -50,7 +51,7 @@ const CGFloat DELETE_CONFIRMATION_BOTTOM_MARGIN = 10.0f;
 -(void)configureCurrentMsg
 {
     EmailInfo *currentMsgInfo = [self currentMsg];
-    self.fromLabel.text = currentMsgInfo.from;
+    self.fromLabel.text = [currentMsgInfo.senderAddress formattedAddress];
     self.sendDateLabel.text = [currentMsgInfo formattedSendDate];;
 	self.subjectLabel.text = currentMsgInfo.subject;
 }

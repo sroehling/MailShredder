@@ -54,44 +54,6 @@
     [super dealloc];
 }
 
--(void)populateDatabaseWithDummyEmails
-{
-
-	NSString   *path = [[NSBundle mainBundle] pathForResource: @"dummyEmails" ofType: @"txt"];
-	NSString *dummyEmailData = [NSString stringWithContentsOfFile:path 
-			encoding:NSUTF8StringEncoding error:nil];
-	NSArray *lines = [dummyEmailData componentsSeparatedByString:@"\n"];
-	
-	if(![self.appDmc entitiesExistForEntityName:EMAIL_INFO_ENTITY_NAME])
-	{
-		NSInteger msgNum =0;
-		for(NSString *line in lines)
-		{
-			NSLog(@"email: %@",line);
-			NSArray *fields = [line componentsSeparatedByString:@"\t"];
-			NSLog(@"Loading dummy email info: D:%@ F:%@ S:%@",[fields objectAtIndex:0],
-				[fields objectAtIndex:1],[fields objectAtIndex:2]);
-				
-			EmailInfo *newEmailInfo = (EmailInfo*) [self.appDmc insertObject:EMAIL_INFO_ENTITY_NAME];
-			newEmailInfo.sendDate = [DateHelper dateFromStr:[fields objectAtIndex:0]];
-			newEmailInfo.from = [fields objectAtIndex:1];
-			newEmailInfo.subject = [fields objectAtIndex:2];
-			newEmailInfo.uid = [NSNumber numberWithInt:msgNum];
-			msgNum++;
-		}
-		
-		[self.appDmc saveContext];
-	}
-	
-	NSSet *emailInfos = [self.appDmc 
-			fetchObjectsForEntityName:EMAIL_INFO_ENTITY_NAME];
-	for(EmailInfo *emailInfo in emailInfos)
-	{
-		NSLog(@"EmailInfo: D:%@ F:%@ S:%@",[DateHelper stringFromDate:emailInfo.sendDate],
-			emailInfo.from,emailInfo.subject);
-	}
-
-}
 
 -(void)promptForEmailAcctInfoForDataModelController
 {
@@ -188,9 +150,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
-//	[self populateDatabaseWithDummyEmails];
-	
 	[SharedAppVals initFromDatabase];
 
 

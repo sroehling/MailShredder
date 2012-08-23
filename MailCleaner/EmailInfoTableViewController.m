@@ -225,14 +225,11 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 {
 	NSArray *selectedMsgs = [self selectedInMsgList];
 	
-	NSMutableDictionary *currAddressesByAddress = [self.currentEmailAcct emailAddressesByName];
 	NSMutableSet *selectedAddresses = [[[NSMutableSet alloc] init] autorelease];
 	
 	for(EmailInfo *selectedEmailInfo in selectedMsgs)
 	{
-		[selectedAddresses addObject:[EmailAddress findOrAddAddress:selectedEmailInfo.from 
-			withCurrentAddresses:currAddressesByAddress inDataModelController:self.appDmc
-			andEmailAcct:self.currentEmailAcct]];
+		[selectedAddresses addObject:selectedEmailInfo.senderAddress];
 	}
 	return selectedAddresses;
 }

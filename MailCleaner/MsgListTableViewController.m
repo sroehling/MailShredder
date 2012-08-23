@@ -20,6 +20,7 @@
 #import "MailClientServerSyncController.h"
 #import "ButtonListItemInfo.h"
 #import "AppDelegate.h"
+#import "EmailAddress.h"
 #import "AppHelper.h"
 #import "CompositeMailSyncProgressDelegate.h"
 #import "DeleteMsgConfirmationView.h"
@@ -124,7 +125,7 @@
 
 - (void)configureCell:(MsgTableCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     EmailInfo *info = [self.emailInfoFrc objectAtIndexPath:indexPath];
-    cell.fromLabel.text = info.from;
+    cell.fromLabel.text = [info.senderAddress formattedAddress];
     cell.sendDateLabel.text = [info formattedSendDate];
 	cell.subjectLabel.text = info.subject;
 	if([self.selectedEmailInfos containsObject:info])

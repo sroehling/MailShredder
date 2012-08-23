@@ -74,7 +74,12 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 	EmailInfo *newEmailInfo = (EmailInfo*) [self.connectionContext.syncDmc insertObject:EMAIL_INFO_ENTITY_NAME];
 	
 	newEmailInfo.sendDate = msg.senderDate;
-	newEmailInfo.from = msg.sender.email;
+
+	newEmailInfo.senderAddress = [EmailAddress findOrAddAddress:msg.sender.email 
+			withCurrentAddresses:self.currEmailAddressByAddress 
+				inDataModelController:self.connectionContext.syncDmc
+				andEmailAcct:self.syncAcct];
+
 	newEmailInfo.subject = msg.subject;
 	newEmailInfo.uid = [NSNumber numberWithUnsignedInt:msg.uid];	
 	newEmailInfo.domain = [MailAddressHelper emailAddressDomainName:msg.sender.email];
@@ -115,12 +120,7 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 		// Allocate a new local EmailInfo, since there's not an existing local
 		// one with the same UID.
 		EmailInfo *newEmailInfo = [self emailInfoFromServerMsg:msg];
-		
-		[EmailAddress findOrAddAddress:newEmailInfo.from 
-			withCurrentAddresses:self.currEmailAddressByAddress 
-				inDataModelController:self.connectionContext.syncDmc
-				andEmailAcct:self.syncAcct];
-		
+				
 		[EmailDomain findOrAddDomainName:newEmailInfo.domain 
 			withCurrentDomains:self.currDomainByDomainName 
 			inDataModelController:self.connectionContext.syncDmc

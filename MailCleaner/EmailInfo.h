@@ -13,10 +13,10 @@ extern NSString * const EMAIL_INFO_ENTITY_NAME;
 extern NSString * const EMAIL_INFO_SEND_DATE_KEY;
 
 extern NSString * const EMAIL_INFO_DELETED_KEY;
-extern NSString * const EMAIL_INFO_FROM_KEY;
 extern NSString * const EMAIL_INFO_DOMAIN_KEY;
 extern NSString * const EMAIL_INFO_FOLDER_KEY;
 extern NSString * const EMAIL_INFO_ACCT_KEY;
+extern NSString * const EMAIL_INFO_SENDER_ADDRESS_KEY;
 
 @class EmailFolder;
 @class EmailAddress;
@@ -26,7 +26,6 @@ extern NSString * const EMAIL_INFO_ACCT_KEY;
 
 @property (nonatomic, retain) NSNumber * uid;
 @property (nonatomic, retain) NSDate * sendDate;
-@property (nonatomic, retain) NSString * from;
 @property (nonatomic, retain) NSString * domain;
 @property (nonatomic, retain) NSString * folder;
 
@@ -36,6 +35,8 @@ extern NSString * const EMAIL_INFO_ACCT_KEY;
 // If marked as deleted, it will be deleted on the server
 // as soon as possible.
 @property (nonatomic, retain) NSNumber * deleted;
+
+@property (nonatomic, retain) EmailAddress *senderAddress;
 
 @property (nonatomic, retain) EmailFolder *folderInfo;
 @property (nonatomic, retain) EmailAccount *emailAcct;

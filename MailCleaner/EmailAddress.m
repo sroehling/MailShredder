@@ -21,6 +21,7 @@ NSString * const EMAIL_ADDRESS_ACCT_KEY = @"addressAccount";
 @dynamic selectedAddressEmailAddress;
 @dynamic emailInfoRecipientAddress;
 @dynamic addressAccount;
+@dynamic emailInfosWithSenderAddress;
 
 // This property is not persisted via CoreData. It is used for tracking of 
 // selection of the EmailAddress in a table view.
