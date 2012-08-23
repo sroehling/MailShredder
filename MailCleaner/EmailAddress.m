@@ -28,6 +28,7 @@ NSString * const EMAIL_ADDRESS_ACCT_KEY = @"addressAccount";
 @synthesize isSelectedForSelectableObjectTableView;
 
 +(EmailAddress*)findOrAddAddress:(NSString*)emailAddress 
+	withName:(NSString*)senderName
 	withCurrentAddresses:(NSMutableDictionary*)currAddressByName 
 			inDataModelController:(DataModelController*)appDataDmc
 			andEmailAcct:(EmailAccount*)emailAcct
@@ -41,6 +42,7 @@ NSString * const EMAIL_ADDRESS_ACCT_KEY = @"addressAccount";
 	{
 		theAddr = [appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
 		theAddr.address = emailAddress;
+		theAddr.name = senderName;
 		theAddr.addressAccount = emailAcct;
 		[currAddressByName setObject:theAddr forKey:emailAddress];
 	}
@@ -54,6 +56,18 @@ NSString * const EMAIL_ADDRESS_ACCT_KEY = @"addressAccount";
 		return [NSString stringWithFormat:@"%@ <%@>",self.name,self.address];
 	}
 	else {
+		return self.address;
+	}
+}
+
+-(NSString*)nameOrAddress
+{
+	if([self.name length] > 0)
+	{
+		return self.name;
+	}
+	else 
+	{
 		return self.address;
 	}
 }

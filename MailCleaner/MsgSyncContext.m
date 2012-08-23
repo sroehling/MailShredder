@@ -75,7 +75,8 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 	
 	newEmailInfo.sendDate = msg.senderDate;
 
-	newEmailInfo.senderAddress = [EmailAddress findOrAddAddress:msg.sender.email 
+	newEmailInfo.senderAddress = [EmailAddress findOrAddAddress:msg.sender.email
+			withName:msg.sender.name
 			withCurrentAddresses:self.currEmailAddressByAddress 
 				inDataModelController:self.connectionContext.syncDmc
 				andEmailAcct:self.syncAcct];
@@ -94,7 +95,8 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 	NSSet *recipients = [msg to];
 	for(CTCoreAddress *toAddress in recipients)
 	{
-		EmailAddress *recipientAddress = [EmailAddress findOrAddAddress:toAddress.email 
+		EmailAddress *recipientAddress = [EmailAddress findOrAddAddress:toAddress.email
+					withName:toAddress.name
 					withCurrentAddresses:self.currEmailAddressByAddress 
 					inDataModelController:self.connectionContext.syncDmc
 					andEmailAcct:self.syncAcct];

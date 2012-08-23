@@ -37,12 +37,14 @@ extern NSString * const EMAIL_ADDRESS_ACCT_KEY;
 @property (nonatomic, retain) NSSet *emailInfosWithSenderAddress;
 
 +(EmailAddress*)findOrAddAddress:(NSString*)emailAddress 
+	withName:(NSString*)senderName
 	withCurrentAddresses:(NSMutableDictionary*)currAddressByName 
 			inDataModelController:(DataModelController*)appDataDmc
 			andEmailAcct:(EmailAccount*)emailAcct;
 
 +(NSString*)formattedAddresses:(NSSet*)addresses;
 -(NSString*)formattedAddress;
+-(NSString*)nameOrAddress;
 
 @end
 

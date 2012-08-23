@@ -122,10 +122,9 @@
 
 }
 
-
 - (void)configureCell:(MsgTableCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     EmailInfo *info = [self.emailInfoFrc objectAtIndexPath:indexPath];
-    cell.fromLabel.text = [info.senderAddress formattedAddress];
+    cell.fromLabel.text = [info.senderAddress nameOrAddress];
     cell.sendDateLabel.text = [info formattedSendDate];
 	cell.subjectLabel.text = info.subject;
 	if([self.selectedEmailInfos containsObject:info])
