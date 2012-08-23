@@ -51,9 +51,10 @@
         <relationship name="selectedAddresses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailAddress" inverseName="selectedAddressEmailAddress" inverseEntity="EmailAddress" syncable="YES"/>
     </entity>
     <entity name="EmailDomain" representedClassName="EmailDomain" syncable="YES">
-        <attribute name="domainName" attributeType="String" minValueString="1" syncable="YES"/>
+        <attribute name="domainName" attributeType="String" syncable="YES"/>
         <relationship name="domainAcct" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="domainsInAcct" inverseEntity="EmailAccount" syncable="YES"/>
         <relationship name="emailDomainFilterSelectedDomains" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailDomainFilter" inverseName="selectedDomains" inverseEntity="EmailDomainFilter" syncable="YES"/>
+        <relationship name="emailInfosWithDomainForSender" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailInfo" inverseName="senderDomain" inverseEntity="EmailInfo" syncable="YES"/>
     </entity>
     <entity name="EmailDomainFilter" representedClassName="EmailDomainFilter" syncable="YES">
         <attribute name="matchUnselected" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
@@ -75,7 +76,6 @@
     </entity>
     <entity name="EmailInfo" representedClassName="EmailInfo" syncable="YES">
         <attribute name="deleted" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="domain" attributeType="String" syncable="YES"/>
         <attribute name="sendDate" attributeType="Date" syncable="YES"/>
         <attribute name="subject" attributeType="String" syncable="YES"/>
         <attribute name="uid" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -83,6 +83,7 @@
         <relationship name="folderInfo" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailFolder" inverseName="emailInfoFolder" inverseEntity="EmailFolder" syncable="YES"/>
         <relationship name="recipientAddresses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailAddress" inverseName="emailInfoRecipientAddress" inverseEntity="EmailAddress" syncable="YES"/>
         <relationship name="senderAddress" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAddress" inverseName="emailInfosWithSenderAddress" inverseEntity="EmailAddress" syncable="YES"/>
+        <relationship name="senderDomain" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailDomain" inverseName="emailInfosWithDomainForSender" inverseEntity="EmailDomain" syncable="YES"/>
     </entity>
     <entity name="ExclusionRule" representedClassName="ExclusionRule" parentEntity="MsgHandlingRule" syncable="YES"/>
     <entity name="FromAddressFilter" representedClassName="FromAddressFilter" parentEntity="EmailAddressFilter" syncable="YES">
@@ -133,7 +134,7 @@
         <element name="EmailAccount" positionX="160" positionY="192" width="128" height="240"/>
         <element name="EmailAddress" positionX="160" positionY="192" width="128" height="105"/>
         <element name="EmailAddressFilter" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="EmailDomain" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="EmailDomain" positionX="160" positionY="192" width="128" height="105"/>
         <element name="EmailDomainFilter" positionX="160" positionY="192" width="128" height="105"/>
         <element name="EmailFolder" positionX="160" positionY="192" width="128" height="90"/>
         <element name="EmailFolderFilter" positionX="160" positionY="192" width="128" height="105"/>

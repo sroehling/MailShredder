@@ -29,7 +29,7 @@ NSString * const EMAIL_DOMAIN_ACCT_KEY = @"domainAcct";
 			inDataModelController:(DataModelController*)appDataDmc
 			andEmailAcct:(EmailAccount*)emailAcct
 {
-	assert([StringValidation nonEmptyString:domainName]);
+	assert(domainName!=nil);
 	EmailDomain *theDomain = [currDomainsByName objectForKey:domainName];
 	if(theDomain == nil)
 	{

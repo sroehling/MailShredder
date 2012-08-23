@@ -103,7 +103,7 @@ NSInteger const MAX_SPECIFIC_DOMAIN_SYNOPSIS = 2;
 		for(EmailDomain *senderDomain in self.selectedDomains)
 		{
 			[specificDomainPredicates addObject:[NSPredicate predicateWithFormat:@"%K == %@",
-				EMAIL_INFO_DOMAIN_KEY,senderDomain.domainName]];
+				EMAIL_INFO_SENDER_DOMAIN_KEY,senderDomain]];
 		}
 
 		NSPredicate *matchSpecificDomains = 

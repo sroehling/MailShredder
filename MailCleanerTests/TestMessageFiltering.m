@@ -70,8 +70,13 @@
 		andFolderAcct:self.testAppVals.currentEmailAcct];
 	
 	
+	NSMutableDictionary *currDomainsByName = [self.testAppVals.currentEmailAcct emailDomainsByDomainName];
+	newEmailInfo.senderDomain = [EmailDomain findOrAddDomainName:[MailAddressHelper 
+			emailAddressDomainName:fromSender] withCurrentDomains:currDomainsByName
+			inDataModelController:self.appDataDmc 
+			andEmailAcct:self.testAppVals.currentEmailAcct];
 	
-	newEmailInfo.domain = [MailAddressHelper emailAddressDomainName:fromSender];
+	
 	newEmailInfo.emailAcct = testAppVals.currentEmailAcct;
 	
 	EmailAddress *recipientAddress = [EmailAddress findOrAddAddress:recipientAddr 
@@ -328,16 +333,14 @@
 
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 	
-	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane@localdomain"];
+	EmailInfo *localDomainMsg = [self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane@localdomain"];
 	[self populateTestEmailWithSendDate:@"2012-02-01" andSubject:@"S02" andFrom:@"bob@notlocaldomain"];
 	[self populateTestEmailWithSendDate:@"2012-03-01" andSubject:@"S03" andFrom:@"dan@notlocaldomain"];
 	[self populateTestEmailWithSendDate:@"2012-04-01" andSubject:@"S04" andFrom:@"jane@notlocaldomain"];
 	[self populateTestEmailWithSendDate:@"2012-05-01" andSubject:@"S05" andFrom:@"sally@localdomain"];
 
 	// Filtering email addresses with the localdomain should include S01 and S05.
-	EmailDomain *localDomain = (EmailDomain*)[self.appDataDmc insertObject:EMAIL_DOMAIN_ENTITY_NAME];
-	localDomain.domainName = @"localdomain";
-	[self.messageFilterForTest.emailDomainFilter addSelectedDomainsObject:localDomain];
+	[self.messageFilterForTest.emailDomainFilter addSelectedDomainsObject:localDomainMsg.senderDomain];
 	
 	NSPredicate *filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S05", nil];
@@ -351,16 +354,14 @@
 
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 	
-	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane@localdomain"];
+	EmailInfo *localDomainMsg = [self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane@localdomain"];
 	[self populateTestEmailWithSendDate:@"2012-02-01" andSubject:@"S02" andFrom:@"bob@notlocaldomain"];
 	[self populateTestEmailWithSendDate:@"2012-03-01" andSubject:@"S03" andFrom:@"dan@notlocaldomain"];
 	[self populateTestEmailWithSendDate:@"2012-04-01" andSubject:@"S04" andFrom:@"jane@notlocaldomain"];
 	[self populateTestEmailWithSendDate:@"2012-05-01" andSubject:@"S05" andFrom:@"sally@localdomain"];
 
 	// Filtering email addresses with the localdomain should include S01 and S05.
-	EmailDomain *localDomain = (EmailDomain*)[self.appDataDmc insertObject:EMAIL_DOMAIN_ENTITY_NAME];
-	localDomain.domainName = @"localdomain";
-	[self.messageFilterForTest.emailDomainFilter addSelectedDomainsObject:localDomain];
+	[self.messageFilterForTest.emailDomainFilter addSelectedDomainsObject:localDomainMsg.senderDomain];
 	
 	self.messageFilterForTest.emailDomainFilter.matchUnselected = [NSNumber numberWithBool:TRUE];
 	
@@ -570,7 +571,7 @@
 {
 	[self resetCoreData];
 	
-	[self populateTestEmailWithSendDate:@"2012-12-30" andSubject:@"S01" andFrom:@"jane@localdomain"];
+	EmailInfo *localDomainMsg = [self populateTestEmailWithSendDate:@"2012-12-30" andSubject:@"S01" andFrom:@"jane@localdomain"];
 	[self populateTestEmailWithSendDate:@"2012-10-15" andSubject:@"S02" andFrom:@"bob@nonlocaldomain"];
 	[self populateTestEmailWithSendDate:@"2012-09-15" andSubject:@"S03" andFrom:@"dan@localdomain"];
 	[self populateTestEmailWithSendDate:@"2012-01-02" andSubject:@"S05" andFrom:@"jane@nonlocaldomain"];
@@ -582,9 +583,7 @@
 	TrashRule *trashRule01 = [TrashRule createNewDefaultRule:self.appDataDmc];
 
 	// Filtering email addresses with the localdomain should include S01 and S03.
-	EmailDomain *localDomain = (EmailDomain*)[self.appDataDmc insertObject:EMAIL_DOMAIN_ENTITY_NAME];
-	localDomain.domainName = @"localdomain";
-	[trashRule01.emailDomainFilter addSelectedDomainsObject:localDomain];
+	[trashRule01.emailDomainFilter addSelectedDomainsObject:localDomainMsg.senderDomain];
 
 	NSPredicate *filterPredicate = [MsgPredicateHelper trashedByMsgRules:self.appDataDmc andBaseDate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S03", nil];
@@ -649,7 +648,7 @@
 {
 	[self resetCoreData];
 	
-	[self populateTestEmailWithSendDate:@"2012-12-30" andSubject:@"S01" andFrom:@"jane@localdomain"];
+	EmailInfo *localDomainMsg = [self populateTestEmailWithSendDate:@"2012-12-30" andSubject:@"S01" andFrom:@"jane@localdomain"];
 	[self populateTestEmailWithSendDate:@"2012-06-15" andSubject:@"S02" andFrom:@"bob@localdomain"];
 	[self populateTestEmailWithSendDate:@"2012-04-15" andSubject:@"S03" andFrom:@"dan@nonlocaldomain"];
 	[self populateTestEmailWithSendDate:@"2012-01-02" andSubject:@"S04" andFrom:@"jane@nonlocaldomain"];
@@ -666,9 +665,7 @@
 	
 	// Excluding messages sent from "@localdomain" includes - S01, S02
 	// The results should be S03, S04, S05,S06 (S02 got excluded)
-	EmailDomain *localDomain = (EmailDomain*)[self.appDataDmc insertObject:EMAIL_DOMAIN_ENTITY_NAME];
-	localDomain.domainName = @"localdomain";
-	[exclusionRule.emailDomainFilter addSelectedDomainsObject:localDomain];
+	[exclusionRule.emailDomainFilter addSelectedDomainsObject:localDomainMsg.senderDomain];
 
 	NSPredicate *filterPredicate = [MsgPredicateHelper trashedByMsgRules:self.appDataDmc andBaseDate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S03",@"S04",@"S05",@"S06",nil];

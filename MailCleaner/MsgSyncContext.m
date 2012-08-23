@@ -81,8 +81,14 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 				andEmailAcct:self.syncAcct];
 
 	newEmailInfo.subject = msg.subject;
-	newEmailInfo.uid = [NSNumber numberWithUnsignedInt:msg.uid];	
-	newEmailInfo.domain = [MailAddressHelper emailAddressDomainName:msg.sender.email];
+	newEmailInfo.uid = [NSNumber numberWithUnsignedInt:msg.uid];
+	
+	newEmailInfo.senderDomain = [EmailDomain 
+			findOrAddDomainName:[MailAddressHelper emailAddressDomainName:msg.sender.email] 
+			withCurrentDomains:self.currDomainByDomainName 
+			inDataModelController:self.connectionContext.syncDmc
+			andEmailAcct:self.syncAcct];	
+
 	newEmailInfo.emailAcct = self.syncAcct;
 	
 	NSSet *recipients = [msg to];
@@ -118,12 +124,7 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 	{
 		// Allocate a new local EmailInfo, since there's not an existing local
 		// one with the same UID.
-		EmailInfo *newEmailInfo = [self emailInfoFromServerMsg:msg];
-				
-		[EmailDomain findOrAddDomainName:newEmailInfo.domain 
-			withCurrentDomains:self.currDomainByDomainName 
-			inDataModelController:self.connectionContext.syncDmc
-			andEmailAcct:self.syncAcct];
+		[self emailInfoFromServerMsg:msg];
 		
 		newLocalMsgsCreated ++;
 

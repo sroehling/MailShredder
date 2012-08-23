@@ -95,7 +95,6 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	[self.msgListView addSubview:self.messageFilterHeader];	
 	
 	
-	
 	self.actionButton = [[[UIBarButtonItem alloc] 
 		initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self 
 		action:@selector(topActionButtonPressed)] autorelease];
@@ -237,17 +236,12 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 -(NSSet*)selectedDomains
 {
 	NSArray *selectedMsgs = [self selectedInMsgList];
-
-	EmailAccount *currAcct = self.currentEmailAcct;
 		
-	NSMutableDictionary *currDomainsByName = [currAcct emailDomainsByDomainName];
 	NSMutableSet *selectedDomains = [[[NSMutableSet alloc] init] autorelease];
 
 	for(EmailInfo *selectedEmailInfo in selectedMsgs)
 	{
-		[selectedDomains addObject:[EmailDomain findOrAddDomainName:selectedEmailInfo.domain 
-			withCurrentDomains:currDomainsByName inDataModelController:self.appDmc
-			andEmailAcct:currAcct]];
+		[selectedDomains addObject:selectedEmailInfo.senderDomain];
 	}
 	return selectedDomains;
 }
