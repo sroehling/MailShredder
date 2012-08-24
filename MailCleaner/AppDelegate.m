@@ -41,6 +41,7 @@
 @synthesize mailSyncProgressDelegates;
 @synthesize sharedAppVals;
 @synthesize emailAccountAdder;
+@synthesize getBodyOperationQueue;
 
 - (void)dealloc
 {
@@ -51,6 +52,7 @@
 	[mailSyncProgressDelegates release];
 	[sharedAppVals release];
 	[emailAccountAdder release];
+	[getBodyOperationQueue release];
     [super dealloc];
 }
 
@@ -171,6 +173,9 @@
 	self.mailSyncController = [[[MailClientServerSyncController alloc] 
 		initWithMainThreadDataModelController:self.appDmc
 		andProgressDelegate:self.mailSyncProgressDelegates] autorelease];
+		
+	self.getBodyOperationQueue = [[[NSOperationQueue alloc] init] autorelease];
+
 	
 	
 	UIColor *navBarControllerColor = [ColorHelper navBarTintColor];

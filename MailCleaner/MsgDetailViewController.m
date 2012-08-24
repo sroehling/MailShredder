@@ -13,12 +13,13 @@
 #import "MailSyncConnectionContext.h"
 #import "GetMessageBodyOperation.h"
 #import "LocalizationHelper.h"
+#import "AppHelper.h"
+#import "AppDelegate.h"
 
 @implementation MsgDetailViewController
 
 @synthesize detailView;
 @synthesize mainThreadDmc;
-@synthesize getBodyOperationQueue;
 @synthesize emailInfo;
 
 - (id)initWithEmailInfo:(EmailInfo*)theEmailInfo 
@@ -29,10 +30,7 @@
 		
 		self.mainThreadDmc = theMainThreadDmc;
 		
-		
 		self.emailInfo = theEmailInfo;
-		
-		self.getBodyOperationQueue = [[[NSOperationQueue alloc] init] autorelease];
 		
     }
     return self;
@@ -48,8 +46,6 @@
 		
 	self.title = LOCALIZED_STR(@"MSG_DETAIL_VIEW_TITLE");
 	
-
-	
 	MailSyncConnectionContext *syncConnectionContext = [[[MailSyncConnectionContext alloc]
 		initWithMainThreadDmc:self.mainThreadDmc
 		andProgressDelegate:self] autorelease];
@@ -58,7 +54,14 @@
 		initWithEmailInfo:self.emailInfo andConnectionContext:syncConnectionContext
 		andGetMsgBodyDelegate:self] autorelease];
 		
-	[self.getBodyOperationQueue addOperation:getMsgOperation];
+	[[AppHelper theAppDelegate].getBodyOperationQueue addOperation:getMsgOperation]; 	
+	
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+	[[AppHelper theAppDelegate].getBodyOperationQueue cancelAllOperations];
 	
 }
 
@@ -77,9 +80,7 @@
 {
 	[detailView release];
 	[mainThreadDmc release];
-	[getBodyOperationQueue release];
 	[emailInfo release];
-	
 	[super dealloc];
 }
 

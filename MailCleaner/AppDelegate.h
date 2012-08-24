@@ -25,6 +25,7 @@
 		MailClientServerSyncController *mailSyncController;
 		CompositeMailSyncProgressDelegate *mailSyncProgressDelegates;
 		EmailAccountAdder *emailAccountAdder;
+		NSOperationQueue *getBodyOperationQueue;
 		
 		
 }
@@ -37,5 +38,6 @@
 @property(nonatomic,retain) MailClientServerSyncController *mailSyncController;
 @property(nonatomic,retain) CompositeMailSyncProgressDelegate *mailSyncProgressDelegates;
 @property(nonatomic,retain) EmailAccountAdder *emailAccountAdder;
+@property(nonatomic,retain) NSOperationQueue *getBodyOperationQueue;
 
 @end

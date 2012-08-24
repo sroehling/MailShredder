@@ -22,13 +22,11 @@
 		MsgDetailView *detailView;
 		DataModelController *mainThreadDmc;
 		EmailInfo *emailInfo;
-		NSOperationQueue *getBodyOperationQueue;
 }
 
 @property(nonatomic,retain) MsgDetailView *detailView;
 @property(nonatomic,retain) EmailInfo *emailInfo;
 @property(nonatomic,retain) DataModelController *mainThreadDmc;
-@property(nonatomic,retain) NSOperationQueue *getBodyOperationQueue;
 
 - (id)initWithEmailInfo:(EmailInfo*)theEmailInfo 
 		andMainThreadDmc:(DataModelController*)theMainThreadDmc;

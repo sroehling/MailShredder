@@ -38,6 +38,9 @@
 	if([self.connectionContext establishConnection])
 	{
 		@try {
+
+			if(self.isCancelled) { return; }
+
 			NSString *folderName = self.emailInfo.folderInfo.folderName;
 			CTCoreFolder *emailFolder = [self.connectionContext.mailAcct folderWithPath:folderName];
 			if(emailFolder == nil)
@@ -47,6 +50,9 @@
 				[self.connectionContext.progressDelegate mailSyncComplete:TRUE];
 				return;
 			}
+
+			if(self.isCancelled) { return; }
+
 			CTCoreMessage *serverEmailMsg = [emailFolder messageWithUID:[self.emailInfo.uid unsignedIntValue]];
 			if(serverEmailMsg == nil)
 			{
@@ -57,6 +63,9 @@
 			}
 			
 			NSString *msgBody = [serverEmailMsg body];
+			
+			if(self.isCancelled) { return; }
+			
 			[self.getMsgBodyDelegate msgBodyRetrievalComplete:msgBody];
 			
 			[self.connectionContext teardownConnection];
