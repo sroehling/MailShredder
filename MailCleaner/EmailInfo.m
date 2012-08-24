@@ -20,7 +20,7 @@ NSString * const EMAIL_INFO_SENDER_DOMAIN_KEY = @"senderDomain";
 @implementation EmailInfo
 
 @dynamic uid;
-@dynamic sendDate;
+@dynamic sendDate; // GMT
 @dynamic subject;
 @dynamic deleted;
 @dynamic recipientAddresses;
@@ -30,20 +30,28 @@ NSString * const EMAIL_INFO_SENDER_DOMAIN_KEY = @"senderDomain";
 @dynamic folderInfo;
 @dynamic senderDomain;
 
-
+- (NSDate*)sendDateLocalTimeZone 
+{
+    return [self.sendDate dateByAddingTimeInterval:[[NSTimeZone localTimeZone] secondsFromGMT]];
+}
 
 -(NSString*)formattedSendDate
 {
-	if([DateHelper dateIsEqual:self.sendDate otherDate:[DateHelper today]])
+	NSDate *localSendDate = [self sendDateLocalTimeZone];
+	if([DateHelper dateIsEqual:localSendDate otherDate:[DateHelper today]])
 	{
-		return [[DateHelper theHelper].shortTimeFormatter stringFromDate:self.sendDate];
+		return [[DateHelper theHelper].shortTimeFormatter stringFromDate:localSendDate];
 	}
 	else 
 	{
-		return [[DateHelper theHelper].shortDateFormatter stringFromDate:self.sendDate];
+		return [[DateHelper theHelper].shortDateFormatter stringFromDate:localSendDate];
 	}
 }
 
-
+-(NSString*)formattedSendDateAndTime
+{
+	NSDate *localSendDate = [self sendDateLocalTimeZone];
+	return [[DateHelper theHelper].mediumDateAndTimeFormatter stringFromDate:localSendDate];
+}
 
 @end

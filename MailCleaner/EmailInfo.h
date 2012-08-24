@@ -44,6 +44,7 @@ extern NSString * const EMAIL_INFO_SENDER_DOMAIN_KEY;
 @property (nonatomic, retain) NSSet *recipientAddresses;
 
 -(NSString*)formattedSendDate;
+-(NSString*)formattedSendDateAndTime;
 
 
 

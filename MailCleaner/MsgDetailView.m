@@ -166,7 +166,7 @@ CGFloat const MSG_DETAIL_FONT_SIZE = 14.0;
 	self.folderText.text = emailInfo.folderInfo.folderName;
 		
 	self.toText.text = [EmailAddress formattedAddresses:emailInfo.recipientAddresses];
-	self.dateText.text = [[DateHelper theHelper].mediumDateAndTimeFormatter stringFromDate:emailInfo.sendDate];
+	self.dateText.text = [emailInfo formattedSendDateAndTime];
 
 }
 

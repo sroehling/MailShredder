@@ -73,7 +73,7 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 {
 	EmailInfo *newEmailInfo = (EmailInfo*) [self.connectionContext.syncDmc insertObject:EMAIL_INFO_ENTITY_NAME];
 	
-	newEmailInfo.sendDate = msg.senderDate;
+	newEmailInfo.sendDate = msg.sentDateGMT;
 
 	newEmailInfo.senderAddress = [EmailAddress findOrAddAddress:msg.sender.email
 			withName:msg.sender.name
