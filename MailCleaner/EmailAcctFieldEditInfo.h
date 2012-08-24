@@ -11,11 +11,12 @@
 @class EmailAccount;
 @class DataModelController;
 
-@interface EmailAcctFieldEditInfo : StaticNavFieldEditInfo
+@interface EmailAcctFieldEditInfo : StaticNavFieldEditInfo <UIAlertViewDelegate>
 {
 	@private
 		EmailAccount *emailAcct;
 		DataModelController *appDmc;
+		id<FieldEditInfoDeleteConfirmationDelegate> deleteConfirmationDelegate;
 }
 
 @property(nonatomic,retain) EmailAccount *emailAcct;

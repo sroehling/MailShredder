@@ -159,6 +159,10 @@
 "EMAIL_ACCOUNT_PASSWORD_FIELD_LABEL" = "Password";
 "EMAIL_ACCOUNT_PASSWORD_PLACEHOLDER" = "Enter a password";
 "EMAIL_ACCOUNT_TABLE_SUBHEADER" = "Enter your email account settings. If you're unsure of the settings, please consult your email provider."; 
+"EMAIL_ACCOUNT_DELETE_ALERT_TITLE" = "Really Delete Account?";
+"EMAIL_ACCOUNT_DELETE_ALERT_BODY" = "Do you really want to delete this account? Any rules you've created for the account will also be deleted.";
+"EMAIL_ACCOUNT_DELETE_ALERT_CANCEL_BUTTON_TITLE" = "Cancel";
+"EMAIL_ACCOUNT_DELETE_ALERT_DELETE_BUTTON_TITLE" = "Delete Account";
 
 
 "TIME_UNIT_WEEKS" = "Weeks";
