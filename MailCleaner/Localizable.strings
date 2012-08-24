@@ -40,6 +40,7 @@
 "MESSAGE_DETAIL_SUBJECT_CAPTION" = "Subject:";
 "MESSAGE_DETAIL_TO_CAPTION" = "To:";
 "MESSAGE_DETAIL_DATE_CAPTION" = "Date:";
+"MESSAGE_DETAIL_FOLDER_CAPTION" = "Folder:";
 "MSG_DETAIL_BODY_RETRIEVAL_FAILED_ALERT_TITLE" = "Failure Retrieving Message Body";
 "MSG_DETAIL_BODY_RETRIEVAL_FAILED_ALERT_MSG" = "There was a failure retrieving the message body. Check the email account settings or try updating from the main message list, then try again.";
 "MSG_DETAIL_BODY_RETRIEVAL_FAILED_BODY_PLACEHOLDER_HTML" = "<BR><BR><font color=red><center>Error Retrieving<BR>Message Body</center></font>";

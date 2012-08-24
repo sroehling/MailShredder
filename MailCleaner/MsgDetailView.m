@@ -11,6 +11,7 @@
 #import "LocalizationHelper.h"
 #import "EmailAddress.h"
 #import "DateHelper.h"
+#import "EmailFolder.h"
 
 CGFloat const MSG_DETAIL_VIEW_MARGIN = 4.0;
 CGFloat const MSG_DETAIL_CAPTION_TEXT_SPACE = 4.0f;
@@ -30,6 +31,8 @@ CGFloat const MSG_DETAIL_FONT_SIZE = 14.0;
 @synthesize headerSeparatorLine;
 @synthesize bodyView;
 @synthesize bodyLoadActivity;
+@synthesize folderCaption;
+@synthesize folderText;
 
 -(UILabel*)msgHeaderCaptionLabel
 {
@@ -86,6 +89,10 @@ CGFloat const MSG_DETAIL_FONT_SIZE = 14.0;
 
 	theCaptionWidth = [self widthOfCaption:self.fromCaption];
 	maxWidth = (theCaptionWidth > maxWidth)?theCaptionWidth:maxWidth;
+
+	theCaptionWidth = [self widthOfCaption:self.folderCaption];
+	maxWidth = (theCaptionWidth > maxWidth)?theCaptionWidth:maxWidth;
+
 	
 	return maxWidth;
 }
@@ -119,11 +126,19 @@ CGFloat const MSG_DETAIL_FONT_SIZE = 14.0;
 		self.dateText = [self msgHeaderTextLabel];
 		[self addSubview:self.dateText];
 		
+		self.folderCaption = [self msgHeaderCaptionLabel];
+		[self addSubview:self.folderCaption];
+		
+		self.folderText = [self msgHeaderTextLabel];
+		[self addSubview:self.folderText];
+		
 		
 		self.subjectCaption.text = LOCALIZED_STR(@"MESSAGE_DETAIL_SUBJECT_CAPTION");
 		self.fromCaption.text = LOCALIZED_STR(@"MESSAGE_DETAIL_FROM_CAPTION");
 		self.toCaption.text = LOCALIZED_STR(@"MESSAGE_DETAIL_TO_CAPTION");
 		self.dateCaption.text = LOCALIZED_STR(@"MESSAGE_DETAIL_DATE_CAPTION");
+		self.folderCaption.text = LOCALIZED_STR(@"MESSAGE_DETAIL_FOLDER_CAPTION");
+		
 		
 		captionWidth = [self calcCaptionWidth];
 		
@@ -148,6 +163,7 @@ CGFloat const MSG_DETAIL_FONT_SIZE = 14.0;
 {
 	self.subjectText.text = emailInfo.subject;
     self.fromText.text = [emailInfo.senderAddress formattedAddress];
+	self.folderText.text = emailInfo.folderInfo.folderName;
 		
 	self.toText.text = [EmailAddress formattedAddresses:emailInfo.recipientAddresses];
 	self.dateText.text = [[DateHelper theHelper].mediumDateAndTimeFormatter stringFromDate:emailInfo.sendDate];
@@ -222,6 +238,11 @@ CGFloat const MSG_DETAIL_FONT_SIZE = 14.0;
 	
 	headerLineHeight = [self layoutHeaderLineWithCaption:self.subjectCaption 
 		andText:self.subjectText andCurrYOffset:currYOffset];
+
+	currYOffset += headerLineHeight + MSG_DETAIL_HEADER_LINE_VERTICAL_SPACE;
+	
+	headerLineHeight = [self layoutHeaderLineWithCaption:self.folderCaption 
+		andText:self.folderText andCurrYOffset:currYOffset];
 		
 	currYOffset += headerLineHeight + MSG_DETAIL_HEADER_LINE_VERTICAL_SPACE;
 	
@@ -261,6 +282,9 @@ CGFloat const MSG_DETAIL_FONT_SIZE = 14.0;
 	
 	[dateCaption release];
 	[dateText release];
+	
+	[folderCaption release];
+	[folderText release];
 	
 	[headerSeparatorLine release];
 	

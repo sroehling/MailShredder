@@ -25,6 +25,9 @@
 		UILabel *dateCaption;
 		UILabel *dateText;
 		
+		UILabel *folderCaption;
+		UILabel *folderText;
+		
 		UIView *headerSeparatorLine;
 				
 		UIWebView *bodyView;
@@ -44,6 +47,9 @@
 
 @property(nonatomic,retain) UILabel *dateCaption;
 @property(nonatomic,retain) UILabel *dateText;
+
+@property(nonatomic,retain) UILabel *folderCaption;
+@property(nonatomic,retain) UILabel *folderText;
 
 @property(nonatomic,retain) UIView *headerSeparatorLine;
 
