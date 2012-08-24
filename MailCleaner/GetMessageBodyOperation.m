@@ -79,7 +79,6 @@
 				NSString *plainTextBody = [serverEmailMsg body];
 				msgBody = [NSString stringWithFormat:@"<pre>%@</pre>",plainTextBody];
 			}
-			NSLog(@"msg body: %@",msgBody);
 			
 			if(self.isCancelled) { return; }
 			
