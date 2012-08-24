@@ -62,7 +62,24 @@
 				return;
 			}
 			
-			NSString *msgBody = [serverEmailMsg body];
+			if(![serverEmailMsg fetchBodyStructure])
+			{
+				if(self.isCancelled) { return; }
+				[self.connectionContext teardownConnection];
+				[self.getMsgBodyDelegate msgBodyRetrievalFailed];
+				[self.connectionContext.progressDelegate mailSyncComplete:TRUE];
+				return;
+			}			
+			
+			if(self.isCancelled) { return; }
+			
+			NSString *msgBody = [serverEmailMsg htmlBody];
+			if((msgBody == nil) || ([msgBody length] == 0))
+			{
+				NSString *plainTextBody = [serverEmailMsg body];
+				msgBody = [NSString stringWithFormat:@"<pre>%@</pre>",plainTextBody];
+			}
+			NSLog(@"msg body: %@",msgBody);
 			
 			if(self.isCancelled) { return; }
 			
