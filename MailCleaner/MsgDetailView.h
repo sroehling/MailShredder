@@ -29,6 +29,8 @@
 				
 		UIWebView *bodyView;
 		UIActivityIndicatorView *bodyLoadActivity;
+		
+		CGFloat captionWidth;
 }
 
 @property(nonatomic,retain) UILabel *subjectCaption;

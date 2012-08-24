@@ -38,7 +38,7 @@ CGFloat const MSG_DETAIL_FONT_SIZE = 14.0;
 	captionLabel.backgroundColor = [UIColor clearColor];
 	captionLabel.opaque = NO;
 	captionLabel.textColor = [UIColor darkGrayColor];
-	captionLabel.textAlignment = UITextAlignmentLeft;
+	captionLabel.textAlignment = UITextAlignmentRight;
 	captionLabel.highlightedTextColor = [UIColor darkGrayColor];
 	captionLabel.font = [UIFont boldSystemFontOfSize:MSG_DETAIL_FONT_SIZE];        
 	captionLabel.lineBreakMode = UILineBreakModeTailTruncation;
@@ -64,6 +64,31 @@ CGFloat const MSG_DETAIL_FONT_SIZE = 14.0;
 
 }
 
+-(CGFloat)widthOfCaption:(UILabel*)captionLabel
+{
+	[captionLabel sizeToFit];
+	return captionLabel.frame.size.width;
+
+}
+
+-(CGFloat)calcCaptionWidth
+{
+	CGFloat maxWidth = 0;
+	
+	CGFloat theCaptionWidth = [self widthOfCaption:self.subjectCaption];
+	maxWidth = (theCaptionWidth > maxWidth)?theCaptionWidth:maxWidth;
+	
+	theCaptionWidth = [self widthOfCaption:self.toCaption];
+	maxWidth = (theCaptionWidth > maxWidth)?theCaptionWidth:maxWidth;
+	
+	theCaptionWidth = [self widthOfCaption:self.dateCaption];
+	maxWidth = (theCaptionWidth > maxWidth)?theCaptionWidth:maxWidth;
+
+	theCaptionWidth = [self widthOfCaption:self.fromCaption];
+	maxWidth = (theCaptionWidth > maxWidth)?theCaptionWidth:maxWidth;
+	
+	return maxWidth;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -99,6 +124,8 @@ CGFloat const MSG_DETAIL_FONT_SIZE = 14.0;
 		self.fromCaption.text = LOCALIZED_STR(@"MESSAGE_DETAIL_FROM_CAPTION");
 		self.toCaption.text = LOCALIZED_STR(@"MESSAGE_DETAIL_TO_CAPTION");
 		self.dateCaption.text = LOCALIZED_STR(@"MESSAGE_DETAIL_DATE_CAPTION");
+		
+		captionWidth = [self calcCaptionWidth];
 		
 		self.headerSeparatorLine = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
 		self.headerSeparatorLine.backgroundColor = [UIColor grayColor];
@@ -151,6 +178,7 @@ CGFloat const MSG_DETAIL_FONT_SIZE = 14.0;
 	CGRect captionFrame = captionLabel.frame;
 	captionFrame.origin.x = MSG_DETAIL_VIEW_MARGIN;
 	captionFrame.origin.y = yOffset;
+	captionFrame.size.width = captionWidth;
 	[captionLabel setFrame:captionFrame];
 	
 	CGFloat maxTextWidth = self.frame.size.width - captionFrame.size.width - 2 * MSG_DETAIL_VIEW_MARGIN - MSG_DETAIL_CAPTION_TEXT_SPACE;
