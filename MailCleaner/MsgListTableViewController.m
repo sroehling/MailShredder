@@ -267,18 +267,15 @@
 	
 	self.view = self.msgListView;
 	
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-
 	// Register the footer view for progress updates when the mail synchronization
 	// takes place.
 	AppDelegate *appDelegate = [AppHelper theAppDelegate];
 	assert(appDelegate.mailSyncProgressDelegates != nil);
 	[appDelegate.mailSyncProgressDelegates addSubDelegate:self.msgListView.msgListActionFooter];
+}
 
-
+-(void)viewWillAppear:(BOOL)animated
+{
 	// If the filter has changed (and the view is appearing because of a return
 	// from editig the filter), the changes need to be saved, and the fetched results
 	// controller needs to be reconfigured.
@@ -292,18 +289,19 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
-
-	// De-register the footer view for progress updates when the mail synchronization
-	// takes place.
-	AppDelegate *appDelegate = [AppHelper theAppDelegate];
-	assert(appDelegate.mailSyncProgressDelegates != nil);
-	[appDelegate.mailSyncProgressDelegates removeSubDelegate:self.msgListView.msgListActionFooter];	
 }
 
 - (void)viewDidUnload 
 {
 	[super viewDidUnload];
 	self.emailInfoFrc = nil;
+	
+	// De-register the footer view for progress updates when the mail synchronization
+	// takes place.
+	AppDelegate *appDelegate = [AppHelper theAppDelegate];
+	assert(appDelegate.mailSyncProgressDelegates != nil);
+	[appDelegate.mailSyncProgressDelegates removeSubDelegate:self.msgListView.msgListActionFooter];	
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
