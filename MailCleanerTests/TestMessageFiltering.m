@@ -57,6 +57,7 @@
 	NSMutableDictionary *currEmailAddressByAddress = [self.testAppVals.currentEmailAcct emailAddressesByName];
 	
 	newEmailInfo.senderAddress = [EmailAddress findOrAddAddress:fromSender 
+					withName:@"" andSendDate:[DateHelper dateFromStr:sendDate]
 					withCurrentAddresses:currEmailAddressByAddress 
 					inDataModelController:self.appDataDmc
 					andEmailAcct:self.testAppVals.currentEmailAcct];
@@ -80,6 +81,7 @@
 	newEmailInfo.emailAcct = testAppVals.currentEmailAcct;
 	
 	EmailAddress *recipientAddress = [EmailAddress findOrAddAddress:recipientAddr 
+						withName:@"" andSendDate:[DateHelper dateFromStr:sendDate]
 					withCurrentAddresses:currEmailAddressByAddress 
 					inDataModelController:self.appDataDmc
 					andEmailAcct:self.testAppVals.currentEmailAcct];
@@ -278,11 +280,15 @@
 		
 	NSMutableDictionary *currEmailAddressByAddress = [self.testAppVals.currentEmailAcct emailAddressesByName];
 	[self.messageFilterForTest.recipientAddressFilter addSelectedAddressesObject:
-		[EmailAddress findOrAddAddress:@"jane@example.com" withCurrentAddresses:currEmailAddressByAddress 
+		[EmailAddress findOrAddAddress:@"jane@example.com" 
+			withName:@"" andSendDate:[DateHelper today]
+					withCurrentAddresses:currEmailAddressByAddress 
 					inDataModelController:self.appDataDmc
 					andEmailAcct:self.testAppVals.currentEmailAcct]];
 	[self.messageFilterForTest.recipientAddressFilter addSelectedAddressesObject:
-		[EmailAddress findOrAddAddress:@"bob@example.com" withCurrentAddresses:currEmailAddressByAddress 
+		[EmailAddress findOrAddAddress:@"bob@example.com" 
+			withName:@"" andSendDate:[DateHelper today]
+					withCurrentAddresses:currEmailAddressByAddress 
 					inDataModelController:self.appDataDmc
 					andEmailAcct:self.testAppVals.currentEmailAcct]];
 					

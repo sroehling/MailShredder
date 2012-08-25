@@ -9,6 +9,7 @@
 #import "EmailAddress.h"
 #import "DataModelController.h"
 #import "StringValidation.h"
+#import "DateHelper.h"
 
 
 NSString * const EMAIL_ADDRESS_ENTITY_NAME = @"EmailAddress";
@@ -18,6 +19,7 @@ NSString * const EMAIL_ADDRESS_ACCT_KEY = @"addressAccount";
 
 @dynamic address;
 @dynamic name;
+@dynamic nameDate;
 @dynamic selectedAddressEmailAddress;
 @dynamic emailInfoRecipientAddress;
 @dynamic addressAccount;
@@ -27,8 +29,10 @@ NSString * const EMAIL_ADDRESS_ACCT_KEY = @"addressAccount";
 // selection of the EmailAddress in a table view.
 @synthesize isSelectedForSelectableObjectTableView;
 
+
 +(EmailAddress*)findOrAddAddress:(NSString*)emailAddress 
 	withName:(NSString*)senderName
+	andSendDate:(NSDate*)sendDate
 	withCurrentAddresses:(NSMutableDictionary*)currAddressByName 
 			inDataModelController:(DataModelController*)appDataDmc
 			andEmailAcct:(EmailAccount*)emailAcct
@@ -42,10 +46,25 @@ NSString * const EMAIL_ADDRESS_ACCT_KEY = @"addressAccount";
 	{
 		theAddr = [appDataDmc insertObject:EMAIL_ADDRESS_ENTITY_NAME];
 		theAddr.address = emailAddress;
-		theAddr.name = senderName;
 		theAddr.addressAccount = emailAcct;
 		[currAddressByName setObject:theAddr forKey:emailAddress];
 	}
+
+	// Set or update the name used for the address
+	if((theAddr.name == nil) || ([theAddr.name length]==0))
+	{
+		theAddr.name = senderName;
+		theAddr.nameDate = sendDate;
+	}
+	else if ((theAddr.nameDate != nil) && 
+		[StringValidation nonEmptyString:senderName] &&
+		[DateHelper dateIsLater:sendDate otherDate:theAddr.nameDate])
+	{
+		// Name is already set, but there is a newer one.
+		theAddr.nameDate = sendDate;
+		theAddr.name = senderName;
+	}
+	
 	return theAddr;
 }
 

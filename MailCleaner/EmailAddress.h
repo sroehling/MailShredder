@@ -25,6 +25,8 @@ extern NSString * const EMAIL_ADDRESS_ACCT_KEY;
 
 @property (nonatomic, retain) NSString * address;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSDate * nameDate;
+
 
 @property (nonatomic, retain) NSSet *selectedAddressEmailAddress;
 
@@ -38,6 +40,7 @@ extern NSString * const EMAIL_ADDRESS_ACCT_KEY;
 
 +(EmailAddress*)findOrAddAddress:(NSString*)emailAddress 
 	withName:(NSString*)senderName
+	andSendDate:(NSDate*)sendDate
 	withCurrentAddresses:(NSMutableDictionary*)currAddressByName 
 			inDataModelController:(DataModelController*)appDataDmc
 			andEmailAcct:(EmailAccount*)emailAcct;
