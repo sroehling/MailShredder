@@ -101,7 +101,6 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 					inDataModelController:self.connectionContext.syncDmc
 					andEmailAcct:self.syncAcct];
 		[newEmailInfo addRecipientAddressesObject:recipientAddress];
-
 	}
 	
 	newEmailInfo.folderInfo = self.currFolder;

@@ -14,11 +14,12 @@
 {
 	assert(fullAddress != nil);
 	NSArray *addrParts = [fullAddress componentsSeparatedByString:@"@"];
-	if([addrParts count] == 2)
+	if([addrParts count] > 0)
 	{
-		return [addrParts objectAtIndex:1];
+		NSInteger indexOfDomainPartAfterLastAmpersand = [addrParts count]-1;
+		return [addrParts objectAtIndex:indexOfDomainPartAfterLastAmpersand];
 	}
-	else 
+	else	
 	{
 		return @"";
 	}

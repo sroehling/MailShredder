@@ -30,13 +30,19 @@ NSString * const EMAIL_DOMAIN_ACCT_KEY = @"domainAcct";
 			andEmailAcct:(EmailAccount*)emailAcct
 {
 	assert(domainName!=nil);
-	EmailDomain *theDomain = [currDomainsByName objectForKey:domainName];
+
+	// Domain names are case-insensitive (per RFC 2821), so we store (and lookup)
+	// the domain name using the lower-case version of the domain name. This ensures
+	// that 2 domain names which differ only by their case are treated the same.
+	NSString *caseInsensitiveDomainName = [domainName lowercaseString];
+	
+	EmailDomain *theDomain = [currDomainsByName objectForKey:caseInsensitiveDomainName];
 	if(theDomain == nil)
 	{
 		theDomain = [appDataDmc insertObject:EMAIL_DOMAIN_ENTITY_NAME];
-		theDomain.domainName = domainName;
+		theDomain.domainName = caseInsensitiveDomainName;
 		theDomain.domainAcct = emailAcct;
-		[currDomainsByName setObject:theDomain forKey:domainName];
+		[currDomainsByName setObject:theDomain forKey:caseInsensitiveDomainName];
 	}
 	return theDomain;
 }
