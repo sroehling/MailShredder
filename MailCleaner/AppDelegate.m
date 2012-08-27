@@ -42,6 +42,7 @@
 @synthesize sharedAppVals;
 @synthesize emailAccountAdder;
 @synthesize getBodyOperationQueue;
+@synthesize accountChangeListers;
 
 - (void)dealloc
 {
@@ -53,6 +54,7 @@
 	[sharedAppVals release];
 	[emailAccountAdder release];
 	[getBodyOperationQueue release];
+	[accountChangeListers release];
     [super dealloc];
 }
 
@@ -99,6 +101,12 @@
 			{
 				NSLog(@"Current email account changed: Synchronizing messages");
 				[self.mailSyncController syncWithServerInBackgroundThread];
+				
+				for(id<CurrentEmailAccountChangedListener> acctChangeListener 
+					in self.accountChangeListers)
+				{
+					[acctChangeListener currentAcctChanged:newAcct];
+				}
 			}
 		}
 
@@ -156,6 +164,8 @@
 
 
 	self.emailAccountAdder = [[[EmailAccountAdder alloc] init] autorelease];
+	
+	self.accountChangeListers = [[[NSMutableSet alloc] init] autorelease];
 	
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.

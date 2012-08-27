@@ -146,6 +146,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 
 - (void)refreshMessageFilterHeader
 {
+	self.messageFilterHeader.header.text = [AppHelper theAppDelegate].sharedAppVals.currentEmailAcct.acctName;
 	self.messageFilterHeader.subTitle.text =  [self currentAcctMsgFilter].filterSynopsis;
 	[self.messageFilterHeader resizeForChildren];
 
@@ -397,6 +398,12 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	return TRUE;
 }
 
+#pragma mark CurrentEmailAccountChangedListener
+
+-(void)currentAcctChanged:(EmailAccount *)currentAccount
+{
+	[self refreshMessageList];
+}
 
 -(void)dealloc
 {

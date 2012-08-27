@@ -267,6 +267,9 @@
 	
 	self.view = self.msgListView;
 	
+	// Register for notifications when the current account changes.
+	[[AppHelper theAppDelegate].accountChangeListers addObject:self];
+	
 	// Register the footer view for progress updates when the mail synchronization
 	// takes place.
 	AppDelegate *appDelegate = [AppHelper theAppDelegate];
@@ -295,6 +298,8 @@
 {
 	[super viewDidUnload];
 	self.emailInfoFrc = nil;
+	
+	[[AppHelper theAppDelegate].accountChangeListers removeObject:self];
 	
 	// De-register the footer view for progress updates when the mail synchronization
 	// takes place.
@@ -429,6 +434,13 @@
 		initWithTitle:LOCALIZED_STR(@"TRASH_LIST_ACTION_DELETE_ALL_BUTTON_TITLE")
 		 andTarget:self andSelector:@selector(deleteAllTrashedMsgsButtonPressed)] autorelease]];
 
+}
+
+#pragma mark CurrentEmailAccountChangedListener
+
+-(void)currentAcctChanged:(EmailAccount *)currentAccount
+{
+	[self configureFetchedResultsController];
 }
 
 -(void)dealloc

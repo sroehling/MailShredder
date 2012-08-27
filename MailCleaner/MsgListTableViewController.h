@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 
 #import "EmailInfoActionView.h"
+#import "AppDelegate.h"
 
 @class DataModelController;
 @class MsgListView;
 
 @interface MsgListTableViewController : UIViewController 
-	<NSFetchedResultsControllerDelegate,UITableViewDelegate,UITableViewDataSource,EmailActionViewDelegate> {
+	<NSFetchedResultsControllerDelegate,UITableViewDelegate,
+		UITableViewDataSource,EmailActionViewDelegate,CurrentEmailAccountChangedListener> {
 	@private
 		DataModelController *appDmc;
 		NSFetchedResultsController *emailInfoFrc;

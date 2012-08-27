@@ -15,6 +15,9 @@
 @class MailClientServerSyncController;
 @class CompositeMailSyncProgressDelegate;
 @class EmailAccountAdder;
+@class EmailAccount;
+
+@protocol CurrentEmailAccountChangedListener;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate,
 			GenericTableAddViewSaveCompleteDelegate>
@@ -27,6 +30,7 @@
 		EmailAccountAdder *emailAccountAdder;
 		NSOperationQueue *getBodyOperationQueue;
 		
+		NSMutableSet *accountChangeListers;
 		
 }
 
@@ -40,4 +44,10 @@
 @property(nonatomic,retain) EmailAccountAdder *emailAccountAdder;
 @property(nonatomic,retain) NSOperationQueue *getBodyOperationQueue;
 
+@property(nonatomic,retain) NSMutableSet *accountChangeListers;
+
+@end
+
+@protocol CurrentEmailAccountChangedListener <NSObject>
+-(void)currentAcctChanged:(EmailAccount*)currentAccount;
 @end
