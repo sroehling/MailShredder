@@ -164,6 +164,22 @@
 "EMAIL_ACCOUNT_DELETE_ALERT_BODY" = "Do you really want to delete this account? Any rules you've created for the account will also be deleted.";
 "EMAIL_ACCOUNT_DELETE_ALERT_CANCEL_BUTTON_TITLE" = "Cancel";
 "EMAIL_ACCOUNT_DELETE_ALERT_DELETE_BUTTON_TITLE" = "Delete Account";
+"EMAIL_ACCOUNT_DELETE_SETTINGS_SECTION" = "Deletion Settings";
+"EMAIL_ACCOUNT_DELETE_MSGS_FIELD_LABEL" = "Delete Message on Server?";
+"EMAIL_ACCOUNT_DELETE_MSGS_FIELD_SUBTITLE" = "Permanently delete message from folder on server?";
+"EMAIL_ACCOUNT_SYNC_FOLDER_LIST_TITLE" = "Synchronized Folders";
+"EMAIL_ACCOUNT_SYNC_FOLDER_TABLE_HEADER_TITLE" = "Synchronized Folder List";
+"EMAIL_ACCOUNT_SYNC_FOLDER_TABLE_HEADER_SUBTITLE" = "For purposes of message deletion, select the folders to synchronize with below. If no folders are selected, all folders will be synchronized.";
+"EMAIL_ACCOUNT_SYNCHRONIZED_FOLDERS_FIELD_CAPTION" = "Synchronized Folders";
+"EMAIL_ACCOUNT_SYNCHRONIZED_FOLDERS_ALL_FOLDERS" = "All Folders";
+"EMAIL_ACCOUNT_SYNCHRONIZED_FOLDERS_SPECIFIC_FOLDERS" = "Specific Folders";
+"EMAIL_ACCOUNT_MOVE_TO_FOLDER_TABLE_LIST_TITLE" = "Move to Folder";
+"EMAIL_ACCOUNT_MOVE_TO_FOLDER_TABLE_HEADER_TITLE" = "Move Message to Folder";
+"EMAIL_ACCOUNT_MOVE_TO_FOLDER_TABLE_HEADER_SUBTITLE" = "If a folder is selected, it will be moved to this folder for deletion.";
+"EMAIL_ACCOUNT_MOVE_TO_FOLDER_FIELD_CAPTION" = "Move to Folder";
+"EMAIL_ACCOUNT_MOVE_TO_FOLDER_NONE" = "Don't Move Message";
+"EMAIL_ACCOUNT_MOVE_TO_FOLDER_FIELD_SUBTITLE" = "Move the message to a specific folder for deletion.";
+"EMAIL_ACCOUNT_MOVE_TO_FOLDER_SECTION_HEADER" = "Move to Folder";
 
 
 "TIME_UNIT_WEEKS" = "Weeks";

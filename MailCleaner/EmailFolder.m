@@ -20,6 +20,7 @@ NSString * const EMAIL_FOLDER_ACCT_KEY = @"folderAccount";
 @dynamic emailFolderFilterSelectedFolders;
 @dynamic emailInfoFolder;
 @dynamic folderAccount;
+@dynamic emailAccountOnlySyncFolders;
 
 // This property is not persisted via CoreData. It is used for tracking of 
 // selection of the EmailAddress in a table view.
@@ -39,6 +40,11 @@ NSString * const EMAIL_FOLDER_ACCT_KEY = @"folderAccount";
 		[currFoldersByName setObject:theFolder forKey:folderName];
 	}
 	return theFolder;
+}
+
+-(BOOL)hasLocalEmailInfoObjects
+{
+	return ([self.emailInfoFolder count] > 0)?TRUE:FALSE;
 }
 
 -(NSMutableDictionary*)emailInfosInFolderByUID

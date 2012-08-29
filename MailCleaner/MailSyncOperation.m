@@ -53,37 +53,51 @@
 		{
 			for (NSString *folderName in allFoldersOnServer)
 			{
-				NSLog(@"%@: Processing folder",folderName);
 				CTCoreFolder *currFolder = [self.connectionContext.mailAcct folderWithPath:folderName];
 				EmailFolder *emailFolder = [folderSyncContext 
 					findOrCreateLocalEmailFolderForServerFolderWithName:currFolder.path];
 					
-				[msgSyncContext startMsgSyncForFolder:emailFolder];
-				NSUInteger totalMessageCount;
-				if(![currFolder totalMessageCount:&totalMessageCount])
+				if([folderSyncContext folderIsSynchronized:folderName])
 				{
-					@throw [NSException exceptionWithName:@"FailureRetrievingFolderMsgCount" 
-						reason:@"Failure retrievig message count for folder" userInfo:nil];
-				}
-			
-				if(totalMessageCount > 0)
-				{
-					NSArray *serverMsgSet = [currFolder messagesFromUID:1 to:0 withFetchAttributes:CTFetchAttrEnvelope];
-					if(serverMsgSet == nil)
+					NSLog(@"%@: Synchronizing folder",folderName);
+					[msgSyncContext startMsgSyncForFolder:emailFolder];
+					NSUInteger totalMessageCount;
+					if(![currFolder totalMessageCount:&totalMessageCount])
 					{
-						@throw [NSException exceptionWithName:@"FailureRetrievingMsgSet" 
-							reason:@"Failure retrievig message set for folder" userInfo:nil];
+						@throw [NSException exceptionWithName:@"FailureRetrievingFolderMsgCount" 
+							reason:@"Failure retrievig message count for folder" userInfo:nil];
 					}
-					
-					for(CTCoreMessage *msg in serverMsgSet)
-					{			
-						[msgSyncContext syncOneMsg:msg];
-					} // For each message in the folder
+				
+					if(totalMessageCount > 0)
+					{
+						NSArray *serverMsgSet = [currFolder messagesFromUID:1 to:0 withFetchAttributes:CTFetchAttrEnvelope];
+						if(serverMsgSet == nil)
+						{
+							@throw [NSException exceptionWithName:@"FailureRetrievingMsgSet" 
+								reason:@"Failure retrievig message set for folder" userInfo:nil];
+						}
+						
+						for(CTCoreMessage *msg in serverMsgSet)
+						{			
+							[msgSyncContext syncOneMsg:msg];
+						} // For each message in the folder
+					}
+					[msgSyncContext finishFolderSync];
+					NSLog(@"%@: ... done synchronizing folder",folderName);
+					NSLog(@"-------");
+				} // If folder is synchronized
+				else 
+				{
+					NSLog(@"Skipping message sync for folder: %@",folderName);
+					if ([emailFolder hasLocalEmailInfoObjects])
+					{
+						// If the folder is no longer synchronized, but still has local EmailInfo objects, then
+						// these objects need to be deleted, so they don't show up in message list results.
+						[self.connectionContext.syncDmc deleteObjects:[emailFolder.emailInfoFolder allObjects]];
+						[self.connectionContext.syncDmc saveContext];
+					}
 				}
-				[msgSyncContext finishFolderSync];
 
-				NSLog(@"%@: ... done synchronizing folder",folderName);
-				NSLog(@"-------");
 			} // For each folder
 
 			[folderSyncContext deleteMsgsForFoldersNoLongerOnServer];

@@ -24,6 +24,9 @@ extern NSInteger const EMAIL_ACCOUNT_DEFAULT_PORT_NOSSL;
 extern NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX;
 extern NSString * const EMAIL_ACCOUNT_UNIQUEACCTID_KEY;
 
+extern NSString * const EMAIL_ACCOUNT_DELETE_HANDLING_DELETE_MSG_KEY;
+extern NSString * const EMAIL_ACCOUNT_DELETE_HANDLING_MOVE_TO_FOLDER_KEY;
+
 @class DataModelController;
 @class SharedAppVals;
 @class KeychainFieldInfo;
@@ -78,9 +81,24 @@ extern NSString * const EMAIL_ACCOUNT_UNIQUEACCTID_KEY;
 
 @property (nonatomic, retain) NSSet *msgHandlingRules;
 
+// Limit sync to specific folders
+@property (nonatomic, retain) NSSet *onlySyncFolders;
+
+// The following properties determine how
+// deletion takes place. The message is only
+// deleted if the boolean flag deleteHandlingDeleteMsg is set. If 
+// a folder is also specified, then the message
+// is moved to the folder before deleting.
+@property (nonatomic, retain) EmailFolder *deleteHandlingMoveToFolder;
+@property (nonatomic, retain) NSNumber * deleteHandlingDeleteMsg;
+
 -(NSMutableDictionary*)foldersByName;
 -(NSMutableDictionary*)emailDomainsByDomainName;
 -(NSMutableDictionary*)emailAddressesByName;
+
+// Folders which are sychronized in this account. If there
+// are no folders, then all the folders are synchronized.
+-(NSDictionary*)syncFoldersByName;
 
 @end
 
@@ -110,5 +128,11 @@ extern NSString * const EMAIL_ACCOUNT_UNIQUEACCTID_KEY;
 - (void)removeMsgHandlingRulesObject:(MsgHandlingRule *)value;
 - (void)addMsgHandlingRules:(NSSet *)values;
 - (void)removeMsgHandlingRules:(NSSet *)values;
+
+- (void)addOnlySyncFoldersObject:(EmailFolder *)value;
+- (void)removeOnlySyncFoldersObject:(EmailFolder *)value;
+- (void)addOnlySyncFolders:(NSSet *)values;
+- (void)removeOnlySyncFolders:(NSSet *)values;
+
 
 @end

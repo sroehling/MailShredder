@@ -26,6 +26,9 @@ NSString * const EMAIL_ACCOUNT_IMAPSERVER_KEY = @"imapServer";
 NSString * const EMAIL_ACCOUNT_USERNAME_KEY = @"userName";
 NSString * const EMAIL_ACCOUNT_UNIQUEACCTID_KEY = @"uniqueAcctID";
 
+NSString * const EMAIL_ACCOUNT_DELETE_HANDLING_DELETE_MSG_KEY = @"deleteHandlingDeleteMsg";
+NSString * const EMAIL_ACCOUNT_DELETE_HANDLING_MOVE_TO_FOLDER_KEY = @"deleteHandlingMoveToFolder";
+
 NSInteger const EMAIL_ACCOUNT_DEFAULT_PORT_SSL = 993;
 NSInteger const EMAIL_ACCOUNT_DEFAULT_PORT_NOSSL = 143;
 
@@ -47,9 +50,13 @@ NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX = @"EmailAccountLoginInfo";
 @dynamic domainsInAcct;
 @dynamic addressesInAcct;
 @dynamic emailsInAcct;
+@dynamic onlySyncFolders;
 
 @dynamic msgListFilter;
 @dynamic msgHandlingRules;
+
+@dynamic deleteHandlingMoveToFolder;
+@dynamic deleteHandlingDeleteMsg;
 
 @synthesize isSelectedForSelectableObjectTableView;
 
@@ -98,6 +105,16 @@ NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX = @"EmailAccountLoginInfo";
 		[currFolderByFolderName setObject:currFolder forKey:currFolder.folderName];
 	}
 	return currFolderByFolderName;
+}
+
+-(NSDictionary*)syncFoldersByName
+{
+	NSMutableDictionary *syncFolders = [[[NSMutableDictionary alloc] init] autorelease];
+	for(EmailFolder *syncFolder in self.onlySyncFolders)
+	{
+		[syncFolders setObject:syncFolder forKey:syncFolder.folderName];
+	}
+	return syncFolders;
 }
 
 -(NSMutableDictionary*)emailDomainsByDomainName

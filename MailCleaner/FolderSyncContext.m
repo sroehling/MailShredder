@@ -17,6 +17,7 @@
 @synthesize connectionContext;
 @synthesize currFolderByFolderName;
 @synthesize foldersNoLongerOnServer;
+@synthesize syncFoldersByName;
 
 -(id)initWithConnectionContext:(MailSyncConnectionContext *)theConnectionContext
 {
@@ -29,6 +30,7 @@
 		
 		self.currFolderByFolderName = [currAcct foldersByName];
 		self.foldersNoLongerOnServer = [currAcct foldersByName];
+		self.syncFoldersByName = [currAcct syncFoldersByName];
 
 	}
 	return self;
@@ -40,26 +42,49 @@
 	return nil;
 }
 
+-(BOOL)folderIsSynchronized:(NSString*)folderName
+{
+	if([self.syncFoldersByName count] == 0)
+	{
+		return TRUE;
+	}
+	else if ([self.syncFoldersByName objectForKey:folderName] != nil)
+	{
+		return TRUE;
+	}
+	else 
+	{
+		return FALSE;
+	}
+}
+
 -(NSUInteger)totalServerMsgCountInAllFolders
 {
 	CGFloat totalMsgs = 0;
 	NSSet *allFoldersOnServer = [self.connectionContext.mailAcct allFolders];
 	for (NSString *folderName in allFoldersOnServer)
 	{
-		CTCoreFolder *currFolder = [self.connectionContext.mailAcct
-			folderWithPath:folderName];
-		
-		NSUInteger messagesInFolder;
-		if(![currFolder totalMessageCount:&messagesInFolder])
+		if([self folderIsSynchronized:folderName])
 		{
-			@throw [NSException exceptionWithName:@"FailureRetrievingFolderMsgCount" 
-				reason:@"Failure retrievig message count for folder" userInfo:nil];
-		}
-		NSLog(@"total messages in folder %@:%d",folderName,messagesInFolder);
-	
-		totalMsgs += messagesInFolder;
+			CTCoreFolder *currFolder = [self.connectionContext.mailAcct
+				folderWithPath:folderName];
+			
+			NSUInteger messagesInFolder;
+			if(![currFolder totalMessageCount:&messagesInFolder])
+			{
+				@throw [NSException exceptionWithName:@"FailureRetrievingFolderMsgCount" 
+					reason:@"Failure retrievig message count for folder" userInfo:nil];
+			}
+			NSLog(@"total messages in folder %@:%d",folderName,messagesInFolder);
 		
-		[currFolder disconnect];
+			totalMsgs += messagesInFolder;
+			
+			[currFolder disconnect];
+		}
+		else 
+		{
+			NSLog(@"Skipping msg count for folder: %@",folderName);
+		}
 	}
 	return totalMsgs;
 }
@@ -105,6 +130,7 @@
 	[connectionContext release];
 	[currFolderByFolderName release];
 	[foldersNoLongerOnServer release];
+	[syncFoldersByName release];
 	[super dealloc];
 }
 

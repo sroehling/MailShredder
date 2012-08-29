@@ -50,6 +50,7 @@
 			CTCoreMessage *msgMarkedForDeletion = [msgFolder messageWithUID:[markedForDeletion.uid unsignedIntValue]];
 			if(msgMarkedForDeletion != nil)
 			{
+				// TODO - Implement custom delete logic here
 				[msgFolder setFlags:CTFlagDeleted forMessage:msgMarkedForDeletion];
 				[serverFoldersToExpunge addObject:msgFolder];
 			}

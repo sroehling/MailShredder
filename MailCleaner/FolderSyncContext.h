@@ -17,16 +17,19 @@
 		MailSyncConnectionContext *connectionContext;
 		NSMutableDictionary *currFolderByFolderName;
 		NSMutableDictionary *foldersNoLongerOnServer;
+		NSDictionary *syncFoldersByName;
 }
 
 @property(nonatomic,retain) MailSyncConnectionContext *connectionContext;
 @property(nonatomic,retain) NSMutableDictionary *currFolderByFolderName;
 @property(nonatomic,retain) NSMutableDictionary *foldersNoLongerOnServer;
+@property(nonatomic,retain) NSDictionary *syncFoldersByName;
 
 -(id)initWithConnectionContext:(MailSyncConnectionContext *)theConnectionContext;
 
 -(EmailFolder*)findOrCreateLocalEmailFolderForServerFolderWithName:(NSString*)folderName;
 -(void)deleteMsgsForFoldersNoLongerOnServer;
 -(NSUInteger)totalServerMsgCountInAllFolders;
+-(BOOL)folderIsSynchronized:(NSString*)folderName;
 
 @end

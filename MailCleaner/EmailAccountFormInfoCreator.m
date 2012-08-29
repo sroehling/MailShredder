@@ -18,8 +18,13 @@
 #import "RegExpTextFieldValidator.h"
 #import "VariableHeightTableHeader.h"
 #import "PortNumFieldEditInfo.h"
+#import "SyncFoldersFieldEditInfo.h"
 
 #import "KeychainFieldInfo.h"
+#import "SelectableObjectTableViewControllerFactory.h"
+#import "MoveToFolderForDeletionFormInfoCreator.h"
+#import "ManagedObjectFieldInfo.h"
+#import "EmailFolder.h"
 
 
 @implementation EmailAccountFormInfoCreator
@@ -147,6 +152,55 @@
 		[formPopulator.currentSection addFieldEditInfo:portNumFieldEditInfo];
 	}
 	
+	[formPopulator nextSectionWithTitle:LOCALIZED_STR(@"EMAIL_ACCOUNT_DELETE_SETTINGS_SECTION")
+		 andHelpFile:@"emailAcctDeleteSettings"];
+	
+	[formPopulator populateBoolFieldInParentObj:self.emailAccount 
+		withBoolField:EMAIL_ACCOUNT_DELETE_HANDLING_DELETE_MSG_KEY 
+		andFieldLabel:LOCALIZED_STR(@"EMAIL_ACCOUNT_DELETE_MSGS_FIELD_LABEL") 
+		andSubTitle:LOCALIZED_STR(@"EMAIL_ACCOUNT_DELETE_MSGS_FIELD_SUBTITLE")];
+		
+	[formPopulator.currentSection addFieldEditInfo:
+		[[[SyncFoldersFieldEditInfo alloc] initWithEmailAcct:self.emailAccount] autorelease]];
+		
+	if(TRUE)
+	{
+		// Setup editing for the 'Move to Folder' setting
+		ManagedObjectFieldInfo *assignmentFieldInfo = [[[ManagedObjectFieldInfo alloc] 
+			initWithManagedObject:self.emailAccount
+			andFieldKey:EMAIL_ACCOUNT_DELETE_HANDLING_MOVE_TO_FOLDER_KEY 
+			andFieldLabel:@"N/A"
+			andFieldPlaceholder:@"N/A"] autorelease];
+		assignmentFieldInfo.nilValueAssignmentOK = TRUE;
+
+		MoveToFolderForDeletionFormInfoCreator *moveToFolderFormInfoCreator = 
+				[[[MoveToFolderForDeletionFormInfoCreator alloc] initWithEmailAcct:self.emailAccount] autorelease];
+		SelectableObjectTableViewControllerFactory *moveToFolderViewFactory = 
+			[[[SelectableObjectTableViewControllerFactory alloc] initWithFormInfoCreator:moveToFolderFormInfoCreator 
+				andAssignedField:assignmentFieldInfo] autorelease];
+		moveToFolderViewFactory.closeAfterSelection = TRUE;
+		moveToFolderViewFactory.supportsEditing = FALSE;
+		
+				
+		NSString *moveToFolderDesc;
+		if(self.emailAccount.deleteHandlingMoveToFolder == nil)
+		{
+			moveToFolderDesc = LOCALIZED_STR(@"EMAIL_ACCOUNT_MOVE_TO_FOLDER_NONE");
+		}
+		else 
+		{
+			moveToFolderDesc = self.emailAccount.deleteHandlingMoveToFolder.folderName;
+		}
+		
+		StaticNavFieldEditInfo *moveToFolderFieldEditInfo = 
+			[[[StaticNavFieldEditInfo alloc] 
+				initWithCaption:LOCALIZED_STR(@"EMAIL_ACCOUNT_MOVE_TO_FOLDER_FIELD_CAPTION")
+				andSubtitle:LOCALIZED_STR(@"EMAIL_ACCOUNT_MOVE_TO_FOLDER_FIELD_SUBTITLE") 
+				andContentDescription:moveToFolderDesc
+				andSubViewFactory:moveToFolderViewFactory] autorelease];
+		[formPopulator.currentSection addFieldEditInfo:moveToFolderFieldEditInfo];		
+	}
+
 		
 	return formPopulator.formInfo;
 

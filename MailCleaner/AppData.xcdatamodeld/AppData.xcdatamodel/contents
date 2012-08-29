@@ -23,6 +23,7 @@
     </entity>
     <entity name="EmailAccount" representedClassName="EmailAccount" syncable="YES">
         <attribute name="acctName" attributeType="String" syncable="YES"/>
+        <attribute name="deleteHandlingDeleteMsg" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="emailAddress" attributeType="String" syncable="YES"/>
         <attribute name="imapServer" attributeType="String" syncable="YES"/>
         <attribute name="lastSync" optional="YES" attributeType="Date" syncable="YES"/>
@@ -31,11 +32,13 @@
         <attribute name="userName" attributeType="String" syncable="YES"/>
         <attribute name="useSSL" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <relationship name="addressesInAcct" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="EmailAddress" inverseName="addressAccount" inverseEntity="EmailAddress" syncable="YES"/>
+        <relationship name="deleteHandlingMoveToFolder" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailFolder" inverseName="emailAcctMoveToFolderDeleteRule" inverseEntity="EmailFolder" syncable="YES"/>
         <relationship name="domainsInAcct" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="EmailDomain" inverseName="domainAcct" inverseEntity="EmailDomain" syncable="YES"/>
         <relationship name="emailsInAcct" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="EmailInfo" inverseName="emailAcct" inverseEntity="EmailInfo" syncable="YES"/>
         <relationship name="foldersInAcct" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="EmailFolder" inverseName="folderAccount" inverseEntity="EmailFolder" syncable="YES"/>
         <relationship name="msgHandlingRules" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MsgHandlingRule" inverseName="emailAcct" inverseEntity="MsgHandlingRule" syncable="YES"/>
         <relationship name="msgListFilter" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="MessageFilter" inverseName="emailAcctMsgListFilter" inverseEntity="MessageFilter" syncable="YES"/>
+        <relationship name="onlySyncFolders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailFolder" inverseName="emailAccountOnlySyncFolders" inverseEntity="EmailFolder" syncable="YES"/>
         <relationship name="sharedAppValsCurrentEmailAcct" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="currentEmailAcct" inverseEntity="SharedAppVals" syncable="YES"/>
     </entity>
     <entity name="EmailAddress" representedClassName="EmailAddress" syncable="YES">
@@ -65,6 +68,8 @@
     </entity>
     <entity name="EmailFolder" representedClassName="EmailFolder" syncable="YES">
         <attribute name="folderName" attributeType="String" syncable="YES"/>
+        <relationship name="emailAccountOnlySyncFolders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="onlySyncFolders" inverseEntity="EmailAccount" syncable="YES"/>
+        <relationship name="emailAcctMoveToFolderDeleteRule" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="deleteHandlingMoveToFolder" inverseEntity="EmailAccount" syncable="YES"/>
         <relationship name="emailFolderFilterSelectedFolders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailFolderFilter" inverseName="selectedFolders" inverseEntity="EmailFolderFilter" syncable="YES"/>
         <relationship name="emailInfoFolder" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailInfo" inverseName="folderInfo" inverseEntity="EmailInfo" syncable="YES"/>
         <relationship name="folderAccount" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="foldersInAcct" inverseEntity="EmailAccount" syncable="YES"/>
@@ -133,7 +138,7 @@
         <element name="AgeFilterComparison" positionX="160" positionY="192" width="128" height="225"/>
         <element name="AgeFilterNone" positionX="160" positionY="192" width="128" height="60"/>
         <element name="EmailAccount" positionX="160" positionY="192" width="128" height="240"/>
-        <element name="EmailAddress" positionX="160" positionY="192" width="128" height="150"/>
+        <element name="EmailAddress" positionX="160" positionY="192" width="128" height="105"/>
         <element name="EmailAddressFilter" positionX="160" positionY="192" width="128" height="105"/>
         <element name="EmailDomain" positionX="160" positionY="192" width="128" height="75"/>
         <element name="EmailDomainFilter" positionX="160" positionY="192" width="128" height="105"/>

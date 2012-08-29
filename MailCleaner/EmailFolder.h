@@ -32,14 +32,18 @@ extern NSString * const EMAIL_FOLDER_ACCT_KEY;
 // EmailAccount this folder belongs to
 @property (nonatomic, retain) EmailAccount *folderAccount;
 
+// Inverse relationship for a list of folders synchronization will 
+// take place for in this account. An empty list implies every folder
+// will be synchronized.
+@property (nonatomic, retain) NSSet *emailAccountOnlySyncFolders;
+
 +(EmailFolder*)findOrAddFolder:(NSString*)folderName 
 	inExistingFolders:(NSMutableDictionary*)currFoldersByName
 	withDataModelController:(DataModelController*)appDataDmc
 	andFolderAcct:(EmailAccount*)acctForFolder;
 	
 -(NSMutableDictionary*)emailInfosInFolderByUID;
-
-
+-(BOOL)hasLocalEmailInfoObjects;
 
 @end
 
@@ -55,6 +59,11 @@ extern NSString * const EMAIL_FOLDER_ACCT_KEY;
 - (void)removeEmailInfoFolderObject:(EmailInfo *)value;
 - (void)addEmailInfoFolder:(NSSet *)values;
 - (void)removeEmailInfoFolder:(NSSet *)values;
+
+- (void)addEmailAccountOnlySyncFoldersObject:(EmailAccount *)value;
+- (void)removeEmailAccountOnlySyncFoldersObject:(EmailAccount *)value;
+- (void)addEmailAccountOnlySyncFolders:(NSSet *)values;
+- (void)removeEmailAccountOnlySyncFolders:(NSSet *)values;
 
 
 @end
