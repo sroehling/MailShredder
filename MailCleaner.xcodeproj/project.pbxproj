@@ -67,6 +67,7 @@
 		00707D7715D59B9B00DC8DA5 /* MailDeleteOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00707D7615D59B9B00DC8DA5 /* MailDeleteOperation.m */; };
 		007860CF15DD99F600DC333B /* FolderSyncContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 007860CE15DD99F600DC333B /* FolderSyncContext.m */; };
 		007ABE8F156ACADE004BA8BF /* dummyEmails.txt in Resources */ = {isa = PBXBuildFile; fileRef = 003D59911564028200AD3D91 /* dummyEmails.txt */; };
+		007F3B8415EFEBAB0086EA81 /* 19-gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 007F3B8315EFEBAB0086EA81 /* 19-gear.png */; };
 		008129E515B75D0D00533E36 /* TrashMsgListViewInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 008129E415B75D0D00533E36 /* TrashMsgListViewInfo.m */; };
 		008129EB15B8ABED00533E36 /* DeleteMsgConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008129EA15B8ABED00533E36 /* DeleteMsgConfirmationView.m */; };
 		008FDF3415E2A14000BC4C61 /* EmailAddrFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 008FDF3315E2A14000BC4C61 /* EmailAddrFormInfoCreator.m */; };
@@ -252,6 +253,7 @@
 		007860CD15DD99F600DC333B /* FolderSyncContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderSyncContext.h; sourceTree = "<group>"; };
 		007860CE15DD99F600DC333B /* FolderSyncContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderSyncContext.m; sourceTree = "<group>"; };
 		007ABE8B156AB618004BA8BF /* MailCleanerSpec.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MailCleanerSpec.md; sourceTree = "<group>"; };
+		007F3B8315EFEBAB0086EA81 /* 19-gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "19-gear.png"; sourceTree = "<group>"; };
 		008129E315B75D0D00533E36 /* TrashMsgListViewInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrashMsgListViewInfo.h; sourceTree = "<group>"; };
 		008129E415B75D0D00533E36 /* TrashMsgListViewInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrashMsgListViewInfo.m; sourceTree = "<group>"; };
 		008129E915B8ABEC00533E36 /* DeleteMsgConfirmationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteMsgConfirmationView.h; sourceTree = "<group>"; };
@@ -447,7 +449,7 @@
 				00E980DA15B71CF4007CE0ED /* Trash List View */,
 				00D498731576D9C700F8FD2F /* Rules List View */,
 				00C8972815AF53120006FF2F /* Email Account */,
-				00C8970615AF34400006FF2F /* More View */,
+				00C8970615AF34400006FF2F /* Settings */,
 				000566981562F94C003D114D /* Supporting Files */,
 				0039E5FC1566CE0700CB259D /* Message Filter */,
 			);
@@ -824,15 +826,16 @@
 			name = Connection;
 			sourceTree = "<group>";
 		};
-		00C8970615AF34400006FF2F /* More View */ = {
+		00C8970615AF34400006FF2F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				007F3B8315EFEBAB0086EA81 /* 19-gear.png */,
 				00C8971A15AF40340006FF2F /* markdown.css */,
 				00C8970815AF34560006FF2F /* MoreFormInfoCreator.h */,
 				00C8970915AF34560006FF2F /* MoreFormInfoCreator.m */,
 				00C8971815AF3F0E0006FF2F /* about.md */,
 			);
-			name = "More View";
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		00C8972815AF53120006FF2F /* Email Account */ = {
@@ -1028,6 +1031,7 @@
 				009CAD9A15D2F80900C2C19F /* deleteMsgs.png in Resources */,
 				00F4A9BD15E2AFB100595C95 /* imapAcctPresets.txt in Resources */,
 				00DED4A415ED530E00C3B1EF /* emailAcctDeleteSettings.md in Resources */,
+				007F3B8415EFEBAB0086EA81 /* 19-gear.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -36,18 +36,18 @@
 
 @synthesize appDmc;
 @synthesize window = _window;
-@synthesize tabBarController = _tabBarController;
 @synthesize mailSyncController;
 @synthesize mailSyncProgressDelegates;
 @synthesize sharedAppVals;
 @synthesize emailAccountAdder;
 @synthesize getBodyOperationQueue;
 @synthesize accountChangeListers;
+@synthesize messageListNavController;
 
 - (void)dealloc
 {
 	[_window release];
-	[_tabBarController release];
+	[messageListNavController release];
 	[appDmc release];
 	[mailSyncController release];
 	[mailSyncProgressDelegates release];
@@ -116,7 +116,7 @@
 
 -(void)finishStartupWithDefinedEmailAcctSettings
 {
-	self.window.rootViewController = self.tabBarController;
+	self.window.rootViewController = self.messageListNavController;
 	
     [self.window makeKeyAndVisible];
 	
@@ -187,58 +187,16 @@
 	self.getBodyOperationQueue = [[[NSOperationQueue alloc] init] autorelease];
 
 	
-	
-	UIColor *navBarControllerColor = [ColorHelper navBarTintColor];
-	
 	EmailInfoTableViewController *msgListController = [[[EmailInfoTableViewController alloc] 
 		initWithAppDataModelController:appDmc] autorelease];
 	UINavigationController *msgListNavController = [[[UINavigationController alloc] 
 			initWithRootViewController:msgListController] autorelease];
 	msgListNavController.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
 	msgListController.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
-//	msgListNavController.tabBarItem.image = [UIImage imageNamed:@"piggy.png"];
-	msgListNavController.navigationBar.tintColor = navBarControllerColor;
-
-
-	RuleSelectionListFormInfoCreator *ruleSelectionFormInfoCreator = 
-		[[[RuleSelectionListFormInfoCreator alloc] init] autorelease];
-	UIViewController *trashedRuleSelectionController =
-		[[[GenericFieldBasedTableViewController alloc] initWithFormInfoCreator:ruleSelectionFormInfoCreator 
-		andDataModelController:self.appDmc] autorelease];
-	UINavigationController *trashedRuleSelectionNavController = [[[UINavigationController alloc] 
-			initWithRootViewController:trashedRuleSelectionController] autorelease];
-	trashedRuleSelectionNavController.title = LOCALIZED_STR(@"TRASH_RULE_LIST_VIEW_TITLE");
-	trashedRuleSelectionNavController.navigationBar.tintColor = navBarControllerColor;	
-
-	RulesFormInfoCreator *rulesFormInfoCreator = [[[RulesFormInfoCreator alloc] init] autorelease];
-	UIViewController *rulesController = [[[GenericFieldBasedTableEditViewController alloc]
-		initWithFormInfoCreator:rulesFormInfoCreator 
-		andDataModelController:appDmc] autorelease];
-	UINavigationController *rulesNavController = [[[UINavigationController alloc] 
-			initWithRootViewController:rulesController] autorelease];
-	rulesNavController.title = LOCALIZED_STR(@"RULES_VIEW_TITLE");
-	rulesNavController.title = LOCALIZED_STR(@"RULES_VIEW_TITLE");
-	rulesNavController.navigationBar.tintColor = navBarControllerColor;	
-	
-	MoreFormInfoCreator *moreFormInfoCreator = 
-		[[[MoreFormInfoCreator alloc] init] autorelease];
-	UIViewController *moreViewController = [[[GenericFieldBasedTableViewController alloc]
-		initWithFormInfoCreator:moreFormInfoCreator andDataModelController:appDmc] autorelease];
-	UINavigationController *moreNavController = [[[UINavigationController alloc] initWithRootViewController:moreViewController] autorelease];
-	moreNavController.title = LOCALIZED_STR(@"MORE_VIEW_TITLE");
-	moreNavController.tabBarItem = [[[UITabBarItem alloc] 
-		initWithTabBarSystemItem:UITabBarSystemItemMore tag:0] autorelease];
-	moreNavController.navigationBar.tintColor = navBarControllerColor;	
-
-	self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-	self.tabBarController.viewControllers = 
-		[NSArray arrayWithObjects:
-			msgListNavController, 
-			trashedRuleSelectionNavController,
-			rulesNavController,
-			moreNavController,
-			nil];
-
+	msgListNavController.navigationBar.tintColor = [ColorHelper navBarTintColor];
+		
+	self.messageListNavController = msgListNavController;	
+		
 	if(![appDmc entitiesExistForEntityName:EMAIL_ACCOUNT_ENTITY_NAME])
 	{
 		[self promptForEmailAcctInfoForDataModelController];

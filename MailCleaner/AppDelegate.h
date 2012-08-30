@@ -19,7 +19,7 @@
 
 @protocol CurrentEmailAccountChangedListener;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate,
+@interface AppDelegate : UIResponder <UIApplicationDelegate,
 			GenericTableAddViewSaveCompleteDelegate>
 {
 	@private
@@ -32,10 +32,13 @@
 		
 		NSMutableSet *accountChangeListers;
 		
+		UINavigationController *messageListNavController;
+		
 }
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) UITabBarController *tabBarController;
+
+@property (nonatomic,retain) UINavigationController *messageListNavController;
 
 @property(nonatomic,retain) DataModelController *appDmc;
 @property(nonatomic,retain) SharedAppVals *sharedAppVals;

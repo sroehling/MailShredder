@@ -44,6 +44,8 @@
 #import "EmailFolderFilter.h"
 #import "EmailFolder.h"
 #import "RecipientAddressFilter.h"
+#import "UIHelper.h"
+#import "MoreFormInfoCreator.h"
 
 CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 
@@ -75,6 +77,16 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	assert(filterPredicate != nil);
 	
 	return filterPredicate;
+}
+
+-(void)showSettings
+{
+	MoreFormInfoCreator *settingsFormInfoCreator = 
+		[[[MoreFormInfoCreator alloc] init] autorelease];
+	UIViewController *settingsViewController = [[[GenericFieldBasedTableViewController alloc]
+		initWithFormInfoCreator:settingsFormInfoCreator andDataModelController:self.appDmc] autorelease];
+
+	[self.navigationController pushViewController:settingsViewController animated:YES];  
 }
 
 - (void)viewDidLoad 
@@ -141,7 +153,11 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	[actionsPopupController setContainerViewProperties:[WEPopoverHelper containerViewProperties]];
 
 
-	self.navigationItem.rightBarButtonItem = actionButton;        
+	self.navigationItem.leftBarButtonItem = actionButton;
+	
+	self.navigationItem.rightBarButtonItem = [UIHelper buttonItemWithImage:@"19-gear.png" 
+		andTarget:self andAction:@selector(showSettings)];
+
 }
 
 - (void)refreshMessageFilterHeader

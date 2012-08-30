@@ -130,7 +130,9 @@
 "EMAIL_FOLDER_FILTER_MATCH_UNSELECTED_FIELD_SUBTITLE" = "Match any folder which is not in the folder list?";
 "EMAIL_FOLDER_FILTER_ADDRESS_LIST_SECTION_TITLE" = "Folder List";
 
-"MORE_VIEW_TITLE" = "More";
+"SETTINGS_VIEW_TITLE" = "Settings";
+"SAVED_FILTERS_FIELD_CAPTION" = "Saved Message Filters";
+"SAVED_FILTERS_FIELD_SUBTITLE" = "Edit saved message filters for the current account";
 
 "HELP_ABOUT" = "About";
 

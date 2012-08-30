@@ -15,8 +15,10 @@
 #import "SelectableObjectTableEditViewController.h"
 #import "StaticNavFieldEditInfo.h"
 #import "SelectableObjectTableViewControllerFactory.h"
+#import "GenericFieldBasedTableEditViewControllerFactory.h"
 #import "FormContext.h"
 #import "SectionInfo.h"
+#import "RulesFormInfoCreator.h"
 
 @implementation MoreFormInfoCreator
 
@@ -25,7 +27,7 @@
     HelpPageFormPopulator *formPopulator = [[[HelpPageFormPopulator alloc] 
 		initWithFormContext:parentContext] autorelease];
 	
-	formPopulator.formInfo.title = LOCALIZED_STR(@"MORE_VIEW_TITLE");
+	formPopulator.formInfo.title = LOCALIZED_STR(@"SETTINGS_VIEW_TITLE");
 
 	[formPopulator nextSection];
 	
@@ -37,20 +39,36 @@
 		andFieldKey:SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY 
 			andFieldLabel:@"dummy" andFieldPlaceholder:@"dummy"] autorelease];
 			
-	EmailAccountListFormInfoCreator *emailAcctListFormInfoCreator = 
-		[[[EmailAccountListFormInfoCreator alloc] init] autorelease];		
+	if(TRUE)
+	{
+		EmailAccountListFormInfoCreator *emailAcctListFormInfoCreator = 
+			[[[EmailAccountListFormInfoCreator alloc] init] autorelease];		
+				
+		SelectableObjectTableViewControllerFactory *selectCurrentAcctControllerFactory = 
+			[[[SelectableObjectTableViewControllerFactory alloc] 
+			initWithFormInfoCreator:emailAcctListFormInfoCreator andAssignedField:currentAcctFieldInfo] autorelease];
+		selectCurrentAcctControllerFactory.saveAfterSelection = TRUE;
 			
-	SelectableObjectTableViewControllerFactory *selectCurrentAcctControllerFactory = 
-		[[[SelectableObjectTableViewControllerFactory alloc] 
-		initWithFormInfoCreator:emailAcctListFormInfoCreator andAssignedField:currentAcctFieldInfo] autorelease];
-	selectCurrentAcctControllerFactory.saveAfterSelection = TRUE;
+		StaticNavFieldEditInfo *acctListFieldEditInfo = 
+			[[[StaticNavFieldEditInfo alloc] initWithCaption:LOCALIZED_STR(@"EMAIL_ACCOUNT_LIST_VIEW_TITLE") 
+			andSubtitle:LOCALIZED_STR(@"EMAIL_ACCOUNT_LIST_FIELD_SUBTITLE") 
+			andContentDescription:nil andSubViewFactory:selectCurrentAcctControllerFactory] autorelease];
 		
-	StaticNavFieldEditInfo *acctListFieldEditInfo = 
-		[[[StaticNavFieldEditInfo alloc] initWithCaption:LOCALIZED_STR(@"EMAIL_ACCOUNT_LIST_VIEW_TITLE") 
-		andSubtitle:LOCALIZED_STR(@"EMAIL_ACCOUNT_LIST_FIELD_SUBTITLE") 
-		andContentDescription:nil andSubViewFactory:selectCurrentAcctControllerFactory] autorelease];
+		[formPopulator.currentSection addFieldEditInfo:acctListFieldEditInfo];
+	}		
 	
-	[formPopulator.currentSection addFieldEditInfo:acctListFieldEditInfo];
+	if(TRUE)
+	{
+		RulesFormInfoCreator *rulesFormInfoCreator = [[[RulesFormInfoCreator alloc] init] autorelease];
+		GenericFieldBasedTableEditViewControllerFactory *savedFiltersViewControllerFactory = 
+			[[[GenericFieldBasedTableEditViewControllerFactory alloc] initWithFormInfoCreator:rulesFormInfoCreator] autorelease];
+		StaticNavFieldEditInfo *savedFiltersFieldEditInfo = 
+			[[[StaticNavFieldEditInfo alloc] initWithCaption:LOCALIZED_STR(@"SAVED_FILTERS_FIELD_CAPTION") 
+			andSubtitle:LOCALIZED_STR(@"SAVED_FILTERS_FIELD_SUBTITLE") 
+			andContentDescription:nil andSubViewFactory:savedFiltersViewControllerFactory] autorelease];
+		[formPopulator.currentSection addFieldEditInfo:savedFiltersFieldEditInfo];
+	}
+
 
 	[formPopulator nextSection];
 	
