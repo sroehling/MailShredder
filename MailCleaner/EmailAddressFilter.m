@@ -8,7 +8,6 @@
 
 #import "EmailAddressFilter.h"
 #import "MessageFilter.h"
-#import "MsgHandlingRule.h"
 #import "LocalizationHelper.h"
 #import "EmailInfo.h"
 #import "EmailAddress.h"

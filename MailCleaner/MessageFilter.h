@@ -20,6 +20,8 @@
 
 extern NSString * const MESSAGE_FILTER_ENTITY_NAME;
 extern NSString * const MESSAGE_FILTER_AGE_FILTER_KEY;
+extern NSString * const MESSAGE_FILTER_NAME_KEY;
+extern NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH;
 
 @interface MessageFilter : NSManagedObject
 
@@ -32,6 +34,8 @@ extern NSString * const MESSAGE_FILTER_AGE_FILTER_KEY;
 @property (nonatomic, retain) RecipientAddressFilter *recipientAddressFilter;
 
 @property (nonatomic, retain) EmailAccount *emailAcctMsgListFilter;
+@property (nonatomic, retain) EmailAccount *emailAcctSavedFilter;
+
 
 -(NSPredicate*)filterPredicate:(NSDate*)baseDate;
 -(void)resetToDefault:(DataModelController*)filterDmc;

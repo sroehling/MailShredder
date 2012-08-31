@@ -2,7 +2,6 @@
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11E53" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="AgeFilter" representedClassName="AgeFilter" isAbstract="YES" syncable="YES">
         <relationship name="messageFilterAgeFilter" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="ageFilter" inverseEntity="MessageFilter" syncable="YES"/>
-        <relationship name="ruleAgeFilter" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MsgHandlingRule" inverseName="ageFilter" inverseEntity="MsgHandlingRule" syncable="YES"/>
     </entity>
     <entity name="AgeFilterComparison" representedClassName="AgeFilterComparison" parentEntity="AgeFilter" syncable="YES">
         <attribute name="comparison" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -36,9 +35,9 @@
         <relationship name="domainsInAcct" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="EmailDomain" inverseName="domainAcct" inverseEntity="EmailDomain" syncable="YES"/>
         <relationship name="emailsInAcct" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="EmailInfo" inverseName="emailAcct" inverseEntity="EmailInfo" syncable="YES"/>
         <relationship name="foldersInAcct" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="EmailFolder" inverseName="folderAccount" inverseEntity="EmailFolder" syncable="YES"/>
-        <relationship name="msgHandlingRules" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MsgHandlingRule" inverseName="emailAcct" inverseEntity="MsgHandlingRule" syncable="YES"/>
         <relationship name="msgListFilter" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="MessageFilter" inverseName="emailAcctMsgListFilter" inverseEntity="MessageFilter" syncable="YES"/>
         <relationship name="onlySyncFolders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailFolder" inverseName="emailAccountOnlySyncFolders" inverseEntity="EmailFolder" syncable="YES"/>
+        <relationship name="savedMsgListFilters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="emailAcctSavedFilter" inverseEntity="MessageFilter" syncable="YES"/>
         <relationship name="sharedAppValsCurrentEmailAcct" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="currentEmailAcct" inverseEntity="SharedAppVals" syncable="YES"/>
     </entity>
     <entity name="EmailAddress" representedClassName="EmailAddress" syncable="YES">
@@ -63,7 +62,6 @@
     <entity name="EmailDomainFilter" representedClassName="EmailDomainFilter" syncable="YES">
         <attribute name="matchUnselected" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <relationship name="messageFilterDomainFilter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="emailDomainFilter" inverseEntity="MessageFilter" syncable="YES"/>
-        <relationship name="msgHandlingRuleDomainFilter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MsgHandlingRule" inverseName="emailDomainFilter" inverseEntity="MsgHandlingRule" syncable="YES"/>
         <relationship name="selectedDomains" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailDomain" inverseName="emailDomainFilterSelectedDomains" inverseEntity="EmailDomain" syncable="YES"/>
     </entity>
     <entity name="EmailFolder" representedClassName="EmailFolder" syncable="YES">
@@ -77,7 +75,6 @@
     <entity name="EmailFolderFilter" representedClassName="EmailFolderFilter" syncable="YES">
         <attribute name="matchUnselected" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <relationship name="messageFilterFolderFilter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="folderFilter" inverseEntity="MessageFilter" syncable="YES"/>
-        <relationship name="msgHandlingRuleFolderFilter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MsgHandlingRule" inverseName="folderFilter" inverseEntity="MsgHandlingRule" syncable="YES"/>
         <relationship name="selectedFolders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailFolder" inverseName="emailFolderFilterSelectedFolders" inverseEntity="EmailFolder" syncable="YES"/>
     </entity>
     <entity name="EmailInfo" representedClassName="EmailInfo" syncable="YES">
@@ -91,33 +88,21 @@
         <relationship name="senderAddress" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAddress" inverseName="emailInfosWithSenderAddress" inverseEntity="EmailAddress" syncable="YES"/>
         <relationship name="senderDomain" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailDomain" inverseName="emailInfosWithDomainForSender" inverseEntity="EmailDomain" syncable="YES"/>
     </entity>
-    <entity name="ExclusionRule" representedClassName="ExclusionRule" parentEntity="MsgHandlingRule" syncable="YES"/>
     <entity name="FromAddressFilter" representedClassName="FromAddressFilter" parentEntity="EmailAddressFilter" syncable="YES">
         <relationship name="messageFilterFromAddrFilter" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="fromAddressFilter" inverseEntity="MessageFilter" syncable="YES"/>
-        <relationship name="msgHandlingRuleFromAddressFilter" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MsgHandlingRule" inverseName="fromAddressFilter" inverseEntity="MsgHandlingRule" syncable="YES"/>
     </entity>
     <entity name="MessageFilter" representedClassName="MessageFilter" syncable="YES">
         <attribute name="filterName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="ageFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilter" inverseName="messageFilterAgeFilter" inverseEntity="AgeFilter" syncable="YES"/>
-        <relationship name="emailAcctMsgListFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="msgListFilter" inverseEntity="EmailAccount" syncable="YES"/>
+        <relationship name="emailAcctMsgListFilter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="msgListFilter" inverseEntity="EmailAccount" syncable="YES"/>
+        <relationship name="emailAcctSavedFilter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="savedMsgListFilters" inverseEntity="EmailAccount" syncable="YES"/>
         <relationship name="emailDomainFilter" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="EmailDomainFilter" inverseName="messageFilterDomainFilter" inverseEntity="EmailDomainFilter" syncable="YES"/>
         <relationship name="folderFilter" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="EmailFolderFilter" inverseName="messageFilterFolderFilter" inverseEntity="EmailFolderFilter" syncable="YES"/>
         <relationship name="fromAddressFilter" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="FromAddressFilter" inverseName="messageFilterFromAddrFilter" inverseEntity="FromAddressFilter" syncable="YES"/>
         <relationship name="recipientAddressFilter" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="RecipientAddressFilter" inverseName="messageFilterRecipientAddressFilter" inverseEntity="RecipientAddressFilter" syncable="YES"/>
     </entity>
-    <entity name="MsgHandlingRule" representedClassName="MsgHandlingRule" isAbstract="YES" syncable="YES">
-        <attribute name="enabled" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
-        <attribute name="ruleName" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="ageFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilter" inverseName="ruleAgeFilter" inverseEntity="AgeFilter" syncable="YES"/>
-        <relationship name="emailAcct" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="msgHandlingRules" inverseEntity="EmailAccount" syncable="YES"/>
-        <relationship name="emailDomainFilter" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="EmailDomainFilter" inverseName="msgHandlingRuleDomainFilter" inverseEntity="EmailDomainFilter" syncable="YES"/>
-        <relationship name="folderFilter" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="EmailFolderFilter" inverseName="msgHandlingRuleFolderFilter" inverseEntity="EmailFolderFilter" syncable="YES"/>
-        <relationship name="fromAddressFilter" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="FromAddressFilter" inverseName="msgHandlingRuleFromAddressFilter" inverseEntity="FromAddressFilter" syncable="YES"/>
-        <relationship name="recipientAddressFilter" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="RecipientAddressFilter" inverseName="msgHandlingRuleRecipientAddressFilter" inverseEntity="RecipientAddressFilter" syncable="YES"/>
-    </entity>
     <entity name="RecipientAddressFilter" representedClassName="RecipientAddressFilter" parentEntity="EmailAddressFilter" syncable="YES">
         <relationship name="messageFilterRecipientAddressFilter" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="recipientAddressFilter" inverseEntity="MessageFilter" syncable="YES"/>
-        <relationship name="msgHandlingRuleRecipientAddressFilter" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MsgHandlingRule" inverseName="recipientAddressFilter" inverseEntity="MsgHandlingRule" syncable="YES"/>
     </entity>
     <entity name="SharedAppVals" representedClassName="SharedAppVals" syncable="YES">
         <relationship name="currentEmailAcct" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="sharedAppValsCurrentEmailAcct" inverseEntity="EmailAccount" syncable="YES"/>
@@ -132,7 +117,6 @@
         <relationship name="defaultAgeFilterOlder3Months" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterOlder3Months" inverseEntity="AgeFilterComparison" syncable="YES"/>
         <relationship name="defaultAgeFilterOlder6Months" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterOlder6Months" inverseEntity="AgeFilterComparison" syncable="YES"/>
     </entity>
-    <entity name="TrashRule" representedClassName="TrashRule" parentEntity="MsgHandlingRule" syncable="YES"/>
     <elements>
         <element name="AgeFilter" positionX="160" positionY="192" width="128" height="75"/>
         <element name="AgeFilterComparison" positionX="160" positionY="192" width="128" height="225"/>
@@ -145,12 +129,9 @@
         <element name="EmailFolder" positionX="160" positionY="192" width="128" height="90"/>
         <element name="EmailFolderFilter" positionX="160" positionY="192" width="128" height="105"/>
         <element name="EmailInfo" positionX="160" positionY="192" width="128" height="180"/>
-        <element name="ExclusionRule" positionX="160" positionY="192" width="128" height="45"/>
         <element name="FromAddressFilter" positionX="160" positionY="192" width="128" height="75"/>
         <element name="MessageFilter" positionX="160" positionY="192" width="128" height="150"/>
-        <element name="MsgHandlingRule" positionX="160" positionY="192" width="128" height="150"/>
-        <element name="RecipientAddressFilter" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="RecipientAddressFilter" positionX="160" positionY="192" width="128" height="60"/>
         <element name="SharedAppVals" positionX="160" positionY="192" width="128" height="210"/>
-        <element name="TrashRule" positionX="160" positionY="192" width="128" height="45"/>
     </elements>
 </model>

@@ -21,7 +21,6 @@
 #import "EmailAddressFilterFormInfoCreator.h"
 #import "EmailDomainFilterFormInfoCreator.h"
 #import "BoolFieldEditInfo.h"
-#import "MsgHandlingRule.h"
 #import "EmailFolderFilterFormInfoCreator.h"
 
 @implementation MailCleanerFormPopulator
@@ -111,22 +110,5 @@
 
 }
 
-
--(void)populateRuleEnabled:(MsgHandlingRule*)theRule withSubtitle:(NSString*)subTitle
-{
-
-	assert(theRule != nil);
-
-	ManagedObjectFieldInfo *ruleEnabledFieldInfo = [[[ManagedObjectFieldInfo alloc] 
-			initWithManagedObject:theRule 
-			andFieldKey:RULE_ENABLED_KEY 
-			andFieldLabel:LOCALIZED_STR(@"RULE_ENABLED_FIELD_LABEL") 
-			andFieldPlaceholder:@"N/A"] autorelease];
-	BoolFieldEditInfo *ruleEnabledFieldEditInfo = 
-		[[[BoolFieldEditInfo alloc] initWithFieldInfo:ruleEnabledFieldInfo
-			andSubtitle:subTitle] autorelease];
-	[self.currentSection addFieldEditInfo:ruleEnabledFieldEditInfo];
-
-}
 
 @end

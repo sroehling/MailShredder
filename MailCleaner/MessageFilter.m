@@ -21,6 +21,8 @@
 
 NSString * const MESSAGE_FILTER_ENTITY_NAME = @"MessageFilter";
 NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
+NSString * const MESSAGE_FILTER_NAME_KEY = @"filterName";
+NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 
 @implementation MessageFilter
 
@@ -33,6 +35,7 @@ NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
 
 // Inverse
 @dynamic emailAcctMsgListFilter;
+@dynamic emailAcctSavedFilter;
 
 +(MessageFilter*)defaultMessageFilter:(DataModelController*)filterDmc
 {

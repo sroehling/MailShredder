@@ -53,7 +53,7 @@ NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX = @"EmailAccountLoginInfo";
 @dynamic onlySyncFolders;
 
 @dynamic msgListFilter;
-@dynamic msgHandlingRules;
+@dynamic savedMsgListFilters;
 
 @dynamic deleteHandlingMoveToFolder;
 @dynamic deleteHandlingDeleteMsg;

@@ -19,7 +19,6 @@ extern NSString * const RECIPIENT_ADDRESS_FILTER_ENTITY_NAME;
 
 // Inverse relationships
 @property (nonatomic, retain) NSSet *messageFilterRecipientAddressFilter;
-@property (nonatomic, retain) NSSet *msgHandlingRuleRecipientAddressFilter;
 
 @end
 
@@ -29,11 +28,5 @@ extern NSString * const RECIPIENT_ADDRESS_FILTER_ENTITY_NAME;
 - (void)removeMessageFilterRecipientAddressFilterObject:(MessageFilter *)value;
 - (void)addMessageFilterRecipientAddressFilter:(NSSet *)values;
 - (void)removeMessageFilterRecipientAddressFilter:(NSSet *)values;
-
-- (void)addMsgHandlingRuleRecipientAddressFilterObject:(MsgHandlingRule *)value;
-- (void)removeMsgHandlingRuleRecipientAddressFilterObject:(MsgHandlingRule *)value;
-- (void)addMsgHandlingRuleRecipientAddressFilter:(NSSet *)values;
-- (void)removeMsgHandlingRuleRecipientAddressFilter:(NSSet *)values;
-
 
 @end

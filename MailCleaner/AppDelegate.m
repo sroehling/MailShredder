@@ -15,15 +15,12 @@
 #import "DateHelper.h"
 #import "EmailInfo.h"
 #import "EmailInfoTableViewController.h"
-#import "TrashMsgListViewController.h"
 #import "GenericFieldBasedTableEditViewController.h"
 #import "SharedAppVals.h"
-#import "RulesFormInfoCreator.h"
 #import "MailClientServerSyncController.h"
 #import "MoreFormInfoCreator.h"
 #import "ColorHelper.h"
 
-#import "RuleSelectionListFormInfoCreator.h"
 #import "CompositeMailSyncProgressDelegate.h"
 
 #import "EmailAccount.h"

@@ -12,6 +12,7 @@
 #import "KeychainFieldInfo.h"
 #import "AppHelper.h"
 #import "DataModelController.h"
+#import "CoreDataHelper.h"
 
 @implementation MailSyncConnectionContext
 
@@ -61,11 +62,8 @@
 	// self.emailAcctInfo references the EmailAccount on the main thread. For objects
 	// created or changed on the thread used for synchronization, we need a separate reference
 	// from the NSManagedObjectContext used for synchronization.
-	NSManagedObjectID *acctID = [self.emailAcctInfo objectID];
-	EmailAccount *theAcct = (EmailAccount*)
-		[self.syncDmc.managedObjectContext objectWithID:acctID];
-	assert(theAcct != nil);
-	return theAcct;
+	return (EmailAccount*)[CoreDataHelper objectInOtherContext:self.syncDmc.managedObjectContext 
+		forOriginalObj:self.emailAcctInfo];
 }
 
 -(id)init

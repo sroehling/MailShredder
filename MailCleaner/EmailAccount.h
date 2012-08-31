@@ -50,8 +50,9 @@ extern NSString * const EMAIL_ACCOUNT_DELETE_HANDLING_MOVE_TO_FOLDER_KEY;
 @property (nonatomic, retain) NSNumber * useSSL;
 @property (nonatomic, retain) NSNumber * portNumber;
 
+// Current and saved list of filters
 @property (nonatomic, retain) MessageFilter *msgListFilter;
-
+@property (nonatomic, retain) NSSet *savedMsgListFilters;
 
 // The last time a successful synchronization with the 
 // server took place. This is displaying status in the UI.
@@ -79,7 +80,6 @@ extern NSString * const EMAIL_ACCOUNT_DELETE_HANDLING_MOVE_TO_FOLDER_KEY;
 
 @property (nonatomic, retain) NSSet *emailsInAcct;
 
-@property (nonatomic, retain) NSSet *msgHandlingRules;
 
 // Limit sync to specific folders
 @property (nonatomic, retain) NSSet *onlySyncFolders;
@@ -124,15 +124,14 @@ extern NSString * const EMAIL_ACCOUNT_DELETE_HANDLING_MOVE_TO_FOLDER_KEY;
 - (void)addEmailsInAcct:(NSSet *)values;
 - (void)removeEmailsInAcct:(NSSet *)values;
 
-- (void)addMsgHandlingRulesObject:(MsgHandlingRule *)value;
-- (void)removeMsgHandlingRulesObject:(MsgHandlingRule *)value;
-- (void)addMsgHandlingRules:(NSSet *)values;
-- (void)removeMsgHandlingRules:(NSSet *)values;
-
 - (void)addOnlySyncFoldersObject:(EmailFolder *)value;
 - (void)removeOnlySyncFoldersObject:(EmailFolder *)value;
 - (void)addOnlySyncFolders:(NSSet *)values;
 - (void)removeOnlySyncFolders:(NSSet *)values;
 
+- (void)addSavedMsgListFiltersObject:(MessageFilter *)value;
+- (void)removeSavedMsgListFiltersObject:(MessageFilter *)value;
+- (void)addSavedMsgListFilters:(NSSet *)values;
+- (void)removeSavedMsgListFilters:(NSSet *)values;
 
 @end

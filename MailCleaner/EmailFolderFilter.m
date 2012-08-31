@@ -9,7 +9,6 @@
 #import "EmailFolderFilter.h"
 #import "EmailFolder.h"
 #import "MessageFilter.h"
-#import "MsgHandlingRule.h"
 #import "EmailFolder.h"
 #import "LocalizationHelper.h"
 #import "EmailInfo.h"
@@ -23,7 +22,6 @@ NSInteger const MAX_SPECIFIC_FOLDER_SYNOPSIS = 2;
 @dynamic selectedFolders;
 
 // Inverse relationships
-@dynamic msgHandlingRuleFolderFilter;
 @dynamic messageFilterFolderFilter;
 @dynamic matchUnselected;
 

@@ -37,8 +37,7 @@
 #import "FromAddressFilter.h"
 #import "EmailDomain.h"
 #import "EmailAddress.h"
-#import "TrashRule.h"
-#import "TrashRuleFormInfoCreator.h"
+#import "SavedMessageFilterFormInfoCreator.h"
 #import "GenericFieldBasedTableAddViewController.h"
 #import "AgeFilter.h"
 #import "EmailFolderFilter.h"
@@ -126,19 +125,19 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	[sections addObject:section];
 
 	section = [[[TableMenuSection alloc] 
-		initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_CREATE_TRASH_RULE_SECTION_TITLE")] autorelease];
+		initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_CREATE_SAVED_FILTER_SECTION_TITLE")] autorelease];
 	[section addMenuItem:[[[TableMenuItem alloc] 
 		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_ADDRESSES_MENU_TITLE")
-		 andTarget:self andSelector:@selector(createTrashRuleSelectedAddresses)] autorelease]];
+		 andTarget:self andSelector:@selector(createMsgFilterSelectedAddresses)] autorelease]];
 	[section addMenuItem:[[[TableMenuItem alloc] 
 		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_RECIPIENTS_MENU_TITLE")
-		 andTarget:self andSelector:@selector(createTrashRuleSelectedRecipients)] autorelease]];		 
+		 andTarget:self andSelector:@selector(createMsgFilterSelectedRecipients)] autorelease]];		 
 	[section addMenuItem:[[[TableMenuItem alloc] 
 		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_DOMAINS_MENU_TITLE")
-		 andTarget:self andSelector:@selector(createTrashRuleSelectedDomains)] autorelease]];
+		 andTarget:self andSelector:@selector(createMsgFilterSelectedDomains)] autorelease]];
 	[section addMenuItem:[[[TableMenuItem alloc] 
 		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_CURRENT_FILTER_MENU_TITLE")
-		 andTarget:self andSelector:@selector(createTrashRuleCurrentFilter)] autorelease]];
+		 andTarget:self andSelector:@selector(createMsgFilterCurrentFilter)] autorelease]];
 	[sections addObject:section];
 
 	
@@ -220,6 +219,13 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 }
 
 #pragma mark Button list call-backs
+
+-(MessageFilter*)resetObjectContextAndCreateNewMessageFilter
+{
+	[self.saveMsgFilterDmc.managedObjectContext reset];
+	MessageFilter *newFilter = [MessageFilter defaultMessageFilter:self.saveMsgFilterDmc];
+	return newFilter;
+}
 
 -(NSSet*)selectedRecipients
 {
@@ -308,16 +314,20 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	[self.actionsPopupController dismissPopoverAnimated:TRUE];
 }
 
--(void)pushNewRuleForm:(TrashRule*)newRule
+-(void)pushNewMessageFilterForm:(MessageFilter*)newFilter
 {
-	TrashRuleFormInfoCreator *ruleFormCreator = 
-		[[[TrashRuleFormInfoCreator alloc] initWithTrashRule:newRule] autorelease];
+	SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:self.saveMsgFilterDmc];
+	newFilter.emailAcctSavedFilter = sharedVals.currentEmailAcct;
+
+	SavedMessageFilterFormInfoCreator *savedMessageFilterFormCreator = 
+		[[[SavedMessageFilterFormInfoCreator alloc] initWithMessageFilter:newFilter] autorelease];
 	
 	GenericFieldBasedTableAddViewController *addView =  
 		[[[GenericFieldBasedTableAddViewController alloc] 
-		initWithFormInfoCreator:ruleFormCreator andNewObject:newRule
-		andDataModelController:self.appDmc] autorelease];
+		initWithFormInfoCreator:savedMessageFilterFormCreator andNewObject:newFilter
+		andDataModelController:self.saveMsgFilterDmc] autorelease];
 	addView.popDepth = 1;
+	addView.saveWhenSaveButtonPressed = TRUE;
 
 	[self.actionsPopupController dismissPopoverAnimated:FALSE];
 
@@ -325,18 +335,19 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 }
 
 
--(void)createTrashRuleSelectedAddresses
+-(void)createMsgFilterSelectedAddresses
 {
 	NSLog(@"Create trash rule from selected addresses");
 	
-	NSSet *selectedAddresses = [self selectedAddresses];
+	MessageFilter *newFilter = [self resetObjectContextAndCreateNewMessageFilter];
+	NSSet *selectedAddresses = [CoreDataHelper objectsInOtherContext:self.saveMsgFilterDmc.managedObjectContext 
+		forOriginalObjs:[self selectedAddresses]];
 	
 	if([selectedAddresses count] > 0)
 	{
-		TrashRule *newRule = [TrashRule createNewDefaultRule:self.appDmc];
-		[newRule.fromAddressFilter setAddresses:selectedAddresses];
+		[newFilter.fromAddressFilter setAddresses:selectedAddresses];
 
-		[self pushNewRuleForm:newRule];
+		[self pushNewMessageFilterForm:newFilter];
 	}
 	else 
 	{
@@ -345,18 +356,19 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 
 }
 
--(void)createTrashRuleSelectedRecipients
+-(void)createMsgFilterSelectedRecipients
 {
 	NSLog(@"Create trash rule from selected recipients");
 	
-	NSSet *selectedRecipients = [self selectedRecipients];
+	MessageFilter *newFilter = [self resetObjectContextAndCreateNewMessageFilter];
+	NSSet *selectedRecipients = [CoreDataHelper objectsInOtherContext:self.saveMsgFilterDmc.managedObjectContext 
+		forOriginalObjs:[self selectedRecipients]];
 	
 	if([selectedRecipients count] > 0)
 	{
-		TrashRule *newRule = [TrashRule createNewDefaultRule:self.appDmc];
-		[newRule.recipientAddressFilter setAddresses:selectedRecipients];
+		[newFilter.recipientAddressFilter setAddresses:selectedRecipients];
 
-		[self pushNewRuleForm:newRule];
+		[self pushNewMessageFilterForm:newFilter];
 	}
 	else 
 	{
@@ -364,16 +376,17 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	}
 }
 
--(void)createTrashRuleSelectedDomains
+-(void)createMsgFilterSelectedDomains
 {
 	NSLog(@"Create trash rule from selected domains");
 	
-	NSSet *selectedDomains = [self selectedDomains];
+	MessageFilter *newFilter = [self resetObjectContextAndCreateNewMessageFilter];
+	NSSet *selectedDomains = [CoreDataHelper objectsInOtherContext:self.saveMsgFilterDmc.managedObjectContext 
+		forOriginalObjs:[self selectedDomains]];
 	if([selectedDomains count] > 0)
 	{
-		TrashRule *newRule = [TrashRule createNewDefaultRule:self.appDmc];
-		[newRule.emailDomainFilter setDomains:selectedDomains];
-		[self pushNewRuleForm:newRule];
+		[newFilter.emailDomainFilter setDomains:selectedDomains];
+		[self pushNewMessageFilterForm:newFilter];
 	}
 	else 
 	{
@@ -381,21 +394,29 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	}
 }
 
--(void)createTrashRuleCurrentFilter
+-(void)createMsgFilterCurrentFilter
 {
 	NSLog(@"Create trash rule from current filter settings");
 	
-	TrashRule *newRule = [TrashRule createNewDefaultRule:self.appDmc];
-	
+	MessageFilter *newFilter = [self resetObjectContextAndCreateNewMessageFilter];
 	MessageFilter *msgFilter = [self currentAcctMsgFilter];
 	
-	[newRule.emailDomainFilter setDomains:msgFilter.emailDomainFilter.selectedDomains];
-	[newRule.fromAddressFilter setAddresses:msgFilter.fromAddressFilter.selectedAddresses];
-	[newRule.recipientAddressFilter setAddresses:msgFilter.recipientAddressFilter.selectedAddresses];
-	[newRule.folderFilter setFolders:msgFilter.folderFilter.selectedFolders];
-	newRule.ageFilter = msgFilter.ageFilter;
+	[newFilter.emailDomainFilter setDomains:
+		[CoreDataHelper objectsInOtherContext:self.saveMsgFilterDmc.managedObjectContext 
+		forOriginalObjs:msgFilter.emailDomainFilter.selectedDomains]];
+	[newFilter.fromAddressFilter setAddresses:
+		[CoreDataHelper objectsInOtherContext:self.saveMsgFilterDmc.managedObjectContext 
+		forOriginalObjs:msgFilter.fromAddressFilter.selectedAddresses]];
+	[newFilter.recipientAddressFilter setAddresses:
+		[CoreDataHelper objectsInOtherContext:self.saveMsgFilterDmc.managedObjectContext 
+		forOriginalObjs:msgFilter.recipientAddressFilter.selectedAddresses]];
+	[newFilter.folderFilter setFolders:
+		[CoreDataHelper objectsInOtherContext:self.saveMsgFilterDmc.managedObjectContext 
+		forOriginalObjs:msgFilter.folderFilter.selectedFolders]];
+	newFilter.ageFilter = (AgeFilter*)[CoreDataHelper objectInOtherContext:self.saveMsgFilterDmc.managedObjectContext
+			forOriginalObj:msgFilter.ageFilter];
 
-	[self pushNewRuleForm:newRule];
+	[self pushNewMessageFilterForm:newFilter];
 	
 }
 

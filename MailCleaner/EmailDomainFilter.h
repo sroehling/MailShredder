@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class EmailDomain, MessageFilter, MsgHandlingRule;
+@class EmailDomain, MessageFilter;
 
 extern NSString * const EMAIL_DOMAIN_FILTER_ENTITY_NAME;
 extern NSString * const EMAIL_DOMAIN_FILTER_MATCH_UNSELECTED_KEY;
@@ -21,7 +21,6 @@ extern NSString * const EMAIL_DOMAIN_FILTER_MATCH_UNSELECTED_KEY;
 
 // Inverse relationships
 @property (nonatomic, retain) MessageFilter *messageFilterDomainFilter;
-@property (nonatomic, retain) MsgHandlingRule *msgHandlingRuleDomainFilter;
 
 
 -(NSString*)filterSynopsis;

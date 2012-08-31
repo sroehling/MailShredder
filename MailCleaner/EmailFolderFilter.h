@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class EmailFolder, MessageFilter, MsgHandlingRule;
+@class EmailFolder, MessageFilter;
 
 extern NSString * const EMAIL_FOLDER_FILTER_ENTITY_NAME;
 extern NSString * const EMAIL_FOLDER_FILTER_MATCH_UNSELECTED_KEY;
@@ -17,7 +17,6 @@ extern NSString * const EMAIL_FOLDER_FILTER_MATCH_UNSELECTED_KEY;
 @interface EmailFolderFilter : NSManagedObject
 
 @property (nonatomic, retain) NSSet *selectedFolders;
-@property (nonatomic, retain) MsgHandlingRule *msgHandlingRuleFolderFilter;
 @property (nonatomic, retain) MessageFilter *messageFilterFolderFilter;
 @property (nonatomic, retain) NSNumber * matchUnselected;
 

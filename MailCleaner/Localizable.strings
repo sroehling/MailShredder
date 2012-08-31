@@ -8,8 +8,8 @@
 
 
 "MESSAGES_VIEW_TITLE" = "Messages";
-"TRASH_VIEW_TITLE" = "Trash";
-"RULES_VIEW_TITLE" = "Rules";
+
+"SAVED_MESSAGE_FILTER_VIEW_TITLE" = "Saved Filters";
 
 "MSGS_ACTION_UNSELECT_ALL" = "Unselect All";
 "MSGS_ACTION_SELECT_ALL" = "Select All";
@@ -32,7 +32,7 @@
 "MESSAGE_LIST_ACTION_SELECTED_ADDRESSES_MENU_TITLE" = "Selected Senders";
 "MESSAGE_LIST_ACTION_SELECTED_RECIPIENTS_MENU_TITLE" = "Selected Recipients";
 "MESSAGE_LIST_ACTION_SELECTED_DOMAINS_MENU_TITLE" = "Selected Domains";
-"MESSAGE_LIST_ACTION_CREATE_TRASH_RULE_SECTION_TITLE" = "Create Trash Rule";
+"MESSAGE_LIST_ACTION_CREATE_SAVED_FILTER_SECTION_TITLE" = "Create Saved Filter";
 "MESSAGE_LIST_ACTION_CURRENT_FILTER_MENU_TITLE" = "Current Filter Settings";
 
 "MSG_DETAIL_VIEW_TITLE" = "Message";
@@ -49,30 +49,13 @@
 "MESSAGE_AGE_FILTER_PROMPT" = "Select a send date criterion";
 "MESSAGE_AGE_SUBTITLE" = "Filter by date the message was sent";
 
-"TRASH_LIST_ACTION_DELETE_ALL_BUTTON_TITLE" = "Delete All Trashed Messages";
-"TRASH_LIST_ACTION_DELETE_SELECTED_BUTTON_TITLE" = "Delete Selected Messages";
-
-
-"TRASH_RULE_LIST_VIEW_TITLE" = "Matching";
-"TRASH_RULE_LIST_VIEW_HEADER" = "Message Matching Rules";
-"TRASH_RULE_LIST_VIEW_SUBHEADER" = "Select from the list below to review messages matching different rules (not including messages excluded by exclusion rules).";
-"TRASH_RULE_LIST_ALL_MESSAGES_FIELD_CAPTION" = "Matching Any Rule";
-"TRASH_RULE_LIST_ALL_MESSAGES_FIELD_SUBTITLE" = "Combined list of messages matching any rule";
-"TRASH_RULE_LIST_SPECIFIC_RULE_SECTION_TITLE" = "Specific Rules";
+"MSG_LIST_ACTION_DELETE_ALL_BUTTON_TITLE" = "Delete All Trashed Messages";
+"MSG_LIST_ACTION_DELETE_SELECTED_BUTTON_TITLE" = "Delete Selected Messages";
 
 "DELETE_CONFIRMATION_CANCEL_BUTTON_TITLE" = "Cancel";
 "DELETE_CONFIRMATION_DELETE_BUTTON_TITLE" = "Delete This Message";
 "DELETE_CONFIRMATION_SKIP_BUTTON_TITLE" = "Skip This Message";
 
-"RULES_TRASH_RULES_SECTION_TITLE" = "Trash Rules";
-"RULES_EXCLUSION_RULES_SECTION_TITLE" = "Exclusion Rules";
-"RULES_ADD_TRASH_RULE_BUTTON_PRESSED" = "New Trash Rule";
-"RULES_ADD_EXCLUDE_RULE_BUTTON_PRESSED" = "New Exclude Rule";
-"EXCLUSION_RULE_FORM_TITLE" = "Exclude Rule";
-"TRASH_RULE_FORM_TITLE" = "Trash Rule";
-"RULE_ENABLED_FIELD_LABEL" = "Rule Enabled?";
-"EXCLUSION_RULE_ENABLED_SUBTITLE" = "Exclude messages matching this rule from being trashed?";
-"TRASH_RULE_ENABLED_SUBTITLE" = "Automatically trash messages matching this rule?";
 "MESSAGE_RULE_NAME_PLACEHOLDER" = "Enter a Name";
 
 

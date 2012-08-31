@@ -18,7 +18,7 @@
 #import "GenericFieldBasedTableEditViewControllerFactory.h"
 #import "FormContext.h"
 #import "SectionInfo.h"
-#import "RulesFormInfoCreator.h"
+#import "SavedMessageFilterListFormInfoCreator.h"
 
 @implementation MoreFormInfoCreator
 
@@ -32,7 +32,6 @@
 	[formPopulator nextSection];
 	
 	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:parentContext.dataModelController];
-	
 	
 	ManagedObjectFieldInfo *currentAcctFieldInfo = 
 		[[[ManagedObjectFieldInfo alloc] initWithManagedObject:sharedAppVals 
@@ -59,9 +58,9 @@
 	
 	if(TRUE)
 	{
-		RulesFormInfoCreator *rulesFormInfoCreator = [[[RulesFormInfoCreator alloc] init] autorelease];
+		SavedMessageFilterListFormInfoCreator *savedFilterFormInfoCreator = [[[SavedMessageFilterListFormInfoCreator alloc] init] autorelease];
 		GenericFieldBasedTableEditViewControllerFactory *savedFiltersViewControllerFactory = 
-			[[[GenericFieldBasedTableEditViewControllerFactory alloc] initWithFormInfoCreator:rulesFormInfoCreator] autorelease];
+			[[[GenericFieldBasedTableEditViewControllerFactory alloc] initWithFormInfoCreator:savedFilterFormInfoCreator] autorelease];
 		StaticNavFieldEditInfo *savedFiltersFieldEditInfo = 
 			[[[StaticNavFieldEditInfo alloc] initWithCaption:LOCALIZED_STR(@"SAVED_FILTERS_FIELD_CAPTION") 
 			andSubtitle:LOCALIZED_STR(@"SAVED_FILTERS_FIELD_SUBTITLE") 

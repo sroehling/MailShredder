@@ -33,9 +33,15 @@
 
 @synthesize emailInfoFrc;
 @synthesize appDmc;
+@synthesize saveMsgFilterDmc;
 @synthesize msgListView;
 @synthesize selectedEmailInfos;
 
+
+-(void)newMessageFilterDidSaveNoficiationHandler:(NSNotification*)notification
+{
+	[self.appDmc.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
+}
 
 - (id)initWithAppDataModelController:(DataModelController*)theAppDmc
 {
@@ -44,10 +50,13 @@
         // Custom initialization
 		self.appDmc = theAppDmc;
 		
+		
 		self.selectedEmailInfos = [[[NSMutableSet alloc] init] autorelease]; 
     }
     return self;
 }
+
+
 
 -(id)init
 {
@@ -266,6 +275,15 @@
 	self.msgListView.msgListTableView.dataSource = self;
 	
 	self.view = self.msgListView;
+
+	// Listen to change noficiations from new message filters.
+	self.saveMsgFilterDmc = [[[DataModelController alloc] 
+	initWithPersistentStoreCoord:self.appDmc.persistentStoreCoordinator] autorelease];
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+		selector:@selector(newMessageFilterDidSaveNoficiationHandler:)
+		name:NSManagedObjectContextDidSaveNotification 
+		object:self.saveMsgFilterDmc.managedObjectContext];	
+
 	
 	// Register for notifications when the current account changes.
 	[[AppHelper theAppDelegate].accountChangeListers addObject:self];
@@ -299,6 +317,11 @@
 	[super viewDidUnload];
 	self.emailInfoFrc = nil;
 	
+	[[NSNotificationCenter defaultCenter] removeObserver:self 
+		name:NSManagedObjectContextDidSaveNotification 
+		object:self.saveMsgFilterDmc.managedObjectContext];
+
+
 	[[AppHelper theAppDelegate].accountChangeListers removeObject:self];
 	
 	// De-register the footer view for progress updates when the mail synchronization
@@ -427,11 +450,11 @@
 -(void)populateDeletePopupListActions:(NSMutableArray *)actionButtonInfo 
 {
 	[actionButtonInfo addObject:[[[ButtonListItemInfo alloc] 
-		initWithTitle:LOCALIZED_STR(@"TRASH_LIST_ACTION_DELETE_SELECTED_BUTTON_TITLE")
+		initWithTitle:LOCALIZED_STR(@"MSG_LIST_ACTION_DELETE_SELECTED_BUTTON_TITLE")
 		 andTarget:self andSelector:@selector(deleteSelectedTrashedMsgsButtonPressed)] autorelease]];
 
 	[actionButtonInfo addObject:[[[ButtonListItemInfo alloc] 
-		initWithTitle:LOCALIZED_STR(@"TRASH_LIST_ACTION_DELETE_ALL_BUTTON_TITLE")
+		initWithTitle:LOCALIZED_STR(@"MSG_LIST_ACTION_DELETE_ALL_BUTTON_TITLE")
 		 andTarget:self andSelector:@selector(deleteAllTrashedMsgsButtonPressed)] autorelease]];
 
 }
@@ -449,6 +472,7 @@
 	[emailInfoFrc release];
 	[msgListView release];
 	[selectedEmailInfos release];
+	[saveMsgFilterDmc release];
 	[super dealloc];
 }
 

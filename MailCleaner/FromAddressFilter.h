@@ -11,16 +11,13 @@
 #import "EmailAddressFilter.h"
 
 @class MessageFilter;
-@class MsgHandlingRule;
 
 extern NSString * const FROM_ADDRESS_FILTER_ENTITY_NAME;
-
 
 @interface FromAddressFilter : EmailAddressFilter
 
 // Inverse relationships
 @property (nonatomic, retain) NSSet *messageFilterFromAddrFilter;
-@property (nonatomic, retain) NSSet *msgHandlingRuleFromAddressFilter;
 
 @end
 
@@ -30,11 +27,5 @@ extern NSString * const FROM_ADDRESS_FILTER_ENTITY_NAME;
 - (void)removeMessageFilterFromAddrFilterObject:(MessageFilter *)value;
 - (void)addMessageFilterFromAddrFilter:(NSSet *)values;
 - (void)removeMessageFilterFromAddrFilter:(NSSet *)values;
-
-- (void)addMsgHandlingRuleFromAddressFilterObject:(MsgHandlingRule *)value;
-- (void)removeMsgHandlingRuleFromAddressFilterObject:(MsgHandlingRule *)value;
-- (void)addMsgHandlingRuleFromAddressFilter:(NSSet *)values;
-- (void)removeMsgHandlingRuleFromAddressFilter:(NSSet *)values;
-
 
 @end

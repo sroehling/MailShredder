@@ -19,6 +19,7 @@
 		UITableViewDataSource,EmailActionViewDelegate,CurrentEmailAccountChangedListener> {
 	@private
 		DataModelController *appDmc;
+		DataModelController *saveMsgFilterDmc;
 		NSFetchedResultsController *emailInfoFrc;
 		MsgListView *msgListView;
 		NSMutableSet *selectedEmailInfos;
@@ -26,6 +27,7 @@
 
 @property(nonatomic,retain) NSFetchedResultsController *emailInfoFrc;
 @property(nonatomic,retain) DataModelController *appDmc;
+@property(nonatomic,retain) DataModelController *saveMsgFilterDmc;
 @property(nonatomic,retain) MsgListView *msgListView;
 @property(nonatomic,retain) NSMutableSet *selectedEmailInfos;
 

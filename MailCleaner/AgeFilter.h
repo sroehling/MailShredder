@@ -21,7 +21,6 @@
 
 // Inverse Properties
 @property (nonatomic, retain) NSSet *messageFilterAgeFilter;
-@property (nonatomic, retain) NSSet *ruleAgeFilter;
 
 -(NSString*)filterSynopsis;
 -(NSPredicate*)filterPredicate:(NSDate*)baseDate;
@@ -34,10 +33,5 @@
 - (void)removeMessageFilterAgeFilterObject:(MessageFilter *)value;
 - (void)addMessageFilterAgeFilter:(NSSet *)values;
 - (void)removeMessageFilterAgeFilter:(NSSet *)values;
-
-- (void)addRuleAgeFilterObject:(MsgHandlingRule *)value;
-- (void)removeRuleAgeFilterObject:(MsgHandlingRule *)value;
-- (void)addRuleAgeFilter:(NSSet *)values;
-- (void)removeRuleAgeFilter:(NSSet *)values;
 
 @end

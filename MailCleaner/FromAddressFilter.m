@@ -16,8 +16,6 @@ NSString * const FROM_ADDRESS_FILTER_ENTITY_NAME = @"FromAddressFilter";
 @implementation FromAddressFilter
 
 @dynamic messageFilterFromAddrFilter;
-@dynamic msgHandlingRuleFromAddressFilter;
-
 
 -(NSPredicate*)emailInfoMatchSelectedAddrPredicate:(EmailAddress*)selectedAddr
 {

@@ -9,7 +9,6 @@
 #import "EmailDomainFilter.h"
 #import "EmailDomain.h"
 #import "MessageFilter.h"
-#import "MsgHandlingRule.h"
 #import "EmailInfo.h"
 #import "LocalizationHelper.h"
 
@@ -26,7 +25,6 @@ NSInteger const MAX_SPECIFIC_DOMAIN_SYNOPSIS = 2;
 
 // Inverse relationships
 @dynamic messageFilterDomainFilter;
-@dynamic msgHandlingRuleDomainFilter;
 
 -(NSString*)filterSelectedPrefix
 {

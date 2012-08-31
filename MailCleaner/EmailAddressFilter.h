@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class MessageFilter, MsgHandlingRule;
+@class MessageFilter;
 @class EmailAddress;
 
 extern NSString * const EMAIL_ADDRESS_FILTER_MATCH_UNSELECTED_KEY;
