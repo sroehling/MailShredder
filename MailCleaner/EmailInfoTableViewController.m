@@ -14,8 +14,7 @@
 #import "LocalizationHelper.h"
 
 #import "EmailInfoActionView.h"
-#import "TableHeaderWithDisclosure.h"
-#import "TableHeaderDisclosureButtonDelegate.h"
+#import "MessageFilterTableHeader.h"
 #import "MessageFilterFormInfoCreator.h"
 #import "GenericFieldBasedTableEditViewController.h"
 #import "SharedAppVals.h"
@@ -45,6 +44,7 @@
 #import "RecipientAddressFilter.h"
 #import "UIHelper.h"
 #import "MoreFormInfoCreator.h"
+#import "SavedMessageFilterTableMenuItem.h"
 
 CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 
@@ -52,6 +52,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 
 @synthesize messageFilterHeader;
 @synthesize actionsPopupController;
+@synthesize loadFilterPopoverController;
 @synthesize actionButton;
 
 -(MessageFilter*)currentAcctMsgFilter
@@ -88,6 +89,96 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	[self.navigationController pushViewController:settingsViewController animated:YES];  
 }
 
+-(void)savedMessagFilterSelectedFromMenu:(MessageFilter*)selectedFilter
+{
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
+	MessageFilter *currentFilter = sharedAppVals.currentEmailAcct.msgListFilter;
+
+	[currentFilter.emailDomainFilter setDomains:selectedFilter.emailDomainFilter.selectedDomains];
+	[currentFilter.fromAddressFilter setAddresses:selectedFilter.fromAddressFilter.selectedAddresses];
+	[currentFilter.recipientAddressFilter setAddresses:selectedFilter.recipientAddressFilter.selectedAddresses];
+	[currentFilter.folderFilter setFolders:selectedFilter.folderFilter.selectedFolders];
+	currentFilter.ageFilter = selectedFilter.ageFilter;
+	
+	[self.appDmc saveContext];
+	[self refreshMessageList];
+	
+	[self.loadFilterPopoverController dismissPopoverAnimated:TRUE];
+
+}
+
+-(void)changeFilterResetToDefault
+{
+	NSLog(@"Reset filter to Default");
+	
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
+	MessageFilter *currentFilter = sharedAppVals.currentEmailAcct.msgListFilter;
+	
+	[currentFilter resetToDefault:self.appDmc];
+
+	
+	[self.appDmc saveContext];
+	[self refreshMessageList];
+	
+	[self.loadFilterPopoverController dismissPopoverAnimated:TRUE];
+}
+
+
+-(void)messageFilterHeaderLoadFilterButtonPressed
+{
+
+	NSMutableArray *sections = [[[NSMutableArray alloc] init] autorelease];
+
+	TableMenuSection *section = [[[TableMenuSection alloc] initWithSectionName:@""] autorelease];
+	[section addMenuItem:[[[TableMenuItem alloc] 
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_RESET_FILTER_MENU_TITLE")
+		 andTarget:self andSelector:@selector(changeFilterResetToDefault)] autorelease]];
+	[sections addObject:section];
+
+
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
+	NSUInteger numFilters = [sharedAppVals.currentEmailAcct.savedMsgListFilters count];
+	if(numFilters> 0)
+	{
+		section = [[[TableMenuSection alloc] 
+			initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_LOAD_FILTER_FILTER_SECTION_TITLE")] autorelease];
+		[sections addObject:section];
+		
+		
+		for(MessageFilter *savedFilter in sharedAppVals.currentEmailAcct.savedMsgListFilters)
+		{
+			SavedMessageFilterTableMenuItem *filterMenuItem = 
+				[[[SavedMessageFilterTableMenuItem alloc] initWithMessageFilter:savedFilter 
+				andFilterSelectedDelegate:self] autorelease];
+			[section addMenuItem:filterMenuItem];
+		}
+	}
+
+	CGFloat tableMenuHeightForAllFilters = numFilters * TABLE_MENU_ROW_HEIGHT + 
+							2 * TABLE_MENU_SECTION_HEIGHT + 40.0f;
+	CGFloat tableMenuHeight = MIN(EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT,tableMenuHeightForAllFilters); 
+
+	TableMenuViewController *loadFilterMenuController = [[[TableMenuViewController alloc] 
+			initWithStyle:UITableViewStyleGrouped 
+			andMenuSections:sections andMenuHeight:tableMenuHeight] autorelease];
+
+	self.loadFilterPopoverController = [[[WEPopoverController alloc] 
+		initWithContentViewController:loadFilterMenuController] autorelease];
+	self.loadFilterPopoverController.delegate = self;
+
+	[self.loadFilterPopoverController setContainerViewProperties:[WEPopoverHelper containerViewProperties]];
+	
+	// Convert the 'load filter' button's coordinate system to the navigation controller views coordinates
+	CGRect loadFilterButtonWindowRect = [self.messageFilterHeader.loadFilterButton.superview 
+		convertRect:self.messageFilterHeader.loadFilterButton.frame toView:nil];
+	CGRect loadFilterRect = [self.navigationController.view  
+		convertRect:loadFilterButtonWindowRect fromView:nil];
+		
+		
+	[self.loadFilterPopoverController presentPopoverFromRect:loadFilterRect
+		inView:self.navigationController.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:TRUE];
+}
+
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
@@ -95,9 +186,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
     self.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
 	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
 
-	self.messageFilterHeader  = [[[TableHeaderWithDisclosure alloc] initWithFrame:CGRectZero 
-				andDisclosureButtonDelegate:self] autorelease];
-	[self.messageFilterHeader configureWithCustomButtonImage:@"search.png"];
+	self.messageFilterHeader  = [[[MessageFilterTableHeader alloc] initWithDelegate:self] autorelease];
 	self.messageFilterHeader.header.text = sharedAppVals.currentEmailAcct.acctName;
 	self.messageFilterHeader.subTitle.text =  sharedAppVals.currentEmailAcct.msgListFilter.filterSynopsis;
 	[self.messageFilterHeader resizeForChildren];
@@ -139,7 +228,6 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_CURRENT_FILTER_MENU_TITLE")
 		 andTarget:self andSelector:@selector(createMsgFilterCurrentFilter)] autorelease]];
 	[sections addObject:section];
-
 	
 	TableMenuViewController *popupMenuController = [[[TableMenuViewController alloc] 
 			initWithStyle:UITableViewStyleGrouped 
@@ -184,9 +272,9 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 
 }
 
-#pragma mark TableHeaderDisclosureViewDelegate
+#pragma mark MessageFilterTableHeaderDelegate
 
-- (void)tableHeaderDisclosureButtonPressed
+- (void)messageFilterHeaderEditFilterButtonPressed
 {
 	NSLog(@"Disclosure button pressed");
 			
@@ -196,6 +284,9 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	GenericFieldBasedTableViewController *msgFilterViewController = 
 		[[[GenericFieldBasedTableViewController alloc] initWithFormInfoCreator:msgFilterFormInfoCreator 
 		andDataModelController:self.appDmc] autorelease];
+	
+//	self.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+//	[self.navigationController presentModalViewController:msgFilterViewController animated:TRUE];
 		
 	[self.navigationController pushViewController:msgFilterViewController animated:YES];       
 
@@ -419,6 +510,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	[self pushNewMessageFilterForm:newFilter];
 	
 }
+
 
 -(void)topActionButtonPressed
 {		

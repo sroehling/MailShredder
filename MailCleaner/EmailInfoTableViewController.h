@@ -11,23 +11,27 @@
 
 
 @class DataModelController;
-@class TableHeaderWithDisclosure;
+@class MessageFilterTableHeader;
 @class WEPopoverController;
 
 #import "WEPopoverController.h"
-#import "TableHeaderDisclosureButtonDelegate.h"
+#import "SavedMessageFilterTableMenuItem.h"
+#import "MessageFilterTableHeader.h"
 
 @interface EmailInfoTableViewController : MsgListTableViewController 
-	<TableHeaderDisclosureButtonDelegate,WEPopoverControllerDelegate> {
+	<MessageFilterTableHeaderDelegate,WEPopoverControllerDelegate,
+		SavedMessageFilterTableMenuItemSelectedDelegate> {
 	@private
-		TableHeaderWithDisclosure *messageFilterHeader;
+		MessageFilterTableHeader *messageFilterHeader;
 		WEPopoverController *actionsPopupController;
+		WEPopoverController *loadFilterPopoverController;
 		UIBarButtonItem *actionButton;
 
 }
 
-@property(nonatomic,retain) TableHeaderWithDisclosure *messageFilterHeader;
+@property(nonatomic,retain) MessageFilterTableHeader *messageFilterHeader;
 @property(nonatomic,retain) WEPopoverController *actionsPopupController;
+@property(nonatomic,retain) WEPopoverController *loadFilterPopoverController;
 @property(nonatomic,retain) UIBarButtonItem *actionButton;
 
 @end
