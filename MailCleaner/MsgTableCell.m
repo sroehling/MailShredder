@@ -67,8 +67,8 @@ NSString *const MSG_TABLE_CELL_IDENTIFIER = @"MsgTableCell";
 		self.selectedBackgroundView = selBgView;
 				
 		self.selectedCheckbox = [[[UIImageView alloc] initWithFrame:CGRectMake(0,0,20,20)] autorelease];
-		[self.selectedCheckbox setHighlightedImage:[UIImage imageNamed:@"selectedMsgcheckbox.png"]];
-		[self.selectedCheckbox setImage:[UIImage imageNamed:@"unselectedMsgCheckbox.png"]];
+		[self.selectedCheckbox setHighlightedImage:[UIImage imageNamed:@"checkboxselected.png"]];
+		[self.selectedCheckbox setImage:[UIImage imageNamed:@"checkbox.png"]];
 		[self.contentView addSubview:self.selectedCheckbox];
 
 

@@ -25,6 +25,7 @@ const CGFloat EMAIL_ACTION_VIEW_STATUS_ROW_HEIGHT = 15.0;
 
 const CGFloat ACTION_BUTTON_FONT_SIZE = 12.0f;
 const CGFloat ACTION_BUTTON_SPACE = 5.0f;
+const CGFloat ACTION_BUTTON_SIZE = 24.0f;
 
 @implementation EmailInfoActionView
 
@@ -75,27 +76,34 @@ const CGFloat ACTION_BUTTON_SPACE = 5.0f;
  
 		[self addSubview:self.statusLabel];
 		
+		CGSize buttonSize = CGSizeMake(ACTION_BUTTON_SIZE,ACTION_BUTTON_SIZE);
+		CGSize actionButtonSize = CGSizeMake(100.0f, 25.0f);
+		
 		self.refeshActivityIndicator = [[[UIActivityIndicatorView alloc] 
 			initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray] autorelease];
 		[self addSubview:self.refeshActivityIndicator];
 		
         self.emailActionsButton = [UIHelper imageButton:@"deleteMsgs.png"
+			withSize:buttonSize
 			withTarget:self andAction:@selector(actionButtonPressed)];
 		[self addSubview:self.emailActionsButton];
 	
-		self.selectAllButton = [UIHelper imageButton:@"msgActionButton.png" 
+		self.selectAllButton = [UIHelper imageButton:@"msgActionButton.png"
+			andSize:actionButtonSize
 			withTitle:LOCALIZED_STR(@"MSGS_ACTION_SELECT_ALL") 
 			andFontSize:ACTION_BUTTON_FONT_SIZE andFontColor:[UIColor whiteColor]
 			andTarget:self andAction:@selector(selectAll)];
 		[self addSubview:self.selectAllButton];
 
 		self.unselectAllButton = [UIHelper imageButton:@"msgActionButton.png" 
+		    andSize:actionButtonSize
 			withTitle:LOCALIZED_STR(@"MSGS_ACTION_UNSELECT_ALL") 
 			andFontSize:ACTION_BUTTON_FONT_SIZE andFontColor:[UIColor whiteColor]
 			andTarget:self andAction:@selector(unselectAll)];
 		[self addSubview:self.unselectAllButton];
 		
-		self.refreshMsgsButton = [UIHelper imageButton:@"01-refresh.png"
+		self.refreshMsgsButton = [UIHelper imageButton:@"refresh.png"
+			withSize:buttonSize
 			withTarget:self andAction:@selector(refreshMsgs)];
 		[self addSubview:self.refreshMsgsButton];
 		

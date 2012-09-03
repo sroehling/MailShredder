@@ -47,28 +47,35 @@
 		003D599F15641B8A00AD3D91 /* AppHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 003D599E15641B8A00AD3D91 /* AppHelper.m */; };
 		003D59A315641D2600AD3D91 /* EmailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 003D59A215641D2600AD3D91 /* EmailInfo.m */; };
 		003F2397156D43490009BFE3 /* MsgListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 003F2396156D43490009BFE3 /* MsgListTableViewController.m */; };
+		00415F1E15F3C2B300A9E4FC /* refresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00415F1D15F3C2B300A9E4FC /* refresh@2x.png */; };
 		004A74FA15D965FE00A5F4FB /* MsgDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 004A74F915D965FE00A5F4FB /* MsgDetailViewController.m */; };
 		004A74FE15D966A300A5F4FB /* MsgDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 004A74FD15D966A300A5F4FB /* MsgDetailView.m */; };
 		004A750215D993AD00A5F4FB /* GetMessageBodyOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 004A750115D993AD00A5F4FB /* GetMessageBodyOperation.m */; };
 		004AA26515D1B3BA00BA76B0 /* MailSyncConnectionContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 004AA26415D1B3BA00BA76B0 /* MailSyncConnectionContext.m */; };
+		004B957115F3BF6600CB0603 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 004B957015F3BF6600CB0603 /* refresh.png */; };
 		0053EFBF158FE371003F6B6E /* EmailAddressFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0053EFBE158FE370003F6B6E /* EmailAddressFilterFormInfoCreator.m */; };
 		0053EFC7158FF3E3003F6B6E /* EmailAddressFilterAddressAdder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0053EFC6158FF3E3003F6B6E /* EmailAddressFilterAddressAdder.m */; };
 		0053EFCA158FFC3B003F6B6E /* EmailAddressFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0053EFC9158FFC3A003F6B6E /* EmailAddressFieldEditInfo.m */; };
 		0053EFCD1590EEB5003F6B6E /* EmailAddressSelectionFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0053EFCC1590EEB3003F6B6E /* EmailAddressSelectionFormInfoCreator.m */; };
 		0054D2EA15ADF49D00270679 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 0054D2E915ADF49D00270679 /* search.png */; };
+		00561E7115F40EED0020229D /* deleteMsgs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00561E7015F40EED0020229D /* deleteMsgs@2x.png */; };
+		00561E7415F416820020229D /* msgActionButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00561E7315F416820020229D /* msgActionButton@2x.png */; };
+		00561E7915F5060E0020229D /* checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00561E7515F5060D0020229D /* checkbox@2x.png */; };
+		00561E7A15F5060E0020229D /* checkboxselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00561E7615F5060D0020229D /* checkboxselected@2x.png */; };
+		00561E7B15F5060E0020229D /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 00561E7715F5060D0020229D /* checkbox.png */; };
+		00561E7C15F5060E0020229D /* checkboxselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 00561E7815F5060D0020229D /* checkboxselected.png */; };
+		00561E7F15F526600020229D /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00561E7D15F5265F0020229D /* settings@2x.png */; };
+		00561E8015F526600020229D /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 00561E7E15F5265F0020229D /* settings.png */; };
 		005BA6F615E2B0F000D5D11C /* ImapAcctPreset.m in Sources */ = {isa = PBXBuildFile; fileRef = 005BA6F515E2B0F000D5D11C /* ImapAcctPreset.m */; };
 		005E6A8715647602004198B6 /* EmailInfoActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 005E6A8615647602004198B6 /* EmailInfoActionView.m */; };
 		006D6650156D70A300074979 /* ResultraGenericLibResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */; };
 		006D6675156E8E2500074979 /* MsgTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 006D6674156E8E2500074979 /* MsgTableCell.m */; };
-		006D6678156E9DAB00074979 /* unselectedMsgCheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 006D6676156E9DAA00074979 /* unselectedMsgCheckbox.png */; };
-		006D6679156E9DAB00074979 /* selectedMsgCheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 006D6677156E9DAB00074979 /* selectedMsgCheckbox.png */; };
 		006F179815F2748F0089A299 /* loadfilter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 006F179615F2748F0089A299 /* loadfilter@2x.png */; };
 		006F179915F2748F0089A299 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 006F179715F2748F0089A299 /* search@2x.png */; };
 		00707D7315D59AB700DC8DA5 /* MailOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00707D7215D59AB700DC8DA5 /* MailOperation.m */; };
 		00707D7715D59B9B00DC8DA5 /* MailDeleteOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00707D7615D59B9B00DC8DA5 /* MailDeleteOperation.m */; };
 		007860CF15DD99F600DC333B /* FolderSyncContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 007860CE15DD99F600DC333B /* FolderSyncContext.m */; };
 		007ABE8F156ACADE004BA8BF /* dummyEmails.txt in Resources */ = {isa = PBXBuildFile; fileRef = 003D59911564028200AD3D91 /* dummyEmails.txt */; };
-		007F3B8415EFEBAB0086EA81 /* 19-gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 007F3B8315EFEBAB0086EA81 /* 19-gear.png */; };
 		008129EB15B8ABED00533E36 /* DeleteMsgConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008129EA15B8ABED00533E36 /* DeleteMsgConfirmationView.m */; };
 		008FDF3415E2A14000BC4C61 /* EmailAddrFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 008FDF3315E2A14000BC4C61 /* EmailAddrFormInfoCreator.m */; };
 		008FE31115D57D860066A75D /* MailSyncOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 008FE31015D57D850066A75D /* MailSyncOperation.m */; };
@@ -81,7 +88,6 @@
 		009B42B315F162F300D82A08 /* MessageFilterTableHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B42B215F162F300D82A08 /* MessageFilterTableHeader.m */; };
 		009B42B515F26D6B00D82A08 /* loadfilter.png in Resources */ = {isa = PBXBuildFile; fileRef = 009B42B415F26D6B00D82A08 /* loadfilter.png */; };
 		009CAD9415D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 009CAD9315D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.m */; };
-		009CAD9615D2F02900C2C19F /* 01-refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 009CAD9515D2F02900C2C19F /* 01-refresh.png */; };
 		009CAD9A15D2F80900C2C19F /* deleteMsgs.png in Resources */ = {isa = PBXBuildFile; fileRef = 009CAD9915D2F80900C2C19F /* deleteMsgs.png */; };
 		009E320A1567E4C500233276 /* AgeFilterFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */; };
 		00A6FB3E159A493200ED4D4B /* EmailDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB3D159A493200ED4D4B /* EmailDomain.m */; };
@@ -213,6 +219,7 @@
 		003D59A215641D2600AD3D91 /* EmailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfo.m; sourceTree = "<group>"; };
 		003F2395156D43490009BFE3 /* MsgListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgListTableViewController.h; sourceTree = "<group>"; };
 		003F2396156D43490009BFE3 /* MsgListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgListTableViewController.m; sourceTree = "<group>"; };
+		00415F1D15F3C2B300A9E4FC /* refresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh@2x.png"; sourceTree = "<group>"; };
 		004A74F815D965FE00A5F4FB /* MsgDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgDetailViewController.h; sourceTree = "<group>"; };
 		004A74F915D965FE00A5F4FB /* MsgDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgDetailViewController.m; sourceTree = "<group>"; };
 		004A74FC15D966A300A5F4FB /* MsgDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgDetailView.h; sourceTree = "<group>"; };
@@ -221,6 +228,7 @@
 		004A750115D993AD00A5F4FB /* GetMessageBodyOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetMessageBodyOperation.m; sourceTree = "<group>"; };
 		004AA26315D1B3BA00BA76B0 /* MailSyncConnectionContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailSyncConnectionContext.h; sourceTree = "<group>"; };
 		004AA26415D1B3BA00BA76B0 /* MailSyncConnectionContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailSyncConnectionContext.m; sourceTree = "<group>"; };
+		004B957015F3BF6600CB0603 /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
 		0053EFBD158FE370003F6B6E /* EmailAddressFilterFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddressFilterFormInfoCreator.h; sourceTree = "<group>"; };
 		0053EFBE158FE370003F6B6E /* EmailAddressFilterFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddressFilterFormInfoCreator.m; sourceTree = "<group>"; };
 		0053EFC5158FF3E2003F6B6E /* EmailAddressFilterAddressAdder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddressFilterAddressAdder.h; sourceTree = "<group>"; };
@@ -230,6 +238,14 @@
 		0053EFCB1590EEB2003F6B6E /* EmailAddressSelectionFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddressSelectionFormInfoCreator.h; sourceTree = "<group>"; };
 		0053EFCC1590EEB3003F6B6E /* EmailAddressSelectionFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddressSelectionFormInfoCreator.m; sourceTree = "<group>"; };
 		0054D2E915ADF49D00270679 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
+		00561E7015F40EED0020229D /* deleteMsgs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deleteMsgs@2x.png"; sourceTree = "<group>"; };
+		00561E7315F416820020229D /* msgActionButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "msgActionButton@2x.png"; sourceTree = "<group>"; };
+		00561E7515F5060D0020229D /* checkbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox@2x.png"; sourceTree = "<group>"; };
+		00561E7615F5060D0020229D /* checkboxselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkboxselected@2x.png"; sourceTree = "<group>"; };
+		00561E7715F5060D0020229D /* checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox.png; sourceTree = "<group>"; };
+		00561E7815F5060D0020229D /* checkboxselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkboxselected.png; sourceTree = "<group>"; };
+		00561E7D15F5265F0020229D /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
+		00561E7E15F5265F0020229D /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		005BA6F415E2B0F000D5D11C /* ImapAcctPreset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImapAcctPreset.h; sourceTree = "<group>"; };
 		005BA6F515E2B0F000D5D11C /* ImapAcctPreset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImapAcctPreset.m; sourceTree = "<group>"; };
 		005E6A8515647602004198B6 /* EmailInfoActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoActionView.h; sourceTree = "<group>"; };
@@ -238,8 +254,6 @@
 		006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ResultraGenericLibResources.bundle; path = "../../../Library/Developer/Xcode/DerivedData/MailCleaner-dtuamkacbllkfkggcpkuqouuqrpt/Build/Products/Debug-iphonesimulator/ResultraGenericLibResources.bundle"; sourceTree = "<group>"; };
 		006D6673156E8E2500074979 /* MsgTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgTableCell.h; sourceTree = "<group>"; };
 		006D6674156E8E2500074979 /* MsgTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgTableCell.m; sourceTree = "<group>"; };
-		006D6676156E9DAA00074979 /* unselectedMsgCheckbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselectedMsgCheckbox.png; sourceTree = "<group>"; };
-		006D6677156E9DAB00074979 /* selectedMsgCheckbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectedMsgCheckbox.png; sourceTree = "<group>"; };
 		006F179615F2748F0089A299 /* loadfilter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loadfilter@2x.png"; sourceTree = "<group>"; };
 		006F179715F2748F0089A299 /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
 		00707D7115D59AB700DC8DA5 /* MailOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailOperation.h; sourceTree = "<group>"; };
@@ -249,7 +263,6 @@
 		007860CD15DD99F600DC333B /* FolderSyncContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderSyncContext.h; sourceTree = "<group>"; };
 		007860CE15DD99F600DC333B /* FolderSyncContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderSyncContext.m; sourceTree = "<group>"; };
 		007ABE8B156AB618004BA8BF /* MailCleanerSpec.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MailCleanerSpec.md; sourceTree = "<group>"; };
-		007F3B8315EFEBAB0086EA81 /* 19-gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "19-gear.png"; sourceTree = "<group>"; };
 		008129E915B8ABEC00533E36 /* DeleteMsgConfirmationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteMsgConfirmationView.h; sourceTree = "<group>"; };
 		008129EA15B8ABED00533E36 /* DeleteMsgConfirmationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteMsgConfirmationView.m; sourceTree = "<group>"; };
 		008FDF3215E2A14000BC4C61 /* EmailAddrFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddrFormInfoCreator.h; sourceTree = "<group>"; };
@@ -273,7 +286,6 @@
 		009CAD9015D2D49A00C2C19F /* MailSyncProgressDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MailSyncProgressDelegate.h; sourceTree = "<group>"; };
 		009CAD9215D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompositeMailSyncProgressDelegate.h; sourceTree = "<group>"; };
 		009CAD9315D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompositeMailSyncProgressDelegate.m; sourceTree = "<group>"; };
-		009CAD9515D2F02900C2C19F /* 01-refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "01-refresh.png"; sourceTree = "<group>"; };
 		009CAD9915D2F80900C2C19F /* deleteMsgs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deleteMsgs.png; sourceTree = "<group>"; };
 		009E32081567E4C500233276 /* AgeFilterFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeFilterFieldEditInfo.h; sourceTree = "<group>"; };
 		009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgeFilterFieldEditInfo.m; sourceTree = "<group>"; };
@@ -347,7 +359,6 @@
 		00E9944815643244003B9771 /* EmailInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoTableViewController.h; sourceTree = "<group>"; };
 		00E9944915643244003B9771 /* EmailInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoTableViewController.m; sourceTree = "<group>"; };
 		00F4A9BC15E2AFB100595C95 /* imapAcctPresets.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = imapAcctPresets.txt; sourceTree = "<group>"; };
-		00F9A77D156EC66A00BB4C92 /* msgCheckbox.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = msgCheckbox.psd; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -613,12 +624,18 @@
 		00472B1815ACA02000C6BC82 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				00561E7D15F5265F0020229D /* settings@2x.png */,
+				00561E7E15F5265F0020229D /* settings.png */,
+				00561E7515F5060D0020229D /* checkbox@2x.png */,
+				00561E7615F5060D0020229D /* checkboxselected@2x.png */,
+				00561E7715F5060D0020229D /* checkbox.png */,
+				00561E7815F5060D0020229D /* checkboxselected.png */,
 				009CAD9915D2F80900C2C19F /* deleteMsgs.png */,
-				009CAD9515D2F02900C2C19F /* 01-refresh.png */,
+				00561E7015F40EED0020229D /* deleteMsgs@2x.png */,
+				00415F1D15F3C2B300A9E4FC /* refresh@2x.png */,
+				004B957015F3BF6600CB0603 /* refresh.png */,
+				00561E7315F416820020229D /* msgActionButton@2x.png */,
 				00394EFB156EFE00006C3AE5 /* msgActionButton.png */,
-				00F9A77D156EC66A00BB4C92 /* msgCheckbox.psd */,
-				006D6676156E9DAA00074979 /* unselectedMsgCheckbox.png */,
-				006D6677156E9DAB00074979 /* selectedMsgCheckbox.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -803,7 +820,6 @@
 		00C8970615AF34400006FF2F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				007F3B8315EFEBAB0086EA81 /* 19-gear.png */,
 				00C8971A15AF40340006FF2F /* markdown.css */,
 				00C8970815AF34560006FF2F /* MoreFormInfoCreator.h */,
 				00C8970915AF34560006FF2F /* MoreFormInfoCreator.m */,
@@ -979,20 +995,26 @@
 				0005669C1562F94C003D114D /* InfoPlist.strings in Resources */,
 				0005672A15630DDD003D114D /* Localizable.strings in Resources */,
 				006D6650156D70A300074979 /* ResultraGenericLibResources.bundle in Resources */,
-				006D6678156E9DAB00074979 /* unselectedMsgCheckbox.png in Resources */,
-				006D6679156E9DAB00074979 /* selectedMsgCheckbox.png in Resources */,
 				00394EFC156EFE00006C3AE5 /* msgActionButton.png in Resources */,
 				0054D2EA15ADF49D00270679 /* search.png in Resources */,
 				00C8971915AF3F0E0006FF2F /* about.md in Resources */,
 				00C8971B15AF40340006FF2F /* markdown.css in Resources */,
-				009CAD9615D2F02900C2C19F /* 01-refresh.png in Resources */,
 				009CAD9A15D2F80900C2C19F /* deleteMsgs.png in Resources */,
 				00F4A9BD15E2AFB100595C95 /* imapAcctPresets.txt in Resources */,
 				00DED4A415ED530E00C3B1EF /* emailAcctDeleteSettings.md in Resources */,
-				007F3B8415EFEBAB0086EA81 /* 19-gear.png in Resources */,
 				009B42B515F26D6B00D82A08 /* loadfilter.png in Resources */,
 				006F179815F2748F0089A299 /* loadfilter@2x.png in Resources */,
 				006F179915F2748F0089A299 /* search@2x.png in Resources */,
+				004B957115F3BF6600CB0603 /* refresh.png in Resources */,
+				00415F1E15F3C2B300A9E4FC /* refresh@2x.png in Resources */,
+				00561E7115F40EED0020229D /* deleteMsgs@2x.png in Resources */,
+				00561E7415F416820020229D /* msgActionButton@2x.png in Resources */,
+				00561E7915F5060E0020229D /* checkbox@2x.png in Resources */,
+				00561E7A15F5060E0020229D /* checkboxselected@2x.png in Resources */,
+				00561E7B15F5060E0020229D /* checkbox.png in Resources */,
+				00561E7C15F5060E0020229D /* checkboxselected.png in Resources */,
+				00561E7F15F526600020229D /* settings@2x.png in Resources */,
+				00561E8015F526600020229D /* settings.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

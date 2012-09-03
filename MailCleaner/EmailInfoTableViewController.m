@@ -242,7 +242,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 
 	self.navigationItem.leftBarButtonItem = actionButton;
 	
-	self.navigationItem.rightBarButtonItem = [UIHelper buttonItemWithImage:@"19-gear.png" 
+	self.navigationItem.rightBarButtonItem = [UIHelper buttonItemWithImage:@"settings.png"
 		andTarget:self andAction:@selector(showSettings)];
 
 }
