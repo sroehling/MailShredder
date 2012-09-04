@@ -39,6 +39,10 @@ extern NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH;
 
 -(NSPredicate*)filterPredicate:(NSDate*)baseDate;
 -(void)resetToDefault:(DataModelController*)filterDmc;
+
+-(BOOL)nonEmptyFilterName;
+-(void)resetFilterName;
+
 -(NSString*)filterSynopsis;
 
 +(MessageFilter*)defaultMessageFilter:(DataModelController*)filterDmc;

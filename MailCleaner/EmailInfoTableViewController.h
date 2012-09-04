@@ -13,6 +13,7 @@
 @class DataModelController;
 @class MessageFilterTableHeader;
 @class WEPopoverController;
+@class DataModelController;
 
 #import "WEPopoverController.h"
 #import "SavedMessageFilterTableMenuItem.h"
@@ -25,6 +26,7 @@
 		MessageFilterTableHeader *messageFilterHeader;
 		WEPopoverController *actionsPopupController;
 		WEPopoverController *loadFilterPopoverController;
+		DataModelController *editFilterDmc;
 		UIBarButtonItem *actionButton;
 
 }
@@ -32,6 +34,7 @@
 @property(nonatomic,retain) MessageFilterTableHeader *messageFilterHeader;
 @property(nonatomic,retain) WEPopoverController *actionsPopupController;
 @property(nonatomic,retain) WEPopoverController *loadFilterPopoverController;
+@property(nonatomic,retain) DataModelController *editFilterDmc;
 @property(nonatomic,retain) UIBarButtonItem *actionButton;
 
 @end

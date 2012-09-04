@@ -85,9 +85,25 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 	return compoundPredicate;
 }
 
+-(BOOL)nonEmptyFilterName
+{
+	return ((self.filterName != nil) && ([self.filterName length] > 0))?TRUE:FALSE;
+}
+
+-(void)resetFilterName
+{
+	if([self nonEmptyFilterName])
+	{
+		self.filterName = @"";
+	}
+
+}
+
 -(void)resetToDefault:(DataModelController*)filterDmc
 {
 	SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:filterDmc];
+	
+	[self resetFilterName];
 	
 	self.ageFilter = sharedVals.defaultAgeFilterNone;
 	

@@ -55,6 +55,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 @synthesize actionsPopupController;
 @synthesize loadFilterPopoverController;
 @synthesize actionButton;
+@synthesize editFilterDmc;
 
 -(MessageFilter*)currentAcctMsgFilter
 {
@@ -95,6 +96,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
 	MessageFilter *currentFilter = sharedAppVals.currentEmailAcct.msgListFilter;
 
+	currentFilter.filterName = selectedFilter.filterName;
 	[currentFilter.emailDomainFilter setDomains:selectedFilter.emailDomainFilter.selectedDomains];
 	[currentFilter.fromAddressFilter setAddresses:selectedFilter.fromAddressFilter.selectedAddresses];
 	[currentFilter.recipientAddressFilter setAddresses:selectedFilter.recipientAddressFilter.selectedAddresses];
@@ -180,6 +182,21 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 		inView:self.navigationController.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:TRUE];
 }
 
+-(void)editFilterDidSaveNoficiationHandler:(NSNotification*)notification
+{
+	[self.appDmc.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
+	
+	// If changes are made to the filter, then reset the filter name (if it's not already set
+	SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:self.editFilterDmc];
+	
+	if([sharedVals.currentEmailAcct.msgListFilter
+		nonEmptyFilterName])
+	{
+		[sharedVals.currentEmailAcct.msgListFilter resetFilterName];
+		[self.editFilterDmc saveContext];
+	}
+}
+
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
@@ -195,6 +212,16 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	self.msgListView.headerView = self.messageFilterHeader;
 	[self.msgListView addSubview:self.messageFilterHeader];	
 	
+	// Dedicated DataModelController, and underlying NSManagedObjectContext, for
+	// editing the current message filter. This is needed to recieve notifications
+	// when editing takes place and to clear the current filter name.
+	self.editFilterDmc = [[[DataModelController alloc] 
+		initWithPersistentStoreCoord:self.appDmc.persistentStoreCoordinator] autorelease];
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+		selector:@selector(editFilterDidSaveNoficiationHandler:)
+		name:NSManagedObjectContextDidSaveNotification 
+		object:self.editFilterDmc.managedObjectContext];	
+
 	
 	self.actionButton = [[[UIBarButtonItem alloc] 
 		initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self 
@@ -250,7 +277,21 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 
 - (void)refreshMessageFilterHeader
 {
-	self.messageFilterHeader.header.text = [AppHelper theAppDelegate].sharedAppVals.currentEmailAcct.acctName;
+	EmailAccount *currentAcct = [AppHelper theAppDelegate].sharedAppVals.currentEmailAcct;
+	assert(currentAcct != nil);
+	
+	NSString *filterHeaderText; 
+	if([currentAcct.msgListFilter nonEmptyFilterName])
+	{
+		filterHeaderText = [NSString stringWithFormat:@"%@ - %@",
+			currentAcct.acctName,currentAcct.msgListFilter.filterName];
+	}
+	else
+	{
+		filterHeaderText = currentAcct.acctName;
+	}
+
+	self.messageFilterHeader.header.text = filterHeaderText;
 	self.messageFilterHeader.subTitle.text =  [self currentAcctMsgFilter].filterSynopsis;
 	[self.messageFilterHeader resizeForChildren];
 
@@ -273,23 +314,41 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 
 }
 
+-(void)viewDidUnload
+{
+	[super viewDidUnload];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self 
+	name:NSManagedObjectContextDidSaveNotification 
+	object:self.editFilterDmc.managedObjectContext];
+
+}
+
 #pragma mark MessageFilterTableHeaderDelegate
 
 -(void)msgFilterEditDone
 {
-	[self.appDmc saveContext];
+	[self.editFilterDmc saveContext];
+	[self.editFilterDmc.managedObjectContext reset];
 	[self.navigationController dismissModalViewControllerAnimated:TRUE];
 }
 
 - (void)messageFilterHeaderEditFilterButtonPressed
 {
-			
+	
+	// TBD - Should we edit the changes in it's own NSManagedObjectContext?
+	[self.appDmc saveContext];
+	[self.editFilterDmc.managedObjectContext reset];
+	
+	SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:self.editFilterDmc];
+	
 	MessageFilterFormInfoCreator *msgFilterFormInfoCreator = 
-		[[[MessageFilterFormInfoCreator alloc] initWithMsgFilter:[self currentAcctMsgFilter]] autorelease];
+		[[[MessageFilterFormInfoCreator alloc] 
+		initWithMsgFilter:sharedVals.currentEmailAcct.msgListFilter] autorelease];
 		
 	GenericFieldBasedTableViewController *msgFilterViewController = 
 		[[[GenericFieldBasedTableViewController alloc] initWithFormInfoCreator:msgFilterFormInfoCreator 
-		andDataModelController:self.appDmc] autorelease];
+		andDataModelController:self.editFilterDmc] autorelease];
 
 	UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:msgFilterViewController] autorelease];
 	navController.navigationBar.tintColor = [ColorHelper navBarTintColor];
@@ -362,7 +421,10 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	
 	if([selectedAddresses count] > 0)
 	{
-		[[self currentAcctMsgFilter].fromAddressFilter setAddresses:selectedAddresses];
+		MessageFilter *currentFilter = [self currentAcctMsgFilter];
+		[currentFilter resetFilterName];
+
+		[currentFilter.fromAddressFilter setAddresses:selectedAddresses];
 		
 		[self refreshMessageList];
 	}
@@ -377,7 +439,10 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	
 	if([selectedRecipients count] > 0)
 	{
-		[[self currentAcctMsgFilter].recipientAddressFilter setAddresses:selectedRecipients];
+		MessageFilter *currentFilter = [self currentAcctMsgFilter];
+		[currentFilter resetFilterName];
+	
+		[currentFilter.recipientAddressFilter setAddresses:selectedRecipients];
 		
 		[self refreshMessageList];
 	}
@@ -392,7 +457,10 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	NSSet *selectedDomains = [self selectedDomains];
 	if([selectedDomains count] > 0)
 	{
-		[[self currentAcctMsgFilter].emailDomainFilter setDomains:selectedDomains];
+		MessageFilter *currentFilter = [self currentAcctMsgFilter];
+		[currentFilter resetFilterName];
+
+		[currentFilter.emailDomainFilter setDomains:selectedDomains];
 		
 		[self refreshMessageList];
 	}
@@ -533,6 +601,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	[actionButton release];
 	[actionsPopupController release];
 	[messageFilterHeader release];
+	[editFilterDmc release];
 	[super dealloc];
 }
 
