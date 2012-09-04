@@ -25,6 +25,7 @@
 #import "EmailAccount.h"
 #import "MsgPredicateHelper.h"
 #import "DateHelper.h"
+#import "ColorHelper.h"
 
 #import "TableMenuViewController.h"
 #import "TableMenuItem.h"
@@ -274,9 +275,14 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 
 #pragma mark MessageFilterTableHeaderDelegate
 
+-(void)msgFilterEditDone
+{
+	[self.appDmc saveContext];
+	[self.navigationController dismissModalViewControllerAnimated:TRUE];
+}
+
 - (void)messageFilterHeaderEditFilterButtonPressed
 {
-	NSLog(@"Disclosure button pressed");
 			
 	MessageFilterFormInfoCreator *msgFilterFormInfoCreator = 
 		[[[MessageFilterFormInfoCreator alloc] initWithMsgFilter:[self currentAcctMsgFilter]] autorelease];
@@ -284,12 +290,17 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	GenericFieldBasedTableViewController *msgFilterViewController = 
 		[[[GenericFieldBasedTableViewController alloc] initWithFormInfoCreator:msgFilterFormInfoCreator 
 		andDataModelController:self.appDmc] autorelease];
-	
-//	self.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-//	[self.navigationController presentModalViewController:msgFilterViewController animated:TRUE];
-		
-	[self.navigationController pushViewController:msgFilterViewController animated:YES];       
 
+	UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:msgFilterViewController] autorelease];
+	navController.navigationBar.tintColor = [ColorHelper navBarTintColor];
+	
+	msgFilterViewController.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] 
+		initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
+		target:self action:@selector(msgFilterEditDone)] autorelease];
+
+	navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+
+	[self.navigationController presentModalViewController:navController animated:TRUE];
 }
 
 #pragma mark EmailActionViewDelegate
