@@ -42,7 +42,7 @@ extern const CGFloat EMAIL_ACTION_VIEW_HEIGHT;
 
 @protocol EmailActionViewDelegate <NSObject>
 
--(void)actionButtonPressed;
+-(void)deleteMsgsButtonPressed;
 -(void)unselectAllButtonPressed;
 -(void)selectAllButtonPressed;
 

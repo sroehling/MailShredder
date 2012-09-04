@@ -138,7 +138,7 @@ const CGFloat ACTION_BUTTON_SIZE = 24.0f;
 -(void)actionButtonPressed
 {
 	assert(self.delegate != nil);
-	[self.delegate actionButtonPressed];
+	[self.delegate deleteMsgsButtonPressed];
 }
 
 -(void) refreshMsgs

@@ -166,11 +166,6 @@
 	return fetchRequest;
 }
 
--(NSArray*)allMsgsInMsgList
-{
-	return [CoreDataHelper executeFetchOrThrow:[self allMsgsFetchRequest] 
-		inManagedObectContext:self.appDmc.managedObjectContext];
-}
 
 -(void)updateSelectionForCurrentResults
 {
@@ -347,9 +342,9 @@
 
 #pragma mark EmailActionViewDelegate
 
--(void)actionButtonPressed
+-(void)deleteMsgsButtonPressed
 {
-	assert(0); // must be overriden
+	[self deleteSelectedMsgsWithConfirmation];
 }
 
 -(void)unselectAllButtonPressed
@@ -423,8 +418,11 @@
 #pragma mark Button list call-backs
 
 
--(void)deleteTrashedMsgList:(NSArray*)trashedMsgs
+
+-(void)deleteSelectedMsgsWithConfirmation
 {
+	NSArray *trashedMsgs = [self selectedInMsgList];
+
 	if([trashedMsgs count] > 0)
 	{
 		DeleteMsgConfirmationView *deleteConfirmationView = [[[DeleteMsgConfirmationView alloc]
@@ -437,27 +435,6 @@
 
 }
 
--(void)deleteAllTrashedMsgsButtonPressed
-{
-	[self deleteTrashedMsgList:[self allMsgsInMsgList]];
-}
-
--(void)deleteSelectedTrashedMsgsButtonPressed
-{
-	[self deleteTrashedMsgList:[self selectedInMsgList]];
-}
-
--(void)populateDeletePopupListActions:(NSMutableArray *)actionButtonInfo 
-{
-	[actionButtonInfo addObject:[[[ButtonListItemInfo alloc] 
-		initWithTitle:LOCALIZED_STR(@"MSG_LIST_ACTION_DELETE_SELECTED_BUTTON_TITLE")
-		 andTarget:self andSelector:@selector(deleteSelectedTrashedMsgsButtonPressed)] autorelease]];
-
-	[actionButtonInfo addObject:[[[ButtonListItemInfo alloc] 
-		initWithTitle:LOCALIZED_STR(@"MSG_LIST_ACTION_DELETE_ALL_BUTTON_TITLE")
-		 andTarget:self andSelector:@selector(deleteAllTrashedMsgsButtonPressed)] autorelease]];
-
-}
 
 #pragma mark CurrentEmailAccountChangedListener
 

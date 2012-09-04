@@ -34,18 +34,10 @@
 -(NSPredicate*)msgListPredicate;
 -(NSArray *)selectedInMsgList;
 -(void)unselectAllMsgs;
--(NSArray*)allMsgsInMsgList;
 
 // Reconfigure the fetched results controller, based upon the message filter
 // parameters, then reload the table data.
 -(void)configureFetchedResultsController;
-
-// Reusable methods for deleting selected or all messages when
-// initiated in a popup list of actions.
--(void)deleteTrashedMsgList:(NSArray*)trashedMsgs;
--(void)deleteAllTrashedMsgsButtonPressed;
--(void)deleteSelectedTrashedMsgsButtonPressed;
--(void)populateDeletePopupListActions:(NSMutableArray *)actionButtonInfo;
 
 - (id)initWithAppDataModelController:(DataModelController*)theAppDmc;
 

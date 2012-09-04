@@ -303,23 +303,6 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	[self.navigationController presentModalViewController:navController animated:TRUE];
 }
 
-#pragma mark EmailActionViewDelegate
-
--(void)actionButtonPressed
-{
-	NSLog(@"Action button pressed");
-	
-	NSMutableArray *actionButtonInfo = [[[NSMutableArray alloc] init] autorelease];
-	
-	[self populateDeletePopupListActions:actionButtonInfo];
-
-	PopupButtonListView *popupActionList = [[[PopupButtonListView alloc]
-		initWithFrame:self.navigationController.view.frame 
-		andButtonListItemInfo:actionButtonInfo] autorelease];
-	
-	[self.navigationController.view addSubview:popupActionList];
-}
-
 #pragma mark Button list call-backs
 
 -(MessageFilter*)resetObjectContextAndCreateNewMessageFilter
