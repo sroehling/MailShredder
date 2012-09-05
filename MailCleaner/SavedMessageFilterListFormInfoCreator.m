@@ -21,6 +21,7 @@
 #import "StaticNavFieldEditInfo.h"
 #import "GenericFieldBasedTableEditViewControllerFactory.h"
 #import "MessageFilterObjectAdder.h"
+#import "CollectionHelper.h"
 
 @implementation SavedMessageFilterListFormInfoCreator
 
@@ -38,7 +39,10 @@
 	{
 		[formPopulator nextSection];
 
-		for(MessageFilter *savedFilter in sharedVals.currentEmailAcct.savedMsgListFilters)
+		NSArray *sortedFilters = [CollectionHelper setToSortedArray:sharedVals.currentEmailAcct.savedMsgListFilters 
+				withKey:MESSAGE_FILTER_NAME_KEY];
+
+		for(MessageFilter *savedFilter in sortedFilters)
 		{
 			SavedMessageFilterFormInfoCreator *savedFilterFormCreator = 
 				[[[SavedMessageFilterFormInfoCreator alloc] initWithEmailAcct:sharedVals.currentEmailAcct

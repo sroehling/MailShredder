@@ -46,6 +46,7 @@
 #import "UIHelper.h"
 #import "MoreFormInfoCreator.h"
 #import "SavedMessageFilterTableMenuItem.h"
+#import "CollectionHelper.h"
 
 CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 
@@ -130,8 +131,6 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 		}
 	}
 
-
-
 	NSUInteger numFilters = [savedFiltersMatchingMsgs count];
 	if(numFilters> 0)
 	{
@@ -139,8 +138,10 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 			initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_LOAD_FILTER_FILTER_SECTION_TITLE")] autorelease];
 		[sections addObject:section];
 		
+		NSArray *sortedSavedFilters = [CollectionHelper setToSortedArray:savedFiltersMatchingMsgs 
+				withKey:MESSAGE_FILTER_NAME_KEY];
 		
-		for(MessageFilter *savedFilter in savedFiltersMatchingMsgs)
+		for(MessageFilter *savedFilter in sortedSavedFilters)
 		{
 			SavedMessageFilterTableMenuItem *filterMenuItem = 
 				[[[SavedMessageFilterTableMenuItem alloc] initWithMessageFilter:savedFilter 
@@ -329,8 +330,6 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 
 - (void)messageFilterHeaderEditFilterButtonPressed
 {
-	
-	// TBD - Should we edit the changes in it's own NSManagedObjectContext?
 	[self.appDmc saveContext];
 	[self.editFilterDmc.managedObjectContext reset];
 	
