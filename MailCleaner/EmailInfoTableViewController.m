@@ -119,7 +119,6 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	
 	[currentFilter resetToDefault:self.appDmc];
 
-	
 	[self.appDmc saveContext];
 	[self refreshMessageList];
 	
@@ -425,6 +424,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 		[currentFilter resetFilterName];
 
 		[currentFilter.fromAddressFilter setAddresses:selectedAddresses];
+		[self.appDmc saveContext];
 		
 		[self refreshMessageList];
 	}
@@ -443,6 +443,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 		[currentFilter resetFilterName];
 	
 		[currentFilter.recipientAddressFilter setAddresses:selectedRecipients];
+		[self.appDmc saveContext];
 		
 		[self refreshMessageList];
 	}
@@ -461,6 +462,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 		[currentFilter resetFilterName];
 
 		[currentFilter.emailDomainFilter setDomains:selectedDomains];
+		[self.appDmc saveContext];
 		
 		[self refreshMessageList];
 	}
