@@ -130,6 +130,7 @@
 		00DED4B915ED8D6600C3B1EF /* MoveToFolderSelectionFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DED4B815ED8D6600C3B1EF /* MoveToFolderSelectionFieldEditInfo.m */; };
 		00DED4BC15EE814A00C3B1EF /* DontMoveToFolderSelectionFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DED4BB15EE814900C3B1EF /* DontMoveToFolderSelectionFieldEditInfo.m */; };
 		00E9944A15643244003B9771 /* EmailInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9944915643244003B9771 /* EmailInfoTableViewController.m */; };
+		00EDA63315F6B62F00917916 /* FilterNameFieldValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00EDA63215F6B62F00917916 /* FilterNameFieldValidator.m */; };
 		00F4A9BD15E2AFB100595C95 /* imapAcctPresets.txt in Resources */ = {isa = PBXBuildFile; fileRef = 00F4A9BC15E2AFB100595C95 /* imapAcctPresets.txt */; };
 /* End PBXBuildFile section */
 
@@ -358,6 +359,8 @@
 		00DED4BB15EE814900C3B1EF /* DontMoveToFolderSelectionFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DontMoveToFolderSelectionFieldEditInfo.m; sourceTree = "<group>"; };
 		00E9944815643244003B9771 /* EmailInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoTableViewController.h; sourceTree = "<group>"; };
 		00E9944915643244003B9771 /* EmailInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoTableViewController.m; sourceTree = "<group>"; };
+		00EDA63115F6B62F00917916 /* FilterNameFieldValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterNameFieldValidator.h; sourceTree = "<group>"; };
+		00EDA63215F6B62F00917916 /* FilterNameFieldValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterNameFieldValidator.m; sourceTree = "<group>"; };
 		00F4A9BC15E2AFB100595C95 /* imapAcctPresets.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = imapAcctPresets.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -871,6 +874,8 @@
 		00D9F8BE15F022DA004A9321 /* Saved Filters */ = {
 			isa = PBXGroup;
 			children = (
+				00EDA63115F6B62F00917916 /* FilterNameFieldValidator.h */,
+				00EDA63215F6B62F00917916 /* FilterNameFieldValidator.m */,
 				00D4989715781DA500F8FD2F /* SavedMessageFilterFormInfoCreator.h */,
 				00D4989815781DA500F8FD2F /* SavedMessageFilterFormInfoCreator.m */,
 				00D498741576D9FD00F8FD2F /* SavedMessageFilterListFormInfoCreator.h */,
@@ -1125,6 +1130,7 @@
 				00DED4BC15EE814A00C3B1EF /* DontMoveToFolderSelectionFieldEditInfo.m in Sources */,
 				009B42AF15F1587100D82A08 /* SavedMessageFilterTableMenuItem.m in Sources */,
 				009B42B315F162F300D82A08 /* MessageFilterTableHeader.m in Sources */,
+				00EDA63315F6B62F00917916 /* FilterNameFieldValidator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

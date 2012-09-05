@@ -9,16 +9,20 @@
 #import <Foundation/Foundation.h>
 
 @class MessageFilter;
+@class EmailAccount;
 
 #import "FormInfoCreator.h"
 
 @interface SavedMessageFilterFormInfoCreator : NSObject <FormInfoCreator> {
 	@private
 		MessageFilter *messageFilter;
+		EmailAccount *emailAccount;
 }
 
 @property(nonatomic,retain) MessageFilter *messageFilter;
+@property(nonatomic,retain) EmailAccount *emailAccount;
 
--(id)initWithMessageFilter:(MessageFilter*)theMessageFilter;
+-(id)initWithEmailAcct:(EmailAccount*)theEmailAcct 
+	andMessageFilter:(MessageFilter*)theMessageFilter;
 
 @end

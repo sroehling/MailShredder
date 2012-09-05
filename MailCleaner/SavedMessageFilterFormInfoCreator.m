@@ -18,20 +18,27 @@
 #import "BoolFieldEditInfo.h"
 #import "MessageFilter.h"
 #import "SectionInfo.h"
+#import "EmailAccount.h"
 #import "MailCleanerFormPopulator.h"
+#import "FilterNameFieldValidator.h"
 
 @implementation SavedMessageFilterFormInfoCreator
 
 @synthesize messageFilter;
+@synthesize emailAccount;
 
 
--(id)initWithMessageFilter:(MessageFilter*)theMessageFilter
+-(id)initWithEmailAcct:(EmailAccount*)theEmailAcct 
+	andMessageFilter:(MessageFilter*)theMessageFilter
 {
 	self = [super init];
 	if(self)
 	{
 		assert(theMessageFilter != nil);
 		self.messageFilter = theMessageFilter;
+		
+		assert(theEmailAcct != nil);
+		self.emailAccount = theEmailAcct;
 	}
 	return self;
 }
@@ -45,6 +52,7 @@
 -(void)dealloc
 {
 	[messageFilter release];
+	[emailAccount release];
 	[super dealloc];
 }
 
@@ -58,9 +66,13 @@
 
 	[formPopulator nextSection];
 
+	FilterNameFieldValidator *filterNameValidator = [[[FilterNameFieldValidator alloc] 
+			initWithEmailAcct:self.emailAccount andMessageFilter:self.messageFilter] autorelease];
+
 	[formPopulator populateNameFieldInParentObj:self.messageFilter withNameField:MESSAGE_FILTER_NAME_KEY 
 	            andPlaceholder:LOCALIZED_STR(@"MESSAGE_RULE_NAME_PLACEHOLDER") 
-				andMaxLength:MESSAGE_FILTER_NAME_MAX_LENGTH];
+				andMaxLength:MESSAGE_FILTER_NAME_MAX_LENGTH
+				andCustomValidator:filterNameValidator];
 
 	[formPopulator nextSection];
 

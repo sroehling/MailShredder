@@ -75,7 +75,8 @@
 	newFilter.emailAcctSavedFilter = sharedVals.currentEmailAcct;
 
 	SavedMessageFilterFormInfoCreator *savedMessageFilterFormCreator = 
-		[[[SavedMessageFilterFormInfoCreator alloc] initWithMessageFilter:newFilter] autorelease];
+		[[[SavedMessageFilterFormInfoCreator alloc] initWithEmailAcct:sharedVals.currentEmailAcct 
+		andMessageFilter:newFilter] autorelease];
 	
 	GenericFieldBasedTableAddViewController *addView =  
 		[[[GenericFieldBasedTableAddViewController alloc] 

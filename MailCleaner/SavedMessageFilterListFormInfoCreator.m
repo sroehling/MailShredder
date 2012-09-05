@@ -41,7 +41,8 @@
 		for(MessageFilter *savedFilter in sharedVals.currentEmailAcct.savedMsgListFilters)
 		{
 			SavedMessageFilterFormInfoCreator *savedFilterFormCreator = 
-				[[[SavedMessageFilterFormInfoCreator alloc] initWithMessageFilter:savedFilter] autorelease];
+				[[[SavedMessageFilterFormInfoCreator alloc] initWithEmailAcct:sharedVals.currentEmailAcct
+				andMessageFilter:savedFilter] autorelease];
 			GenericFieldBasedTableEditViewControllerFactory *filterEditViewControllerFactory
 				= [[[GenericFieldBasedTableEditViewControllerFactory alloc] initWithFormInfoCreator:savedFilterFormCreator] autorelease];
 			NSString *filterSynopsis = savedFilter.filterSynopsis;

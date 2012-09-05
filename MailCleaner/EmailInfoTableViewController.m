@@ -473,7 +473,8 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	newFilter.emailAcctSavedFilter = sharedVals.currentEmailAcct;
 
 	SavedMessageFilterFormInfoCreator *savedMessageFilterFormCreator = 
-		[[[SavedMessageFilterFormInfoCreator alloc] initWithMessageFilter:newFilter] autorelease];
+		[[[SavedMessageFilterFormInfoCreator alloc] initWithEmailAcct:sharedVals.currentEmailAcct 
+		andMessageFilter:newFilter] autorelease];
 	
 	GenericFieldBasedTableAddViewController *addView =  
 		[[[GenericFieldBasedTableAddViewController alloc] 

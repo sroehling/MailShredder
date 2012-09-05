@@ -90,6 +90,7 @@
 "RECIPIENT_ADDRESS_TYPE_PLURAL" = "Recipients";
 "FROM_ADDRESS_TYPE" = "Sender";
 "FROM_ADDRESS_TYPE_PLURAL" = "Senders";
+"MESSAGE_FILTER_NAME_VALIDATION_MSG" = "Please enter a valid name for the message filter. The name cannot be empty or the same as another filter";
 
 
 "EMAIL_DOMAIN_FILTER_NONE_TITLE" = "Any Domain";
