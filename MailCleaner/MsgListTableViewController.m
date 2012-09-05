@@ -26,6 +26,7 @@
 #import "DeleteMsgConfirmationView.h"
 #import "MsgDetailViewController.h"
 #import "SharedAppVals.h"
+#import "EmailAccount.h"
 #import "MsgPredicateHelper.h"
 
 
@@ -41,6 +42,7 @@
 -(void)newMessageFilterDidSaveNoficiationHandler:(NSNotification*)notification
 {
 	[self.appDmc.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
+	[[AppHelper theAppDelegate] updateMessageFilterCountsInBackground];
 }
 
 - (id)initWithAppDataModelController:(DataModelController*)theAppDmc
@@ -49,7 +51,6 @@
     if (self) {
         // Custom initialization
 		self.appDmc = theAppDmc;
-		
 		
 		self.selectedEmailInfos = [[[NSMutableSet alloc] init] autorelease]; 
     }
@@ -70,12 +71,6 @@
 	return nil;
 }
 
-
--(NSPredicate*)msgListPredicate
-{
-	assert(0); // must be overridden
-	return nil;
-}
 
 -(void)selectEmailInfo:(EmailInfo*)emailInfo
 {
@@ -144,29 +139,6 @@
 	cell.accessoryType =UITableViewCellAccessoryDetailDisclosureButton;	
 }
 
--(NSFetchRequest*)allMsgsFetchRequest
-{
-	NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
-	NSEntityDescription *entity = [NSEntityDescription
-		entityForName:EMAIL_INFO_ENTITY_NAME 
-		inManagedObjectContext:self.appDmc.managedObjectContext];
-	[fetchRequest setEntity:entity];
- 
-	NSSortDescriptor *sort = [[NSSortDescriptor alloc]
-		initWithKey:EMAIL_INFO_SEND_DATE_KEY ascending:NO];
-	[fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-	
-	NSPredicate *currentAcctPredicate = [MsgPredicateHelper emailInfoInCurrentAcctPredicate:self.appDmc];
-		
-	NSPredicate *matchFilterInCurrentAcct = [NSCompoundPredicate andPredicateWithSubpredicates:
-		[NSArray arrayWithObjects:currentAcctPredicate, [self msgListPredicate],nil]];
-
-	[fetchRequest setPredicate:matchFilterInCurrentAcct];
-	[fetchRequest setFetchBatchSize:20];
-	return fetchRequest;
-}
-
-
 -(void)updateSelectionForCurrentResults
 {
 	NSArray *fetchedObjects = [self.emailInfoFrc fetchedObjects];
@@ -185,11 +157,23 @@
 	}
 }
 
+-(EmailAccount*)currentEmailAcct
+{
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
+	assert(sharedAppVals.currentEmailAcct != nil);
+	return sharedAppVals.currentEmailAcct;
+}
+
+
 -(void)configureFetchedResultsController
 {
+
+	EmailAccount *currentAcct = [self currentEmailAcct];
+	NSFetchRequest *currentFilterFetchRequest = [MsgPredicateHelper 
+		emailInfoFetchRequestForDataModelController:self.appDmc andFilter:currentAcct.msgListFilter];
  
 	self.emailInfoFrc = [[[NSFetchedResultsController alloc] 
-			initWithFetchRequest:[self allMsgsFetchRequest]
+			initWithFetchRequest:currentFilterFetchRequest
 			managedObjectContext:self.appDmc.managedObjectContext 
 			sectionNameKeyPath:nil cacheName:nil] autorelease];
 	self.emailInfoFrc.delegate = self;

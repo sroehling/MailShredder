@@ -30,6 +30,8 @@
 		EmailAccountAdder *emailAccountAdder;
 		NSOperationQueue *getBodyOperationQueue;
 		
+		NSOperationQueue *countMessageFilterCountsQueue;
+		
 		NSMutableSet *accountChangeListers;
 		
 		UINavigationController *messageListNavController;
@@ -46,8 +48,11 @@
 @property(nonatomic,retain) CompositeMailSyncProgressDelegate *mailSyncProgressDelegates;
 @property(nonatomic,retain) EmailAccountAdder *emailAccountAdder;
 @property(nonatomic,retain) NSOperationQueue *getBodyOperationQueue;
+@property(nonatomic,retain) NSOperationQueue *countMessageFilterCountsQueue;
 
 @property(nonatomic,retain) NSMutableSet *accountChangeListers;
+
+-(void)updateMessageFilterCountsInBackground;
 
 @end
 

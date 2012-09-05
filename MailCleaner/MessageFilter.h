@@ -36,6 +36,10 @@ extern NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH;
 @property (nonatomic, retain) EmailAccount *emailAcctMsgListFilter;
 @property (nonatomic, retain) EmailAccount *emailAcctSavedFilter;
 
+// This is the number of messages matching the filter. This is
+// updated after delete or synchronization operations, so it will be
+// immediately available when the user chooses to load a filter.
+@property (nonatomic, retain) NSNumber * matchingMsgs;
 
 -(NSPredicate*)filterPredicate:(NSDate*)baseDate;
 -(void)resetToDefault:(DataModelController*)filterDmc;

@@ -33,6 +33,8 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 @dynamic recipientAddressFilter;
 @dynamic fromAddressFilter;
 
+@dynamic matchingMsgs;
+
 // Inverse
 @dynamic emailAcctMsgListFilter;
 @dynamic emailAcctSavedFilter;

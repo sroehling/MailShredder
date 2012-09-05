@@ -131,6 +131,7 @@
 		00DED4BC15EE814A00C3B1EF /* DontMoveToFolderSelectionFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DED4BB15EE814900C3B1EF /* DontMoveToFolderSelectionFieldEditInfo.m */; };
 		00E9944A15643244003B9771 /* EmailInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9944915643244003B9771 /* EmailInfoTableViewController.m */; };
 		00EDA63315F6B62F00917916 /* FilterNameFieldValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00EDA63215F6B62F00917916 /* FilterNameFieldValidator.m */; };
+		00EDA63815F7C0D800917916 /* MessageFilterCountOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00EDA63715F7C0D800917916 /* MessageFilterCountOperation.m */; };
 		00F4A9BD15E2AFB100595C95 /* imapAcctPresets.txt in Resources */ = {isa = PBXBuildFile; fileRef = 00F4A9BC15E2AFB100595C95 /* imapAcctPresets.txt */; };
 /* End PBXBuildFile section */
 
@@ -361,6 +362,8 @@
 		00E9944915643244003B9771 /* EmailInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoTableViewController.m; sourceTree = "<group>"; };
 		00EDA63115F6B62F00917916 /* FilterNameFieldValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterNameFieldValidator.h; sourceTree = "<group>"; };
 		00EDA63215F6B62F00917916 /* FilterNameFieldValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterNameFieldValidator.m; sourceTree = "<group>"; };
+		00EDA63615F7C0D800917916 /* MessageFilterCountOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageFilterCountOperation.h; sourceTree = "<group>"; };
+		00EDA63715F7C0D800917916 /* MessageFilterCountOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageFilterCountOperation.m; sourceTree = "<group>"; };
 		00F4A9BC15E2AFB100595C95 /* imapAcctPresets.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = imapAcctPresets.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -439,6 +442,7 @@
 		000566971562F94C003D114D /* MailCleaner */ = {
 			isa = PBXGroup;
 			children = (
+				00EDA63515F7C08100917916 /* Message Filter Count Operation */,
 				00D4988F1577F00F00F8FD2F /* Helper */,
 				003D59A015641CDD00AD3D91 /* Data Model */,
 				00A8C31115838BB9006163EE /* Mail Client Operations */,
@@ -925,6 +929,15 @@
 			name = "Move to Folder for Deletion Setting";
 			sourceTree = "<group>";
 		};
+		00EDA63515F7C08100917916 /* Message Filter Count Operation */ = {
+			isa = PBXGroup;
+			children = (
+				00EDA63615F7C0D800917916 /* MessageFilterCountOperation.h */,
+				00EDA63715F7C0D800917916 /* MessageFilterCountOperation.m */,
+			);
+			name = "Message Filter Count Operation";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1131,6 +1144,7 @@
 				009B42AF15F1587100D82A08 /* SavedMessageFilterTableMenuItem.m in Sources */,
 				009B42B315F162F300D82A08 /* MessageFilterTableHeader.m in Sources */,
 				00EDA63315F6B62F00917916 /* FilterNameFieldValidator.m in Sources */,
+				00EDA63815F7C0D800917916 /* MessageFilterCountOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -31,7 +31,6 @@
 @property(nonatomic,retain) MsgListView *msgListView;
 @property(nonatomic,retain) NSMutableSet *selectedEmailInfos;
 
--(NSPredicate*)msgListPredicate;
 -(NSArray *)selectedInMsgList;
 -(void)unselectAllMsgs;
 

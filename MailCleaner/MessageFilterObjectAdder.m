@@ -96,7 +96,8 @@
 
 - (void)newFilterSavedDidSaveNotificationHandler:(NSNotification *)notification
 {
-     [self.mainDmc.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];	
+     [self.mainDmc.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
+	 [[AppHelper theAppDelegate] updateMessageFilterCountsInBackground];
 }
 
 -(void)dealloc

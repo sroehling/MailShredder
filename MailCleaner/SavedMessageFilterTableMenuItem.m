@@ -22,7 +22,10 @@
 -(id)initWithMessageFilter:(MessageFilter*)theMessageFilter 
 	andFilterSelectedDelegate:(id<SavedMessageFilterTableMenuItemSelectedDelegate>)theSelectionDelegate
 {
-	self = [super initWithTitle:theMessageFilter.filterName 
+	NSString *filterNameWithCount = [NSString stringWithFormat:@"%@ (%d)",
+		theMessageFilter.filterName,[theMessageFilter.matchingMsgs integerValue]];
+
+	self = [super initWithTitle:filterNameWithCount
 		andTarget:self andSelector:@selector(savedFilterMenuItemSelected)];
 	if(self)
 	{

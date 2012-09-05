@@ -28,6 +28,7 @@
 #import "GenericFieldBasedTableAddViewController.h"
 #import "EmailAccountAdder.h"
 #import "FormContext.h"
+#import "MessageFilterCountOperation.h"
 
 @implementation AppDelegate
 
@@ -40,6 +41,7 @@
 @synthesize getBodyOperationQueue;
 @synthesize accountChangeListers;
 @synthesize messageListNavController;
+@synthesize countMessageFilterCountsQueue;
 
 - (void)dealloc
 {
@@ -52,6 +54,7 @@
 	[emailAccountAdder release];
 	[getBodyOperationQueue release];
 	[accountChangeListers release];
+	[countMessageFilterCountsQueue release];
     [super dealloc];
 }
 
@@ -182,6 +185,7 @@
 		andProgressDelegate:self.mailSyncProgressDelegates] autorelease];
 		
 	self.getBodyOperationQueue = [[[NSOperationQueue alloc] init] autorelease];
+	self.countMessageFilterCountsQueue = [[[NSOperationQueue alloc] init] autorelease];
 
 	
 	EmailInfoTableViewController *msgListController = [[[EmailInfoTableViewController alloc] 
@@ -207,6 +211,14 @@
 	}
 	
 	return YES;
+}
+
+-(void)updateMessageFilterCountsInBackground
+{
+	MessageFilterCountOperation *countMsgsOperation = 
+		[[[MessageFilterCountOperation alloc] initWithMainThreadDmc:self.appDmc 
+		andEmailAccount:self.sharedAppVals.currentEmailAcct] autorelease];
+	[self.countMessageFilterCountsQueue addOperation:countMsgsOperation];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

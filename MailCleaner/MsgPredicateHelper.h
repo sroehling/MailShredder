@@ -9,11 +9,15 @@
 #import <Foundation/Foundation.h>
 
 @class DataModelController;
+@class MessageFilter;
 
 @interface MsgPredicateHelper : NSObject
 
 +(NSPredicate*)markedForDeletion;
 
 +(NSPredicate*)emailInfoInCurrentAcctPredicate:(DataModelController*)appDmc;
+
++(NSFetchRequest*)emailInfoFetchRequestForDataModelController:(DataModelController*)appDmc
+	andFilter:(MessageFilter*)msgFilter;
 
 @end

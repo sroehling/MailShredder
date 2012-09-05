@@ -64,23 +64,6 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	return sharedAppVals.currentEmailAcct.msgListFilter;
 }
 
--(EmailAccount*)currentEmailAcct
-{
-	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
-	assert(sharedAppVals.currentEmailAcct != nil);
-	return sharedAppVals.currentEmailAcct;
-}
-
--(NSPredicate*)msgListPredicate
-{	
-	NSDate *baseDate = [DateHelper today];
-	
-	NSPredicate *filterPredicate = [self.currentAcctMsgFilter filterPredicate:baseDate];
-	assert(filterPredicate != nil);
-	
-	return filterPredicate;
-}
-
 -(void)showSettings
 {
 	MoreFormInfoCreator *settingsFormInfoCreator = 
@@ -136,10 +119,20 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_RESET_FILTER_MENU_TITLE")
 		 andTarget:self andSelector:@selector(changeFilterResetToDefault)] autorelease]];
 	[sections addObject:section];
-
-
+	
 	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
-	NSUInteger numFilters = [sharedAppVals.currentEmailAcct.savedMsgListFilters count];
+	NSMutableSet *savedFiltersMatchingMsgs = [[[NSMutableSet alloc] init] autorelease];
+	for(MessageFilter *savedFilter in sharedAppVals.currentEmailAcct.savedMsgListFilters)
+	{
+		if([savedFilter.matchingMsgs integerValue] >0)
+		{
+			[savedFiltersMatchingMsgs addObject:savedFilter];
+		}
+	}
+
+
+
+	NSUInteger numFilters = [savedFiltersMatchingMsgs count];
 	if(numFilters> 0)
 	{
 		section = [[[TableMenuSection alloc] 
@@ -147,7 +140,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 		[sections addObject:section];
 		
 		
-		for(MessageFilter *savedFilter in sharedAppVals.currentEmailAcct.savedMsgListFilters)
+		for(MessageFilter *savedFilter in savedFiltersMatchingMsgs)
 		{
 			SavedMessageFilterTableMenuItem *filterMenuItem = 
 				[[[SavedMessageFilterTableMenuItem alloc] initWithMessageFilter:savedFilter 
@@ -187,6 +180,8 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	
 	// If changes are made to the filter, then reset the filter name (if it's not already set
 	SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:self.editFilterDmc];
+	
+	[[AppHelper theAppDelegate] updateMessageFilterCountsInBackground];
 	
 	if([sharedVals.currentEmailAcct.msgListFilter
 		nonEmptyFilterName])

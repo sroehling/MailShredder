@@ -21,6 +21,8 @@
 #import "PercentProgressCounter.h"
 #import "FolderSyncContext.h"
 #import "MsgSyncContext.h"
+#import "AppHelper.h"
+#import "AppDelegate.h"
 
 
 @implementation MailSyncOperation
@@ -106,7 +108,11 @@
 				
 			[self.connectionContext teardownConnection];
 
-			[self.connectionContext.progressDelegate mailSyncComplete:TRUE];			
+			[self.connectionContext.progressDelegate mailSyncComplete:TRUE];
+			
+			// Update the number of messages matching each saved message filter
+			// to reflect the sychronization.
+			[[AppHelper theAppDelegate] updateMessageFilterCountsInBackground];
 		}
 		@catch (NSException *exception) 
 		{

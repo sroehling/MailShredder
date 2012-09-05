@@ -15,6 +15,8 @@
 #import "DateHelper.h"
 #import "LocalizationHelper.h"
 #import "EmailAccount.h"
+#import "AppHelper.h"
+#import "AppDelegate.h"
 
 #define SYNC_PROGRESS_UPDATE_THRESHOLD 0.05
 
@@ -229,6 +231,8 @@
 		{
 			[self deleteMarkedMsgs];
 			[self.connectionContext.progressDelegate mailSyncComplete:TRUE];
+			
+
 		}
 		@catch (NSException *exception) {
 			[self performSelectorOnMainThread:@selector(deleteFailedAlert) 
@@ -239,6 +243,11 @@
 		@finally 
 		{
 			[self.connectionContext teardownConnection];
+
+			// Update the number of messages matching each saved message filter
+			// to reflect messages just deleted.
+			[[AppHelper theAppDelegate] updateMessageFilterCountsInBackground];
+
 		}
 	}
 	else 
