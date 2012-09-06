@@ -16,6 +16,7 @@
 #import "DataModelController.h"
 #import "MailAddressHelper.h"
 #import "ImapAcctPreset.h"
+#import "ImapAcctPresets.h"
 #import "FullEmailAccountFormInfoCreator.h"
 
 @implementation EmailAccountAdder
@@ -70,9 +71,10 @@
 
 -(void)populateAcctWithPresets:(EmailAccount*)newAcct
 {
-	NSDictionary *presetsByDomain = [ImapAcctPreset presetsByDomainName];
+
+	ImapAcctPresets *emailAcctPresets = [[[ImapAcctPresets alloc] init] autorelease];
 	NSString *newAcctDomain = [MailAddressHelper emailAddressDomainName:newAcct.emailAddress];
-	ImapAcctPreset *presetForDomain = [presetsByDomain objectForKey:newAcctDomain];
+	ImapAcctPreset *presetForDomain = [emailAcctPresets findPresetWithDomainName:newAcctDomain];
 	if(presetForDomain != nil)
 	{
 		newAcct.portNumber = [NSNumber numberWithInt:presetForDomain.portNum];

@@ -24,6 +24,4 @@
 @property NSUInteger portNum;
 @property BOOL fullEmailIsUserName;
 
-+(NSDictionary*)presetsByDomainName;
-
 @end
