@@ -8,7 +8,7 @@
 
 #import "EmailAccountAdder.h"
 #import "EmailAccountFormInfoCreator.h"
-#import "EmailAddrFormInfoCreator.h"
+#import "BasicEmailAccountFormInfoCreator.h"
 #import "GenericFieldBasedTableAddViewController.h"
 #import "FormContext.h"
 #import "EmailAccount.h"
@@ -31,8 +31,8 @@
 	EmailAccount *newAcct = [EmailAccount 
 		defaultNewEmailAcctWithDataModelController:dmcForNewAcct];
 	
-	EmailAddrFormInfoCreator *emailAddrFormInfoCreator = 
-		[[[EmailAddrFormInfoCreator alloc] initWithEmailAcct:newAcct] autorelease];
+	BasicEmailAccountFormInfoCreator *emailAddrFormInfoCreator = 
+		[[[BasicEmailAccountFormInfoCreator alloc] initWithEmailAcct:newAcct] autorelease];
 	
 	GenericFieldBasedTableAddViewController *emailAddressAddView =  
 		[[[GenericFieldBasedTableAddViewController alloc] 

@@ -80,7 +80,7 @@
 		007860CF15DD99F600DC333B /* FolderSyncContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 007860CE15DD99F600DC333B /* FolderSyncContext.m */; };
 		007ABE8F156ACADE004BA8BF /* dummyEmails.txt in Resources */ = {isa = PBXBuildFile; fileRef = 003D59911564028200AD3D91 /* dummyEmails.txt */; };
 		008129EB15B8ABED00533E36 /* DeleteMsgConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008129EA15B8ABED00533E36 /* DeleteMsgConfirmationView.m */; };
-		008FDF3415E2A14000BC4C61 /* EmailAddrFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 008FDF3315E2A14000BC4C61 /* EmailAddrFormInfoCreator.m */; };
+		008FDF3415E2A14000BC4C61 /* BasicEmailAccountFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 008FDF3315E2A14000BC4C61 /* BasicEmailAccountFormInfoCreator.m */; };
 		008FE31115D57D860066A75D /* MailSyncOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 008FE31015D57D850066A75D /* MailSyncOperation.m */; };
 		009106C015CC577700994F69 /* RecipientAddressFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 009106BF15CC577700994F69 /* RecipientAddressFilter.m */; };
 		009106C315CC582000994F69 /* FromAddressFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 009106C215CC582000994F69 /* FromAddressFilter.m */; };
@@ -276,8 +276,8 @@
 		007ABE8B156AB618004BA8BF /* MailCleanerSpec.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MailCleanerSpec.md; sourceTree = "<group>"; };
 		008129E915B8ABEC00533E36 /* DeleteMsgConfirmationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteMsgConfirmationView.h; sourceTree = "<group>"; };
 		008129EA15B8ABED00533E36 /* DeleteMsgConfirmationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteMsgConfirmationView.m; sourceTree = "<group>"; };
-		008FDF3215E2A14000BC4C61 /* EmailAddrFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddrFormInfoCreator.h; sourceTree = "<group>"; };
-		008FDF3315E2A14000BC4C61 /* EmailAddrFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddrFormInfoCreator.m; sourceTree = "<group>"; };
+		008FDF3215E2A14000BC4C61 /* BasicEmailAccountFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; path = BasicEmailAccountFormInfoCreator.h; sourceTree = "<group>"; };
+		008FDF3315E2A14000BC4C61 /* BasicEmailAccountFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicEmailAccountFormInfoCreator.m; sourceTree = "<group>"; };
 		008FE30F15D57D850066A75D /* MailSyncOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailSyncOperation.h; sourceTree = "<group>"; };
 		008FE31015D57D850066A75D /* MailSyncOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailSyncOperation.m; sourceTree = "<group>"; };
 		009106BE15CC577700994F69 /* RecipientAddressFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipientAddressFilter.h; sourceTree = "<group>"; };
@@ -743,8 +743,8 @@
 			children = (
 				00C8971C15AF4BF20006FF2F /* EmailAccountFormInfoCreator.h */,
 				00C8971D15AF4BF20006FF2F /* EmailAccountFormInfoCreator.m */,
-				008FDF3215E2A14000BC4C61 /* EmailAddrFormInfoCreator.h */,
-				008FDF3315E2A14000BC4C61 /* EmailAddrFormInfoCreator.m */,
+				008FDF3215E2A14000BC4C61 /* BasicEmailAccountFormInfoCreator.h */,
+				008FDF3315E2A14000BC4C61 /* BasicEmailAccountFormInfoCreator.m */,
 				006AE33115F9113F007EED2E /* FullEmailAccountFormInfoCreator.h */,
 				006AE33215F9113F007EED2E /* FullEmailAccountFormInfoCreator.m */,
 			);
@@ -1188,7 +1188,7 @@
 				004A750215D993AD00A5F4FB /* GetMessageBodyOperation.m in Sources */,
 				007860CF15DD99F600DC333B /* FolderSyncContext.m in Sources */,
 				00B3B71D15DDA62C00A8FFCD /* MsgSyncContext.m in Sources */,
-				008FDF3415E2A14000BC4C61 /* EmailAddrFormInfoCreator.m in Sources */,
+				008FDF3415E2A14000BC4C61 /* BasicEmailAccountFormInfoCreator.m in Sources */,
 				005BA6F615E2B0F000D5D11C /* ImapAcctPreset.m in Sources */,
 				00DED4A815ED59E200C3B1EF /* SyncFoldersFormInfoCreator.m in Sources */,
 				00DED4AB15ED5CC800C3B1EF /* SyncFoldersFieldEditInfo.m in Sources */,

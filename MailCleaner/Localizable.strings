@@ -136,6 +136,7 @@
 "EMAIL_ACCOUNT_PORTNUM_FIELD_LABEL" = "Port Number";
 "EMAIL_ACCOUNT_PORTNUM_PLACEHOLDER" = "Enter a port number";
 "EMAIL_ACCOUNT_PORTNUM_VALIDATION_MSG" = "Enter a positive number";
+"EMAIL_ACCOUNT_PASSWORD_SECTION" = "Email Password";
 "EMAIL_ACCOUNT_MAIL_SERVER_SECTION" = "IMAP Mail Server Settings";
 "EMAIL_ACCOUNT_ACCOUNT_INFO_SECTION_TITLE" = "Account Information";
 "EMAIL_ACCOUNT_ADDRESS_FIELD_LABEL" = "Address";
@@ -151,6 +152,7 @@
 "EMAIL_ACCOUNT_PASSWORD_FIELD_LABEL" = "Password";
 "EMAIL_ACCOUNT_PASSWORD_PLACEHOLDER" = "Enter a password";
 "EMAIL_ACCOUNT_TABLE_SUBHEADER" = "Enter your email account settings. If you're unsure of the settings, please consult your email provider."; 
+"EMAIL_ACCOUNT_TABLE_BASIC_INFO_SUBHEADER" = "Enter the requested information for your email account, then tap the Next button. Based upon this initial information, you'll be guided to enter the remaining account information.";
 "EMAIL_ACCOUNT_DELETE_ALERT_TITLE" = "Really Delete Account?";
 "EMAIL_ACCOUNT_DELETE_ALERT_BODY" = "Do you really want to delete this account? Any rules you've created for the account will also be deleted.";
 "EMAIL_ACCOUNT_DELETE_ALERT_CANCEL_BUTTON_TITLE" = "Cancel";
