@@ -16,6 +16,7 @@
 #import "DataModelController.h"
 #import "MailAddressHelper.h"
 #import "ImapAcctPreset.h"
+#import "FullEmailAccountFormInfoCreator.h"
 
 @implementation EmailAccountAdder
 
@@ -101,8 +102,8 @@
 	
 	assert(self.currParentContext != nil);
 
-	EmailAccountFormInfoCreator *emailAcctFormInfoCreator = 
-		[[[EmailAccountFormInfoCreator alloc] initWithEmailAcct:newAcct] autorelease];
+	FullEmailAccountFormInfoCreator *emailAcctFormInfoCreator = 
+		[[[FullEmailAccountFormInfoCreator alloc] initWithEmailAcct:newAcct] autorelease];
 	
     GenericFieldBasedTableAddViewController *addView =  
 		[[[GenericFieldBasedTableAddViewController alloc] 

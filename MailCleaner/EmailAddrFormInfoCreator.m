@@ -8,18 +8,11 @@
 
 #import "EmailAddrFormInfoCreator.h"
 
-#import "FormPopulator.h"
-#import "VariableHeightTableHeader.h"
-#import "EmailAccount.h"
-#import "LocalizationHelper.h"
-#import "RegExpTextFieldValidator.h"
-#import "TextFieldEditInfo.h"
-#import "SectionInfo.h"
 #import "EmailAccountFormPopulator.h"
+#import "LocalizationHelper.h"
 
 @implementation EmailAddrFormInfoCreator
 
-@synthesize emailAccount;
 
 - (FormInfo*)createFormInfoWithContext:(FormContext*)parentContext
 {
@@ -38,27 +31,6 @@
 
 }
 
--(id)init
-{
-	assert(0); // must init with an EmailAccount
-	return nil;
-}
-
--(void)dealloc
-{
-	[emailAccount release];
-	[super dealloc];
-}
-
--(id)initWithEmailAcct:(EmailAccount*)theEmailAcct
-{
-	self = [super init];
-	if(self)
-	{
-		self.emailAccount = theEmailAcct;
-	}
-	return self;
-}
 
 
 @end

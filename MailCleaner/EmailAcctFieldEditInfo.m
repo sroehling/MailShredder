@@ -8,7 +8,7 @@
 
 #import "EmailAcctFieldEditInfo.h"
 #import "EmailAccount.h"
-#import "EmailAccountFormInfoCreator.h"
+#import "FullEmailAccountFormInfoCreator.h"
 #import "DataModelController.h"
 #import "SharedAppVals.h"
 #import "LocalizationHelper.h"
@@ -22,7 +22,7 @@
 
 -(id)initWithEmailAcct:(EmailAccount*)theEmailAcct andAppDmc:(DataModelController*)theAppDmc
 {
-	EmailAccountFormInfoCreator *emailAcctFormInfoCreator = [[[EmailAccountFormInfoCreator alloc] 
+	FullEmailAccountFormInfoCreator *emailAcctFormInfoCreator = [[[FullEmailAccountFormInfoCreator alloc] 
 			initWithEmailAcct:theEmailAcct] autorelease];
 
 	self = [super initWithCaption:theEmailAcct.acctName andSubtitle:theEmailAcct.emailAddress 

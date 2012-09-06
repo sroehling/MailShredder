@@ -8,18 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+#import "EmailAccountFormInfoCreator.h"
+
 #import "FormInfoCreator.h"
 
 @class EmailAccount;
 
-@interface EmailAddrFormInfoCreator : NSObject <FormInfoCreator>
-{
-	@private
-		EmailAccount *emailAccount;
-}
-
-@property(nonatomic,retain) EmailAccount *emailAccount;
-
--(id)initWithEmailAcct:(EmailAccount*)theEmailAcct;
+@interface EmailAddrFormInfoCreator : EmailAccountFormInfoCreator
 
 @end
