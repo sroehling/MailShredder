@@ -698,6 +698,62 @@
 			name = Libs;
 			sourceTree = "<group>";
 		};
+		006AE32C15F90F99007EED2E /* IMAP Presets */ = {
+			isa = PBXGroup;
+			children = (
+				00F4A9BC15E2AFB100595C95 /* imapAcctPresets.txt */,
+				005BA6F415E2B0F000D5D11C /* ImapAcctPreset.h */,
+				005BA6F515E2B0F000D5D11C /* ImapAcctPreset.m */,
+			);
+			name = "IMAP Presets";
+			sourceTree = "<group>";
+		};
+		006AE32D15F90FB3007EED2E /* Account Property Editing */ = {
+			isa = PBXGroup;
+			children = (
+				00DED4A315ED530E00C3B1EF /* emailAcctDeleteSettings.md */,
+				006AE32E15F91001007EED2E /* Port Number */,
+				00DED4B315ED82DB00C3B1EF /* Move to Folder for Deletion Setting */,
+				00DED4B215ED6CEB00C3B1EF /* Synchronized Folders Setting */,
+			);
+			name = "Account Property Editing";
+			sourceTree = "<group>";
+		};
+		006AE32E15F91001007EED2E /* Port Number */ = {
+			isa = PBXGroup;
+			children = (
+				00C8972915AF690F0006FF2F /* PortNumberValidator.h */,
+				00C8972A15AF690F0006FF2F /* PortNumberValidator.m */,
+				00C8777215B306EE0063F88B /* PortNumFieldEditInfo.h */,
+				00C8777315B306EE0063F88B /* PortNumFieldEditInfo.m */,
+			);
+			name = "Port Number";
+			sourceTree = "<group>";
+		};
+		006AE32F15F91038007EED2E /* Guided and Full Account Form Populators */ = {
+			isa = PBXGroup;
+			children = (
+				008FDF3215E2A14000BC4C61 /* EmailAddrFormInfoCreator.h */,
+				008FDF3315E2A14000BC4C61 /* EmailAddrFormInfoCreator.m */,
+				00C8971C15AF4BF20006FF2F /* EmailAccountFormInfoCreator.h */,
+				00C8971D15AF4BF20006FF2F /* EmailAccountFormInfoCreator.m */,
+			);
+			name = "Guided and Full Account Form Populators";
+			sourceTree = "<group>";
+		};
+		006AE33015F91072007EED2E /* Account List */ = {
+			isa = PBXGroup;
+			children = (
+				00C8972515AF52FD0006FF2F /* EmailAccountAdder.h */,
+				00C8972615AF52FD0006FF2F /* EmailAccountAdder.m */,
+				00C8972215AF52540006FF2F /* EmailAccountListFormInfoCreator.h */,
+				00C8972315AF52540006FF2F /* EmailAccountListFormInfoCreator.m */,
+				00AAF2E615B61ECF00BFF03C /* EmailAcctFieldEditInfo.h */,
+				00AAF2E715B61ED000BFF03C /* EmailAcctFieldEditInfo.m */,
+			);
+			name = "Account List";
+			sourceTree = "<group>";
+		};
 		007ABE8E156AB631004BA8BF /* Development Docs */ = {
 			isa = PBXGroup;
 			children = (
@@ -843,26 +899,10 @@
 			children = (
 				006AE32815F8FF21007EED2E /* EmailAccountFormPopulator.h */,
 				006AE32915F8FF21007EED2E /* EmailAccountFormPopulator.m */,
-				00DED4B315ED82DB00C3B1EF /* Move to Folder for Deletion Setting */,
-				00DED4B215ED6CEB00C3B1EF /* Synchronized Folders Setting */,
-				00C8777215B306EE0063F88B /* PortNumFieldEditInfo.h */,
-				00C8777315B306EE0063F88B /* PortNumFieldEditInfo.m */,
-				00C8972515AF52FD0006FF2F /* EmailAccountAdder.h */,
-				00C8972615AF52FD0006FF2F /* EmailAccountAdder.m */,
-				008FDF3215E2A14000BC4C61 /* EmailAddrFormInfoCreator.h */,
-				008FDF3315E2A14000BC4C61 /* EmailAddrFormInfoCreator.m */,
-				00C8971C15AF4BF20006FF2F /* EmailAccountFormInfoCreator.h */,
-				00C8971D15AF4BF20006FF2F /* EmailAccountFormInfoCreator.m */,
-				00C8972215AF52540006FF2F /* EmailAccountListFormInfoCreator.h */,
-				00C8972315AF52540006FF2F /* EmailAccountListFormInfoCreator.m */,
-				00C8972915AF690F0006FF2F /* PortNumberValidator.h */,
-				00C8972A15AF690F0006FF2F /* PortNumberValidator.m */,
-				00AAF2E615B61ECF00BFF03C /* EmailAcctFieldEditInfo.h */,
-				00AAF2E715B61ED000BFF03C /* EmailAcctFieldEditInfo.m */,
-				00F4A9BC15E2AFB100595C95 /* imapAcctPresets.txt */,
-				005BA6F415E2B0F000D5D11C /* ImapAcctPreset.h */,
-				005BA6F515E2B0F000D5D11C /* ImapAcctPreset.m */,
-				00DED4A315ED530E00C3B1EF /* emailAcctDeleteSettings.md */,
+				006AE33015F91072007EED2E /* Account List */,
+				006AE32D15F90FB3007EED2E /* Account Property Editing */,
+				006AE32C15F90F99007EED2E /* IMAP Presets */,
+				006AE32F15F91038007EED2E /* Guided and Full Account Form Populators */,
 			);
 			name = "Email Account";
 			sourceTree = "<group>";
