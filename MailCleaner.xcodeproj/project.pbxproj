@@ -68,6 +68,7 @@
 		00561E8015F526600020229D /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 00561E7E15F5265F0020229D /* settings.png */; };
 		005BA6F615E2B0F000D5D11C /* ImapAcctPreset.m in Sources */ = {isa = PBXBuildFile; fileRef = 005BA6F515E2B0F000D5D11C /* ImapAcctPreset.m */; };
 		005E6A8715647602004198B6 /* EmailInfoActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 005E6A8615647602004198B6 /* EmailInfoActionView.m */; };
+		006AE32A15F8FF21007EED2E /* EmailAccountFormPopulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AE32915F8FF21007EED2E /* EmailAccountFormPopulator.m */; };
 		006D6650156D70A300074979 /* ResultraGenericLibResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */; };
 		006D6675156E8E2500074979 /* MsgTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 006D6674156E8E2500074979 /* MsgTableCell.m */; };
 		006F179815F2748F0089A299 /* loadfilter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 006F179615F2748F0089A299 /* loadfilter@2x.png */; };
@@ -253,6 +254,8 @@
 		005E6A8515647602004198B6 /* EmailInfoActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoActionView.h; sourceTree = "<group>"; };
 		005E6A8615647602004198B6 /* EmailInfoActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoActionView.m; sourceTree = "<group>"; };
 		0065E3BB158920D500D59B2A /* SyncDesign.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = SyncDesign.md; sourceTree = "<group>"; };
+		006AE32815F8FF21007EED2E /* EmailAccountFormPopulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAccountFormPopulator.h; sourceTree = "<group>"; };
+		006AE32915F8FF21007EED2E /* EmailAccountFormPopulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAccountFormPopulator.m; sourceTree = "<group>"; };
 		006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ResultraGenericLibResources.bundle; path = "../../../Library/Developer/Xcode/DerivedData/MailCleaner-dtuamkacbllkfkggcpkuqouuqrpt/Build/Products/Debug-iphonesimulator/ResultraGenericLibResources.bundle"; sourceTree = "<group>"; };
 		006D6673156E8E2500074979 /* MsgTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgTableCell.h; sourceTree = "<group>"; };
 		006D6674156E8E2500074979 /* MsgTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgTableCell.m; sourceTree = "<group>"; };
@@ -838,6 +841,8 @@
 		00C8972815AF53120006FF2F /* Email Account */ = {
 			isa = PBXGroup;
 			children = (
+				006AE32815F8FF21007EED2E /* EmailAccountFormPopulator.h */,
+				006AE32915F8FF21007EED2E /* EmailAccountFormPopulator.m */,
 				00DED4B315ED82DB00C3B1EF /* Move to Folder for Deletion Setting */,
 				00DED4B215ED6CEB00C3B1EF /* Synchronized Folders Setting */,
 				00C8777215B306EE0063F88B /* PortNumFieldEditInfo.h */,
@@ -1145,6 +1150,7 @@
 				009B42B315F162F300D82A08 /* MessageFilterTableHeader.m in Sources */,
 				00EDA63315F6B62F00917916 /* FilterNameFieldValidator.m in Sources */,
 				00EDA63815F7C0D800917916 /* MessageFilterCountOperation.m in Sources */,
+				006AE32A15F8FF21007EED2E /* EmailAccountFormPopulator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
