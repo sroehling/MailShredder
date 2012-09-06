@@ -150,8 +150,16 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 		}
 	}
 
-	CGFloat tableMenuHeightForAllFilters = numFilters * TABLE_MENU_ROW_HEIGHT + 
-							2 * TABLE_MENU_SECTION_HEIGHT + 40.0f;
+	CGFloat tableMenuHeightForAllFilters;
+	if(numFilters > 0)
+	{
+		tableMenuHeightForAllFilters = numFilters * TABLE_MENU_ROW_HEIGHT + 
+							2 * TABLE_MENU_SECTION_HEIGHT + 40.0f;	
+	}
+	else 
+	{
+		tableMenuHeightForAllFilters = 44.0f;
+	}
 	CGFloat tableMenuHeight = MIN(EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT,tableMenuHeightForAllFilters); 
 
 	TableMenuViewController *loadFilterMenuController = [[[TableMenuViewController alloc] 
