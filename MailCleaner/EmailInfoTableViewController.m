@@ -49,6 +49,7 @@
 #import "CollectionHelper.h"
 
 CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
+CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT_NO_SELECTION = 60.0f;
 
 @implementation EmailInfoTableViewController
 
@@ -200,6 +201,61 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	}
 }
 
+-(TableMenuViewController *)actionsPopupTableMenuController
+{
+	BOOL oneOrMoreMsgsSelected = ([self.selectedEmailInfos count] > 0)?TRUE:FALSE;
+
+	NSMutableArray *sections = [[[NSMutableArray alloc] init] autorelease];
+	if(oneOrMoreMsgsSelected)
+	{
+		TableMenuSection *narrowFilterSection = [[[TableMenuSection alloc] 
+			initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_NARROW_FILTER_SECTION_TITLE")] autorelease];
+		[narrowFilterSection addMenuItem:[[[TableMenuItem alloc] 
+			initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_ADDRESSES_MENU_TITLE")
+			 andTarget:self andSelector:@selector(narrowToSelectedAddresses)] autorelease]];
+		[narrowFilterSection addMenuItem:[[[TableMenuItem alloc] 
+			initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_RECIPIENTS_MENU_TITLE")
+			 andTarget:self andSelector:@selector(narrowToSelectedRecipients)] autorelease]];	
+		[narrowFilterSection addMenuItem:[[[TableMenuItem alloc] 
+			initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_DOMAINS_MENU_TITLE")
+			 andTarget:self andSelector:@selector(narrowToSelectedDomains)] autorelease]];
+		[sections addObject:narrowFilterSection];
+	}
+
+	TableMenuSection *saveFilterSection = [[[TableMenuSection alloc] 
+		initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_CREATE_SAVED_FILTER_SECTION_TITLE")] autorelease];
+	if(oneOrMoreMsgsSelected)
+	{
+		[saveFilterSection addMenuItem:[[[TableMenuItem alloc] 
+			initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_ADDRESSES_MENU_TITLE")
+			 andTarget:self andSelector:@selector(createMsgFilterSelectedAddresses)] autorelease]];
+		[saveFilterSection addMenuItem:[[[TableMenuItem alloc] 
+			initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_RECIPIENTS_MENU_TITLE")
+			 andTarget:self andSelector:@selector(createMsgFilterSelectedRecipients)] autorelease]];		 
+		[saveFilterSection addMenuItem:[[[TableMenuItem alloc] 
+			initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_DOMAINS_MENU_TITLE")
+			 andTarget:self andSelector:@selector(createMsgFilterSelectedDomains)] autorelease]];
+	}
+	[saveFilterSection addMenuItem:[[[TableMenuItem alloc] 
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_CURRENT_FILTER_MENU_TITLE")
+		 andTarget:self andSelector:@selector(createMsgFilterCurrentFilter)] autorelease]];
+	[sections addObject:saveFilterSection];
+	
+	CGFloat popupMenuHeight;
+	if(oneOrMoreMsgsSelected)
+	{
+		popupMenuHeight = EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT;
+	}
+	else 
+	{
+		popupMenuHeight = EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT_NO_SELECTION;
+	}
+	
+	return [[[TableMenuViewController alloc] 
+			initWithStyle:UITableViewStyleGrouped 
+			andMenuSections:sections andMenuHeight:popupMenuHeight] autorelease];
+}
+
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
@@ -229,46 +285,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	self.actionButton = [[[UIBarButtonItem alloc] 
 		initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self 
 		action:@selector(topActionButtonPressed)] autorelease];
-
-	NSMutableArray *sections = [[[NSMutableArray alloc] init] autorelease];
-	TableMenuSection *section = [[[TableMenuSection alloc] 
-		initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_NARROW_FILTER_SECTION_TITLE")] autorelease];
-	[section addMenuItem:[[[TableMenuItem alloc] 
-		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_ADDRESSES_MENU_TITLE")
-		 andTarget:self andSelector:@selector(narrowToSelectedAddresses)] autorelease]];
-	[section addMenuItem:[[[TableMenuItem alloc] 
-		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_RECIPIENTS_MENU_TITLE")
-		 andTarget:self andSelector:@selector(narrowToSelectedRecipients)] autorelease]];	
-	[section addMenuItem:[[[TableMenuItem alloc] 
-		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_DOMAINS_MENU_TITLE")
-		 andTarget:self andSelector:@selector(narrowToSelectedDomains)] autorelease]];
-	[sections addObject:section];
-
-	section = [[[TableMenuSection alloc] 
-		initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_CREATE_SAVED_FILTER_SECTION_TITLE")] autorelease];
-	[section addMenuItem:[[[TableMenuItem alloc] 
-		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_ADDRESSES_MENU_TITLE")
-		 andTarget:self andSelector:@selector(createMsgFilterSelectedAddresses)] autorelease]];
-	[section addMenuItem:[[[TableMenuItem alloc] 
-		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_RECIPIENTS_MENU_TITLE")
-		 andTarget:self andSelector:@selector(createMsgFilterSelectedRecipients)] autorelease]];		 
-	[section addMenuItem:[[[TableMenuItem alloc] 
-		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_DOMAINS_MENU_TITLE")
-		 andTarget:self andSelector:@selector(createMsgFilterSelectedDomains)] autorelease]];
-	[section addMenuItem:[[[TableMenuItem alloc] 
-		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_CURRENT_FILTER_MENU_TITLE")
-		 andTarget:self andSelector:@selector(createMsgFilterCurrentFilter)] autorelease]];
-	[sections addObject:section];
-	
-	TableMenuViewController *popupMenuController = [[[TableMenuViewController alloc] 
-			initWithStyle:UITableViewStyleGrouped 
-			andMenuSections:sections andMenuHeight:EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT] autorelease];
-	
-	self.actionsPopupController = [[[WEPopoverController alloc] 
-		initWithContentViewController:popupMenuController] autorelease];
-	self.actionsPopupController.delegate = self;
-
-	[actionsPopupController setContainerViewProperties:[WEPopoverHelper containerViewProperties]];
+		
 
 
 	self.navigationItem.leftBarButtonItem = actionButton;
@@ -581,6 +598,12 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 
 -(void)topActionButtonPressed
 {		
+	TableMenuViewController *popupMenuController = [self actionsPopupTableMenuController];
+	self.actionsPopupController = [[[WEPopoverController alloc] 
+		initWithContentViewController:popupMenuController] autorelease];
+	self.actionsPopupController.delegate = self;
+	[actionsPopupController setContainerViewProperties:[WEPopoverHelper containerViewProperties]];
+
 	[actionsPopupController presentPopoverFromBarButtonItem:self.actionButton 
 		permittedArrowDirections:UIPopoverArrowDirectionAny animated:TRUE];
 }
