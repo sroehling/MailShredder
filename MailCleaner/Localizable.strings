@@ -156,7 +156,7 @@
 "EMAIL_ACCOUNT_TABLE_IMAP_SERVER_HEADER" = "Configure IMAP Server Name";
 "EMAIL_ACCOUNT_TABLE_IMAP_SERVER_SUBHEADER" = "Enter the name of the IMAP email server for your email account, then tap the Next button. If you're unsure of this setting, please check with your email provider.";
 "EMAIL_ACCOUNT_DELETE_ALERT_TITLE" = "Really Delete Account?";
-"EMAIL_ACCOUNT_DELETE_ALERT_BODY" = "Do you really want to delete this account? Any rules you've created for the account will also be deleted.";
+"EMAIL_ACCOUNT_DELETE_ALERT_BODY" = "Do you really want to delete this account? Any saved message filters you've created for the account will also be deleted.";
 "EMAIL_ACCOUNT_DELETE_ALERT_CANCEL_BUTTON_TITLE" = "Cancel";
 "EMAIL_ACCOUNT_DELETE_ALERT_DELETE_BUTTON_TITLE" = "Delete Account";
 "EMAIL_ACCOUNT_DELETE_SETTINGS_SECTION" = "Deletion Settings";
