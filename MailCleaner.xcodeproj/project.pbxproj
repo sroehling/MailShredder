@@ -71,6 +71,7 @@
 		006AE32A15F8FF21007EED2E /* EmailAccountFormPopulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AE32915F8FF21007EED2E /* EmailAccountFormPopulator.m */; };
 		006AE33315F9113F007EED2E /* FullEmailAccountFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AE33215F9113F007EED2E /* FullEmailAccountFormInfoCreator.m */; };
 		006AE33615F919E4007EED2E /* ImapAcctPresets.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AE33515F919E4007EED2E /* ImapAcctPresets.m */; };
+		006AE33915F94B29007EED2E /* IMAPServerEmailAccountFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AE33815F94B29007EED2E /* IMAPServerEmailAccountFormInfoCreator.m */; };
 		006D6650156D70A300074979 /* ResultraGenericLibResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */; };
 		006D6675156E8E2500074979 /* MsgTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 006D6674156E8E2500074979 /* MsgTableCell.m */; };
 		006F179815F2748F0089A299 /* loadfilter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 006F179615F2748F0089A299 /* loadfilter@2x.png */; };
@@ -262,6 +263,8 @@
 		006AE33215F9113F007EED2E /* FullEmailAccountFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullEmailAccountFormInfoCreator.m; sourceTree = "<group>"; };
 		006AE33415F919E4007EED2E /* ImapAcctPresets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImapAcctPresets.h; sourceTree = "<group>"; };
 		006AE33515F919E4007EED2E /* ImapAcctPresets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImapAcctPresets.m; sourceTree = "<group>"; };
+		006AE33715F94B28007EED2E /* IMAPServerEmailAccountFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAPServerEmailAccountFormInfoCreator.h; sourceTree = "<group>"; };
+		006AE33815F94B29007EED2E /* IMAPServerEmailAccountFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMAPServerEmailAccountFormInfoCreator.m; sourceTree = "<group>"; };
 		006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ResultraGenericLibResources.bundle; path = "../../../Library/Developer/Xcode/DerivedData/MailCleaner-dtuamkacbllkfkggcpkuqouuqrpt/Build/Products/Debug-iphonesimulator/ResultraGenericLibResources.bundle"; sourceTree = "<group>"; };
 		006D6673156E8E2500074979 /* MsgTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgTableCell.h; sourceTree = "<group>"; };
 		006D6674156E8E2500074979 /* MsgTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgTableCell.m; sourceTree = "<group>"; };
@@ -276,7 +279,7 @@
 		007ABE8B156AB618004BA8BF /* MailCleanerSpec.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MailCleanerSpec.md; sourceTree = "<group>"; };
 		008129E915B8ABEC00533E36 /* DeleteMsgConfirmationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteMsgConfirmationView.h; sourceTree = "<group>"; };
 		008129EA15B8ABED00533E36 /* DeleteMsgConfirmationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteMsgConfirmationView.m; sourceTree = "<group>"; };
-		008FDF3215E2A14000BC4C61 /* BasicEmailAccountFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; path = BasicEmailAccountFormInfoCreator.h; sourceTree = "<group>"; };
+		008FDF3215E2A14000BC4C61 /* BasicEmailAccountFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicEmailAccountFormInfoCreator.h; sourceTree = "<group>"; };
 		008FDF3315E2A14000BC4C61 /* BasicEmailAccountFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicEmailAccountFormInfoCreator.m; sourceTree = "<group>"; };
 		008FE30F15D57D850066A75D /* MailSyncOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailSyncOperation.h; sourceTree = "<group>"; };
 		008FE31015D57D850066A75D /* MailSyncOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailSyncOperation.m; sourceTree = "<group>"; };
@@ -741,12 +744,16 @@
 		006AE32F15F91038007EED2E /* Guided and Full Account Form Populators */ = {
 			isa = PBXGroup;
 			children = (
+				00C8972515AF52FD0006FF2F /* EmailAccountAdder.h */,
+				00C8972615AF52FD0006FF2F /* EmailAccountAdder.m */,
 				00C8971C15AF4BF20006FF2F /* EmailAccountFormInfoCreator.h */,
 				00C8971D15AF4BF20006FF2F /* EmailAccountFormInfoCreator.m */,
 				008FDF3215E2A14000BC4C61 /* BasicEmailAccountFormInfoCreator.h */,
 				008FDF3315E2A14000BC4C61 /* BasicEmailAccountFormInfoCreator.m */,
 				006AE33115F9113F007EED2E /* FullEmailAccountFormInfoCreator.h */,
 				006AE33215F9113F007EED2E /* FullEmailAccountFormInfoCreator.m */,
+				006AE33715F94B28007EED2E /* IMAPServerEmailAccountFormInfoCreator.h */,
+				006AE33815F94B29007EED2E /* IMAPServerEmailAccountFormInfoCreator.m */,
 			);
 			name = "Guided and Full Account Form Populators";
 			sourceTree = "<group>";
@@ -754,8 +761,6 @@
 		006AE33015F91072007EED2E /* Account List */ = {
 			isa = PBXGroup;
 			children = (
-				00C8972515AF52FD0006FF2F /* EmailAccountAdder.h */,
-				00C8972615AF52FD0006FF2F /* EmailAccountAdder.m */,
 				00C8972215AF52540006FF2F /* EmailAccountListFormInfoCreator.h */,
 				00C8972315AF52540006FF2F /* EmailAccountListFormInfoCreator.m */,
 				00AAF2E615B61ECF00BFF03C /* EmailAcctFieldEditInfo.h */,
@@ -1203,6 +1208,7 @@
 				006AE32A15F8FF21007EED2E /* EmailAccountFormPopulator.m in Sources */,
 				006AE33315F9113F007EED2E /* FullEmailAccountFormInfoCreator.m in Sources */,
 				006AE33615F919E4007EED2E /* ImapAcctPresets.m in Sources */,
+				006AE33915F94B29007EED2E /* IMAPServerEmailAccountFormInfoCreator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

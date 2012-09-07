@@ -142,9 +142,9 @@
 "EMAIL_ACCOUNT_ADDRESS_FIELD_LABEL" = "Address";
 "EMAIL_ACCOUNT_ADDRESS_PLACEHOLDER" = "Email Address";
 "EMAIL_ACCOUNT_ADDRESS_VALIDATION_MSG" = "Enter a valid email address";
-"EMAIL_ACCOUNT_HOSTNAME_VALIDATION_MSG" = "Enter a valid IMAP server address";
-"EMAIL_ACCOUNT_IMAP_SERVER_FIELD_LABEL" = "Host Name";
-"EMAIL_ACCOUNT_IMAP_SERVER_PLACEHOLDER" = "IMAP Host Name";
+"EMAIL_ACCOUNT_HOSTNAME_VALIDATION_MSG" = "Enter a valid IMAP server name";
+"EMAIL_ACCOUNT_IMAP_SERVER_FIELD_LABEL" = "IMAP Server";
+"EMAIL_ACCOUNT_IMAP_SERVER_PLACEHOLDER" = "Enter Server Name";
 "EMAIL_ACCOUNT_USERNAME_VALIDATION_MSG" = "Enter a valid user name";
 "EMAIL_ACCOUNT_USERNAME_FIELD_LABEL" = "User Name";
 "EMAIL_ACCOUNT_USERNAME_PLACEHOLDER" = "Enter a User Name";
@@ -153,6 +153,8 @@
 "EMAIL_ACCOUNT_PASSWORD_PLACEHOLDER" = "Enter a password";
 "EMAIL_ACCOUNT_TABLE_SUBHEADER" = "Enter your email account settings. If you're unsure of the settings, please consult your email provider."; 
 "EMAIL_ACCOUNT_TABLE_BASIC_INFO_SUBHEADER" = "Enter the requested information for your email account, then tap the Next button. Based upon this initial information, you'll be guided to enter the remaining account information.";
+"EMAIL_ACCOUNT_TABLE_IMAP_SERVER_HEADER" = "Configure IMAP Server Name";
+"EMAIL_ACCOUNT_TABLE_IMAP_SERVER_SUBHEADER" = "Enter the name of the IMAP email server for your email account, then tap the Next button. If you're unsure of this setting, please check with your email provider.";
 "EMAIL_ACCOUNT_DELETE_ALERT_TITLE" = "Really Delete Account?";
 "EMAIL_ACCOUNT_DELETE_ALERT_BODY" = "Do you really want to delete this account? Any rules you've created for the account will also be deleted.";
 "EMAIL_ACCOUNT_DELETE_ALERT_CANCEL_BUTTON_TITLE" = "Cancel";

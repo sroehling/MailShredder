@@ -12,15 +12,19 @@
 #import "GenericFieldBasedTableAddViewController.h"
 
 @class FormContext;
+@class ImapAcctPresets;
 
 @interface EmailAccountAdder : NSObject <TableViewObjectAdder,GenericTableAddViewSaveCompleteDelegate>
 {
 	@private
 		FormContext *currParentContext;
+		ImapAcctPresets *emailAcctPresets;
 		id<GenericTableAddViewSaveCompleteDelegate> acctSaveCompleteDelegate;
+		NSInteger currentStep;
 }
 
 @property(nonatomic,retain) FormContext *currParentContext;
+@property(nonatomic,retain) ImapAcctPresets *emailAcctPresets;
 @property(nonatomic, assign) id<GenericTableAddViewSaveCompleteDelegate> acctSaveCompleteDelegate; // optional
 
 -(GenericFieldBasedTableAddViewController*)addViewControllerForNewAccountAddr:
