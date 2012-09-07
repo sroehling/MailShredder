@@ -152,6 +152,8 @@
 "EMAIL_ACCOUNT_PASSWORD_FIELD_LABEL" = "Password";
 "EMAIL_ACCOUNT_PASSWORD_PLACEHOLDER" = "Enter a password";
 "EMAIL_ACCOUNT_TABLE_SUBHEADER" = "Enter your email account settings. If you're unsure of the settings, please consult your email provider."; 
+"EMAIL_ACCOUNT_TABLE_CONFIRM_SETTINGS_HEADER" = "Confirm Account Settings";
+"EMAIL_ACCOUNT_TABLE_CONFIRM_SETTINGS_SUBHEADER" = "Confirm your email account settings, and enter any missing information. If you're unsure of the settings, please consult your email provider. Tap the Next button if these settings look correct.";
 "EMAIL_ACCOUNT_TABLE_BASIC_INFO_SUBHEADER" = "Enter the requested information for your email account, then tap the Next button. Based upon this initial information, you'll be guided to enter the remaining account information.";
 "EMAIL_ACCOUNT_TABLE_IMAP_SERVER_HEADER" = "Configure IMAP Server Name";
 "EMAIL_ACCOUNT_TABLE_IMAP_SERVER_SUBHEADER" = "Enter the name of the IMAP email server for your email account, then tap the Next button. If you're unsure of this setting, please check with your email provider.";
@@ -159,7 +161,8 @@
 "EMAIL_ACCOUNT_DELETE_ALERT_BODY" = "Do you really want to delete this account? Any saved message filters you've created for the account will also be deleted.";
 "EMAIL_ACCOUNT_DELETE_ALERT_CANCEL_BUTTON_TITLE" = "Cancel";
 "EMAIL_ACCOUNT_DELETE_ALERT_DELETE_BUTTON_TITLE" = "Delete Account";
-"EMAIL_ACCOUNT_DELETE_SETTINGS_SECTION" = "Deletion Settings";
+"EMAIL_ACCOUNT_DELETE_SETTINGS_SECTION_HEADER" = "Message Deletion Settings";
+"EMAIL_ACCOUNT_DELETE_SETTINGS_TABLE_SUBHEADER" = "These settings determine what happens when you delete a selected message in this account. Please review these settings and change them if needed.";
 "EMAIL_ACCOUNT_DELETE_MSGS_FIELD_LABEL" = "Delete Message on Server?";
 "EMAIL_ACCOUNT_DELETE_MSGS_FIELD_SUBTITLE" = "Permanently delete message from folder on server?";
 "EMAIL_ACCOUNT_SYNC_FOLDER_LIST_TITLE" = "Synchronized Folders";

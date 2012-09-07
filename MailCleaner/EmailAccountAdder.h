@@ -20,6 +20,8 @@
 		FormContext *currParentContext;
 		ImapAcctPresets *emailAcctPresets;
 		id<GenericTableAddViewSaveCompleteDelegate> acctSaveCompleteDelegate;
+		
+		BOOL promptedForImapServer;
 		NSInteger currentStep;
 }
 

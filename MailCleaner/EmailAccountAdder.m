@@ -19,11 +19,14 @@
 #import "ImapAcctPresets.h"
 #import "FullEmailAccountFormInfoCreator.h"
 #import "IMAPServerEmailAccountFormInfoCreator.h"
+#import "ConfirmAcctLoginSettingsEmailAcctFormInfoCreator.h"
+#import "DeleteSettingsEmailAccountFormInfoCreator.h"
 
 
 NSInteger const ADD_EMAIL_ACCOUNT_STEP_PROMPT_BASIC_INFO = 0;
 NSInteger const ADD_EMAIL_ACCOUNT_STEP_PROMPT_IMAP = 1;
-NSInteger const ADD_EMAIL_ACCOUNT_STEP_CONFIRM_FULL_SETTINGS = 2;
+NSInteger const ADD_EMAIL_ACCOUNT_STEP_CONFIRM_ACCT_SETTINGS = 2;
+NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 
 @implementation EmailAccountAdder
 
@@ -91,6 +94,7 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_CONFIRM_FULL_SETTINGS = 2;
 	NSLog(@"Adding email account");
 		
 	self.currParentContext = parentContext;	
+	promptedForImapServer = FALSE;
 		
 	GenericFieldBasedTableAddViewController *basicInfoAddView = 
 		[self addViewControllerForNewAccountAddr:parentContext.dataModelController];
@@ -151,24 +155,36 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_CONFIRM_FULL_SETTINGS = 2;
 	}
 }
 
+-(void)showFormForNextStep:(EmailAccountFormInfoCreator*)nextStepFormInfoCreator 
+	withPopDepth:(NSInteger)popDepth
+	andNextStepNumber:(NSInteger)nextStepNum
+{
+	GenericFieldBasedTableAddViewController *nextStepAddView = 
+		[self addViewControllerForNextStep:nextStepFormInfoCreator
+			withinDataModelController:self.currParentContext.dataModelController andPopDepth:popDepth];
+
+	currentStep = nextStepNum;
+	
+	[self.currParentContext.parentController.navigationController
+		pushViewController:nextStepAddView animated:TRUE];
+
+}
+
 -(void)showImapServerForm:(EmailAccount*)newAcct
 {
 	IMAPServerEmailAccountFormInfoCreator *imapServerFormInfoCreator = 
 		[[[IMAPServerEmailAccountFormInfoCreator alloc] initWithEmailAcct:newAcct] autorelease];
-	GenericFieldBasedTableAddViewController *imapServerAddView = 
-		[self addViewControllerForNextStep:imapServerFormInfoCreator
-			withinDataModelController:self.currParentContext.dataModelController andPopDepth:2];
-
-	currentStep = ADD_EMAIL_ACCOUNT_STEP_PROMPT_IMAP;
-	
-	[self.currParentContext.parentController.navigationController
-		pushViewController:imapServerAddView animated:TRUE];
+		
+	promptedForImapServer = TRUE;
+		
+	[self showFormForNextStep:imapServerFormInfoCreator withPopDepth:2 
+		andNextStepNumber:ADD_EMAIL_ACCOUNT_STEP_PROMPT_IMAP];
 }
 
--(void)showFullEmailAccountForm:(EmailAccount*)newAcct withPopDepth:(NSInteger)popDepth
+-(void)showMessageDeletionSettingsForm:(EmailAccount*)newAcct withPopDepth:(NSInteger)popDepth
 {
-	FullEmailAccountFormInfoCreator *emailAcctFormInfoCreator = 
-		[[[FullEmailAccountFormInfoCreator alloc] initWithEmailAcct:newAcct] autorelease];
+	DeleteSettingsEmailAccountFormInfoCreator *emailAcctFormInfoCreator = 
+		[[[DeleteSettingsEmailAccountFormInfoCreator alloc] initWithEmailAcct:newAcct] autorelease];
 	
 	GenericFieldBasedTableAddViewController *addView =  
 		[[[GenericFieldBasedTableAddViewController alloc] 
@@ -187,12 +203,22 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_CONFIRM_FULL_SETTINGS = 2;
 		addView.popDepth = popDepth;
 	}
 
-	currentStep = ADD_EMAIL_ACCOUNT_STEP_CONFIRM_FULL_SETTINGS;
+	currentStep = ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS;
 
 	[self.currParentContext.parentController.navigationController
 		pushViewController:addView animated:TRUE];
 }
 
+-(void)showConfirmSettingsForm:(EmailAccount*)newAcct
+{
+	ConfirmAcctLoginSettingsEmailAcctFormInfoCreator *confirmAcctFormInfoCreator = 
+		[[[ConfirmAcctLoginSettingsEmailAcctFormInfoCreator alloc] initWithEmailAcct:newAcct] autorelease];
+
+	NSInteger popDepth = promptedForImapServer?3:2;
+
+	[self showFormForNextStep:confirmAcctFormInfoCreator withPopDepth:popDepth
+		andNextStepNumber:ADD_EMAIL_ACCOUNT_STEP_CONFIRM_ACCT_SETTINGS];
+}
 
 -(void)genericAddViewSaveCompleteForObject:(NSManagedObject*)addedObject
 {
@@ -207,7 +233,8 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_CONFIRM_FULL_SETTINGS = 2;
 		[self populateAcctWithPresetsAfterBasicInfoEntered:newAcct];
 		if(newAcct.imapServer != nil)
 		{
-			[self showFullEmailAccountForm:newAcct withPopDepth:2];
+			[self showConfirmSettingsForm:newAcct];
+
 		}
 		else {
 			[self showImapServerForm:newAcct];
@@ -216,7 +243,12 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_CONFIRM_FULL_SETTINGS = 2;
 	else if(currentStep == ADD_EMAIL_ACCOUNT_STEP_PROMPT_IMAP)
 	{
 		[self populateAcctWithPresetsAfterIMAPServerEntered:newAcct];
-		[self showFullEmailAccountForm:newAcct withPopDepth:3];
+		[self showConfirmSettingsForm:newAcct];
+	}
+	else if(currentStep == ADD_EMAIL_ACCOUNT_STEP_CONFIRM_ACCT_SETTINGS)
+	{
+		NSInteger finalPopDepth = promptedForImapServer?4:3;
+		[self showMessageDeletionSettingsForm:newAcct withPopDepth:finalPopDepth];
 	}
 	else 
 	{

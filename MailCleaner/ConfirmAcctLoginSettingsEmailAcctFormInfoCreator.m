@@ -1,16 +1,16 @@
 //
-//  FullEmailAccountFormInfoCreator.m
+//  ConfirmAcctLoginSettingsEmailAcctFormInfoCreator.m
 //  MailCleaner
 //
-//  Created by Steve Roehling on 9/6/12.
+//  Created by Steve Roehling on 9/7/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "FullEmailAccountFormInfoCreator.h"
+#import "ConfirmAcctLoginSettingsEmailAcctFormInfoCreator.h"
 #import "EmailAccountFormPopulator.h"
 #import "LocalizationHelper.h"
 
-@implementation FullEmailAccountFormInfoCreator
+@implementation ConfirmAcctLoginSettingsEmailAcctFormInfoCreator
 
 - (FormInfo*)createFormInfoWithContext:(FormContext*)parentContext
 {
@@ -18,7 +18,8 @@
 		initWithFormContext:parentContext] autorelease];
 	
 	formPopulator.formInfo.title = LOCALIZED_STR(@"EMAIL_ACCOUNT_VIEW_TITLE");
-	[formPopulator populateWithHeader:@"" andSubHeader:LOCALIZED_STR(@"EMAIL_ACCOUNT_TABLE_SUBHEADER")];
+	[formPopulator populateWithHeader:LOCALIZED_STR(@"EMAIL_ACCOUNT_TABLE_CONFIRM_SETTINGS_HEADER") 
+		andSubHeader:LOCALIZED_STR(@"EMAIL_ACCOUNT_TABLE_CONFIRM_SETTINGS_SUBHEADER")];
 	
 	[formPopulator nextSectionWithTitle: LOCALIZED_STR(@"EMAIL_ACCOUNT_ACCOUNT_INFO_SECTION_TITLE")];
 	[formPopulator populateEmailAccountNameField:self.emailAccount];
@@ -33,12 +34,6 @@
 	[formPopulator populateUseSSL:self.emailAccount];
 	[formPopulator populatePortNumberField:self.emailAccount];
 	
-	[formPopulator nextSectionWithTitle:LOCALIZED_STR(@"EMAIL_ACCOUNT_DELETE_SETTINGS_SECTION_HEADER")
-		 andHelpFile:@"emailAcctDeleteSettings"];
-	[formPopulator populateDeleteMsgsField:self.emailAccount];
-	[formPopulator populateSyncFoldersField:self.emailAccount]; 
-	[formPopulator populateMoveToDeleteFolderSetting:self.emailAccount];
-
 	return formPopulator.formInfo;
 
 }
