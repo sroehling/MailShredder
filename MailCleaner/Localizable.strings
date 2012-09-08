@@ -23,6 +23,8 @@
 "MESSAGE_SYNC_FAILURE_ALERT_MSG" = "There was a failure connecting to the current email account. Double-check the email account settings and your internet connection then try again.";
 "MESSAGE_SYNC_FAILURE_ALERT_BUTTON_TITLE" = "Ok";
 
+
+
 "MESSAGE_FILTER_TITLE" = "Message Filter";
 "MESSAGE_FILTER_FORM_SUBHEADER_TEXT" = "The parameters below configure which messages are shown in the message list. A message must match all the parameters to be shown.";
 "MESSAGE_FILTER_RESET_FILTER_BUTTON_TITLE" = "Reset Filter";
@@ -179,6 +181,12 @@
 "EMAIL_ACCOUNT_MOVE_TO_FOLDER_FIELD_SUBTITLE" = "Move the message to a specific folder for deletion.";
 "EMAIL_ACCOUNT_MOVE_TO_FOLDER_SECTION_HEADER" = "Move to Folder";
 
+"EMAIL_ACCOUNT_CONNECTION_TEST_FAILURE_ALERT_TITLE" = "Failure Connecting to Email Account";
+"EMAIL_ACCOUNT_CONNECTION_TEST_FAILURE_ALERT_MSG" = "There was a failure connecting to the email account. Double-check the settings and your internet connection, then try again.";
+"EMAIL_ACCOUNT_CONNECTION_TEST_FAILURE_ALERT_BUTTON_TITLE" = "Ok";
+"EMAIL_ACCOUNT_CONNECTION_TEST_STATUS_TESTING_CONNECTION" = "Testing Connection";
+"EMAIL_ACCOUNT_CONNECTION_TEST_STATUS_CONNECTION_ESTABLISHED" = "Connection Established";
+"EMAIL_ACCOUNT_CONNECTION_TEST_STATUS_TEST_SUCCEEDED" = "Connection Test Succeeded";
 
 "TIME_UNIT_WEEKS" = "Weeks";
 "TIME_UNIT_MONTHS" = "Months";

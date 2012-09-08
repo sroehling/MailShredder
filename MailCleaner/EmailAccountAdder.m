@@ -21,6 +21,8 @@
 #import "IMAPServerEmailAccountFormInfoCreator.h"
 #import "ConfirmAcctLoginSettingsEmailAcctFormInfoCreator.h"
 #import "DeleteSettingsEmailAccountFormInfoCreator.h"
+#import "KeychainFieldInfo.h"
+#import "EmailFolder.h"
 
 
 NSInteger const ADD_EMAIL_ACCOUNT_STEP_PROMPT_BASIC_INFO = 0;
@@ -33,6 +35,19 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 @synthesize currParentContext;
 @synthesize acctSaveCompleteDelegate;
 @synthesize emailAcctPresets;
+@synthesize connectionTestQueue;
+@synthesize connectionTestHUD;
+@synthesize acctBeingAdded;
+
+-(void)dealloc
+{
+	[currParentContext release];
+	[emailAcctPresets release];
+	[connectionTestQueue release];
+	[acctBeingAdded release];
+	[connectionTestHUD release];
+	[super dealloc];
+}
 
 -(id)init
 {
@@ -40,6 +55,7 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	if(self)
 	{
 		self.emailAcctPresets = [[[ImapAcctPresets alloc] init] autorelease];
+		self.connectionTestQueue = [[[NSOperationQueue alloc] init] autorelease];
 	}
 	return self;
 }
@@ -70,12 +86,12 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 -(GenericFieldBasedTableAddViewController*)addViewControllerForNewAccountAddr:
 	(DataModelController*)dmcForNewAcct
 {
-	EmailAccount *newAcct = [EmailAccount 
+	self.acctBeingAdded = [EmailAccount 
 		defaultNewEmailAcctWithDataModelController:dmcForNewAcct];
 	currentStep = ADD_EMAIL_ACCOUNT_STEP_PROMPT_BASIC_INFO;
 	
 	BasicEmailAccountFormInfoCreator *basicAcctFormInfoCreator = 
-		[[[BasicEmailAccountFormInfoCreator alloc] initWithEmailAcct:newAcct] autorelease];
+		[[[BasicEmailAccountFormInfoCreator alloc] initWithEmailAcct:self.acctBeingAdded] autorelease];
 	
 	GenericFieldBasedTableAddViewController *basicInfoAddView = 
 		[self addViewControllerForNextStep:basicAcctFormInfoCreator
@@ -220,6 +236,101 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 		andNextStepNumber:ADD_EMAIL_ACCOUNT_STEP_CONFIRM_ACCT_SETTINGS];
 }
 
+-(void)showConnectionFailedAlert
+{
+	UIAlertView *syncFailedAlert = [[[UIAlertView alloc] initWithTitle:
+			LOCALIZED_STR(@"EMAIL_ACCOUNT_CONNECTION_TEST_FAILURE_ALERT_TITLE")
+		message:LOCALIZED_STR(@"EMAIL_ACCOUNT_CONNECTION_TEST_FAILURE_ALERT_MSG") delegate:self 
+		cancelButtonTitle:LOCALIZED_STR(@"EMAIL_ACCOUNT_CONNECTION_TEST_FAILURE_ALERT_BUTTON_TITLE") 
+		otherButtonTitles:nil] autorelease];
+	[syncFailedAlert show];
+}
+
+
+-(void)doConnectionTest
+{
+	NSLog(@"Doing connection test");
+
+	self.connectionTestHUD.labelText = 
+		LOCALIZED_STR(@"EMAIL_ACCOUNT_CONNECTION_TEST_STATUS_TESTING_CONNECTION");
+	[NSThread sleepForTimeInterval:0.75];
+
+	
+	CTCoreAccount *mailAcct = [[CTCoreAccount alloc] init];
+	int connectionType = [self.acctBeingAdded.useSSL boolValue]?
+		CONNECTION_TYPE_TLS:CONNECTION_TYPE_PLAIN;
+	
+	KeychainFieldInfo *passwordFieldInfo = [self.acctBeingAdded  passwordFieldInfo];
+	NSString *password = (NSString*)[passwordFieldInfo getFieldValue];
+	
+	NSLog(@"Mail connection: server=%@, login=%@, pass=<hidden>",
+		self.acctBeingAdded.imapServer,
+		self.acctBeingAdded.userName);
+		
+	@try {
+		BOOL connectionSucceeded = [mailAcct connectToServer:self.acctBeingAdded.imapServer 
+			port:[self.acctBeingAdded.portNumber intValue]
+			connectionType:connectionType
+			authType:IMAP_AUTH_TYPE_PLAIN 
+			login:self.acctBeingAdded.userName
+			password:password];
+		if(connectionSucceeded)
+		{
+			self.connectionTestHUD.labelText = 
+				LOCALIZED_STR(@"EMAIL_ACCOUNT_CONNECTION_TEST_STATUS_CONNECTION_ESTABLISHED");
+			[NSThread sleepForTimeInterval:0.5];
+		
+			self.connectionTestHUD.labelText = @"Retrieving Folder List";
+			[NSThread sleepForTimeInterval:0.5];
+			@autoreleasepool 
+			{
+				NSSet *allFoldersOnServer = [mailAcct allFolders];
+				NSMutableDictionary *currFoldersByName = [self.acctBeingAdded foldersByName];
+				for (NSString *folderName in allFoldersOnServer)
+				{
+					CTCoreFolder *currFolder = [mailAcct folderWithPath:folderName];
+					NSLog(@"NewAcctConnectTestOperation: Getting folder: %@",currFolder.path);
+					[EmailFolder findOrAddFolder:currFolder.path inExistingFolders:currFoldersByName 
+						withDataModelController:self.currParentContext.dataModelController andFolderAcct:self.acctBeingAdded]; 
+				}
+			}
+
+			self.connectionTestHUD.labelText = 
+				LOCALIZED_STR(@"EMAIL_ACCOUNT_CONNECTION_TEST_STATUS_TEST_SUCCEEDED");
+			[NSThread sleepForTimeInterval:0.5];
+			
+			[mailAcct disconnect];
+			connectionTestSucceeded = TRUE;
+		}
+		else {
+			connectionTestSucceeded = FALSE;
+		}
+	}
+	@catch (NSException *exception) 
+	{
+		connectionTestSucceeded = FALSE;
+	}
+	@finally {
+		[mailAcct release];
+	}
+
+	NSLog(@"Doing connection test");
+}
+
+
+-(void)startAcctConnectionTest
+{
+	connectionTestSucceeded = FALSE;
+	self.connectionTestHUD = [[MBProgressHUD alloc] 
+		initWithView:self.currParentContext.parentController.navigationController.view];
+	[self.currParentContext.parentController.navigationController.view addSubview:self.connectionTestHUD];
+	self.connectionTestHUD.mode = MBProgressHUDModeIndeterminate;
+	self.connectionTestHUD.delegate = self;
+	NSLog(@"Connection test started");
+	
+	[self.connectionTestHUD showWhileExecuting:@selector(doConnectionTest) onTarget:self withObject:nil animated:TRUE];
+}
+
 -(void)genericAddViewSaveCompleteForObject:(NSManagedObject*)addedObject
 {
 	// This callback is invoked when the Next button is invoked on the first
@@ -247,8 +358,7 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	}
 	else if(currentStep == ADD_EMAIL_ACCOUNT_STEP_CONFIRM_ACCT_SETTINGS)
 	{
-		NSInteger finalPopDepth = promptedForImapServer?4:3;
-		[self showMessageDeletionSettingsForm:newAcct withPopDepth:finalPopDepth];
+		[self startAcctConnectionTest];
 	}
 	else 
 	{
@@ -256,11 +366,20 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	}
 }
 
--(void)dealloc
-{
-	[currParentContext release];
-	[emailAcctPresets release];
-	[super dealloc];
+#pragma mark -
+#pragma mark MBProgressHUDDelegate methods
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+	
+	if(connectionTestSucceeded)
+	{
+		NSInteger finalPopDepth = promptedForImapServer?4:3;
+		[self showMessageDeletionSettingsForm:self.acctBeingAdded withPopDepth:finalPopDepth];
+	}
+	else {
+		[self showConnectionFailedAlert];
+	}
+
 }
 
 @end

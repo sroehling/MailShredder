@@ -10,11 +10,15 @@
 
 #import "TableViewObjectAdder.h"
 #import "GenericFieldBasedTableAddViewController.h"
+//#import "NewAcctConnectionTestProgressDelegate.h"
+#import "MBProgressHUD.h"
 
 @class FormContext;
 @class ImapAcctPresets;
+@class EmailAccount;
 
-@interface EmailAccountAdder : NSObject <TableViewObjectAdder,GenericTableAddViewSaveCompleteDelegate>
+@interface EmailAccountAdder : NSObject <TableViewObjectAdder,
+		GenericTableAddViewSaveCompleteDelegate,MBProgressHUDDelegate>
 {
 	@private
 		FormContext *currParentContext;
@@ -23,11 +27,22 @@
 		
 		BOOL promptedForImapServer;
 		NSInteger currentStep;
+		
+		NSOperationQueue *connectionTestQueue;
+		MBProgressHUD *connectionTestHUD;
+		BOOL connectionTestSucceeded;
+		
+		EmailAccount *acctBeingAdded;
 }
 
 @property(nonatomic,retain) FormContext *currParentContext;
 @property(nonatomic,retain) ImapAcctPresets *emailAcctPresets;
 @property(nonatomic, assign) id<GenericTableAddViewSaveCompleteDelegate> acctSaveCompleteDelegate; // optional
+
+@property(nonatomic,retain) NSOperationQueue *connectionTestQueue;
+@property(nonatomic,retain) MBProgressHUD *connectionTestHUD;
+@property(nonatomic,retain) EmailAccount *acctBeingAdded;
+
 
 -(GenericFieldBasedTableAddViewController*)addViewControllerForNewAccountAddr:
 	(DataModelController*)dmcForNewAcct;

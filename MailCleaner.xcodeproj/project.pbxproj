@@ -678,6 +678,13 @@
 			name = "Detail View";
 			sourceTree = "<group>";
 		};
+		004BB52A15FA8EBB00ECC7C8 /* New Acct Connection Test */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Acct Connection Test";
+			sourceTree = "<group>";
+		};
 		0053EFCE1590EEC9003F6B6E /* Email Address Filter (Sender) */ = {
 			isa = PBXGroup;
 			children = (
@@ -863,6 +870,7 @@
 		00A8C31115838BB9006163EE /* Mail Client Operations */ = {
 			isa = PBXGroup;
 			children = (
+				004BB52A15FA8EBB00ECC7C8 /* New Acct Connection Test */,
 				009CAD9015D2D49A00C2C19F /* MailSyncProgressDelegate.h */,
 				009CAD9215D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.h */,
 				009CAD9315D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.m */,
