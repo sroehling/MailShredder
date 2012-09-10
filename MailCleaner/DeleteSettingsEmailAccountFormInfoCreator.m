@@ -9,6 +9,7 @@
 #import "DeleteSettingsEmailAccountFormInfoCreator.h"
 #import "EmailAccountFormPopulator.h"
 #import "LocalizationHelper.h"
+#import "FormContext.h"
 
 @implementation DeleteSettingsEmailAccountFormInfoCreator
 
@@ -19,13 +20,9 @@
 	
 	formPopulator.formInfo.title = LOCALIZED_STR(@"EMAIL_ACCOUNT_VIEW_TITLE");
 	[formPopulator populateWithHeader:LOCALIZED_STR(@"EMAIL_ACCOUNT_DELETE_SETTINGS_SECTION_HEADER") 
-		andSubHeader:LOCALIZED_STR(@"EMAIL_ACCOUNT_DELETE_SETTINGS_TABLE_SUBHEADER")];
-
-// TODO - Add a help button to the form header to show the detailed help for message
-// deletion settings.	
-//		 andHelpFile:@"emailAcctDeleteSettings"];
-	
-	
+		andSubHeader:LOCALIZED_STR(@"EMAIL_ACCOUNT_DELETE_SETTINGS_TABLE_SUBHEADER") 
+		andHelpFile:@"emailAcctDeleteSettings" 
+		andParentController:parentContext.parentController];
 	
 	[formPopulator nextSection];
 	[formPopulator populateDeleteMsgsField:self.emailAccount];
