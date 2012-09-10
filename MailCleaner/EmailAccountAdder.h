@@ -24,6 +24,7 @@
 		FormContext *currParentContext;
 		ImapAcctPresets *emailAcctPresets;
 		id<GenericTableAddViewSaveCompleteDelegate> acctSaveCompleteDelegate;
+		GenericFieldBasedTableAddViewController *currentAddViewController;
 		
 		BOOL promptedForImapServer;
 		NSInteger currentStep;
@@ -38,6 +39,7 @@
 @property(nonatomic,retain) FormContext *currParentContext;
 @property(nonatomic,retain) ImapAcctPresets *emailAcctPresets;
 @property(nonatomic, assign) id<GenericTableAddViewSaveCompleteDelegate> acctSaveCompleteDelegate; // optional
+@property(nonatomic,retain) GenericFieldBasedTableAddViewController *currentAddViewController;
 
 @property(nonatomic,retain) NSOperationQueue *connectionTestQueue;
 @property(nonatomic,retain) MBProgressHUD *connectionTestHUD;

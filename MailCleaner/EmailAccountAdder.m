@@ -38,6 +38,7 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 @synthesize connectionTestQueue;
 @synthesize connectionTestHUD;
 @synthesize acctBeingAdded;
+@synthesize currentAddViewController;
 
 -(void)dealloc
 {
@@ -46,6 +47,7 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	[connectionTestQueue release];
 	[acctBeingAdded release];
 	[connectionTestHUD release];
+	[currentAddViewController release];
 	[super dealloc];
 }
 
@@ -78,6 +80,9 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	addViewController.popDepth = popDepth;
 	addViewController.popControllerOnSave = FALSE;
 	addViewController.saveWhenSaveButtonPressed = FALSE;
+	addViewController.teardownFormFieldsWithSave = FALSE;
+	
+	self.currentAddViewController = addViewController;
 	
 	return addViewController;
 
@@ -104,7 +109,6 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 
 -(void)addObjectFromTableView:(FormContext*)parentContext
 {
-
 	// This is the first callback when the user presses the "+" button
 	// to add a new view.
 	NSLog(@"Adding email account");
@@ -127,7 +131,6 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 
 -(void)populateAcctWithPresetsAfterBasicInfoEntered:(EmailAccount*)newAcct
 {
-
 	NSString *newAcctDomain = [MailAddressHelper emailAddressDomainName:newAcct.emailAddress];
 	ImapAcctPreset *presetForDomain = [self.emailAcctPresets 
 		findPresetWithDomainName:newAcctDomain];
@@ -171,6 +174,28 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	}
 }
 
+-(void)advanceToNextForm:(GenericFieldBasedTableAddViewController*)nextStepViewController
+	withNextStepNumber:(NSInteger)nextStepNum
+{
+	if(self.currentAddViewController != nil)
+	{
+		// Instead of tearing down the form fields immediately when the save button is pressed, 
+		// wait until we actually push the view controller for the next. This 
+		// accounts for the scenario where a connection test must be performed before 
+		// advancing to the next form.
+		[self.currentAddViewController tearDownFormFields];
+	}
+
+	self.currentAddViewController = nextStepViewController;
+
+	currentStep = nextStepNum;
+	
+	[self.currParentContext.parentController.navigationController
+		pushViewController:nextStepViewController animated:TRUE];
+
+}
+
+
 -(void)showFormForNextStep:(EmailAccountFormInfoCreator*)nextStepFormInfoCreator 
 	withPopDepth:(NSInteger)popDepth
 	andNextStepNumber:(NSInteger)nextStepNum
@@ -179,10 +204,7 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 		[self addViewControllerForNextStep:nextStepFormInfoCreator
 			withinDataModelController:self.currParentContext.dataModelController andPopDepth:popDepth];
 
-	currentStep = nextStepNum;
-	
-	[self.currParentContext.parentController.navigationController
-		pushViewController:nextStepAddView animated:TRUE];
+	[self advanceToNextForm:nextStepAddView withNextStepNumber:nextStepNum];
 
 }
 
@@ -195,6 +217,17 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 		
 	[self showFormForNextStep:imapServerFormInfoCreator withPopDepth:2 
 		andNextStepNumber:ADD_EMAIL_ACCOUNT_STEP_PROMPT_IMAP];
+}
+
+-(void)showConfirmSettingsForm:(EmailAccount*)newAcct
+{
+	ConfirmAcctLoginSettingsEmailAcctFormInfoCreator *confirmAcctFormInfoCreator = 
+		[[[ConfirmAcctLoginSettingsEmailAcctFormInfoCreator alloc] initWithEmailAcct:newAcct] autorelease];
+
+	NSInteger popDepth = promptedForImapServer?3:2;
+
+	[self showFormForNextStep:confirmAcctFormInfoCreator withPopDepth:popDepth
+		andNextStepNumber:ADD_EMAIL_ACCOUNT_STEP_CONFIRM_ACCT_SETTINGS];
 }
 
 -(void)showMessageDeletionSettingsForm:(EmailAccount*)newAcct withPopDepth:(NSInteger)popDepth
@@ -218,22 +251,9 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	{
 		addView.popDepth = popDepth;
 	}
+	
+	[self advanceToNextForm:addView withNextStepNumber:ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS];
 
-	currentStep = ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS;
-
-	[self.currParentContext.parentController.navigationController
-		pushViewController:addView animated:TRUE];
-}
-
--(void)showConfirmSettingsForm:(EmailAccount*)newAcct
-{
-	ConfirmAcctLoginSettingsEmailAcctFormInfoCreator *confirmAcctFormInfoCreator = 
-		[[[ConfirmAcctLoginSettingsEmailAcctFormInfoCreator alloc] initWithEmailAcct:newAcct] autorelease];
-
-	NSInteger popDepth = promptedForImapServer?3:2;
-
-	[self showFormForNextStep:confirmAcctFormInfoCreator withPopDepth:popDepth
-		andNextStepNumber:ADD_EMAIL_ACCOUNT_STEP_CONFIRM_ACCT_SETTINGS];
 }
 
 -(void)showConnectionFailedAlert
