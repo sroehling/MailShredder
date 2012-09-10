@@ -15,11 +15,26 @@
 @synthesize domainName;
 @synthesize imapServer;
 @synthesize fullEmailIsUserName;
+@synthesize defaultSyncFolders;
+@synthesize defaultTrashFolders;
+
+-(id)init
+{
+	self = [super init];
+	if(self)
+	{
+		self.defaultSyncFolders = [[[NSMutableArray alloc] init] autorelease];
+		self.defaultTrashFolders = [[[NSMutableArray alloc] init] autorelease];
+	}
+	return self;
+}
 
 -(void)dealloc
 {
 	[domainName release];
 	[imapServer release];
+	[defaultSyncFolders release];
+	[defaultTrashFolders release];
 	[super dealloc];
 }
 

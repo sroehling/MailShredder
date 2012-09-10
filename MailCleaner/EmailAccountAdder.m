@@ -198,6 +198,49 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	}
 }
 
+-(void)populateAcctWithDefaultSyncFolder:(EmailAccount*)newAcct andPreset:(ImapAcctPreset*)acctPreset
+{
+	for(NSString *defaultSyncFolderName in acctPreset.defaultSyncFolders)
+	{
+		for(EmailFolder *acctFolder in newAcct.foldersInAcct)
+		{
+			if([defaultSyncFolderName isEqualToString:acctFolder.folderName])
+			{
+				[newAcct addOnlySyncFoldersObject:acctFolder];
+				return;
+			}
+		}
+	}
+}
+
+-(void)populateAcctWithDefaultTrashFolder:(EmailAccount*)newAcct andPreset:(ImapAcctPreset*)acctPreset
+{
+	for(NSString *defaultTrashFolderName in acctPreset.defaultTrashFolders)
+	{
+		for(EmailFolder *acctFolder in newAcct.foldersInAcct)
+		{
+			if([defaultTrashFolderName isEqualToString:acctFolder.folderName])
+			{
+				newAcct.deleteHandlingMoveToFolder = acctFolder;
+				return;
+			}
+		}
+	}
+}
+
+
+-(void)populateAcctWithDefaultDeleteSettingsAfterFetchingFolders:(EmailAccount*)newAcct
+{
+	ImapAcctPreset *presetForImapServer = [self.emailAcctPresets 
+		findPresetWithImapHostName:newAcct.imapServer];
+	if(presetForImapServer != nil)
+	{
+		[self populateAcctWithDefaultSyncFolder:newAcct andPreset:presetForImapServer];
+		[self populateAcctWithDefaultTrashFolder:newAcct andPreset:presetForImapServer];
+	}
+
+}
+
 -(void)showFormForNextStep:(EmailAccountFormInfoCreator*)nextStepFormInfoCreator 
 	andNextStepNumber:(NSInteger)nextStepNum
 {
@@ -403,6 +446,7 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	
 	if(connectionTestSucceeded)
 	{
+		[self populateAcctWithDefaultDeleteSettingsAfterFetchingFolders:self.acctBeingAdded];
 		[self showMessageDeletionSettingsForm:self.acctBeingAdded];
 	}
 	else {

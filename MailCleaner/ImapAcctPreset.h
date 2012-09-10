@@ -16,10 +16,14 @@
 		BOOL useSSL;
 		NSUInteger portNum;
 		BOOL fullEmailIsUserName;
+		NSMutableArray *defaultSyncFolders;
+		NSMutableArray *defaultTrashFolders;
 }
 
 @property(nonatomic,retain) NSString *domainName;
 @property(nonatomic,retain) NSString *imapServer;
+@property(nonatomic,retain) NSMutableArray *defaultSyncFolders;
+@property(nonatomic,retain) NSMutableArray *defaultTrashFolders;
 @property BOOL useSSL;
 @property NSUInteger portNum;
 @property BOOL fullEmailIsUserName;

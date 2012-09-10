@@ -1,1 +1,5 @@
 gmail.com	imap.gmail.com	Y	993	Y
+1
+[Gmail]/All Mail
+1
+[Gmail]/Trash

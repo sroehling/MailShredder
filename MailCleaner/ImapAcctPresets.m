@@ -34,9 +34,17 @@
 		self.presetsByDomainName = [[[NSMutableDictionary alloc] init] autorelease];
 		self.presetsByIMAPHostName = [[[NSMutableDictionary alloc] init] autorelease];
 		
-		for(NSString *line in lines)
+		NSUInteger lineNum = 0;
+		while(lineNum < lines.count)
 		{
-			NSArray *fields = [line componentsSeparatedByString:@"\t"];
+		
+			/////////////////////////////////////////////////////////////////////
+			// Scan the first line for the server settings
+			/////////////////////////////////////////////////////////////////////
+			NSString *serverSettingsLine = [lines objectAtIndex:lineNum];
+			lineNum++;
+
+			NSArray *fields = [serverSettingsLine componentsSeparatedByString:@"\t"];
 			NSLog(@"Loading preset info: domain:%@ server:%@ usessl:%@ portnum:%@ usernameisfulladdress:%@",
 				[fields objectAtIndex:0],[fields objectAtIndex:1],
 				[fields objectAtIndex:2],[fields objectAtIndex:3],
@@ -54,6 +62,50 @@
 			preset.imapServer = [fields objectAtIndex:1];
 			
 			preset.fullEmailIsUserName = [scannedFullUserNameIsEmail boolValue];
+			
+			/////////////////////////////////////////////////////////////////////
+			// Scan the list of default synchronized folders. 
+			// The second line is the number of folders in the default list of
+			// synchronized folders
+			/////////////////////////////////////////////////////////////////////
+			assert(lineNum < lines.count);
+			NSString *numDefaultSyncFoldersLine = [lines objectAtIndex:lineNum];
+			lineNum++;
+			
+			NSInteger numDefaultSyncFolders = [numDefaultSyncFoldersLine integerValue];
+			assert(numDefaultSyncFolders >= 0);
+			NSLog(@"Reading default synchronized folders: count = %d",numDefaultSyncFolders);
+			for(NSInteger defaultFolder = 0; defaultFolder < numDefaultSyncFolders; defaultFolder++)
+			{
+				assert(lineNum<lines.count);
+				NSString *defaultSyncFolderName = [lines objectAtIndex:lineNum];
+				lineNum++; 
+				
+				[preset.defaultSyncFolders addObject:defaultSyncFolderName];
+				NSLog(@"Default synchronized folder: %@",defaultSyncFolderName);
+			}
+			
+			/////////////////////////////////////////////////////////////////////
+			// Scan the list of default trash folders. 
+			// The next line is the number of folders in the default list of
+			// synchronized folders
+			/////////////////////////////////////////////////////////////////////
+			assert(lineNum < lines.count);
+			NSString *numDefaultTrashFoldersLine = [lines objectAtIndex:lineNum];
+			lineNum++;
+			
+			NSInteger numDefaultTrashFolders = [numDefaultTrashFoldersLine integerValue];
+			assert(numDefaultTrashFolders >= 0);
+			NSLog(@"Reading default trash folders: count = %d",numDefaultTrashFolders);
+			for(NSInteger defaultFolder = 0; defaultFolder < numDefaultTrashFolders; defaultFolder++)
+			{
+				assert(lineNum<lines.count);
+				NSString *defaultTrashFolderName = [lines objectAtIndex:lineNum];
+				lineNum++; 
+				
+				[preset.defaultTrashFolders addObject:defaultTrashFolderName];
+				NSLog(@"Default trash folder: %@",defaultTrashFolderName);
+			}
 			
 			[self.presetsByDomainName setObject:preset forKey:preset.domainName];
 			[self.presetsByIMAPHostName setObject:preset forKey:preset.imapServer];
