@@ -27,7 +27,10 @@
 		GenericFieldBasedTableAddViewController *currentAddViewController;
 		
 		BOOL promptedForImapServer;
+		BOOL entryProgressBasicInfoComplete; // account name, email address, password
+		BOOL entryProgressServerInfoComplete; // SSL, port number, user name
 		NSInteger currentStep;
+		NSInteger currentPopDepth;
 		
 		NSOperationQueue *connectionTestQueue;
 		MBProgressHUD *connectionTestHUD;

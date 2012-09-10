@@ -65,7 +65,6 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 -(GenericFieldBasedTableAddViewController*)addViewControllerForNextStep:
 	(EmailAccountFormInfoCreator*)emailAcctFormInfoCreator
 	withinDataModelController:(DataModelController*)dmcForNewAcct
-	andPopDepth:(NSInteger)popDepth
 {
 
 	GenericFieldBasedTableAddViewController *addViewController =  
@@ -77,7 +76,6 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	addViewController.saveButtonTitle = 
 		LOCALIZED_STR(@"EMAIL_ACCOUNT_EMAIL_ADDRESS_SAVE_BUTTON_TITLE");
 	addViewController.addCompleteDelegate = self;
-	addViewController.popDepth = popDepth;
 	addViewController.popControllerOnSave = FALSE;
 	addViewController.saveWhenSaveButtonPressed = FALSE;
 	addViewController.teardownFormFieldsWithSave = FALSE;
@@ -100,9 +98,32 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	
 	GenericFieldBasedTableAddViewController *basicInfoAddView = 
 		[self addViewControllerForNextStep:basicAcctFormInfoCreator
-			withinDataModelController:dmcForNewAcct andPopDepth:1];
+			withinDataModelController:dmcForNewAcct];
 		
 	return basicInfoAddView;
+
+}
+
+-(void)advanceToNextForm:(GenericFieldBasedTableAddViewController*)nextStepViewController
+	withNextStepNumber:(NSInteger)nextStepNum
+{
+	if(self.currentAddViewController != nil)
+	{
+		// Instead of tearing down the form fields immediately when the save button is pressed, 
+		// wait until we actually push the view controller for the next. This 
+		// accounts for the scenario where a connection test must be performed before 
+		// advancing to the next form.
+		[self.currentAddViewController tearDownFormFields];
+	}
+
+	currentPopDepth ++;
+	self.currentAddViewController = nextStepViewController;
+	self.currentAddViewController.popDepth = currentPopDepth;
+
+	currentStep = nextStepNum;
+	
+	[self.currParentContext.parentController.navigationController
+		pushViewController:nextStepViewController animated:TRUE];
 
 }
 
@@ -115,13 +136,14 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 		
 	self.currParentContext = parentContext;	
 	promptedForImapServer = FALSE;
+	entryProgressBasicInfoComplete = FALSE;
+	entryProgressServerInfoComplete = FALSE;
+	currentPopDepth = 0;
 		
 	GenericFieldBasedTableAddViewController *basicInfoAddView = 
 		[self addViewControllerForNewAccountAddr:parentContext.dataModelController];
-	
-	[self.currParentContext.parentController.navigationController
-		pushViewController:basicInfoAddView animated:TRUE];
 
+	[self advanceToNextForm:basicInfoAddView withNextStepNumber:ADD_EMAIL_ACCOUNT_STEP_PROMPT_BASIC_INFO];
 }
 
 -(BOOL)supportsAddOutsideEditMode
@@ -150,6 +172,7 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 				emailAddressUserName:newAcct.emailAddress];
 
 		}
+		entryProgressServerInfoComplete = TRUE;
 	}
 }
 
@@ -171,38 +194,16 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 				emailAddressUserName:newAcct.emailAddress];
 
 		}
+		entryProgressServerInfoComplete = TRUE;
 	}
 }
-
--(void)advanceToNextForm:(GenericFieldBasedTableAddViewController*)nextStepViewController
-	withNextStepNumber:(NSInteger)nextStepNum
-{
-	if(self.currentAddViewController != nil)
-	{
-		// Instead of tearing down the form fields immediately when the save button is pressed, 
-		// wait until we actually push the view controller for the next. This 
-		// accounts for the scenario where a connection test must be performed before 
-		// advancing to the next form.
-		[self.currentAddViewController tearDownFormFields];
-	}
-
-	self.currentAddViewController = nextStepViewController;
-
-	currentStep = nextStepNum;
-	
-	[self.currParentContext.parentController.navigationController
-		pushViewController:nextStepViewController animated:TRUE];
-
-}
-
 
 -(void)showFormForNextStep:(EmailAccountFormInfoCreator*)nextStepFormInfoCreator 
-	withPopDepth:(NSInteger)popDepth
 	andNextStepNumber:(NSInteger)nextStepNum
 {
 	GenericFieldBasedTableAddViewController *nextStepAddView = 
 		[self addViewControllerForNextStep:nextStepFormInfoCreator
-			withinDataModelController:self.currParentContext.dataModelController andPopDepth:popDepth];
+			withinDataModelController:self.currParentContext.dataModelController];
 
 	[self advanceToNextForm:nextStepAddView withNextStepNumber:nextStepNum];
 
@@ -215,7 +216,7 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 		
 	promptedForImapServer = TRUE;
 		
-	[self showFormForNextStep:imapServerFormInfoCreator withPopDepth:2 
+	[self showFormForNextStep:imapServerFormInfoCreator 
 		andNextStepNumber:ADD_EMAIL_ACCOUNT_STEP_PROMPT_IMAP];
 }
 
@@ -224,13 +225,11 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	ConfirmAcctLoginSettingsEmailAcctFormInfoCreator *confirmAcctFormInfoCreator = 
 		[[[ConfirmAcctLoginSettingsEmailAcctFormInfoCreator alloc] initWithEmailAcct:newAcct] autorelease];
 
-	NSInteger popDepth = promptedForImapServer?3:2;
-
-	[self showFormForNextStep:confirmAcctFormInfoCreator withPopDepth:popDepth
+	[self showFormForNextStep:confirmAcctFormInfoCreator
 		andNextStepNumber:ADD_EMAIL_ACCOUNT_STEP_CONFIRM_ACCT_SETTINGS];
 }
 
--(void)showMessageDeletionSettingsForm:(EmailAccount*)newAcct withPopDepth:(NSInteger)popDepth
+-(void)showMessageDeletionSettingsForm:(EmailAccount*)newAcct
 {
 	DeleteSettingsEmailAccountFormInfoCreator *emailAcctFormInfoCreator = 
 		[[[DeleteSettingsEmailAccountFormInfoCreator alloc] initWithEmailAcct:newAcct] autorelease];
@@ -244,12 +243,7 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	if(self.acctSaveCompleteDelegate != nil)
 	{
 		addView.addCompleteDelegate = self.acctSaveCompleteDelegate;
-		addView.popDepth = 0;
 		addView.showCancelButton = FALSE;
-	}
-	else
-	{
-		addView.popDepth = popDepth;
 	}
 	
 	[self advanceToNextForm:addView withNextStepNumber:ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS];
@@ -275,7 +269,6 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 		LOCALIZED_STR(@"EMAIL_ACCOUNT_CONNECTION_TEST_STATUS_TESTING_CONNECTION");
 	[NSThread sleepForTimeInterval:0.75];
 
-	
 	CTCoreAccount *mailAcct = [[CTCoreAccount alloc] init];
 	int connectionType = [self.acctBeingAdded.useSSL boolValue]?
 		CONNECTION_TYPE_TLS:CONNECTION_TYPE_PLAIN;
@@ -361,10 +354,16 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	
 	if(currentStep == ADD_EMAIL_ACCOUNT_STEP_PROMPT_BASIC_INFO)
 	{
+		entryProgressBasicInfoComplete = TRUE;
 		[self populateAcctWithPresetsAfterBasicInfoEntered:newAcct];
-		if(newAcct.imapServer != nil)
+		
+		
+		if(entryProgressServerInfoComplete)
 		{
-			[self showConfirmSettingsForm:newAcct];
+			// If after entering just the basic settings, the server
+			// information is defaulted, then test the connection
+			// and transition immediately to the message deletion settings.
+			[self startAcctConnectionTest];
 
 		}
 		else {
@@ -374,7 +373,18 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	else if(currentStep == ADD_EMAIL_ACCOUNT_STEP_PROMPT_IMAP)
 	{
 		[self populateAcctWithPresetsAfterIMAPServerEntered:newAcct];
-		[self showConfirmSettingsForm:newAcct];
+		
+		// If with the presets, the server information is complete,
+		// then test the connection. Otherwise, transition to 
+		// confirm the full settings.
+		if(entryProgressServerInfoComplete)
+		{
+			[self startAcctConnectionTest];
+		}
+		else 
+		{
+			[self showConfirmSettingsForm:newAcct];
+		}
 	}
 	else if(currentStep == ADD_EMAIL_ACCOUNT_STEP_CONFIRM_ACCT_SETTINGS)
 	{
@@ -393,10 +403,16 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	
 	if(connectionTestSucceeded)
 	{
-		NSInteger finalPopDepth = promptedForImapServer?4:3;
-		[self showMessageDeletionSettingsForm:self.acctBeingAdded withPopDepth:finalPopDepth];
+		[self showMessageDeletionSettingsForm:self.acctBeingAdded];
 	}
 	else {
+	
+		if(currentStep != ADD_EMAIL_ACCOUNT_STEP_CONFIRM_ACCT_SETTINGS)
+		{
+			// If the form is not already in the form to confirm the settings,
+			// transition there to allow the user to review/edit the full information.
+			[self showConfirmSettingsForm:self.acctBeingAdded];
+		}
 		[self showConnectionFailedAlert];
 	}
 
