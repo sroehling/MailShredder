@@ -44,6 +44,7 @@ extern NSString * const EMAIL_FOLDER_ACCT_KEY;
 	
 -(NSMutableDictionary*)emailInfosInFolderByUID;
 -(BOOL)hasLocalEmailInfoObjects;
+-(BOOL)isReferencedByFiltersOrSyncFolders;
 
 @end
 

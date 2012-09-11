@@ -44,7 +44,24 @@ NSString * const EMAIL_FOLDER_ACCT_KEY = @"folderAccount";
 
 -(BOOL)hasLocalEmailInfoObjects
 {
-	return ([self.emailInfoFolder count] > 0)?TRUE:FALSE;
+	return ((self.emailInfoFolder != nil) && 
+		(self.emailInfoFolder.count > 0))?TRUE:FALSE;
+}
+
+
+-(BOOL)isReferencedByFiltersOrSyncFolders
+{
+	if((self.emailFolderFilterSelectedFolders != nil) &&
+		(self.emailFolderFilterSelectedFolders.count >0))
+	{
+		return TRUE;
+	}
+	if((self.emailAccountOnlySyncFolders != nil) &&
+		(self.emailAccountOnlySyncFolders.count >0))
+	{
+		return TRUE;
+	}
+	return FALSE;
 }
 
 -(NSMutableDictionary*)emailInfosInFolderByUID

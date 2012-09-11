@@ -113,6 +113,9 @@
 
 -(void)deleteMsgsForFoldersNoLongerOnServer
 {
+
+	NSMutableArray *foldersToDelete = [[[NSMutableArray alloc] init] autorelease];
+	
 	// After processing all the folders, remove the local messages from folders which
 	// are no longer on the server. We keep the local folder object, since it 
 	// may be referenced within matching rules (the alternative would be to delete
@@ -121,7 +124,22 @@
 	{
 		NSLog(@"Folder removed or renamed on server, deleting messages from local folder");
 		[self.connectionContext.syncDmc deleteObjects:[folderNoLongerOnServer.emailInfoFolder allObjects]];
+		// If the folder is no longer on the server and also is not referenced
+		// by any local filters, then delete it locally.
+		if(![folderNoLongerOnServer isReferencedByFiltersOrSyncFolders])
+		{
+			NSLog(@"Deleting local folder object: %@",folderNoLongerOnServer.folderName);
+			[foldersToDelete addObject:folderNoLongerOnServer];
+		}
+		else 
+		{
+			NSLog(@"Keeping local folder object referenced by filter or sync folder: %@",
+				folderNoLongerOnServer.folderName);
+
+		}
 	}
+	
+	[self.connectionContext.syncDmc deleteObjects:foldersToDelete];
 
 }
 
