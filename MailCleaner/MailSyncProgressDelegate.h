@@ -8,15 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol MailSyncProgressDelegate <NSObject>
+#import "MailServerConnectionProgressDelegate.h"
 
--(void)mailSyncConnectionStarted;
--(void)mailSyncConnectionEstablished;
+@protocol MailSyncProgressDelegate <NSObject,MailServerConnectionProgressDelegate>
 
 -(void)mailSyncUpdateProgress:(CGFloat)percentProgress;
-
--(void)mailSyncConnectionTeardownStarted;
--(void)mailSyncConnectionTeardownFinished;
 -(void)mailSyncComplete:(BOOL)successfulCompletion;
 
 @end

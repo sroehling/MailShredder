@@ -17,7 +17,6 @@
 #import "MsgTableCell.h"
 #import "MsgListView.h"
 #import "UIHelper.h"
-#import "MailClientServerSyncController.h"
 #import "ButtonListItemInfo.h"
 #import "AppDelegate.h"
 #import "EmailAddress.h"
@@ -272,6 +271,7 @@
 	AppDelegate *appDelegate = [AppHelper theAppDelegate];
 	assert(appDelegate.mailSyncProgressDelegates != nil);
 	[appDelegate.mailSyncProgressDelegates addSubDelegate:self.msgListView.msgListActionFooter];
+	[appDelegate.mailDeleteProgressDelegates addSubDelegate:self.msgListView.msgListActionFooter];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -308,7 +308,7 @@
 	AppDelegate *appDelegate = [AppHelper theAppDelegate];
 	assert(appDelegate.mailSyncProgressDelegates != nil);
 	[appDelegate.mailSyncProgressDelegates removeSubDelegate:self.msgListView.msgListActionFooter];	
-
+	[appDelegate.mailDeleteProgressDelegates removeSubDelegate:self.msgListView.msgListActionFooter];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

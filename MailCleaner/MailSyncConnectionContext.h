@@ -12,7 +12,7 @@
 @class CTCoreAccount;
 @class EmailAccount;
 
-#import "MailSyncProgressDelegate.h"
+#import "MailServerConnectionProgressDelegate.h"
 
 @interface MailSyncConnectionContext : NSObject
 {
@@ -21,7 +21,7 @@
 		DataModelController *mainThreadDmc;
 		CTCoreAccount *mailAcct;
 		EmailAccount *emailAcctInfo;
-		id<MailSyncProgressDelegate> progressDelegate;
+		id<MailServerConnectionProgressDelegate> progressDelegate;
 
 }
 
@@ -29,13 +29,13 @@
 @property(nonatomic,retain) DataModelController *mainThreadDmc;
 @property(nonatomic,retain) CTCoreAccount *mailAcct;
 @property(nonatomic,retain) EmailAccount *emailAcctInfo;
-@property(nonatomic,assign) id<MailSyncProgressDelegate> progressDelegate;
+@property(nonatomic,assign) id<MailServerConnectionProgressDelegate> progressDelegate;
 
 -(void)connect;
 -(void)disconnect;
 
 -(id)initWithMainThreadDmc:(DataModelController*)theMainThreadDmc
-	andProgressDelegate:(id<MailSyncProgressDelegate>)theProgressDelegate;
+	andProgressDelegate:(id<MailServerConnectionProgressDelegate>)theProgressDelegate;
 	
 -(EmailAccount*)acctInSyncObjectContext;	
 	

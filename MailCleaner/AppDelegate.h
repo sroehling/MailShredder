@@ -14,6 +14,7 @@
 @class SharedAppVals;
 @class MailClientServerSyncController;
 @class CompositeMailSyncProgressDelegate;
+@class CompositeMailDeleteProgressDelegate;
 @class EmailAccountAdder;
 @class EmailAccount;
 
@@ -25,11 +26,15 @@
 	@private
 		DataModelController *appDmc;
 		SharedAppVals *sharedAppVals;
-		MailClientServerSyncController *mailSyncController;
-		CompositeMailSyncProgressDelegate *mailSyncProgressDelegates;
+		
 		EmailAccountAdder *emailAccountAdder;
+		
 		NSOperationQueue *getBodyOperationQueue;
 		
+		CompositeMailSyncProgressDelegate *mailSyncProgressDelegates;
+		CompositeMailDeleteProgressDelegate *mailDeleteProgressDelegates;
+		NSOperationQueue *msgSyncAndDeleteOperationQueue;
+
 		NSOperationQueue *countMessageFilterCountsQueue;
 		
 		NSMutableSet *accountChangeListers;
@@ -44,8 +49,12 @@
 
 @property(nonatomic,retain) DataModelController *appDmc;
 @property(nonatomic,retain) SharedAppVals *sharedAppVals;
-@property(nonatomic,retain) MailClientServerSyncController *mailSyncController;
+
 @property(nonatomic,retain) CompositeMailSyncProgressDelegate *mailSyncProgressDelegates;
+@property(nonatomic,retain) CompositeMailDeleteProgressDelegate *mailDeleteProgressDelegates;
+@property(nonatomic,retain) NSOperationQueue *msgSyncAndDeleteOperationQueue;
+
+
 @property(nonatomic,retain) EmailAccountAdder *emailAccountAdder;
 @property(nonatomic,retain) NSOperationQueue *getBodyOperationQueue;
 @property(nonatomic,retain) NSOperationQueue *countMessageFilterCountsQueue;
@@ -53,6 +62,8 @@
 @property(nonatomic,retain) NSMutableSet *accountChangeListers;
 
 -(void)updateMessageFilterCountsInBackground;
+-(void)deleteMarkedMsgsInBackgroundThread;
+-(void)syncWithServerInBackgroundThread;
 
 @end
 

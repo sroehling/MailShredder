@@ -33,19 +33,27 @@
 	[self.subDelegates removeObject:subDelegate];
 }
 
--(void)mailSyncConnectionStarted
+-(void)mailServerConnectionStarted
 {
 	for(id<MailSyncProgressDelegate> subDelegate in self.subDelegates)
 	{
-		[subDelegate mailSyncConnectionStarted];
+		[subDelegate mailServerConnectionStarted];
 	}
 }
 
--(void)mailSyncConnectionEstablished
+-(void)mailServerConnectionEstablished
 {
 	for(id<MailSyncProgressDelegate> subDelegate in self.subDelegates)
 	{
-		[subDelegate mailSyncConnectionEstablished];
+		[subDelegate mailServerConnectionEstablished];
+	}
+}
+
+-(void)mailServerConnectionFailed
+{
+	for(id<MailSyncProgressDelegate> subDelegate in self.subDelegates)
+	{
+		[subDelegate mailServerConnectionFailed];
 	}
 }
 
@@ -57,19 +65,19 @@
 	}
 }
 
--(void)mailSyncConnectionTeardownStarted
+-(void)mailServerConnectionTeardownStarted
 {
 	for(id<MailSyncProgressDelegate> subDelegate in self.subDelegates)
 	{
-		[subDelegate mailSyncConnectionTeardownStarted];
+		[subDelegate mailServerConnectionTeardownStarted];
 	}
 }
 
--(void)mailSyncConnectionTeardownFinished
+-(void)mailServerConnectionTeardownFinished
 {
 	for(id<MailSyncProgressDelegate> subDelegate in self.subDelegates)
 	{
-		[subDelegate mailSyncConnectionTeardownFinished];
+		[subDelegate mailServerConnectionTeardownFinished];
 	}
 }
 

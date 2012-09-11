@@ -18,11 +18,13 @@
 #import "EmailInfo.h"
 #import "EmailAccount.h"
 #import "PercentProgressCounter.h"
+#import "MailSyncProgressDelegate.h"
 
 NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 
 @implementation MsgSyncContext
 
+@synthesize progressDelegate;
 @synthesize connectionContext;
 @synthesize currDomainByDomainName;
 @synthesize currEmailAddressByAddress;
@@ -32,7 +34,7 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 @synthesize syncAcct;
 
 -(id)initWithConnectionContext:(MailSyncConnectionContext *)theConnectionContext
-	andTotalExpectedMsgs:(NSUInteger)totalMsgs
+	andTotalExpectedMsgs:(NSUInteger)totalMsgs andProgressDelegate:(id<MailSyncProgressDelegate>)theProgressDelegate
 {
 	self = [super init];
 	if(self)
@@ -47,6 +49,9 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 		newLocalMsgsCreated=0;
 		self.syncProgressCounter = [[PercentProgressCounter alloc] 
 			initWithTotalCount:totalMsgs];
+			
+		assert(theProgressDelegate != nil);
+		self.progressDelegate = theProgressDelegate;
 
 	}
 	return self;
@@ -134,7 +139,7 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 	BOOL progressThresholdCrossed = [syncProgressCounter incrementProgressCount];
 	if(progressThresholdCrossed)
 	{
-		[self.connectionContext.progressDelegate mailSyncUpdateProgress:
+		[self.progressDelegate mailSyncUpdateProgress:
 			[syncProgressCounter currentProgress]];
 	}
 	if((newLocalMsgsCreated % MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD) == 0)

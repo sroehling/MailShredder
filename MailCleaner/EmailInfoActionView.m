@@ -12,7 +12,6 @@
 #import "UIHelper.h"
 #import "AppHelper.h"
 #import "AppDelegate.h"
-#import "MailClientServerSyncController.h"
 #import "SharedAppVals.h"
 #import "EmailAccount.h"
 #import "DateHelper.h"
@@ -143,7 +142,7 @@ const CGFloat ACTION_BUTTON_SIZE = 24.0f;
 
 -(void) refreshMsgs
 {
-	[[AppHelper theAppDelegate].mailSyncController syncWithServerInBackgroundThread];
+	[[AppHelper theAppDelegate] syncWithServerInBackgroundThread];
 
 }
 
@@ -231,7 +230,7 @@ const CGFloat ACTION_BUTTON_SIZE = 24.0f;
 	self.statusLabel.text = [self lastUpdatedStatus];
 }
 
--(void)mailSyncConnectionStarted
+-(void)mailServerConnectionStarted
 {
 	NSLog(@"mail sync started in EmailActionView");
 	// The UI updates need to be performedon the main thread.
@@ -239,16 +238,26 @@ const CGFloat ACTION_BUTTON_SIZE = 24.0f;
 		withObject:self waitUntilDone:FALSE];
 }
 
--(void)mailSyncConnectionEstablished
+-(void)mailServerConnectionEstablished
 {
 	[self performSelectorOnMainThread:@selector(startingUpdateStatus) 
 		withObject:self waitUntilDone:FALSE];
+}
+
+-(void)mailServerConnectionFailed
+{
 }
 
 -(void)updateStatusWithPercProgress
 {
 	self.statusLabel.text = [NSString stringWithFormat:@"%@ (%.0f%%)",
 		LOCALIZED_STR(@"MSGS_ACTION_UPDATING_STATUS_FORMAT"),syncProgress*100.0];
+}
+
+-(void)updateDeleteStatusWithPercProgress
+{
+	self.statusLabel.text = [NSString stringWithFormat:@"%@ (%.0f%%)",
+		LOCALIZED_STR(@"MSGS_ACTION_DELETING_STATUS_FORMAT"),syncProgress*100.0];
 }
 
 -(void)mailSyncUpdateProgress:(CGFloat)percentProgress
@@ -258,20 +267,27 @@ const CGFloat ACTION_BUTTON_SIZE = 24.0f;
 		withObject:self waitUntilDone:TRUE];
 }
 
+-(void)mailDeleteUpdateProgress:(CGFloat)percentProgress
+{
+	syncProgress = percentProgress;
+	[self performSelectorOnMainThread:@selector(updateDeleteStatusWithPercProgress) 
+		withObject:self waitUntilDone:TRUE];
+}
+
 -(void)updateProgressForTeardown
 {
 	self.statusLabel.text = LOCALIZED_STR(@"MSGS_ACTION_FINISHING_STATUS_FORMAT");
 
 }
 
--(void)mailSyncConnectionTeardownStarted
+-(void)mailServerConnectionTeardownStarted
 {
 	[self performSelectorOnMainThread:@selector(updateProgressForTeardown) 
 		withObject:self waitUntilDone:FALSE];
 
 }
 
--(void)mailSyncConnectionTeardownFinished
+-(void)mailServerConnectionTeardownFinished
 {
 }
 
@@ -283,6 +299,10 @@ const CGFloat ACTION_BUTTON_SIZE = 24.0f;
 		withObject:self waitUntilDone:FALSE];
 }
 
-
+-(void)mailDeleteComplete:(BOOL)completeStatus
+{
+	[self performSelectorOnMainThread:@selector(stopRefreshIndicator) 
+		withObject:self waitUntilDone:FALSE];
+}
 
 @end

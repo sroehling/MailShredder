@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "MailSyncProgressDelegate.h"
+#import "MailServerConnectionProgressDelegate.h"
 #import "GetMessageBodyOperation.h"
 
 @class EmailInfo;
@@ -16,7 +16,7 @@
 @class MsgDetailView;
 @class DataModelController;
 
-@interface MsgDetailViewController : UIViewController <MailSyncProgressDelegate,GetMessageBodyDelegate>
+@interface MsgDetailViewController : UIViewController <MailServerConnectionProgressDelegate,GetMessageBodyDelegate>
 {
 	@private
 		MsgDetailView *detailView;

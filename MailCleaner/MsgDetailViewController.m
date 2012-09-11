@@ -107,23 +107,19 @@
     [failureAlert show];
 }
 
--(void)mailSyncConnectionStarted
+-(void)mailServerConnectionStarted
 {
 	[self.detailView.bodyLoadActivity performSelectorOnMainThread:@selector(startAnimating) 
 		withObject:nil waitUntilDone:TRUE];
 }
--(void)mailSyncConnectionEstablished {}
+-(void)mailServerConnectionEstablished {}
 -(void)mailSyncUpdateProgress:(CGFloat)percentProgress {}
--(void)mailSyncConnectionTeardownStarted {}
--(void)mailSyncConnectionTeardownFinished {}
+-(void)mailServerConnectionTeardownStarted {}
+-(void)mailServerConnectionTeardownFinished {}
 
--(void)mailSyncComplete:(BOOL)successfulCompletion 
+-(void)mailServerConnectionFailed 
 {
-	if(!successfulCompletion)
-	{
-		[self performSelectorOnMainThread:@selector(connectFailedAlert) withObject:nil waitUntilDone:TRUE];
-		
-	}
+	[self performSelectorOnMainThread:@selector(connectFailedAlert) withObject:nil waitUntilDone:TRUE];
 }
 
 -(void)msgBodyRetrievalComplete:(NSString *)msgBody

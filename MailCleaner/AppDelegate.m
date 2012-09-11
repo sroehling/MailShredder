@@ -17,7 +17,6 @@
 #import "EmailInfoTableViewController.h"
 #import "GenericFieldBasedTableEditViewController.h"
 #import "SharedAppVals.h"
-#import "MailClientServerSyncController.h"
 #import "MoreFormInfoCreator.h"
 #import "ColorHelper.h"
 
@@ -29,12 +28,14 @@
 #import "EmailAccountAdder.h"
 #import "FormContext.h"
 #import "MessageFilterCountOperation.h"
+#import "MailSyncConnectionContext.h"
+#import "MailSyncOperation.h"
+#import "CompositeMailDeleteProgressDelegate.h"
 
 @implementation AppDelegate
 
 @synthesize appDmc;
 @synthesize window = _window;
-@synthesize mailSyncController;
 @synthesize mailSyncProgressDelegates;
 @synthesize sharedAppVals;
 @synthesize emailAccountAdder;
@@ -42,19 +43,22 @@
 @synthesize accountChangeListers;
 @synthesize messageListNavController;
 @synthesize countMessageFilterCountsQueue;
+@synthesize msgSyncAndDeleteOperationQueue;
+@synthesize mailDeleteProgressDelegates;
 
 - (void)dealloc
 {
 	[_window release];
 	[messageListNavController release];
 	[appDmc release];
-	[mailSyncController release];
 	[mailSyncProgressDelegates release];
 	[sharedAppVals release];
 	[emailAccountAdder release];
 	[getBodyOperationQueue release];
 	[accountChangeListers release];
 	[countMessageFilterCountsQueue release];
+	[msgSyncAndDeleteOperationQueue release];
+	[mailDeleteProgressDelegates release];
     [super dealloc];
 }
 
@@ -100,7 +104,7 @@
 			if(oldAcct != newAcct)
 			{
 				NSLog(@"Current email account changed: Synchronizing messages");
-				[self.mailSyncController syncWithServerInBackgroundThread];
+				[self syncWithServerInBackgroundThread];
 				
 				for(id<CurrentEmailAccountChangedListener> acctChangeListener 
 					in self.accountChangeListers)
@@ -120,7 +124,7 @@
 	
     [self.window makeKeyAndVisible];
 	
-	[self.mailSyncController syncWithServerInBackgroundThread];
+	[self syncWithServerInBackgroundThread];
 	
 	// If the currently selected email account changes, then update re-sync the email
 	// messages.
@@ -178,13 +182,12 @@
 	self.sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
 	[self.appDmc.managedObjectContext setMergePolicy:NSMergeByPropertyStoreTrumpMergePolicy];
 	
-	
-	self.mailSyncProgressDelegates = [[[CompositeMailSyncProgressDelegate alloc] init] autorelease];
-	self.mailSyncController = [[[MailClientServerSyncController alloc] 
-		initWithMainThreadDataModelController:self.appDmc
-		andProgressDelegate:self.mailSyncProgressDelegates] autorelease];
 		
 	self.getBodyOperationQueue = [[[NSOperationQueue alloc] init] autorelease];
+	self.mailSyncProgressDelegates = [[[CompositeMailSyncProgressDelegate alloc] init] autorelease];
+	self.mailDeleteProgressDelegates = [[[CompositeMailDeleteProgressDelegate alloc] init] autorelease];
+	self.msgSyncAndDeleteOperationQueue = [[[NSOperationQueue alloc] init] autorelease];
+	
 	self.countMessageFilterCountsQueue = [[[NSOperationQueue alloc] init] autorelease];
 
 	
@@ -219,6 +222,29 @@
 		[[[MessageFilterCountOperation alloc] initWithMainThreadDmc:self.appDmc 
 		andEmailAccount:self.sharedAppVals.currentEmailAcct] autorelease];
 	[self.countMessageFilterCountsQueue addOperation:countMsgsOperation];
+}
+
+-(void)syncWithServerInBackgroundThread
+{
+	MailSyncConnectionContext *syncConnectionContext = [[[MailSyncConnectionContext alloc]
+		initWithMainThreadDmc:self.appDmc
+		andProgressDelegate:self.mailSyncProgressDelegates] autorelease];
+		
+	[self.msgSyncAndDeleteOperationQueue addOperation:[[[MailSyncOperation alloc]  
+		initWithConnectionContext:syncConnectionContext andProgressDelegate:self.mailSyncProgressDelegates] autorelease]];
+}
+
+
+-(void)deleteMarkedMsgsInBackgroundThread
+{
+
+	MailSyncConnectionContext *syncConnectionContext = [[[MailSyncConnectionContext alloc]
+		initWithMainThreadDmc:self.appDmc
+		andProgressDelegate:self.mailDeleteProgressDelegates] autorelease];
+		
+	[self.msgSyncAndDeleteOperationQueue addOperation:[[[MailDeleteOperation alloc]  
+		initWithConnectionContext:syncConnectionContext andProgressDelegate:self.mailDeleteProgressDelegates] autorelease]];
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

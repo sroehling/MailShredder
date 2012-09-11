@@ -12,8 +12,7 @@
 #import "ColorHelper.h"
 #import "EmailInfo.h"
 #import "DateHelper.h"
-#import "MailClientServerSyncController.h"
-#import "DataModelController.h"
+ #import "DataModelController.h"
 #import "AppDelegate.h"
 #import "AppHelper.h"
 #import "EmailAddress.h"
@@ -258,7 +257,7 @@ const CGFloat DELETE_CONFIRMATION_BOTTOM_MARGIN = 10.0f;
 		[self.appDmc saveContext];
 		
 		AppDelegate *appDelegate = [AppHelper theAppDelegate];
-		[appDelegate.mailSyncController deleteMarkedMsgsInBackgroundThread];
+		[appDelegate deleteMarkedMsgsInBackgroundThread];
 		
 
 		[self removeFromSuperview];

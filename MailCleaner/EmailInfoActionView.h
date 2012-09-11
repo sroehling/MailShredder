@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 
 #import "MailSyncProgressDelegate.h"
+#import "MailDeleteOperation.h"
 
 extern const CGFloat EMAIL_ACTION_VIEW_HEIGHT;
 
 @protocol EmailActionViewDelegate;
 
-@interface EmailInfoActionView : UIView <MailSyncProgressDelegate>
+@interface EmailInfoActionView : UIView 
+	<MailSyncProgressDelegate,MailDeleteProgressDelegate>
 {
 	@private
 		UIButton *emailActionsButton;

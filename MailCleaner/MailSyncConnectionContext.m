@@ -36,7 +36,7 @@
 
 
 -(id)initWithMainThreadDmc:(DataModelController*)theMainThreadDmc
-	andProgressDelegate:(id<MailSyncProgressDelegate>)theProgressDelegate
+	andProgressDelegate:(id<MailServerConnectionProgressDelegate>)theProgressDelegate
 {
 	self = [super init];
 	if(self)
@@ -95,6 +95,7 @@
 		password:password];
 	if(!connectionSucceeded)
 	{
+		[self.progressDelegate mailServerConnectionFailed];
 		@throw [NSException exceptionWithName:@"IMAPServerConnectionFailed" reason:@"Connection to IMAP server failed" userInfo:nil];
 	}
 	
@@ -131,13 +132,13 @@
 {
 	[self setupContext];
 		
-	[self.progressDelegate mailSyncConnectionStarted]; 
+	[self.progressDelegate mailServerConnectionStarted]; 
 	
 	@try
 	{
     	[self connect];
 		
-		[self.progressDelegate mailSyncConnectionEstablished];
+		[self.progressDelegate mailServerConnectionEstablished];
 
 		return TRUE;
 
@@ -171,7 +172,7 @@
 
 -(void)teardownConnection
 {
-	[self.progressDelegate mailSyncConnectionTeardownStarted];
+	[self.progressDelegate mailServerConnectionTeardownStarted];
 		
 	[self disconnect];
 
@@ -179,7 +180,7 @@
 		
 	[self teardownContext];						
 															
-	[self.progressDelegate mailSyncConnectionTeardownFinished];
+	[self.progressDelegate mailServerConnectionTeardownFinished];
 
 }
 

@@ -7,7 +7,28 @@
 //
 
 #import "MailOperation.h"
+#import "MailServerConnectionProgressDelegate.h"
+
+@protocol MailDeleteProgressDelegate;
 
 @interface MailDeleteOperation : MailOperation
+{
+	@private
+		id<MailDeleteProgressDelegate> deleteProgressDelegate;
+}
+
+@property(nonatomic,assign) id<MailDeleteProgressDelegate> deleteProgressDelegate;
+
+-(id)initWithConnectionContext:(MailSyncConnectionContext *)theConnectionContext
+	andProgressDelegate:(id<MailDeleteProgressDelegate>)theDeleteProgressDelegate;
+
+@end
+
+
+
+@protocol MailDeleteProgressDelegate <NSObject,MailServerConnectionProgressDelegate>
+
+-(void)mailDeleteUpdateProgress:(CGFloat)percentProgress;
+-(void)mailDeleteComplete:(BOOL)completeStatus;
 
 @end

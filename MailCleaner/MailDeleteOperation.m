@@ -22,6 +22,32 @@
 
 @implementation MailDeleteOperation
 
+@synthesize deleteProgressDelegate;
+
+-(id)initWithConnectionContext:(MailSyncConnectionContext *)theConnectionContext
+	andProgressDelegate:(id<MailDeleteProgressDelegate>)theDeleteProgressDelegate
+{
+	self = [super initWithConnectionContext:theConnectionContext];
+	if(self)
+	{
+		assert(theDeleteProgressDelegate != nil);
+		self.deleteProgressDelegate = theDeleteProgressDelegate;
+	}
+	return self;
+}
+
+-(id)initWithConnectionContext:(MailSyncConnectionContext *)theConnectionContext
+{
+	assert(0);
+	return nil;
+}
+
+-(id)init
+{
+	assert(0);
+	return nil;
+}
+
 -(NSDictionary*)serverFoldersByName
 {
 	NSSet *allFolders = [self.connectionContext.mailAcct allFolders];
@@ -157,7 +183,7 @@
 		if((currentProgress - deleteProgress) >= SYNC_PROGRESS_UPDATE_THRESHOLD)
 		{
 			deleteProgress = currentProgress;
-			[self.connectionContext.progressDelegate mailSyncUpdateProgress:deleteProgress];
+			[self.deleteProgressDelegate mailDeleteUpdateProgress:deleteProgress];
 		}
 			
 	}
@@ -227,22 +253,24 @@
 {
 	if([self.connectionContext establishConnection])
 	{
+		BOOL deleteSuccessful = FALSE;
 		@try 
 		{
 			[self deleteMarkedMsgs];
-			[self.connectionContext.progressDelegate mailSyncComplete:TRUE];
-			
+			deleteSuccessful = TRUE;
 
 		}
 		@catch (NSException *exception) {
 			[self performSelectorOnMainThread:@selector(deleteFailedAlert) 
 				withObject:self waitUntilDone:TRUE];
 
-			[self.connectionContext.progressDelegate mailSyncComplete:FALSE];
+			deleteSuccessful = FALSE;
 		}
 		@finally 
 		{
 			[self.connectionContext teardownConnection];
+			
+			[self.deleteProgressDelegate mailDeleteComplete:deleteSuccessful];
 
 			// Update the number of messages matching each saved message filter
 			// to reflect messages just deleted.
@@ -255,7 +283,7 @@
 		[self performSelectorOnMainThread:@selector(deleteFailedAlert) 
 			withObject:self waitUntilDone:TRUE];
 
-		[self.connectionContext.progressDelegate mailSyncComplete:FALSE];
+		[self.deleteProgressDelegate mailDeleteComplete:FALSE];
 	}
 
 }

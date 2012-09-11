@@ -12,6 +12,7 @@
 @class EmailFolder;
 @class EmailAccount;
 @class PercentProgressCounter;
+@protocol MailSyncProgressDelegate;
 
 @interface MsgSyncContext : NSObject
 {
@@ -33,6 +34,7 @@
 		
 		NSUInteger newLocalMsgsCreated;
 		PercentProgressCounter *syncProgressCounter;
+		id<MailSyncProgressDelegate> progressDelegate;
 
 }
 
@@ -47,8 +49,10 @@
 
 @property(nonatomic,retain) PercentProgressCounter *syncProgressCounter;
 
+@property(nonatomic,assign) id<MailSyncProgressDelegate> progressDelegate;
+
 -(id)initWithConnectionContext:(MailSyncConnectionContext *)theConnectionContext
-	andTotalExpectedMsgs:(NSUInteger)totalMsgs;
+	andTotalExpectedMsgs:(NSUInteger)totalMsgs andProgressDelegate:(id<MailSyncProgressDelegate>)theProgressDelegate;
 
 -(void)startMsgSyncForFolder:(EmailFolder*)emailFolder;
 -(void)syncOneMsg:(CTCoreMessage*)msg;

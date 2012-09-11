@@ -47,7 +47,6 @@
 			{
 				[self.connectionContext teardownConnection];
 				[self.getMsgBodyDelegate msgBodyRetrievalFailed];
-				[self.connectionContext.progressDelegate mailSyncComplete:TRUE];
 				return;
 			}
 
@@ -58,7 +57,6 @@
 			{
 				[self.connectionContext teardownConnection];
 				[self.getMsgBodyDelegate msgBodyRetrievalFailed];
-				[self.connectionContext.progressDelegate mailSyncComplete:TRUE];
 				return;
 			}
 			
@@ -67,7 +65,6 @@
 				if(self.isCancelled) { return; }
 				[self.connectionContext teardownConnection];
 				[self.getMsgBodyDelegate msgBodyRetrievalFailed];
-				[self.connectionContext.progressDelegate mailSyncComplete:TRUE];
 				return;
 			}			
 			
@@ -85,16 +82,10 @@
 			[self.getMsgBodyDelegate msgBodyRetrievalComplete:msgBody];
 			
 			[self.connectionContext teardownConnection];
-			[self.connectionContext.progressDelegate mailSyncComplete:TRUE];
 		}
 		@catch (NSException *exception) {
 				[self.getMsgBodyDelegate msgBodyRetrievalFailed];
-				[self.connectionContext.progressDelegate mailSyncComplete:TRUE];
 		}
-	}
-	else 
-	{
-		[self.connectionContext.progressDelegate mailSyncComplete:FALSE];
 	}
 	
 	NSLog(@"GetMessageBodyOperation: message body retrieval finished");

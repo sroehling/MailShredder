@@ -27,6 +27,32 @@
 
 @implementation MailSyncOperation
 
+@synthesize syncProgressDelegate;
+
+-(id)initWithConnectionContext:(MailSyncConnectionContext *)theConnectionContext
+	andProgressDelegate:(id<MailSyncProgressDelegate>)theProgressDelegate
+{
+	self = [super initWithConnectionContext:theConnectionContext];
+	if(self)
+	{
+		assert(theProgressDelegate != nil);
+		self.syncProgressDelegate = theProgressDelegate;
+	}
+	return self;
+}
+
+-(id)initWithConnectionContext:(MailSyncConnectionContext *)theConnectionContext
+{
+	assert(0);
+	return nil;
+}
+
+-(id)init
+{
+	assert(0);
+	return nil;
+}
+
 -(void)syncFailedAlert
 {
 	UIAlertView *syncFailedAlert = [[[UIAlertView alloc] initWithTitle:
@@ -48,7 +74,8 @@
 					initWithConnectionContext:self.connectionContext];
 		MsgSyncContext *msgSyncContext = [[MsgSyncContext alloc] 
 					initWithConnectionContext:self.connectionContext
-					andTotalExpectedMsgs:[folderSyncContext totalServerMsgCountInAllFolders]];
+					andTotalExpectedMsgs:[folderSyncContext totalServerMsgCountInAllFolders]
+					andProgressDelegate:self.syncProgressDelegate];
 		NSSet *allFoldersOnServer = [[self.connectionContext.mailAcct allFolders] retain];
 		
 		@try
@@ -108,7 +135,7 @@
 				
 			[self.connectionContext teardownConnection];
 
-			[self.connectionContext.progressDelegate mailSyncComplete:TRUE];
+			[self.syncProgressDelegate mailSyncComplete:TRUE];
 			
 			// Update the number of messages matching each saved message filter
 			// to reflect the sychronization.
@@ -118,7 +145,7 @@
 		{
 			[self performSelectorOnMainThread:@selector(syncFailedAlert) 
 				withObject:self waitUntilDone:TRUE];
-			[self.connectionContext.progressDelegate mailSyncComplete:FALSE];
+			[self.syncProgressDelegate mailSyncComplete:FALSE];
 		}
 		@finally 
 		{
@@ -131,7 +158,7 @@
 	{
 		[self performSelectorOnMainThread:@selector(syncFailedAlert) 
 			withObject:self waitUntilDone:TRUE];	
-		[self.connectionContext.progressDelegate mailSyncComplete:FALSE];
+		[self.syncProgressDelegate mailSyncComplete:FALSE];
 	}
 	
 	NSLog(@"MailSyncOperation: Mail sync execution finished");
