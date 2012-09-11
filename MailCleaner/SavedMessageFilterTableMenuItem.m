@@ -22,11 +22,15 @@
 -(id)initWithMessageFilter:(MessageFilter*)theMessageFilter 
 	andFilterSelectedDelegate:(id<SavedMessageFilterTableMenuItemSelectedDelegate>)theSelectionDelegate
 {
+	NSInteger matchingMessages = [theMessageFilter.matchingMsgs integerValue];
 	NSString *filterNameWithCount = [NSString stringWithFormat:@"%@ (%d)",
 		theMessageFilter.filterName,[theMessageFilter.matchingMsgs integerValue]];
 
+	BOOL filterMatchesMessages = matchingMessages>0?TRUE:FALSE;
+
 	self = [super initWithTitle:filterNameWithCount
-		andTarget:self andSelector:@selector(savedFilterMenuItemSelected)];
+		andTarget:self andSelector:@selector(savedFilterMenuItemSelected)
+		andEnabled:filterMatchesMessages];
 	if(self)
 	{
 		self.messageFilter = theMessageFilter;

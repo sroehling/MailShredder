@@ -122,24 +122,16 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	[sections addObject:section];
 	
 	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
-	NSMutableSet *savedFiltersMatchingMsgs = [[[NSMutableSet alloc] init] autorelease];
-	for(MessageFilter *savedFilter in sharedAppVals.currentEmailAcct.savedMsgListFilters)
-	{
-		if([savedFilter.matchingMsgs integerValue] >0)
-		{
-			[savedFiltersMatchingMsgs addObject:savedFilter];
-		}
-	}
 
-	NSUInteger numFilters = [savedFiltersMatchingMsgs count];
+	NSArray *sortedSavedFilters = [CollectionHelper 
+			setToSortedArray:sharedAppVals.currentEmailAcct.savedMsgListFilters 
+			withKey:MESSAGE_FILTER_NAME_KEY];
+	NSUInteger numFilters = [sortedSavedFilters count];
 	if(numFilters> 0)
 	{
 		section = [[[TableMenuSection alloc] 
 			initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_LOAD_FILTER_FILTER_SECTION_TITLE")] autorelease];
 		[sections addObject:section];
-		
-		NSArray *sortedSavedFilters = [CollectionHelper setToSortedArray:savedFiltersMatchingMsgs 
-				withKey:MESSAGE_FILTER_NAME_KEY];
 		
 		for(MessageFilter *savedFilter in sortedSavedFilters)
 		{
