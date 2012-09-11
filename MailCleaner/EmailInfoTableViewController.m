@@ -49,7 +49,6 @@
 #import "CollectionHelper.h"
 
 CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
-CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT_NO_SELECTION = 60.0f;
 
 @implementation EmailInfoTableViewController
 
@@ -206,50 +205,42 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT_NO_SELECTION = 60.0f;
 	BOOL oneOrMoreMsgsSelected = ([self.selectedEmailInfos count] > 0)?TRUE:FALSE;
 
 	NSMutableArray *sections = [[[NSMutableArray alloc] init] autorelease];
-	if(oneOrMoreMsgsSelected)
-	{
-		TableMenuSection *narrowFilterSection = [[[TableMenuSection alloc] 
-			initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_NARROW_FILTER_SECTION_TITLE")] autorelease];
-		[narrowFilterSection addMenuItem:[[[TableMenuItem alloc] 
-			initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_ADDRESSES_MENU_TITLE")
-			 andTarget:self andSelector:@selector(narrowToSelectedAddresses)] autorelease]];
-		[narrowFilterSection addMenuItem:[[[TableMenuItem alloc] 
-			initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_RECIPIENTS_MENU_TITLE")
-			 andTarget:self andSelector:@selector(narrowToSelectedRecipients)] autorelease]];	
-		[narrowFilterSection addMenuItem:[[[TableMenuItem alloc] 
-			initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_DOMAINS_MENU_TITLE")
-			 andTarget:self andSelector:@selector(narrowToSelectedDomains)] autorelease]];
-		[sections addObject:narrowFilterSection];
-	}
+	TableMenuSection *narrowFilterSection = [[[TableMenuSection alloc] 
+		initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_NARROW_FILTER_SECTION_TITLE")] autorelease];
+	[narrowFilterSection addMenuItem:[[[TableMenuItem alloc] 
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_ADDRESSES_MENU_TITLE")
+		 andTarget:self andSelector:@selector(narrowToSelectedAddresses)
+		 andEnabled:oneOrMoreMsgsSelected] autorelease]];
+	[narrowFilterSection addMenuItem:[[[TableMenuItem alloc] 
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_RECIPIENTS_MENU_TITLE")
+		 andTarget:self andSelector:@selector(narrowToSelectedRecipients)
+		 andEnabled:oneOrMoreMsgsSelected] autorelease]];	
+	[narrowFilterSection addMenuItem:[[[TableMenuItem alloc] 
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_DOMAINS_MENU_TITLE")
+		 andTarget:self andSelector:@selector(narrowToSelectedDomains)
+		 andEnabled:oneOrMoreMsgsSelected] autorelease]];
+	[sections addObject:narrowFilterSection];
 
 	TableMenuSection *saveFilterSection = [[[TableMenuSection alloc] 
-		initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_CREATE_SAVED_FILTER_SECTION_TITLE")] autorelease];
-	if(oneOrMoreMsgsSelected)
-	{
-		[saveFilterSection addMenuItem:[[[TableMenuItem alloc] 
-			initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_ADDRESSES_MENU_TITLE")
-			 andTarget:self andSelector:@selector(createMsgFilterSelectedAddresses)] autorelease]];
-		[saveFilterSection addMenuItem:[[[TableMenuItem alloc] 
-			initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_RECIPIENTS_MENU_TITLE")
-			 andTarget:self andSelector:@selector(createMsgFilterSelectedRecipients)] autorelease]];		 
-		[saveFilterSection addMenuItem:[[[TableMenuItem alloc] 
-			initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_DOMAINS_MENU_TITLE")
-			 andTarget:self andSelector:@selector(createMsgFilterSelectedDomains)] autorelease]];
-	}
+	initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_CREATE_SAVED_FILTER_SECTION_TITLE")] autorelease];
+	[saveFilterSection addMenuItem:[[[TableMenuItem alloc] 
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_ADDRESSES_MENU_TITLE")
+		 andTarget:self andSelector:@selector(createMsgFilterSelectedAddresses)
+		 andEnabled:oneOrMoreMsgsSelected] autorelease]];
+	[saveFilterSection addMenuItem:[[[TableMenuItem alloc] 
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_RECIPIENTS_MENU_TITLE")
+		 andTarget:self andSelector:@selector(createMsgFilterSelectedRecipients)
+		 andEnabled:oneOrMoreMsgsSelected] autorelease]];		 
+	[saveFilterSection addMenuItem:[[[TableMenuItem alloc] 
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_DOMAINS_MENU_TITLE")
+		 andTarget:self andSelector:@selector(createMsgFilterSelectedDomains)
+		 andEnabled:oneOrMoreMsgsSelected] autorelease]];
 	[saveFilterSection addMenuItem:[[[TableMenuItem alloc] 
 		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_CURRENT_FILTER_MENU_TITLE")
 		 andTarget:self andSelector:@selector(createMsgFilterCurrentFilter)] autorelease]];
 	[sections addObject:saveFilterSection];
 	
-	CGFloat popupMenuHeight;
-	if(oneOrMoreMsgsSelected)
-	{
-		popupMenuHeight = EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT;
-	}
-	else 
-	{
-		popupMenuHeight = EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT_NO_SELECTION;
-	}
+	CGFloat popupMenuHeight = EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT;
 	
 	return [[[TableMenuViewController alloc] 
 			initWithStyle:UITableViewStyleGrouped 
