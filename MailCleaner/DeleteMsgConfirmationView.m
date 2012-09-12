@@ -16,6 +16,7 @@
 #import "AppDelegate.h"
 #import "AppHelper.h"
 #import "EmailAddress.h"
+#import "MsgDetailHelper.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -26,15 +27,23 @@ const CGFloat DELETE_CONFIRMATION_LEFT_MARGIN = 10.0f;
 const CGFloat DELETE_CONFIRMATION_RIGHT_MARGIN = 10.0f;
 const CGFloat DELETE_CONFIRMATION_TOP_MARGIN = 10.0f;
 const CGFloat DELETE_CONFIRMATION_BOTTOM_MARGIN = 10.0f;
+const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 
 @implementation DeleteMsgConfirmationView
 
 @synthesize cancelButton;
 @synthesize deleteButton;
 @synthesize skipButton;
+
 @synthesize sendDateLabel;
+@synthesize sendDateCaption;
+
 @synthesize fromLabel;
+@synthesize fromCaption;
+
 @synthesize subjectLabel;
+@synthesize subjectCaption;
+
 @synthesize msgsToDelete;
 @synthesize msgDisplayView;
 @synthesize msgsConfirmedForDeletion;
@@ -51,7 +60,7 @@ const CGFloat DELETE_CONFIRMATION_BOTTOM_MARGIN = 10.0f;
 {
     EmailInfo *currentMsgInfo = [self currentMsg];
     self.fromLabel.text = [currentMsgInfo.senderAddress formattedAddress];
-    self.sendDateLabel.text = [currentMsgInfo formattedSendDate];;
+    self.sendDateLabel.text = [currentMsgInfo formattedSendDateAndTime];
 	self.subjectLabel.text = currentMsgInfo.subject;
 }
 
@@ -102,34 +111,23 @@ const CGFloat DELETE_CONFIRMATION_BOTTOM_MARGIN = 10.0f;
 		[self addSubview:self.msgDisplayView];
 		
 		
-		self.fromLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];       
-		self.fromLabel.backgroundColor = [UIColor clearColor];
-		self.fromLabel.opaque = NO;
-		self.fromLabel.textColor = [UIColor blackColor];
-		self.fromLabel.textAlignment = UITextAlignmentLeft;
-		self.fromLabel.highlightedTextColor = [UIColor blackColor];
-		self.fromLabel.font = [UIFont boldSystemFontOfSize:13];       
+		self.fromLabel = [MsgDetailHelper msgHeaderTextLabel];
+		self.fromCaption = [MsgDetailHelper msgHeaderCaptionLabel];
+		self.fromCaption.text = LOCALIZED_STR(@"MESSAGE_DETAIL_FROM_CAPTION");
 		[self.msgDisplayView addSubview: self.fromLabel]; 
+		[self.msgDisplayView addSubview: self.fromCaption]; 
 		
-		self.sendDateLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-		self.sendDateLabel.backgroundColor = [UIColor clearColor];
-		self.sendDateLabel.opaque = NO;
-		self.sendDateLabel.textColor = [ColorHelper blueTableTextColor];
-		self.sendDateLabel.textAlignment = UITextAlignmentRight;
-		self.sendDateLabel.highlightedTextColor = [ColorHelper blueTableTextColor];
-		self.sendDateLabel.font = [UIFont systemFontOfSize:13];       
+		self.sendDateLabel = [MsgDetailHelper msgHeaderTextLabel];
+		self.sendDateCaption = [MsgDetailHelper msgHeaderCaptionLabel];
+		self.sendDateCaption.text = LOCALIZED_STR(@"MESSAGE_DETAIL_DATE_CAPTION");
+		[self.msgDisplayView addSubview:self.sendDateCaption];     
 		[self.msgDisplayView addSubview:self.sendDateLabel];
 		
-		self.subjectLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-		self.subjectLabel.backgroundColor = [UIColor clearColor];
-		self.subjectLabel.opaque = NO;
-		self.subjectLabel.textColor = [UIColor darkGrayColor];
-		self.subjectLabel.textAlignment = UITextAlignmentLeft;
-		self.subjectLabel.highlightedTextColor = [UIColor darkGrayColor];
-		self.subjectLabel.font = [UIFont systemFontOfSize:13];        
-		self.subjectLabel.lineBreakMode = UILineBreakModeTailTruncation;
-		self.subjectLabel.numberOfLines = 1;
-		[self.msgDisplayView addSubview: self.subjectLabel]; 
+		self.subjectLabel = [MsgDetailHelper msgHeaderTextLabel];
+		self.subjectCaption = [MsgDetailHelper msgHeaderCaptionLabel];
+		self.subjectCaption.text =  LOCALIZED_STR(@"MESSAGE_DETAIL_SUBJECT_CAPTION");
+		[self.msgDisplayView addSubview:self.subjectLabel]; 
+		[self.msgDisplayView addSubview:self.subjectCaption];
 		
 		[self configureCurrentMsg];
 	   
@@ -156,6 +154,40 @@ const CGFloat DELETE_CONFIRMATION_BOTTOM_MARGIN = 10.0f;
 	[theButton setFrame:buttonFrame];
 }
 
+-(CGFloat)layoutHeaderLineWithCaption:(UILabel*)captionLabel andText:(UILabel*)textLabel
+	andCurrYOffset:(CGFloat)yOffset
+{
+	[captionLabel sizeToFit];
+	[textLabel sizeToFit];
+	
+	CGFloat headerWidth = DELETE_CONFIRMATION_BUTTON_WIDTH;
+		
+	CGRect captionFrame = captionLabel.frame;
+	captionFrame.origin.x = DELETE_CONFIRMATION_LEFT_MARGIN;
+	captionFrame.origin.y = yOffset;
+	captionFrame.size.width = DELETE_CONFIRMATION_CAPTION_WIDTH;
+	[captionLabel setFrame:captionFrame];
+	
+	CGFloat maxTextWidth = headerWidth
+		 - DELETE_CONFIRMATION_RIGHT_MARGIN - DELETE_CONFIRMATION_LEFT_MARGIN 
+		 - DELETE_CONFIRMATION_CAPTION_WIDTH;
+	CGSize maxTextSize = CGSizeMake(maxTextWidth, 200);
+	CGSize textSize = [textLabel.text sizeWithFont:textLabel.font
+		constrainedToSize:maxTextSize lineBreakMode:textLabel.lineBreakMode];
+
+	
+	CGRect textFrame = textLabel.frame;
+	textFrame.origin.x = DELETE_CONFIRMATION_LEFT_MARGIN + DELETE_CONFIRMATION_CAPTION_WIDTH;
+	textFrame.origin.y = yOffset;
+	textFrame.size.width = textSize.width;
+	textFrame.size.height = textSize.height;
+	[textLabel setFrame:textFrame];
+	
+	CGFloat headerLineHeight = MAX(CGRectGetHeight(textFrame),CGRectGetHeight(captionFrame));
+	
+	return headerLineHeight;
+}
+
 -(void)layoutMsgDisplayView
 {
 	[self configureCurrentMsg];
@@ -163,45 +195,27 @@ const CGFloat DELETE_CONFIRMATION_BOTTOM_MARGIN = 10.0f;
 	[sendDateLabel sizeToFit];
 	[fromLabel sizeToFit];
 	[subjectlabel sizeToFit];
-
-	CGFloat viewWidth = self.frame.size.width;
-	
-	CGFloat msgDisplayWidth = DELETE_CONFIRMATION_BUTTON_WIDTH;
-	
+		
 	CGFloat currYOffset = DELETE_CONFIRMATION_TOP_MARGIN;
+		
+	currYOffset +=	[self layoutHeaderLineWithCaption:self.fromCaption 
+		andText:self.fromLabel andCurrYOffset:currYOffset];
+
+	currYOffset +=	[self layoutHeaderLineWithCaption:self.sendDateCaption 
+			andText:self.sendDateLabel andCurrYOffset:currYOffset];
 	
-	CGRect sendDateFrame = sendDateLabel.frame;
-	sendDateFrame.origin.x = msgDisplayWidth - sendDateFrame.size.width - DELETE_CONFIRMATION_RIGHT_MARGIN;
-	sendDateFrame.origin.y = currYOffset;
-	[sendDateLabel setFrame:sendDateFrame];
+	currYOffset +=	[self layoutHeaderLineWithCaption:self.subjectCaption 
+		andText:self.subjectLabel andCurrYOffset:currYOffset];
 	
-	CGRect fromFrame = fromLabel.frame;
-	fromFrame.origin.x = DELETE_CONFIRMATION_LEFT_MARGIN;
-	fromFrame.origin.y = currYOffset;
-	[fromLabel setFrame:fromFrame];
-	
-	CGFloat firstRowHeight = MAX(sendDateLabel.frame.size.height,fromLabel.frame.size.height);
-	currYOffset += firstRowHeight + DELETE_CONFIRMATION_VERT_SPACE;
-	
-	CGRect subjectFrame = subjectLabel.frame;
-	subjectFrame.origin.x = DELETE_CONFIRMATION_LEFT_MARGIN;
-	subjectFrame.origin.y = currYOffset;
-	subjectFrame.size.width = msgDisplayWidth  - DELETE_CONFIRMATION_RIGHT_MARGIN - DELETE_CONFIRMATION_LEFT_MARGIN;
-	subjectFrame.size.height = 20.0f;
-	[subjectLabel setFrame:subjectFrame];
-	NSLog(@"subject frame: %@",NSStringFromCGRect(subjectFrame));
-	
-	currYOffset += subjectFrame.size.height + DELETE_CONFIRMATION_BOTTOM_MARGIN;
+	currYOffset += DELETE_CONFIRMATION_BOTTOM_MARGIN;
 	
 	CGRect msgDisplayViewFrame = self.msgDisplayView.frame;
-	msgDisplayViewFrame.size.width = msgDisplayWidth;
+	msgDisplayViewFrame.size.width = DELETE_CONFIRMATION_BUTTON_WIDTH;
 	msgDisplayViewFrame.size.height = currYOffset;
 	msgDisplayViewFrame.origin.y = 0.0f;
-	msgDisplayViewFrame.origin.x = viewWidth/2.0 - (msgDisplayViewFrame.size.width/2.0);
+	CGFloat confirmDeleteViewWidth = self.frame.size.width;
+	msgDisplayViewFrame.origin.x = confirmDeleteViewWidth/2.0 - (msgDisplayViewFrame.size.width/2.0);
 	[self.msgDisplayView setFrame:msgDisplayViewFrame];
-	NSLog(@"msgDisplayView frame: %@",NSStringFromCGRect(msgDisplayViewFrame));
-
-
 }
 
 
@@ -222,6 +236,9 @@ const CGFloat DELETE_CONFIRMATION_BOTTOM_MARGIN = 10.0f;
 	CGRect msgDisplayViewFrame = self.msgDisplayView.frame;
 	msgDisplayViewFrame.origin.y = currYOffset;
 	[self.msgDisplayView setFrame:msgDisplayViewFrame];
+	
+	
+	// Layout the buttons for confirming the deletion or canceling.
  
 	currYOffset +=  self.msgDisplayView.frame.size.height + DELETE_CONFIRMATION_VERT_SPACE;
 	
@@ -288,15 +305,21 @@ const CGFloat DELETE_CONFIRMATION_BOTTOM_MARGIN = 10.0f;
 
 -(void)dealloc
 {
+	[sendDateLabel release];
+	[sendDateCaption release];
+	
+	[fromLabel release];
+	[fromCaption release];
+	
+	[subjectLabel release];
+	[subjectCaption release];
+	
+	[msgDisplayView release];
+
 	[cancelButton release];
 	[deleteButton release];
 	[skipButton release];
 
-	[sendDateLabel release];
-	[fromLabel release];
-	[subjectLabel release];
-	[msgDisplayView release];
-	
 	[msgsToDelete release];
 	[msgsConfirmedForDeletion release];
 

@@ -12,11 +12,11 @@
 #import "EmailAddress.h"
 #import "DateHelper.h"
 #import "EmailFolder.h"
+#import "MsgDetailHelper.h"
 
 CGFloat const MSG_DETAIL_VIEW_MARGIN = 4.0;
 CGFloat const MSG_DETAIL_CAPTION_TEXT_SPACE = 4.0f;
 CGFloat const MSG_DETAIL_HEADER_LINE_VERTICAL_SPACE = 3.0f;
-CGFloat const MSG_DETAIL_FONT_SIZE = 14.0;
 
 @implementation MsgDetailView
 
@@ -34,38 +34,6 @@ CGFloat const MSG_DETAIL_FONT_SIZE = 14.0;
 @synthesize folderCaption;
 @synthesize folderText;
 
--(UILabel*)msgHeaderCaptionLabel
-{
-	UILabel *captionLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-	
-	captionLabel.backgroundColor = [UIColor clearColor];
-	captionLabel.opaque = NO;
-	captionLabel.textColor = [UIColor darkGrayColor];
-	captionLabel.textAlignment = UITextAlignmentRight;
-	captionLabel.highlightedTextColor = [UIColor darkGrayColor];
-	captionLabel.font = [UIFont boldSystemFontOfSize:MSG_DETAIL_FONT_SIZE];        
-	captionLabel.lineBreakMode = UILineBreakModeTailTruncation;
-	captionLabel.numberOfLines = 1;
-	
-	return captionLabel;
-}
-
--(UILabel*)msgHeaderTextLabel
-{
-	UILabel *textLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-	
-	textLabel.backgroundColor = [UIColor clearColor];
-	textLabel.opaque = NO;
-	textLabel.textColor = [UIColor grayColor];
-	textLabel.textAlignment = UITextAlignmentLeft;
-	textLabel.highlightedTextColor = [UIColor grayColor];
-	textLabel.font = [UIFont systemFontOfSize:MSG_DETAIL_FONT_SIZE];        
-	textLabel.lineBreakMode = UILineBreakModeWordWrap;
-	textLabel.numberOfLines = 0;
-	
-	return textLabel;
-
-}
 
 -(CGFloat)widthOfCaption:(UILabel*)captionLabel
 {
@@ -102,34 +70,34 @@ CGFloat const MSG_DETAIL_FONT_SIZE = 14.0;
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-		self.subjectCaption = [self msgHeaderCaptionLabel];
+		self.subjectCaption = [MsgDetailHelper msgHeaderCaptionLabel];
 		[self addSubview:self.subjectCaption];
 		
-		self.subjectText = [self msgHeaderTextLabel];
+		self.subjectText = [MsgDetailHelper msgHeaderTextLabel];
 		[self addSubview:self.subjectText];
 		
-		self.fromCaption = [self msgHeaderCaptionLabel];
+		self.fromCaption = [MsgDetailHelper msgHeaderCaptionLabel];
 		[self addSubview:self.fromCaption];
 		
-		self.fromText = [self msgHeaderTextLabel];
+		self.fromText = [MsgDetailHelper msgHeaderTextLabel];
 		[self addSubview:fromText];
 		
-		self.toText = [self msgHeaderTextLabel];
+		self.toText = [MsgDetailHelper msgHeaderTextLabel];
 		[self addSubview:toText];
 		
-		self.toCaption = [self msgHeaderCaptionLabel];
+		self.toCaption = [MsgDetailHelper msgHeaderCaptionLabel];
 		[self addSubview:toCaption];
 		
-		self.dateCaption = [self msgHeaderCaptionLabel];
+		self.dateCaption = [MsgDetailHelper msgHeaderCaptionLabel];
 		[self addSubview:self.dateCaption];
 		
-		self.dateText = [self msgHeaderTextLabel];
+		self.dateText = [MsgDetailHelper msgHeaderTextLabel];
 		[self addSubview:self.dateText];
 		
-		self.folderCaption = [self msgHeaderCaptionLabel];
+		self.folderCaption = [MsgDetailHelper msgHeaderCaptionLabel];
 		[self addSubview:self.folderCaption];
 		
-		self.folderText = [self msgHeaderTextLabel];
+		self.folderText = [MsgDetailHelper msgHeaderTextLabel];
 		[self addSubview:self.folderText];
 		
 		

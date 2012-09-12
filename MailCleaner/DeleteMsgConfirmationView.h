@@ -18,8 +18,13 @@
 		UIButton *cancelButton;
 
 		UILabel *sendDateLabel;
+		UILabel *sendDateCaption;
+		
 		UILabel *fromLabel;
+		UILabel *fromCaption;
+
 		UILabel *subjectlabel;
+		UILabel *subjectCaption;
 		
 		UIView *msgDisplayView;
 		
@@ -36,8 +41,14 @@
 @property(nonatomic,retain) UIButton *skipButton;
 
 @property(nonatomic,retain) UILabel *sendDateLabel;
+@property(nonatomic,retain) UILabel *sendDateCaption;
+
 @property(nonatomic,retain) UILabel *fromLabel;
+@property(nonatomic,retain) UILabel *fromCaption;
+
 @property(nonatomic,retain) UILabel *subjectLabel;
+@property(nonatomic,retain) UILabel *subjectCaption;
+
 @property(nonatomic,retain) UIView *msgDisplayView;
 
 @property(nonatomic,retain) NSArray *msgsToDelete;
