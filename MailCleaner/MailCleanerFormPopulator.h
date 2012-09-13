@@ -17,6 +17,12 @@
 -(void)populateAgeFilterInParentObj:(NSManagedObject*)parentObj
 	withAgeFilterPropertyKey:(NSString*)ageFilterKey;
 	
+-(void)populateReadFilterInParentObj:(NSManagedObject*)parentObj
+	withReadFilterPropertyKey:(NSString*)readFilterKey;
+	
+-(void)populateStarredFilterInParentObj:(NSManagedObject*)parentObj
+	withStarredFilterPropertyKey:(NSString*)starredFilterKey;	
+	
 -(void)populateEmailAddressFilter:(EmailAddressFilter*)emailAddressFilter;
 -(void)populateEmailDomainFilter:(EmailDomainFilter*)emailDomainFilter;
 -(void)populateEmailFolderFilter:(EmailFolderFilter*)emailFolderFilter;

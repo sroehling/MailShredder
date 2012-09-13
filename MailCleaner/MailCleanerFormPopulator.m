@@ -22,6 +22,10 @@
 #import "EmailDomainFilterFormInfoCreator.h"
 #import "BoolFieldEditInfo.h"
 #import "EmailFolderFilterFormInfoCreator.h"
+#import "ReadFilter.h"
+#import "ReadFilterFormInfoCreator.h"
+#import "StarredFilter.h"
+#import "StarredFilterFormInfoCreator.h"
 
 @implementation MailCleanerFormPopulator
 
@@ -58,6 +62,67 @@
 			andSubViewFactory:ageFilterViewFactory] autorelease];
 	[self.currentSection addFieldEditInfo:messageAgeFieldEditInfo];		
 
+}
+
+
+-(void)populateReadFilterInParentObj:(NSManagedObject*)parentObj
+	withReadFilterPropertyKey:(NSString*)readFilterKey
+{
+	
+	ManagedObjectFieldInfo *assignmentFieldInfo = [[[ManagedObjectFieldInfo alloc] 
+		initWithManagedObject:parentObj
+		andFieldKey:readFilterKey 
+		andFieldLabel:LOCALIZED_STR(@"MESSAGE_READ_FILTER_TITLE")
+		andFieldPlaceholder:@"N/A"] autorelease];
+
+	ReadFilterFormInfoCreator *readFilterFormInfoCreator = 
+		[[[ReadFilterFormInfoCreator alloc] init] autorelease];
+	
+	SelectableObjectTableViewControllerFactory *readFilterViewFactory = 
+		[[[SelectableObjectTableViewControllerFactory alloc] initWithFormInfoCreator:readFilterFormInfoCreator 
+			andAssignedField:assignmentFieldInfo] autorelease];
+	readFilterViewFactory.closeAfterSelection = TRUE;
+	
+	ReadFilter *readFilter = (ReadFilter*)[parentObj valueForKey:readFilterKey];
+	assert(readFilter != nil);
+	
+	StaticNavFieldEditInfo *messageAgeFieldEditInfo = 
+		[[[StaticNavFieldEditInfo alloc] 
+			initWithCaption:LOCALIZED_STR(@"EMAIL_READ_FILTER_FIELD_CAPTION")
+			andSubtitle:LOCALIZED_STR(@"EMAIL_READ_FILTER_FIELD_SUBTITLE") 
+			andContentDescription:[readFilter filterSynopsis]
+			andSubViewFactory:readFilterViewFactory] autorelease];
+	[self.currentSection addFieldEditInfo:messageAgeFieldEditInfo];
+}
+
+-(void)populateStarredFilterInParentObj:(NSManagedObject*)parentObj
+	withStarredFilterPropertyKey:(NSString*)starredFilterKey
+{
+	
+	ManagedObjectFieldInfo *assignmentFieldInfo = [[[ManagedObjectFieldInfo alloc] 
+		initWithManagedObject:parentObj
+		andFieldKey:starredFilterKey 
+		andFieldLabel:LOCALIZED_STR(@"EMAIL_STARRED_FILTER_TITLE")
+		andFieldPlaceholder:@"N/A"] autorelease];
+
+	StarredFilterFormInfoCreator *starredFilterFormInfoCreator = 
+		[[[StarredFilterFormInfoCreator alloc] init] autorelease];
+	
+	SelectableObjectTableViewControllerFactory *starredFilterViewFactory = 
+		[[[SelectableObjectTableViewControllerFactory alloc] initWithFormInfoCreator:starredFilterFormInfoCreator 
+			andAssignedField:assignmentFieldInfo] autorelease];
+	starredFilterViewFactory.closeAfterSelection = TRUE;
+	
+	StarredFilter *starredFilter = (StarredFilter*)[parentObj valueForKey:starredFilterKey];
+	assert(starredFilter != nil);
+	
+	StaticNavFieldEditInfo *messageAgeFieldEditInfo = 
+		[[[StaticNavFieldEditInfo alloc] 
+			initWithCaption:LOCALIZED_STR(@"EMAIL_STARRED_FILTER_FIELD_CAPTION")
+			andSubtitle:LOCALIZED_STR(@"EMAIL_STARRED_FILTER_FIELD_SUBTITLE") 
+			andContentDescription:[starredFilter filterSynopsis]
+			andSubViewFactory:starredFilterViewFactory] autorelease];
+	[self.currentSection addFieldEditInfo:messageAgeFieldEditInfo];
 }
 
 -(void)populateEmailAddressFilter:(EmailAddressFilter*)emailAddressFilter
@@ -109,6 +174,7 @@
 	[self.currentSection addFieldEditInfo:messageFolderFieldEditInfo];
 
 }
+
 
 
 @end

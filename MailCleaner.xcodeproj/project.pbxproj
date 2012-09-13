@@ -106,6 +106,12 @@
 		00AAF2E815B61ED000BFF03C /* EmailAcctFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AAF2E715B61ED000BFF03C /* EmailAcctFieldEditInfo.m */; };
 		00B2FB1115FFAA62005C93DB /* CompositeMailDeleteProgressDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B2FB1015FFAA61005C93DB /* CompositeMailDeleteProgressDelegate.m */; };
 		00B2FB1416000598005C93DB /* MsgDetailHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B2FB1316000597005C93DB /* MsgDetailHelper.m */; };
+		00B2FB19160108C4005C93DB /* StarredFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B2FB18160108C4005C93DB /* StarredFilter.m */; };
+		00B2FB1C160109CB005C93DB /* ReadFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B2FB1B160109CB005C93DB /* ReadFilter.m */; };
+		00B2FB2116011B12005C93DB /* ReadFilterFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B2FB2016011B12005C93DB /* ReadFilterFieldEditInfo.m */; };
+		00B2FB2416011DFA005C93DB /* ReadFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B2FB2316011DFA005C93DB /* ReadFilterFormInfoCreator.m */; };
+		00B2FB2716012A8B005C93DB /* StarredFilterFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B2FB2616012A8B005C93DB /* StarredFilterFieldEditInfo.m */; };
+		00B2FB2A16012A9B005C93DB /* StarredFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B2FB2916012A9B005C93DB /* StarredFilterFormInfoCreator.m */; };
 		00B3B71D15DDA62C00A8FFCD /* MsgSyncContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B3B71C15DDA62C00A8FFCD /* MsgSyncContext.m */; };
 		00C4AB141581784900E0868A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB131581784900E0868A /* CFNetwork.framework */; };
 		00C4AB15158178FC00E0868A /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB11158177C400E0868A /* libiconv.dylib */; };
@@ -330,6 +336,18 @@
 		00B2FB1015FFAA61005C93DB /* CompositeMailDeleteProgressDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompositeMailDeleteProgressDelegate.m; sourceTree = "<group>"; };
 		00B2FB1216000596005C93DB /* MsgDetailHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgDetailHelper.h; sourceTree = "<group>"; };
 		00B2FB1316000597005C93DB /* MsgDetailHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgDetailHelper.m; sourceTree = "<group>"; };
+		00B2FB17160108C4005C93DB /* StarredFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarredFilter.h; sourceTree = "<group>"; };
+		00B2FB18160108C4005C93DB /* StarredFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarredFilter.m; sourceTree = "<group>"; };
+		00B2FB1A160109CB005C93DB /* ReadFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadFilter.h; sourceTree = "<group>"; };
+		00B2FB1B160109CB005C93DB /* ReadFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadFilter.m; sourceTree = "<group>"; };
+		00B2FB1F16011B12005C93DB /* ReadFilterFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadFilterFieldEditInfo.h; sourceTree = "<group>"; };
+		00B2FB2016011B12005C93DB /* ReadFilterFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadFilterFieldEditInfo.m; sourceTree = "<group>"; };
+		00B2FB2216011DF9005C93DB /* ReadFilterFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadFilterFormInfoCreator.h; sourceTree = "<group>"; };
+		00B2FB2316011DFA005C93DB /* ReadFilterFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadFilterFormInfoCreator.m; sourceTree = "<group>"; };
+		00B2FB2516012A8B005C93DB /* StarredFilterFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarredFilterFieldEditInfo.h; sourceTree = "<group>"; };
+		00B2FB2616012A8B005C93DB /* StarredFilterFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarredFilterFieldEditInfo.m; sourceTree = "<group>"; };
+		00B2FB2816012A9B005C93DB /* StarredFilterFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarredFilterFormInfoCreator.h; sourceTree = "<group>"; };
+		00B2FB2916012A9B005C93DB /* StarredFilterFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarredFilterFormInfoCreator.m; sourceTree = "<group>"; };
 		00B3B71B15DDA62C00A8FFCD /* MsgSyncContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgSyncContext.h; sourceTree = "<group>"; };
 		00B3B71C15DDA62C00A8FFCD /* MsgSyncContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgSyncContext.m; sourceTree = "<group>"; };
 		00C4AB11158177C400E0868A /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
@@ -544,6 +562,8 @@
 		0039E5F61566BE3B00CB259D /* Message Filter */ = {
 			isa = PBXGroup;
 			children = (
+				00B2FB161601054F005C93DB /* Starred Filter */,
+				00B2FB1516010548005C93DB /* Read Filter */,
 				00472B1715AC9F3700C6BC82 /* Domain Filter */,
 				00472B1615AC9F1C00C6BC82 /* Folder Filter */,
 				00472B1515AC9F0800C6BC82 /* Address Filter */,
@@ -587,6 +607,8 @@
 		0039E5FC1566CE0700CB259D /* Message Filter */ = {
 			isa = PBXGroup;
 			children = (
+				00B2FB1E16011AB5005C93DB /* Read Filter */,
+				00B2FB1D16011AA9005C93DB /* Starred Filter */,
 				00D9F8BF15F02331004A9321 /* Current Message List Filter */,
 				00D9F8BE15F022DA004A9321 /* Saved Filters */,
 				009106BC15CC45A600994F69 /* Email Recipient Filter */,
@@ -880,6 +902,46 @@
 				00B3B72015DDE1FC00A8FFCD /* Delete Mail */,
 			);
 			name = "Mail Client Operations";
+			sourceTree = "<group>";
+		};
+		00B2FB1516010548005C93DB /* Read Filter */ = {
+			isa = PBXGroup;
+			children = (
+				00B2FB1A160109CB005C93DB /* ReadFilter.h */,
+				00B2FB1B160109CB005C93DB /* ReadFilter.m */,
+			);
+			name = "Read Filter";
+			sourceTree = "<group>";
+		};
+		00B2FB161601054F005C93DB /* Starred Filter */ = {
+			isa = PBXGroup;
+			children = (
+				00B2FB17160108C4005C93DB /* StarredFilter.h */,
+				00B2FB18160108C4005C93DB /* StarredFilter.m */,
+			);
+			name = "Starred Filter";
+			sourceTree = "<group>";
+		};
+		00B2FB1D16011AA9005C93DB /* Starred Filter */ = {
+			isa = PBXGroup;
+			children = (
+				00B2FB2516012A8B005C93DB /* StarredFilterFieldEditInfo.h */,
+				00B2FB2616012A8B005C93DB /* StarredFilterFieldEditInfo.m */,
+				00B2FB2816012A9B005C93DB /* StarredFilterFormInfoCreator.h */,
+				00B2FB2916012A9B005C93DB /* StarredFilterFormInfoCreator.m */,
+			);
+			name = "Starred Filter";
+			sourceTree = "<group>";
+		};
+		00B2FB1E16011AB5005C93DB /* Read Filter */ = {
+			isa = PBXGroup;
+			children = (
+				00B2FB1F16011B12005C93DB /* ReadFilterFieldEditInfo.h */,
+				00B2FB2016011B12005C93DB /* ReadFilterFieldEditInfo.m */,
+				00B2FB2216011DF9005C93DB /* ReadFilterFormInfoCreator.h */,
+				00B2FB2316011DFA005C93DB /* ReadFilterFormInfoCreator.m */,
+			);
+			name = "Read Filter";
 			sourceTree = "<group>";
 		};
 		00B3B71F15DDE1E000A8FFCD /* Mail Sync */ = {
@@ -1229,6 +1291,12 @@
 				00F16E0A15FA7F0C00E3A21B /* DeleteSettingsEmailAccountFormInfoCreator.m in Sources */,
 				00B2FB1115FFAA62005C93DB /* CompositeMailDeleteProgressDelegate.m in Sources */,
 				00B2FB1416000598005C93DB /* MsgDetailHelper.m in Sources */,
+				00B2FB19160108C4005C93DB /* StarredFilter.m in Sources */,
+				00B2FB1C160109CB005C93DB /* ReadFilter.m in Sources */,
+				00B2FB2116011B12005C93DB /* ReadFilterFieldEditInfo.m in Sources */,
+				00B2FB2416011DFA005C93DB /* ReadFilterFormInfoCreator.m in Sources */,
+				00B2FB2716012A8B005C93DB /* StarredFilterFieldEditInfo.m in Sources */,
+				00B2FB2A16012A9B005C93DB /* StarredFilterFormInfoCreator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

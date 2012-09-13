@@ -86,6 +86,11 @@
 
 	[formPopulator populateEmailFolderFilter:self.messageFilter.folderFilter];
 
+	[formPopulator populateReadFilterInParentObj:self.messageFilter 
+		withReadFilterPropertyKey:MESSAGE_FILTER_READ_FILTER_KEY];
+
+	[formPopulator populateStarredFilterInParentObj:self.messageFilter 
+		withStarredFilterPropertyKey:MESSAGE_FILTER_STARRED_FILTER_KEY];
 	
 	return formPopulator.formInfo;
 }

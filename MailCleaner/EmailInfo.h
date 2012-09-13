@@ -17,6 +17,8 @@ extern NSString * const EMAIL_INFO_ACCT_KEY;
 extern NSString * const EMAIL_INFO_SENDER_ADDRESS_KEY;
 extern NSString * const EMAIL_INFO_FOLDER_INFO_KEY;
 extern NSString * const EMAIL_INFO_SENDER_DOMAIN_KEY;
+extern NSString * const EMAIL_INFO_STARRED_KEY;
+extern NSString * const EMAIL_INFO_READ_KEY;
 
 @class EmailFolder;
 @class EmailAddress;
@@ -43,10 +45,11 @@ extern NSString * const EMAIL_INFO_SENDER_DOMAIN_KEY;
 
 @property (nonatomic, retain) NSSet *recipientAddresses;
 
+@property (nonatomic, retain) NSNumber * isRead;
+@property (nonatomic, retain) NSNumber * isStarred;
+
 -(NSString*)formattedSendDate;
 -(NSString*)formattedSendDateAndTime;
-
-
 
 @end
 

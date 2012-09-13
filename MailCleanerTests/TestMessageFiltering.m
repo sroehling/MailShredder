@@ -84,6 +84,9 @@
 					inDataModelController:self.appDataDmc
 					andEmailAcct:self.testAppVals.currentEmailAcct];
 	[newEmailInfo addRecipientAddressesObject:recipientAddress];
+	
+	newEmailInfo.isRead = [NSNumber numberWithBool:TRUE];
+	newEmailInfo.isStarred = [NSNumber numberWithBool:FALSE];
 
 	currMessageId ++;
 	[self.appDataDmc saveContext];
@@ -422,6 +425,81 @@
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
 	
 }
+
+
+- (void)testStarredFilter
+{
+	[self resetCoreData];
+
+	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+	
+	EmailInfo *starredMsg = [self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S01" 
+		andFrom:@"jane@localdomain" andFolder:@"INBOX"];
+	starredMsg.isStarred = [NSNumber numberWithBool:TRUE];
+	
+	[self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S02" 
+		andFrom:@"jane@localdomain" andFolder:@"MYFOLDER"];
+	[self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S03"
+		andFrom:@"jane@localdomain" andFolder:@"INBOX"];
+		
+
+	self.messageFilterForTest.starredFilter = self.testAppVals.defaultStarredFilterStarred;
+		
+	NSPredicate *filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
+	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01", nil];
+	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
+	
+	self.messageFilterForTest.starredFilter = self.testAppVals.defaultStarredFilterUnstarred;
+	filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
+	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S02",@"S03",nil];
+	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
+
+
+	self.messageFilterForTest.starredFilter = self.testAppVals.defaultStarredFilterStarredOrUnstarred;
+	filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
+	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S02",@"S03",nil];
+	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
+
+	
+}
+
+- (void)testReadFilter
+{
+	[self resetCoreData];
+
+	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+	
+	EmailInfo *readMsg = [self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S01" 
+		andFrom:@"jane@localdomain" andFolder:@"INBOX"];
+	readMsg.isRead = [NSNumber numberWithBool:FALSE];
+	
+	[self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S02" 
+		andFrom:@"jane@localdomain" andFolder:@"MYFOLDER"];
+	[self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S03"
+		andFrom:@"jane@localdomain" andFolder:@"INBOX"];
+		
+
+	self.messageFilterForTest.readFilter = self.testAppVals.defaultReadFilterUnread;
+		
+	NSPredicate *filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
+	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01", nil];
+	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
+	
+	self.messageFilterForTest.readFilter = self.testAppVals.defaultReadFilterRead;
+	filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
+	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S02",@"S03",nil];
+	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
+
+
+	self.messageFilterForTest.readFilter = self.testAppVals.defaultReadFilterReadOrUnread;
+	filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
+	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S02",@"S03",nil];
+	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
+
+	
+}
+
+
 
 
 @end

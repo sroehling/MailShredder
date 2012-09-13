@@ -16,6 +16,8 @@ NSString * const EMAIL_INFO_ACCT_KEY = @"emailAcct";
 NSString * const EMAIL_INFO_SENDER_ADDRESS_KEY = @"senderAddress";
 NSString * const EMAIL_INFO_FOLDER_INFO_KEY = @"folderInfo";
 NSString * const EMAIL_INFO_SENDER_DOMAIN_KEY = @"senderDomain";
+NSString * const EMAIL_INFO_STARRED_KEY = @"isStarred";
+NSString * const EMAIL_INFO_READ_KEY = @"isRead";
 
 @implementation EmailInfo
 
@@ -29,6 +31,9 @@ NSString * const EMAIL_INFO_SENDER_DOMAIN_KEY = @"senderDomain";
 
 @dynamic folderInfo;
 @dynamic senderDomain;
+
+@dynamic isRead;
+@dynamic isStarred;
 
 - (NSDate*)sendDateLocalTimeZone 
 {

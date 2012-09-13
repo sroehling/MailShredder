@@ -96,6 +96,9 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 			andEmailAcct:self.syncAcct];	
 
 	newEmailInfo.emailAcct = self.syncAcct;
+		
+	newEmailInfo.isRead = [NSNumber numberWithBool:msg.isUnread?FALSE:TRUE];
+	newEmailInfo.isStarred = [NSNumber numberWithBool:msg.isStarred];
 	
 	NSSet *recipients = [msg to];
 	for(CTCoreAddress *toAddress in recipients)
@@ -121,6 +124,20 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 	EmailInfo *existingEmailInfo =[existingEmailInfoByUID objectForKey:msgKey];
 	if(existingEmailInfo != nil)
 	{
+	
+		// Update the flags if they've changed
+		BOOL isRead = msg.isUnread?FALSE:TRUE;
+		if([existingEmailInfo.isRead boolValue] != isRead)
+		{
+			existingEmailInfo.isRead = [NSNumber numberWithBool:isRead];
+		}
+		
+		BOOL isStarred = msg.isStarred;
+		if([existingEmailInfo.isStarred boolValue] != isStarred)
+		{
+			existingEmailInfo.isStarred = [NSNumber numberWithBool:isStarred];
+		}
+
 		// The EmailInfo's remaining in the dictionary after the folder 
 		// synchronization represent messages which are no longer on the server,
 		// but there's still a local EmailInfo.

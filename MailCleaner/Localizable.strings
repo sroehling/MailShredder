@@ -122,6 +122,20 @@
 "EMAIL_FOLDER_FILTER_MATCH_UNSELECTED_FIELD_SUBTITLE" = "Match any folder which is not in the folder list?";
 "EMAIL_FOLDER_FILTER_ADDRESS_LIST_SECTION_TITLE" = "Folder List";
 
+"EMAIL_READ_FILTER_FIELD_CAPTION" = "Read?";
+"EMAIL_READ_FILTER_FIELD_SUBTITLE" = "Filter on whether message is read or not";
+"MESSAGE_READ_FILTER_TITLE" = "Message Read";
+"EMAIL_READ_FILTER_MATCH_READ" = "Read";
+"EMAIL_READ_FILTER_MATCH_UNREAD" = "Unread";
+"EMAIL_READ_FILTER_MATCH_READ_OR_UNREAD" = "Read or Unread";
+
+"EMAIL_STARRED_FILTER_MATCH_STARRED" = "Starred";
+"EMAIL_STARRED_FILTER_MATCH_UNSTARRED" = "Not Starred";
+"EMAIL_STARRED_FILTER_MATCH_STARRED_OR_UNSTARRED" = "Starred or Not Starred";
+"EMAIL_STARRED_FILTER_FIELD_CAPTION" = "Starred?";
+"EMAIL_STARRED_FILTER_TITLE" = "Message Starred";
+"EMAIL_STARRED_FILTER_FIELD_SUBTITLE" = "Filter on whether messages is starred (flagged) or not.";
+
 "SETTINGS_VIEW_TITLE" = "Settings";
 "SAVED_FILTERS_FIELD_CAPTION" = "Saved Message Filters";
 "SAVED_FILTERS_FIELD_SUBTITLE" = "Edit saved message filters for the current account";

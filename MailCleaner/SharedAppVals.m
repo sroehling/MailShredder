@@ -18,6 +18,8 @@
 #import "RecipientAddressFilter.h"
 #import "EmailDomainFilter.h"
 #import "EmailFolderFilter.h"
+#import "ReadFilter.h"
+#import "StarredFilter.h"
 
 NSString * const SHARED_APP_VALS_ENTITY_NAME = @"SharedAppVals";
 NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY = @"currentEmailAcct";
@@ -38,6 +40,12 @@ NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY = @"currentEmailAcct"
 @dynamic defaultAgeFilterOlder3Months;
 @dynamic defaultAgeFilterOlder6Months;
 
+@dynamic defaultReadFilterRead;
+@dynamic defaultReadFilterReadOrUnread;
+@dynamic defaultReadFilterUnread;
+@dynamic defaultStarredFilterStarred;
+@dynamic defaultStarredFilterStarredOrUnstarred;
+@dynamic defaultStarredFilterUnstarred;
 
 +(SharedAppVals*)createWithDataModelController:(DataModelController*)dataModelController
 {
@@ -64,6 +72,20 @@ NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY = @"currentEmailAcct"
 		andComparisonType:AGE_FILTER_COMPARISON_OLDER andInterval:3 andTimeUnit:AGE_FILTER_COMPARISON_TIME_UNIT_MONTHS];
 	sharedVals.defaultAgeFilterOlder6Months = [AgeFilterComparison filterWithDataModelController:dataModelController 
 		andComparisonType:AGE_FILTER_COMPARISON_OLDER andInterval:6 andTimeUnit:AGE_FILTER_COMPARISON_TIME_UNIT_MONTHS];
+		
+	sharedVals.defaultReadFilterRead = [ReadFilter readFilterInDataModelController:dataModelController 
+				andMatchLogic:READ_FILTER_MATCH_LOGIC_READ];
+	sharedVals.defaultReadFilterReadOrUnread = [ReadFilter readFilterInDataModelController:dataModelController 
+				andMatchLogic:READ_FILTER_MATCH_LOGIC_READ_OR_UNREAD];;
+	sharedVals.defaultReadFilterUnread = [ReadFilter readFilterInDataModelController:dataModelController 
+				andMatchLogic:READ_FILTER_MATCH_LOGIC_UNREAD];
+	
+	sharedVals.defaultStarredFilterStarred = [StarredFilter starredFilterInDataModelController:dataModelController 
+		andMatchLogic:STARRED_FILTER_MATCH_LOGIC_STARRED];
+	sharedVals.defaultStarredFilterStarredOrUnstarred = [StarredFilter starredFilterInDataModelController:dataModelController 
+		andMatchLogic:STARRED_FILTER_MATCH_LOGIC_STARRED_OR_UNSTARRED];
+	sharedVals.defaultStarredFilterUnstarred = [StarredFilter starredFilterInDataModelController:dataModelController 
+		andMatchLogic:STARRED_FILTER_MATCH_LOGIC_UNSTARRED];
 
 	return sharedVals;
 }

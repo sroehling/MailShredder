@@ -47,6 +47,8 @@
 #import "MoreFormInfoCreator.h"
 #import "SavedMessageFilterTableMenuItem.h"
 #import "CollectionHelper.h"
+#import "ReadFilter.h"
+#import "StarredFilter.h"
 
 CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 
@@ -562,17 +564,27 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	[newFilter.emailDomainFilter setDomains:
 		[CoreDataHelper objectsInOtherContext:self.saveMsgFilterDmc.managedObjectContext 
 		forOriginalObjs:msgFilter.emailDomainFilter.selectedDomains]];
+		
 	[newFilter.fromAddressFilter setAddresses:
 		[CoreDataHelper objectsInOtherContext:self.saveMsgFilterDmc.managedObjectContext 
 		forOriginalObjs:msgFilter.fromAddressFilter.selectedAddresses]];
+		
 	[newFilter.recipientAddressFilter setAddresses:
 		[CoreDataHelper objectsInOtherContext:self.saveMsgFilterDmc.managedObjectContext 
 		forOriginalObjs:msgFilter.recipientAddressFilter.selectedAddresses]];
+		
 	[newFilter.folderFilter setFolders:
 		[CoreDataHelper objectsInOtherContext:self.saveMsgFilterDmc.managedObjectContext 
 		forOriginalObjs:msgFilter.folderFilter.selectedFolders]];
+		
 	newFilter.ageFilter = (AgeFilter*)[CoreDataHelper objectInOtherContext:self.saveMsgFilterDmc.managedObjectContext
 			forOriginalObj:msgFilter.ageFilter];
+			
+	newFilter.readFilter = (ReadFilter*)[CoreDataHelper objectInOtherContext:self.saveMsgFilterDmc.managedObjectContext
+			forOriginalObj:msgFilter.readFilter];
+			
+	newFilter.starredFilter = (StarredFilter*)[CoreDataHelper objectInOtherContext:self.saveMsgFilterDmc.managedObjectContext
+			forOriginalObj:msgFilter.starredFilter];
 
 	[self pushNewMessageFilterForm:newFilter];
 	

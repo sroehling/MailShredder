@@ -21,17 +21,22 @@
 
 NSString * const MESSAGE_FILTER_ENTITY_NAME = @"MessageFilter";
 NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
+NSString * const MESSAGE_FILTER_READ_FILTER_KEY = @"readFilter";
+NSString * const MESSAGE_FILTER_STARRED_FILTER_KEY = @"starredFilter";
 NSString * const MESSAGE_FILTER_NAME_KEY = @"filterName";
 NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 
 @implementation MessageFilter
 
 @dynamic filterName;
+
 @dynamic ageFilter;
 @dynamic emailDomainFilter;
 @dynamic folderFilter;
 @dynamic recipientAddressFilter;
 @dynamic fromAddressFilter;
+@dynamic readFilter;
+@dynamic starredFilter;
 
 @dynamic matchingMsgs;
 
@@ -44,15 +49,24 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 	SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:filterDmc];
 
 	MessageFilter *msgListFilter = (MessageFilter*)[filterDmc insertObject:MESSAGE_FILTER_ENTITY_NAME];
+	
 	msgListFilter.ageFilter = sharedVals.defaultAgeFilterNone;
+	
 	msgListFilter.fromAddressFilter = (FromAddressFilter*)
 		[filterDmc insertObject:FROM_ADDRESS_FILTER_ENTITY_NAME];
+		
 	msgListFilter.recipientAddressFilter = (RecipientAddressFilter*)
 		[filterDmc insertObject:RECIPIENT_ADDRESS_FILTER_ENTITY_NAME];
+		
 	msgListFilter.emailDomainFilter = (EmailDomainFilter*)
 		[filterDmc insertObject:EMAIL_DOMAIN_FILTER_ENTITY_NAME];
+		
 	msgListFilter.folderFilter = (EmailFolderFilter*)
 		[filterDmc insertObject:EMAIL_FOLDER_FILTER_ENTITY_NAME];
+		
+	msgListFilter.starredFilter = sharedVals.defaultStarredFilterStarredOrUnstarred;
+	
+	msgListFilter.readFilter = sharedVals.defaultReadFilterReadOrUnread;
 		
 	return msgListFilter;
 }
@@ -81,6 +95,14 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 	NSPredicate *emailFolderPredicate = [self.folderFilter filterPredicate];
 	assert(emailFolderPredicate != nil);
 	[predicates addObject:emailFolderPredicate];
+	
+	NSPredicate *readPredicate = [self.readFilter filterPredicate];
+	assert(readPredicate != nil);
+	[predicates addObject:readPredicate];
+	
+	NSPredicate *starredPredicate = [self.starredFilter filterPredicate];
+	assert(starredPredicate != nil);
+	[predicates addObject:starredPredicate];
 		
 	NSPredicate *compoundPredicate = [NSCompoundPredicate 
 			andPredicateWithSubpredicates:predicates];
@@ -124,6 +146,10 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 	[filterDmc deleteObject:self.folderFilter];
 	self.folderFilter = (EmailFolderFilter*)
 		[filterDmc insertObject:EMAIL_FOLDER_FILTER_ENTITY_NAME];
+		
+	self.starredFilter = sharedVals.defaultStarredFilterStarredOrUnstarred;
+	
+	self.readFilter = sharedVals.defaultReadFilterReadOrUnread;
 
 }
 
@@ -136,6 +162,8 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 	[synopsisParts addObject:[self.recipientAddressFilter filterSynopsis]];	
 	[synopsisParts addObject:[self.emailDomainFilter filterSynopsis]];
 	[synopsisParts addObject:[self.folderFilter filterSynopsis]];
+	[synopsisParts addObject:[self.readFilter filterSynopsis]];
+	[synopsisParts addObject:[self.starredFilter filterSynopsis]];
 	
 	return [synopsisParts componentsJoinedByString:@", "];
 	

@@ -66,6 +66,12 @@
 	[formPopulator populateEmailDomainFilter:self.msgFilter.emailDomainFilter];
 
 	[formPopulator populateEmailFolderFilter:self.msgFilter.folderFilter];
+	
+	[formPopulator populateReadFilterInParentObj:self.msgFilter 
+		withReadFilterPropertyKey:MESSAGE_FILTER_READ_FILTER_KEY];
+		
+	[formPopulator populateStarredFilterInParentObj:self.msgFilter 
+		withStarredFilterPropertyKey:MESSAGE_FILTER_STARRED_FILTER_KEY];
 	 
 	formPopulator.formInfo.footerController = 
 		[[[MessageFilterTableFooterController alloc] initWithMessageFilter:self.msgFilter 

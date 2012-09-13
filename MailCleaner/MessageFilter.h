@@ -17,10 +17,14 @@
 @class DataModelController;
 @class RecipientAddressFilter;
 @class EmailAccount;
+@class ReadFilter;
+@class StarredFilter;
 
 extern NSString * const MESSAGE_FILTER_ENTITY_NAME;
 extern NSString * const MESSAGE_FILTER_AGE_FILTER_KEY;
 extern NSString * const MESSAGE_FILTER_NAME_KEY;
+extern NSString * const MESSAGE_FILTER_READ_FILTER_KEY;
+extern NSString * const MESSAGE_FILTER_STARRED_FILTER_KEY;
 extern NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH;
 
 @interface MessageFilter : NSManagedObject
@@ -35,6 +39,9 @@ extern NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH;
 
 @property (nonatomic, retain) EmailAccount *emailAcctMsgListFilter;
 @property (nonatomic, retain) EmailAccount *emailAcctSavedFilter;
+
+@property (nonatomic, retain) ReadFilter *readFilter;
+@property (nonatomic, retain) StarredFilter *starredFilter;
 
 // This is the number of messages matching the filter. This is
 // updated after delete or synchronization operations, so it will be

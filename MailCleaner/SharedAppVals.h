@@ -17,6 +17,8 @@ extern NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY;
 @class DataModelController;
 @class AgeFilterComparison;
 @class EmailAccount;
+@class ReadFilter;
+@class StarredFilter;
 
 @interface SharedAppVals : NSManagedObject
 
@@ -35,6 +37,12 @@ extern NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY;
 @property (nonatomic, retain) AgeFilterComparison *defaultAgeFilterOlder3Months;
 @property (nonatomic, retain) AgeFilterComparison *defaultAgeFilterOlder6Months;
 
+@property (nonatomic, retain) ReadFilter *defaultReadFilterRead;
+@property (nonatomic, retain) ReadFilter *defaultReadFilterReadOrUnread;
+@property (nonatomic, retain) ReadFilter *defaultReadFilterUnread;
+@property (nonatomic, retain) StarredFilter *defaultStarredFilterStarred;
+@property (nonatomic, retain) StarredFilter *defaultStarredFilterStarredOrUnstarred;
+@property (nonatomic, retain) StarredFilter *defaultStarredFilterUnstarred;
 
 +(void)initFromDatabase;
 +(SharedAppVals*)getUsingDataModelController:(DataModelController*)dataModelController;
