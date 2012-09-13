@@ -31,7 +31,7 @@
 -(BOOL)filterMatchesAnyAge
 {
 	assert(0); // must be overriden
-	return nil;
+	return TRUE;
 }
 
 @end
