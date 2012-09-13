@@ -82,5 +82,10 @@ NSUInteger const READ_FILTER_MATCH_LOGIC_READ_OR_UNREAD=2;
 	}
 }
 
+-(BOOL)filterMatchesAnyReadStatus
+{
+	NSUInteger matchLogic = [self.matchLogic unsignedIntegerValue];
+	return (matchLogic == READ_FILTER_MATCH_LOGIC_READ_OR_UNREAD)?TRUE:FALSE;
+}
 
 @end

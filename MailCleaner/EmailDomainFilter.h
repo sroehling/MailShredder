@@ -26,6 +26,7 @@ extern NSString * const EMAIL_DOMAIN_FILTER_MATCH_UNSELECTED_KEY;
 -(NSString*)filterSynopsis;
 -(NSString*)filterSynopsisShort;
 -(NSString*)subFilterSynopsis;
+-(BOOL)filterMatchesAnyDomain;
 
 -(NSPredicate*)filterPredicate;
 

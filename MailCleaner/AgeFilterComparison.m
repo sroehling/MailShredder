@@ -143,6 +143,10 @@ NSUInteger const AGE_FILTER_COMPARISON_NEWER = 1;
 	return predicate;
 }
 
+-(BOOL)filterMatchesAnyAge
+{
+	return FALSE;
+}
 
 
 

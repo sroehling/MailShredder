@@ -38,6 +38,7 @@ extern NSUInteger const READ_FILTER_MATCH_LOGIC_READ_OR_UNREAD;
 
 -(NSString*)filterSynopsis;
 -(NSPredicate*)filterPredicate;
+-(BOOL)filterMatchesAnyReadStatus;
 
 @property BOOL selectionFlagForSelectableObjectTableView;
 

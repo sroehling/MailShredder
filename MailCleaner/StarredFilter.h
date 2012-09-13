@@ -38,6 +38,7 @@ extern NSUInteger const STARRED_FILTER_MATCH_LOGIC_STARRED_OR_UNSTARRED;
 
 -(NSString*)filterSynopsis;
 -(NSPredicate*)filterPredicate;
+-(BOOL)filterMatchesAnyStarredStatus;
 
 @property BOOL selectionFlagForSelectableObjectTableView;
 

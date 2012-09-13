@@ -29,6 +29,7 @@
 "MESSAGE_FILTER_TITLE" = "Message Filter";
 "MESSAGE_FILTER_FORM_SUBHEADER_TEXT" = "The parameters below configure which messages are shown in the message list. A message must match all the parameters to be shown.";
 "MESSAGE_FILTER_RESET_FILTER_BUTTON_TITLE" = "Reset Filter";
+"MESSAGE_FILTER_NO_FILTERING_SYNOPSIS" = "All Messages";
 
 
 "MESSAGE_LIST_ACTION_NARROW_FILTER_SECTION_TITLE" = "Narrow Filtering";

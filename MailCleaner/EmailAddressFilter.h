@@ -32,6 +32,8 @@ extern NSString * const EMAIL_ADDRESS_FILTER_MATCH_UNSELECTED_KEY;
 -(NSString*)addressType;
 -(NSString*)addressTypePlural;
 
+-(BOOL)filterMatchesAnyAddress;
+
 @end
 
 @interface EmailAddressFilter (CoreDataGeneratedAccessors)

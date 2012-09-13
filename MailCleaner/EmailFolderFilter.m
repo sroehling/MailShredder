@@ -120,6 +120,11 @@ NSInteger const MAX_SPECIFIC_FOLDER_SYNOPSIS = 2;
 	}
 }
 
+-(BOOL)filterMatchesAnyFolder
+{
+	return ([self.selectedFolders count] == 0)? TRUE:FALSE;
+}
+
 -(void)setFolders:(NSSet*)selectedFolders
 {
 	// Clear out the list of current domains

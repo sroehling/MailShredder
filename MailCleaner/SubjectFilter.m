@@ -27,6 +27,11 @@ NSString * const SUBJECT_FILTER_CASE_SENSITIVE_KEY = @"caseSensitive";
 	return ((self.searchString == nil) || (self.searchString.length == 0))?TRUE:FALSE;
 }
 
+-(BOOL)filterMatchesAnySubject
+{
+	return ([self emptyMatchString])?TRUE:FALSE;
+}
+
 -(NSString*)filterSynopsis
 {
 	if([self emptyMatchString])

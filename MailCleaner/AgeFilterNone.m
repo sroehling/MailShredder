@@ -25,5 +25,9 @@ NSString * const AGE_FILTER_NONE_ENTITY_NAME = @"AgeFilterNone";
 	return [NSPredicate predicateWithValue:TRUE];
 }
 
+-(BOOL)filterMatchesAnyAge
+{
+	return TRUE;
+}
 
 @end

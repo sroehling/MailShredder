@@ -29,6 +29,8 @@ extern NSString * const SUBJECT_FILTER_SEARCH_STRING_KEY;
 -(NSString*)subFilterSynopsis;
 -(NSPredicate*)filterPredicate;
 
+-(BOOL)filterMatchesAnySubject;
+
 @end
 
 @interface SubjectFilter (CoreDataGeneratedAccessors)

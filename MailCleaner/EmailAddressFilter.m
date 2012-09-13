@@ -41,6 +41,11 @@ NSInteger const MAX_SPECIFIC_ADDRESS_SYNOPSIS = 2;
 		[self addressType]];
 }
 
+-(BOOL)filterMatchesAnyAddress
+{
+	return ([self.selectedAddresses count] == 0)?TRUE:FALSE;
+}
+
 -(NSString*)filterSynopsisShort
 {
 	if([self.selectedAddresses count] == 0)

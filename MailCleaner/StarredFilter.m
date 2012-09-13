@@ -84,6 +84,11 @@ NSUInteger const STARRED_FILTER_MATCH_LOGIC_STARRED_OR_UNSTARRED = 2;
 
 }
 
+-(BOOL)filterMatchesAnyStarredStatus
+{
+	NSUInteger matchLogic = [self.matchLogic unsignedIntegerValue];
 
+	return (matchLogic == STARRED_FILTER_MATCH_LOGIC_STARRED_OR_UNSTARRED)?TRUE:FALSE;
+}
 
 @end

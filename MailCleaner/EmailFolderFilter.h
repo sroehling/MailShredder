@@ -23,7 +23,7 @@ extern NSString * const EMAIL_FOLDER_FILTER_MATCH_UNSELECTED_KEY;
 -(NSString*)filterSynopsis;
 -(NSString*)filterSynopsisShort;
 -(NSString*)subFilterSynopsis;
-
+-(BOOL)filterMatchesAnyFolder;
 -(NSPredicate*)filterPredicate;
 
 -(void)setFolders:(NSSet*)selectedFolders;

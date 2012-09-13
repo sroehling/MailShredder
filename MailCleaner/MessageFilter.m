@@ -19,6 +19,9 @@
 #import "AgeFilterNone.h"
 #import "EmailAccount.h"
 #import "SubjectFilter.h"
+#import "ReadFilter.h"
+#import "StarredFilter.h"
+#import "LocalizationHelper.h"
 
 NSString * const MESSAGE_FILTER_ENTITY_NAME = @"MessageFilter";
 NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
@@ -170,16 +173,56 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 {
 	NSMutableArray *synopsisParts = [[[NSMutableArray alloc] init] autorelease];
 	
-	[synopsisParts addObject:[self.ageFilter filterSynopsis]];
-	[synopsisParts addObject:[self.fromAddressFilter filterSynopsis]];
-	[synopsisParts addObject:[self.recipientAddressFilter filterSynopsis]];
-	[synopsisParts addObject:[self.subjectFilter filterSynopsis]];	
-	[synopsisParts addObject:[self.emailDomainFilter filterSynopsis]];
-	[synopsisParts addObject:[self.folderFilter filterSynopsis]];
-	[synopsisParts addObject:[self.readFilter filterSynopsis]];
-	[synopsisParts addObject:[self.starredFilter filterSynopsis]];
+	if(![self.ageFilter filterMatchesAnyAge])
+	{
+		[synopsisParts addObject:[self.ageFilter filterSynopsis]];
+	}
 	
-	return [synopsisParts componentsJoinedByString:@", "];
+	if(![self.fromAddressFilter filterMatchesAnyAddress])
+	{
+		[synopsisParts addObject:[self.fromAddressFilter filterSynopsis]];
+	}
+	
+	if(![self.recipientAddressFilter filterMatchesAnyAddress])
+	{
+		[synopsisParts addObject:[self.recipientAddressFilter filterSynopsis]];
+	}
+	
+	if(![self.subjectFilter filterMatchesAnySubject])
+	{
+		[synopsisParts addObject:[self.subjectFilter filterSynopsis]];	
+	}
+	
+	if(![self.emailDomainFilter filterMatchesAnyDomain])
+	{
+		[synopsisParts addObject:[self.emailDomainFilter filterSynopsis]];
+	}
+	
+	if(![self.folderFilter filterMatchesAnyFolder])
+	{
+		[synopsisParts addObject:[self.folderFilter filterSynopsis]];
+	}
+	
+	if(![self.readFilter filterMatchesAnyReadStatus])
+	{
+		[synopsisParts addObject:[self.readFilter filterSynopsis]];
+	}
+	
+	if(![self.starredFilter filterMatchesAnyStarredStatus])
+	{
+		[synopsisParts addObject:[self.starredFilter filterSynopsis]];
+	}
+	
+	if([synopsisParts count] > 0)
+	{
+		return [synopsisParts componentsJoinedByString:@", "];
+	}
+	else 
+	{
+		return LOCALIZED_STR(@"MESSAGE_FILTER_NO_FILTERING_SYNOPSIS");
+	}
+	
+	
 	
 }
 

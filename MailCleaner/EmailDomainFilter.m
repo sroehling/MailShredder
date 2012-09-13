@@ -118,6 +118,11 @@ NSInteger const MAX_SPECIFIC_DOMAIN_SYNOPSIS = 2;
 	}
 }
 
+-(BOOL)filterMatchesAnyDomain
+{
+	return ([self.selectedDomains count] == 0)?TRUE:FALSE;
+}
+
 -(void)setDomains:(NSSet*)selectedDomains
 {
 	// Clear out the list of current domains

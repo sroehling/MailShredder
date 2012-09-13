@@ -24,6 +24,7 @@
 
 -(NSString*)filterSynopsis;
 -(NSPredicate*)filterPredicate:(NSDate*)baseDate;
+-(BOOL)filterMatchesAnyAge;
 
 @end
 
