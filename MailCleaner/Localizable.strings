@@ -136,6 +136,17 @@
 "EMAIL_STARRED_FILTER_TITLE" = "Message Starred";
 "EMAIL_STARRED_FILTER_FIELD_SUBTITLE" = "Filter on whether messages is starred (flagged) or not.";
 
+"EMAIL_SUBJECT_FILTER_MATCH_ANY" = "Any Subject";
+"EMAIL_SUBJECT_FILTER_MATCH_CONTAINS" = "Subject Contains '%@'";
+"EMAIL_SUBJECT_FILTER_TABLE_SUBTITLE" = "Enter what to search for in the subject. To match all subjects, leave the 'Subject Contains' field empty."; 
+"EMAIL_SUBJECT_FILTER_TITLE" = "Subject Filter";
+"EMAIL_SUBJECT_TITLE" = "Subject";
+"SUBJECT_FILTER_CASE_SENSITIVE_FIELD_LABEL" = "Case Sensitive?";
+"SUBJECT_FILTER_CASE_SENSITIVE_FIELD_SUBTITLE" = "Match upper or lower case variations of search string?";
+"SUBJECT_FILTER_SEARCH_STRING_FIELD_LABEL" = "Subject Contains";
+"SUBJECT_FILTER_SEARCH_STRING_PLACEHOLDER" = "Enter Subject Contents";
+"SUBJECT_FILTER_MATCH_CONTAINS_SEARCH_STRING" = "Specific Subjects";
+
 "SETTINGS_VIEW_TITLE" = "Settings";
 "SAVED_FILTERS_FIELD_CAPTION" = "Saved Message Filters";
 "SAVED_FILTERS_FIELD_SUBTITLE" = "Edit saved message filters for the current account";

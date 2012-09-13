@@ -49,6 +49,7 @@
 #import "CollectionHelper.h"
 #import "ReadFilter.h"
 #import "StarredFilter.h"
+#import "SubjectFilter.h"
 
 CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 
@@ -585,6 +586,9 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 			
 	newFilter.starredFilter = (StarredFilter*)[CoreDataHelper objectInOtherContext:self.saveMsgFilterDmc.managedObjectContext
 			forOriginalObj:msgFilter.starredFilter];
+			
+	newFilter.subjectFilter.searchString = msgFilter.subjectFilter.searchString;
+	newFilter.subjectFilter.caseSensitive = msgFilter.subjectFilter.caseSensitive;
 
 	[self pushNewMessageFilterForm:newFilter];
 	

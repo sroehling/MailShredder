@@ -19,6 +19,7 @@ extern NSString * const EMAIL_INFO_FOLDER_INFO_KEY;
 extern NSString * const EMAIL_INFO_SENDER_DOMAIN_KEY;
 extern NSString * const EMAIL_INFO_STARRED_KEY;
 extern NSString * const EMAIL_INFO_READ_KEY;
+extern NSString * const EMAIL_INFO_SUBJECT_KEY;
 
 @class EmailFolder;
 @class EmailAddress;

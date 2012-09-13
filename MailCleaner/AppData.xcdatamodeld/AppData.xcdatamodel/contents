@@ -105,6 +105,7 @@
         <relationship name="readFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ReadFilter" inverseName="messageFilterReadFilter" inverseEntity="ReadFilter" syncable="YES"/>
         <relationship name="recipientAddressFilter" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="RecipientAddressFilter" inverseName="messageFilterRecipientAddressFilter" inverseEntity="RecipientAddressFilter" syncable="YES"/>
         <relationship name="starredFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="StarredFilter" inverseName="messageFilterStarredFilter" inverseEntity="StarredFilter" syncable="YES"/>
+        <relationship name="subjectFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SubjectFilter" inverseName="messageFilterSubjectFilters" inverseEntity="SubjectFilter" syncable="YES"/>
     </entity>
     <entity name="ReadFilter" representedClassName="ReadFilter" syncable="YES">
         <attribute name="matchLogic" attributeType="Integer 32" syncable="YES"/>
@@ -142,6 +143,11 @@
         <relationship name="sharedAppValsDefaultStarredFilterStarredOrUnstarred" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultStarredFilterStarredOrUnstarred" inverseEntity="SharedAppVals" syncable="YES"/>
         <relationship name="sharedAppValsDefaultStarredFilterUnstarred" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultStarredFilterUnstarred" inverseEntity="SharedAppVals" syncable="YES"/>
     </entity>
+    <entity name="SubjectFilter" representedClassName="SubjectFilter" syncable="YES">
+        <attribute name="caseSensitive" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="searchString" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="messageFilterSubjectFilters" toMany="YES" minCount="1" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="subjectFilter" inverseEntity="MessageFilter" syncable="YES"/>
+    </entity>
     <elements>
         <element name="AgeFilter" positionX="160" positionY="192" width="128" height="75"/>
         <element name="AgeFilterComparison" positionX="160" positionY="192" width="128" height="225"/>
@@ -156,9 +162,10 @@
         <element name="EmailInfo" positionX="160" positionY="192" width="128" height="180"/>
         <element name="FromAddressFilter" positionX="160" positionY="192" width="128" height="75"/>
         <element name="MessageFilter" positionX="160" positionY="192" width="128" height="210"/>
+        <element name="ReadFilter" positionX="160" positionY="192" width="128" height="120"/>
         <element name="RecipientAddressFilter" positionX="160" positionY="192" width="128" height="60"/>
         <element name="SharedAppVals" positionX="160" positionY="192" width="128" height="300"/>
         <element name="StarredFilter" positionX="160" positionY="192" width="128" height="120"/>
-        <element name="ReadFilter" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="SubjectFilter" positionX="160" positionY="192" width="128" height="90"/>
     </elements>
 </model>

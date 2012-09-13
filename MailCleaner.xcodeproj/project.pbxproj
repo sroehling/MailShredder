@@ -67,6 +67,8 @@
 		00561E7C15F5060E0020229D /* checkboxselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 00561E7815F5060D0020229D /* checkboxselected.png */; };
 		00561E7F15F526600020229D /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00561E7D15F5265F0020229D /* settings@2x.png */; };
 		00561E8015F526600020229D /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 00561E7E15F5265F0020229D /* settings.png */; };
+		0059CEA616022DA000DDF6A8 /* SubjectFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0059CEA516022DA000DDF6A8 /* SubjectFilter.m */; };
+		0059CEAA160239C600DDF6A8 /* SubjectFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0059CEA9160239C600DDF6A8 /* SubjectFilterFormInfoCreator.m */; };
 		005BA6F615E2B0F000D5D11C /* ImapAcctPreset.m in Sources */ = {isa = PBXBuildFile; fileRef = 005BA6F515E2B0F000D5D11C /* ImapAcctPreset.m */; };
 		005E6A8715647602004198B6 /* EmailInfoActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 005E6A8615647602004198B6 /* EmailInfoActionView.m */; };
 		006AE32A15F8FF21007EED2E /* EmailAccountFormPopulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AE32915F8FF21007EED2E /* EmailAccountFormPopulator.m */; };
@@ -263,6 +265,10 @@
 		00561E7815F5060D0020229D /* checkboxselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkboxselected.png; sourceTree = "<group>"; };
 		00561E7D15F5265F0020229D /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
 		00561E7E15F5265F0020229D /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
+		0059CEA416022DA000DDF6A8 /* SubjectFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectFilter.h; sourceTree = "<group>"; };
+		0059CEA516022DA000DDF6A8 /* SubjectFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectFilter.m; sourceTree = "<group>"; };
+		0059CEA8160239C600DDF6A8 /* SubjectFilterFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectFilterFormInfoCreator.h; sourceTree = "<group>"; };
+		0059CEA9160239C600DDF6A8 /* SubjectFilterFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectFilterFormInfoCreator.m; sourceTree = "<group>"; };
 		005BA6F415E2B0F000D5D11C /* ImapAcctPreset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImapAcctPreset.h; sourceTree = "<group>"; };
 		005BA6F515E2B0F000D5D11C /* ImapAcctPreset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImapAcctPreset.m; sourceTree = "<group>"; };
 		005E6A8515647602004198B6 /* EmailInfoActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoActionView.h; sourceTree = "<group>"; };
@@ -562,6 +568,7 @@
 		0039E5F61566BE3B00CB259D /* Message Filter */ = {
 			isa = PBXGroup;
 			children = (
+				0059CEA216022D7A00DDF6A8 /* Subject Filter */,
 				00B2FB161601054F005C93DB /* Starred Filter */,
 				00B2FB1516010548005C93DB /* Read Filter */,
 				00472B1715AC9F3700C6BC82 /* Domain Filter */,
@@ -607,6 +614,7 @@
 		0039E5FC1566CE0700CB259D /* Message Filter */ = {
 			isa = PBXGroup;
 			children = (
+				0059CEA7160239AD00DDF6A8 /* Subject Filter */,
 				00B2FB1E16011AB5005C93DB /* Read Filter */,
 				00B2FB1D16011AA9005C93DB /* Starred Filter */,
 				00D9F8BF15F02331004A9321 /* Current Message List Filter */,
@@ -719,6 +727,24 @@
 				0053EFC6158FF3E3003F6B6E /* EmailAddressFilterAddressAdder.m */,
 			);
 			name = "Email Address Filter (Sender)";
+			sourceTree = "<group>";
+		};
+		0059CEA216022D7A00DDF6A8 /* Subject Filter */ = {
+			isa = PBXGroup;
+			children = (
+				0059CEA416022DA000DDF6A8 /* SubjectFilter.h */,
+				0059CEA516022DA000DDF6A8 /* SubjectFilter.m */,
+			);
+			name = "Subject Filter";
+			sourceTree = "<group>";
+		};
+		0059CEA7160239AD00DDF6A8 /* Subject Filter */ = {
+			isa = PBXGroup;
+			children = (
+				0059CEA8160239C600DDF6A8 /* SubjectFilterFormInfoCreator.h */,
+				0059CEA9160239C600DDF6A8 /* SubjectFilterFormInfoCreator.m */,
+			);
+			name = "Subject Filter";
 			sourceTree = "<group>";
 		};
 		0065E3B91586A57400D59B2A /* Libs */ = {
@@ -1297,6 +1323,8 @@
 				00B2FB2416011DFA005C93DB /* ReadFilterFormInfoCreator.m in Sources */,
 				00B2FB2716012A8B005C93DB /* StarredFilterFieldEditInfo.m in Sources */,
 				00B2FB2A16012A9B005C93DB /* StarredFilterFormInfoCreator.m in Sources */,
+				0059CEA616022DA000DDF6A8 /* SubjectFilter.m in Sources */,
+				0059CEAA160239C600DDF6A8 /* SubjectFilterFormInfoCreator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

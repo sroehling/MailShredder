@@ -29,6 +29,7 @@
 #import "EmailAddress.h"
 #import "RecipientAddressFilter.h"
 #import "EmailAccount.h"
+#import "SubjectFilter.h"
 
 @implementation TestMessageFiltering
 
@@ -494,6 +495,39 @@
 	self.messageFilterForTest.readFilter = self.testAppVals.defaultReadFilterReadOrUnread;
 	filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S02",@"S03",nil];
+	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
+
+	
+}
+
+- (void)testSubjectFilter
+{
+	[self resetCoreData];
+
+	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+	
+	NSString *subject01 = @"S01 - The First Message";
+	NSString *subject02 = @"S02 - Something else";
+	NSString *subject03 = @"S03 - The Final message";
+	
+	[self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:subject01 
+		andFrom:@"jane@localdomain" andFolder:@"INBOX"];
+	[self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:subject02 
+		andFrom:@"jane@localdomain" andFolder:@"MYFOLDER"];
+	[self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:subject03
+		andFrom:@"jane@localdomain" andFolder:@"INBOX"];
+		
+
+	self.messageFilterForTest.subjectFilter.searchString = @"message";
+	self.messageFilterForTest.subjectFilter.caseSensitive = [NSNumber numberWithBool:FALSE];
+	
+	NSPredicate *filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
+	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:subject01, subject03, nil];
+	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
+	
+	self.messageFilterForTest.subjectFilter.caseSensitive = [NSNumber numberWithBool:TRUE];	
+	filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
+	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:subject03, nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
 
 	

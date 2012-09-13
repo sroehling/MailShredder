@@ -26,6 +26,8 @@
 #import "ReadFilterFormInfoCreator.h"
 #import "StarredFilter.h"
 #import "StarredFilterFormInfoCreator.h"
+#import "SubjectFilter.h"
+#import "SubjectFilterFormInfoCreator.h"
 
 @implementation MailCleanerFormPopulator
 
@@ -175,6 +177,20 @@
 
 }
 
+-(void)populateSubjectFilter:(SubjectFilter*)subjectFilter
+{
+	SubjectFilterFormInfoCreator *subjectFilterFormInfoCreator =
+		[[[SubjectFilterFormInfoCreator alloc] initWithSubjectFilter:subjectFilter] autorelease];
+	
+	StaticNavFieldEditInfo *messageSubjectFilterFieldEditInfo = 
+		[[[StaticNavFieldEditInfo alloc] 
+			initWithCaption:LOCALIZED_STR(@"EMAIL_SUBJECT_TITLE") 
+		andSubtitle:[subjectFilter subFilterSynopsis]
+		andContentDescription:[subjectFilter filterSynopsisShort]
+		andSubFormInfoCreator:subjectFilterFormInfoCreator] autorelease];
+		
+	[self.currentSection addFieldEditInfo:messageSubjectFilterFieldEditInfo];
+}
 
 
 @end

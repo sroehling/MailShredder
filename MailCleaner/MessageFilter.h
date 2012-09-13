@@ -19,6 +19,7 @@
 @class EmailAccount;
 @class ReadFilter;
 @class StarredFilter;
+@class SubjectFilter;
 
 extern NSString * const MESSAGE_FILTER_ENTITY_NAME;
 extern NSString * const MESSAGE_FILTER_AGE_FILTER_KEY;
@@ -42,6 +43,7 @@ extern NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH;
 
 @property (nonatomic, retain) ReadFilter *readFilter;
 @property (nonatomic, retain) StarredFilter *starredFilter;
+@property (nonatomic, retain) SubjectFilter *subjectFilter;
 
 // This is the number of messages matching the filter. This is
 // updated after delete or synchronization operations, so it will be

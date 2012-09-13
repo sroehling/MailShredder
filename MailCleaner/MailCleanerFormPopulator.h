@@ -11,6 +11,7 @@
 @class EmailAddressFilter;
 @class EmailDomainFilter;
 @class EmailFolderFilter;
+@class SubjectFilter;
 
 @interface MailCleanerFormPopulator : FormPopulator
 
@@ -26,5 +27,6 @@
 -(void)populateEmailAddressFilter:(EmailAddressFilter*)emailAddressFilter;
 -(void)populateEmailDomainFilter:(EmailDomainFilter*)emailDomainFilter;
 -(void)populateEmailFolderFilter:(EmailFolderFilter*)emailFolderFilter;
+-(void)populateSubjectFilter:(SubjectFilter*)subjectFilter;
 
 @end

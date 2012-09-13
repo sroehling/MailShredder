@@ -85,6 +85,8 @@
 	[formPopulator populateEmailDomainFilter:self.messageFilter.emailDomainFilter];
 
 	[formPopulator populateEmailFolderFilter:self.messageFilter.folderFilter];
+	
+	[formPopulator populateSubjectFilter:self.messageFilter.subjectFilter];
 
 	[formPopulator populateReadFilterInParentObj:self.messageFilter 
 		withReadFilterPropertyKey:MESSAGE_FILTER_READ_FILTER_KEY];

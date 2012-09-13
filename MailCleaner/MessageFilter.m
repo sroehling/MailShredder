@@ -18,6 +18,7 @@
 #import "SharedAppVals.h"
 #import "AgeFilterNone.h"
 #import "EmailAccount.h"
+#import "SubjectFilter.h"
 
 NSString * const MESSAGE_FILTER_ENTITY_NAME = @"MessageFilter";
 NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
@@ -37,6 +38,7 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 @dynamic fromAddressFilter;
 @dynamic readFilter;
 @dynamic starredFilter;
+@dynamic subjectFilter;
 
 @dynamic matchingMsgs;
 
@@ -63,6 +65,9 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 		
 	msgListFilter.folderFilter = (EmailFolderFilter*)
 		[filterDmc insertObject:EMAIL_FOLDER_FILTER_ENTITY_NAME];
+		
+	msgListFilter.subjectFilter = (SubjectFilter*)
+		[filterDmc insertObject:SUBJECT_FILTER_ENTITY_NAME];
 		
 	msgListFilter.starredFilter = sharedVals.defaultStarredFilterStarredOrUnstarred;
 	
@@ -103,6 +108,10 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 	NSPredicate *starredPredicate = [self.starredFilter filterPredicate];
 	assert(starredPredicate != nil);
 	[predicates addObject:starredPredicate];
+	
+	NSPredicate *subjectPredicate = [self.subjectFilter filterPredicate];
+	assert(subjectPredicate != nil);
+	[predicates addObject:subjectPredicate];
 		
 	NSPredicate *compoundPredicate = [NSCompoundPredicate 
 			andPredicateWithSubpredicates:predicates];
@@ -146,6 +155,10 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 	[filterDmc deleteObject:self.folderFilter];
 	self.folderFilter = (EmailFolderFilter*)
 		[filterDmc insertObject:EMAIL_FOLDER_FILTER_ENTITY_NAME];
+	
+	[filterDmc deleteObject:self.subjectFilter];
+	self.subjectFilter = (SubjectFilter*)
+		[filterDmc insertObject:SUBJECT_FILTER_ENTITY_NAME];
 		
 	self.starredFilter = sharedVals.defaultStarredFilterStarredOrUnstarred;
 	
@@ -159,7 +172,8 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 	
 	[synopsisParts addObject:[self.ageFilter filterSynopsis]];
 	[synopsisParts addObject:[self.fromAddressFilter filterSynopsis]];
-	[synopsisParts addObject:[self.recipientAddressFilter filterSynopsis]];	
+	[synopsisParts addObject:[self.recipientAddressFilter filterSynopsis]];
+	[synopsisParts addObject:[self.subjectFilter filterSynopsis]];	
 	[synopsisParts addObject:[self.emailDomainFilter filterSynopsis]];
 	[synopsisParts addObject:[self.folderFilter filterSynopsis]];
 	[synopsisParts addObject:[self.readFilter filterSynopsis]];
