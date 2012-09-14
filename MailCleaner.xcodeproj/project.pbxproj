@@ -358,6 +358,7 @@
 		00B3B71C15DDA62C00A8FFCD /* MsgSyncContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgSyncContext.m; sourceTree = "<group>"; };
 		00C4AB11158177C400E0868A /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		00C4AB131581784900E0868A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		00C5042B1603AB72007C6BE7 /* AppDescription.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = AppDescription.md; sourceTree = "<group>"; };
 		00C6F64015E3E86900B37F6C /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../MailCore/iOSPorts/ports/security/openssl/build/Release-iphoneos/libcrypto.a"; sourceTree = "<group>"; };
 		00C6F64115E3E86900B37F6C /* libetpan_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libetpan_ios.a; path = "../MailCore/libetpan/build-mac/build/Release-iphoneos/libetpan_ios.a"; sourceTree = "<group>"; };
 		00C6F64215E3E86900B37F6C /* libmailcore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmailcore.a; path = "../MailCore/build/Release-iphoneos/libmailcore.a"; sourceTree = "<group>"; };
@@ -836,6 +837,7 @@
 		007ABE8E156AB631004BA8BF /* Development Docs */ = {
 			isa = PBXGroup;
 			children = (
+				00C5042B1603AB72007C6BE7 /* AppDescription.md */,
 				0065E3BB158920D500D59B2A /* SyncDesign.md */,
 				007ABE8B156AB618004BA8BF /* MailCleanerSpec.md */,
 			);
