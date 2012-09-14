@@ -1,11 +1,13 @@
 # MailCleaner
 
-MailCleaner helps you selectively delete old or unwanted email. Selectively 
-deleting emails is important to protect your privacy, to limit the 
-advertising profile email providers build on you, or to purge old 
-emails containing personal or sensitive information. MailCleaner also 
-helps you stay organized and purge unneeded emails or 
-keep your account storage under quota.
+MailCleaner is a specialized email utility to selectively delete old
+or unwanted email. 
+
+Selectively deleting emails is important to protect your privacy, limit the 
+advertising profile email providers build on you, limit your potential 
+exposure to hackers, or to purge old emails containing personal or 
+sensitive information. MailCleaner also helps you stay organized and 
+purge unneeded emails or keep your account storage under quota.
 
 For example, MailCleaner can help you periodically delete emails
 with bank statements, online purchase receipts, or 
