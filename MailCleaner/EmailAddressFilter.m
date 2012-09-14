@@ -21,6 +21,12 @@ NSInteger const MAX_SPECIFIC_ADDRESS_SYNOPSIS = 2;
 @dynamic matchUnselected;
 @dynamic selectedAddresses;
 
+-(void)resetFilter
+{
+	self.matchUnselected = [NSNumber numberWithBool:FALSE];
+	[self removeSelectedAddresses:self.selectedAddresses];
+}
+
 -(NSString*)filterSelectionPrefix
 {
 	if([self.matchUnselected boolValue])

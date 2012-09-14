@@ -26,6 +26,12 @@ NSInteger const MAX_SPECIFIC_DOMAIN_SYNOPSIS = 2;
 // Inverse relationships
 @dynamic messageFilterDomainFilter;
 
+-(void)resetFilter
+{
+	[self removeSelectedDomains:self.selectedDomains];
+	self.matchUnselected = [NSNumber numberWithBool:FALSE];
+}
+
 -(NSString*)filterSelectedPrefix
 {
 	if([self.matchUnselected boolValue])

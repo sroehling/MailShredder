@@ -33,6 +33,7 @@ extern NSString * const EMAIL_ADDRESS_FILTER_MATCH_UNSELECTED_KEY;
 -(NSString*)addressTypePlural;
 
 -(BOOL)filterMatchesAnyAddress;
+-(void)resetFilter;
 
 @end
 

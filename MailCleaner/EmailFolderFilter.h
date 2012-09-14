@@ -28,6 +28,8 @@ extern NSString * const EMAIL_FOLDER_FILTER_MATCH_UNSELECTED_KEY;
 
 -(void)setFolders:(NSSet*)selectedFolders;
 
+-(void)resetFilter;
+
 @end
 
 @interface EmailFolderFilter (CoreDataGeneratedAccessors)

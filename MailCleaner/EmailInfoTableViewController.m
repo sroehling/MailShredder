@@ -178,14 +178,18 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 		inView:self.navigationController.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:TRUE];
 }
 
--(void)editFilterDidSaveNoficiationHandler:(NSNotification*)notification
+-(void)editFilterDidSaveNotificiationHandler:(NSNotification*)notification
 {
 	[self.appDmc.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
 	
 	// If changes are made to the filter, then reset the filter name (if it's not already set
 	SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:self.editFilterDmc];
 	
-	[[AppHelper theAppDelegate] updateMessageFilterCountsInBackground];
+	// This notification is for saving of the 
+	// currently loaded filter. Normally, changes to a saved filter will require
+	// the # of messages matching that filter to be updated. However, the
+	// count for the current filter isn't displayed, so no background
+	// operation is needed to update all the counts.
 	
 	if([sharedVals.currentEmailAcct.msgListFilter
 		nonEmptyFilterName])
@@ -263,7 +267,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	self.editFilterDmc = [[[DataModelController alloc] 
 		initWithPersistentStoreCoord:self.appDmc.persistentStoreCoordinator] autorelease];
 	[[NSNotificationCenter defaultCenter] addObserver:self 
-		selector:@selector(editFilterDidSaveNoficiationHandler:)
+		selector:@selector(editFilterDidSaveNotificiationHandler:)
 		name:NSManagedObjectContextDidSaveNotification 
 		object:self.editFilterDmc.managedObjectContext];	
 

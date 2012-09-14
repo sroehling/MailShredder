@@ -31,6 +31,8 @@ extern NSString * const SUBJECT_FILTER_SEARCH_STRING_KEY;
 
 -(BOOL)filterMatchesAnySubject;
 
+-(void)resetFilter;
+
 @end
 
 @interface SubjectFilter (CoreDataGeneratedAccessors)

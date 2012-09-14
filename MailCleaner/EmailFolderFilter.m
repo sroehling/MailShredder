@@ -25,6 +25,12 @@ NSInteger const MAX_SPECIFIC_FOLDER_SYNOPSIS = 2;
 @dynamic messageFilterFolderFilter;
 @dynamic matchUnselected;
 
+-(void)resetFilter
+{
+	self.matchUnselected = [NSNumber numberWithBool:FALSE];
+	[self removeSelectedFolders:self.selectedFolders];
+}
+
 -(NSString*)filterSelectedPrefix
 {
 	if([self.matchUnselected boolValue])

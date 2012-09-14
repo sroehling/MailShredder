@@ -113,7 +113,7 @@
 			
 			[self.msgCountsDmc saveContext];
 
-			NSLog(@"Done with operation to updat e message filter counts");
+			NSLog(@"Done with operation to update message filter counts");
 
 
 		}

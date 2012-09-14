@@ -22,6 +22,12 @@ NSString * const SUBJECT_FILTER_CASE_SENSITIVE_KEY = @"caseSensitive";
 
 @dynamic messageFilterSubjectFilters;
 
+-(void)resetFilter
+{
+	self.searchString = @"";
+	self.caseSensitive = [NSNumber numberWithBool:FALSE];
+}
+
 -(BOOL)emptyMatchString
 {
 	return ((self.searchString == nil) || (self.searchString.length == 0))?TRUE:FALSE;

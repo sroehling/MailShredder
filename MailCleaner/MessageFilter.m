@@ -143,26 +143,12 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 	
 	self.ageFilter = sharedVals.defaultAgeFilterNone;
 	
-	[filterDmc deleteObject:self.fromAddressFilter];
-	self.fromAddressFilter = (FromAddressFilter*)
-		[filterDmc insertObject:FROM_ADDRESS_FILTER_ENTITY_NAME];
-		
-	[filterDmc deleteObject:self.recipientAddressFilter];
-	self.recipientAddressFilter = (RecipientAddressFilter*)
-		[filterDmc insertObject:RECIPIENT_ADDRESS_FILTER_ENTITY_NAME];
-		
-	[filterDmc deleteObject:self.emailDomainFilter];
-	self.emailDomainFilter = (EmailDomainFilter*)
-		[filterDmc insertObject:EMAIL_DOMAIN_FILTER_ENTITY_NAME];
-		
-	[filterDmc deleteObject:self.folderFilter];
-	self.folderFilter = (EmailFolderFilter*)
-		[filterDmc insertObject:EMAIL_FOLDER_FILTER_ENTITY_NAME];
-	
-	[filterDmc deleteObject:self.subjectFilter];
-	self.subjectFilter = (SubjectFilter*)
-		[filterDmc insertObject:SUBJECT_FILTER_ENTITY_NAME];
-		
+	[self.fromAddressFilter resetFilter];
+	[self.recipientAddressFilter resetFilter];
+	[self.emailDomainFilter resetFilter];
+	[self.folderFilter resetFilter];
+	[self.subjectFilter resetFilter];
+
 	self.starredFilter = sharedVals.defaultStarredFilterStarredOrUnstarred;
 	
 	self.readFilter = sharedVals.defaultReadFilterReadOrUnread;
@@ -221,9 +207,6 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 	{
 		return LOCALIZED_STR(@"MESSAGE_FILTER_NO_FILTERING_SYNOPSIS");
 	}
-	
-	
-	
 }
 
 @end

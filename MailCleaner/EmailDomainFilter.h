@@ -30,6 +30,8 @@ extern NSString * const EMAIL_DOMAIN_FILTER_MATCH_UNSELECTED_KEY;
 
 -(NSPredicate*)filterPredicate;
 
+-(void)resetFilter;
+
 -(void)setDomains:(NSSet*)selectedDomains;
 
 @end
