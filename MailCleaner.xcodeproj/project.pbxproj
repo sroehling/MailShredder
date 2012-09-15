@@ -115,6 +115,9 @@
 		00B2FB2716012A8B005C93DB /* StarredFilterFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B2FB2616012A8B005C93DB /* StarredFilterFieldEditInfo.m */; };
 		00B2FB2A16012A9B005C93DB /* StarredFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B2FB2916012A9B005C93DB /* StarredFilterFormInfoCreator.m */; };
 		00B3B71D15DDA62C00A8FFCD /* MsgSyncContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B3B71C15DDA62C00A8FFCD /* MsgSyncContext.m */; };
+		00B6DAA41604F06700C3B5EC /* mailcleaner.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B6DAA11604F06700C3B5EC /* mailcleaner.png */; };
+		00B6DAA51604F06700C3B5EC /* mailcleaner-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B6DAA21604F06700C3B5EC /* mailcleaner-72.png */; };
+		00B6DAA61604F06700C3B5EC /* mailcleaner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B6DAA31604F06700C3B5EC /* mailcleaner@2x.png */; };
 		00C4AB141581784900E0868A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB131581784900E0868A /* CFNetwork.framework */; };
 		00C4AB15158178FC00E0868A /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB11158177C400E0868A /* libiconv.dylib */; };
 		00C6F64515E3E86900B37F6C /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C6F64015E3E86900B37F6C /* libcrypto.a */; };
@@ -357,6 +360,9 @@
 		00B3B71B15DDA62C00A8FFCD /* MsgSyncContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgSyncContext.h; sourceTree = "<group>"; };
 		00B3B71C15DDA62C00A8FFCD /* MsgSyncContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgSyncContext.m; sourceTree = "<group>"; };
 		00B6DA9B1604BEC000C3B5EC /* ManualTesting.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = ManualTesting.md; sourceTree = "<group>"; };
+		00B6DAA11604F06700C3B5EC /* mailcleaner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mailcleaner.png; sourceTree = "<group>"; };
+		00B6DAA21604F06700C3B5EC /* mailcleaner-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mailcleaner-72.png"; sourceTree = "<group>"; };
+		00B6DAA31604F06700C3B5EC /* mailcleaner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mailcleaner@2x.png"; sourceTree = "<group>"; };
 		00C4AB11158177C400E0868A /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		00C4AB131581784900E0868A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		00C5042B1603AB72007C6BE7 /* AppDescription.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = AppDescription.md; sourceTree = "<group>"; };
@@ -508,6 +514,9 @@
 		000566981562F94C003D114D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				00B6DAA11604F06700C3B5EC /* mailcleaner.png */,
+				00B6DAA21604F06700C3B5EC /* mailcleaner-72.png */,
+				00B6DAA31604F06700C3B5EC /* mailcleaner@2x.png */,
 				0005672915630DDD003D114D /* Localizable.strings */,
 				000566991562F94C003D114D /* MailCleaner-Info.plist */,
 				0005669A1562F94C003D114D /* InfoPlist.strings */,
@@ -1202,6 +1211,9 @@
 				00561E7C15F5060E0020229D /* checkboxselected.png in Resources */,
 				00561E7F15F526600020229D /* settings@2x.png in Resources */,
 				00561E8015F526600020229D /* settings.png in Resources */,
+				00B6DAA41604F06700C3B5EC /* mailcleaner.png in Resources */,
+				00B6DAA51604F06700C3B5EC /* mailcleaner-72.png in Resources */,
+				00B6DAA61604F06700C3B5EC /* mailcleaner@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
