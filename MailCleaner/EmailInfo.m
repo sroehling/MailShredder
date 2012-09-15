@@ -29,6 +29,7 @@ NSString * const EMAIL_INFO_SUBJECT_KEY = @"subject";
 @dynamic recipientAddresses;
 @dynamic emailAcct;
 @dynamic senderAddress;
+@dynamic size;
 
 @dynamic folderInfo;
 @dynamic senderDomain;

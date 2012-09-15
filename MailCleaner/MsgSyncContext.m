@@ -88,6 +88,7 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 
 	newEmailInfo.subject = msg.subject;
 	newEmailInfo.uid = [NSNumber numberWithUnsignedInt:msg.uid];
+	newEmailInfo.size = [NSNumber numberWithUnsignedInt:msg.messageSize];
 	
 	newEmailInfo.senderDomain = [EmailDomain 
 			findOrAddDomainName:[MailAddressHelper emailAddressDomainName:msg.sender.email] 

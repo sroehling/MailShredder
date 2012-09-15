@@ -64,6 +64,9 @@
 	newEmailInfo.subject = subject;
 	newEmailInfo.uid = [NSNumber numberWithInt:currMessageId];
 	
+	NSUInteger dummySize = 32;
+	newEmailInfo.size = [NSNumber numberWithUnsignedInt:dummySize];
+	
 	NSMutableDictionary *currFoldersByName = [self.testAppVals.currentEmailAcct foldersByName];
 	newEmailInfo.folderInfo = [EmailFolder findOrAddFolder:folderName
 		inExistingFolders:currFoldersByName withDataModelController:self.appDataDmc

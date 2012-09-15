@@ -45,6 +45,7 @@ extern NSString * const EMAIL_INFO_SUBJECT_KEY;
 @property (nonatomic, retain) EmailAccount *emailAcct;
 
 @property (nonatomic, retain) NSSet *recipientAddresses;
+@property (nonatomic, retain) NSNumber * size;
 
 @property (nonatomic, retain) NSNumber * isRead;
 @property (nonatomic, retain) NSNumber * isStarred;

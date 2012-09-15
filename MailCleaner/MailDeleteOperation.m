@@ -73,22 +73,6 @@
 	return nil;
 }
 
--(NSSet*)uidsInFolder:(CTCoreFolder *)theFolder
-{
-	NSMutableSet *uids = [[[NSMutableSet alloc] init] autorelease];
-	if(theFolder == nil)
-	{
-		return uids;
-	}
-	NSArray *coreMsgsWithUID = [theFolder messagesFromUID:1 to:0 
-		withFetchAttributes:CTFetchAttrDefaultsOnly];
-	for(CTCoreMessage *folderMsg in coreMsgsWithUID)
-	{
-		[uids addObject:[NSNumber numberWithInt:folderMsg.uid]];
-	}
-	
-	return uids;
-}
 
 -(void)deleteOneMsg:(CTCoreMessage*)msgToDelete 
 	fromOriginalFolder:(CTCoreFolder*)origMsgFolder
@@ -123,8 +107,10 @@
 		}
 		else 
 		{
-			// Same path, no need to move the message. However, if the setting is still
-			// to delete the message, we can delete it in place.
+			// The message is already in the destination delete folder, so there's no need 
+			// to move the message. However, if the setting is still
+			// to delete the message, we still need to delete it from from the destination
+			// folder.
 			if(doDeleteMsg)
 			{
 				[origMsgFolder setFlags:CTFlagDeleted forMessage:msgToDelete];
@@ -140,6 +126,26 @@
 
 }
 
+-(NSString*)messageLookupForSubject:(NSString*)subject sendDate:(NSDate*)sendDate msgSize:(NSUInteger)msgSize
+{
+	NSString *msgDateStr = [[DateHelper theHelper].longDateFormatter stringFromDate:sendDate];
+	return [NSString stringWithFormat:@"%@-%d-%@",msgDateStr,msgSize,subject];
+}
+
+-(NSMutableDictionary*)msgsToDeleteByLookupValue:(NSArray*)msgsMarkedForDeletion
+{
+	NSMutableDictionary *msgsByLookupValue = [[[NSMutableDictionary alloc] init] autorelease];
+	for(EmailInfo *markedForDeletion  in msgsMarkedForDeletion)
+	{
+		NSString *msgLookup = [self messageLookupForSubject:markedForDeletion.subject 
+			sendDate:markedForDeletion.sendDate 
+			msgSize:[markedForDeletion.size unsignedIntegerValue] ];
+		NSLog(@"Lookup for msg to be deleted: %@",msgLookup);
+		[msgsByLookupValue setObject:markedForDeletion forKey:msgLookup];
+	}
+	return msgsByLookupValue;
+}
+
 
 -(void)deleteMarkedMsgs
 {
@@ -150,12 +156,29 @@
 	NSUInteger numMsgsDeleted = 0;
 	
 	CTCoreFolder *deleteDestFolder = [self destFolderForDelete:folderByPath];
-	NSSet *uidsInDeleteFolderBeforeDeletion = [self uidsInFolder:deleteDestFolder];
+	NSUInteger nextUIDInDeleteFolder = 0;
+	if(deleteDestFolder != nil)
+	{
+		// If a delete folder is specified (i.e., a folder where the message is moved
+		// and then optionally deleted from there), uidNext before moving any
+		// messages serves as a starting point for the UID's of messages to retrieve and
+		// delete after the delete operation.
+		nextUIDInDeleteFolder = deleteDestFolder.uidNext;
+	}
+	
 	BOOL doDeleteMsgs = [[self.connectionContext acctInSyncObjectContext].deleteHandlingDeleteMsg boolValue];
 		
 	NSArray *msgsMarkedForDeletion = [self.connectionContext.syncDmc 
 		fetchObjectsForEntityName:EMAIL_INFO_ENTITY_NAME 
 		andPredicate:[MsgPredicateHelper markedForDeletion]];
+	
+	// The following dictionary is book-keeping when/if a message is 
+	// first moved to a destination folder, then deleted from there.
+	// Only messages which are new to thd delete folder and match a
+	// the lookup value of a message marked for deletion will actually
+	// be deleted.
+	NSMutableDictionary *msgsToDeleteByLookupValue = 
+		[self msgsToDeleteByLookupValue:msgsMarkedForDeletion];
 
 	for(EmailInfo *markedForDeletion  in msgsMarkedForDeletion)
 	{
@@ -197,31 +220,50 @@
 	}
 		
 		
-	// In the destination folder, get the list of messages which are new since the 
-	// delete operation started and delete them.
+	// [1] In the destination folder, get the list of messages which are new since the 
+	// delete operation started and delete them. 
+	// 
+	// [2] There's a remote possibility that while the messages are being moved 
+	// to the destination folder, other
+	// IMAP clients have also moved one or more messages to the same folder.
+	// In this case. we don't want to delete the new messages which are not
+	// the ones which were just moved.
 	if((deleteDestFolder != nil) && doDeleteMsgs)
 	{
 		// Need to disconnect, then reconnect to get an updated message count 
 		// and list of messages.
 		[deleteDestFolder disconnect];
 		[deleteDestFolder connect];
-	
-		NSSet *uidsInDeleteFolderAfterDeletions = [self uidsInFolder:deleteDestFolder];
-		NSLog(@"uids in delete folder: before =%d, after =%d",
-			[uidsInDeleteFolderBeforeDeletion count],[uidsInDeleteFolderAfterDeletions count]);
-		for(NSNumber *uidAfterDeletions in uidsInDeleteFolderAfterDeletions)
+			
+		NSArray *newMsgsInDeleteFolder = [deleteDestFolder messagesFromUID:nextUIDInDeleteFolder to:0 
+			withFetchAttributes:CTFetchAttrEnvelope];
+		for(CTCoreMessage *candidateMsgToDeleteFromDestFolder in newMsgsInDeleteFolder)
 		{
-			if(![uidsInDeleteFolderBeforeDeletion containsObject:uidAfterDeletions])
+					
+			// Although its a remote possibility (see comment [2] above), we also need
+			// check that the a hash of the immutable message properties (such as 
+			// date and subject) is the same as the candidate for deletion in the 
+			// delete folder.
+			NSString *candidateMsgToDeleteLookup = 
+				[self messageLookupForSubject:candidateMsgToDeleteFromDestFolder.subject 
+					sendDate:candidateMsgToDeleteFromDestFolder.sentDateGMT 
+					msgSize:candidateMsgToDeleteFromDestFolder.messageSize];
+			EmailInfo *localEmailInfoForCandidateMsg = 
+				[msgsToDeleteByLookupValue objectForKey:candidateMsgToDeleteLookup];
+			if(localEmailInfoForCandidateMsg != nil)
 			{
-				// UID is new since delete, since it is not in  the list of UIDs from before deletion
-				CTCoreMessage *msgToDeleteFromDestFolder = [deleteDestFolder
-					messageWithUID:[uidAfterDeletions unsignedIntegerValue]];
+				NSLog(@"Msg deleted: Message in dest folder: uid=%d subj=%@ size=%d",
+					candidateMsgToDeleteFromDestFolder.uid,candidateMsgToDeleteFromDestFolder.subject,
+					candidateMsgToDeleteFromDestFolder.messageSize);
 
-				NSLog(@"Msg Delete: Message in dest folder: uid=%d %@",
-					msgToDeleteFromDestFolder.uid,msgToDeleteFromDestFolder.subject);
-
-				[deleteDestFolder setFlags:CTFlagDeleted forMessage:msgToDeleteFromDestFolder];
+				[deleteDestFolder setFlags:CTFlagDeleted forMessage:candidateMsgToDeleteFromDestFolder];
 				[serverFoldersToExpunge addObject:deleteDestFolder];
+			}
+			else 
+			{
+				NSLog(@"New msg in delete folder not matched with local msg marked for deletion: uid=%d subj=%@ size=%d",
+					candidateMsgToDeleteFromDestFolder.uid,candidateMsgToDeleteFromDestFolder.subject,
+					candidateMsgToDeleteFromDestFolder.messageSize);
 			}
 		}
 		

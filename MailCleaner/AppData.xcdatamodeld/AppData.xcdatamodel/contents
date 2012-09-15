@@ -82,6 +82,7 @@
         <attribute name="isRead" attributeType="Boolean" syncable="YES"/>
         <attribute name="isStarred" attributeType="Boolean" syncable="YES"/>
         <attribute name="sendDate" attributeType="Date" syncable="YES"/>
+        <attribute name="size" attributeType="Integer 32" syncable="YES"/>
         <attribute name="subject" attributeType="String" syncable="YES"/>
         <attribute name="uid" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="emailAcct" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="emailsInAcct" inverseEntity="EmailAccount" syncable="YES"/>
@@ -159,7 +160,7 @@
         <element name="EmailDomainFilter" positionX="160" positionY="192" width="128" height="105"/>
         <element name="EmailFolder" positionX="160" positionY="192" width="128" height="90"/>
         <element name="EmailFolderFilter" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="EmailInfo" positionX="160" positionY="192" width="128" height="180"/>
+        <element name="EmailInfo" positionX="160" positionY="192" width="128" height="225"/>
         <element name="FromAddressFilter" positionX="160" positionY="192" width="128" height="75"/>
         <element name="MessageFilter" positionX="160" positionY="192" width="128" height="210"/>
         <element name="ReadFilter" positionX="160" positionY="192" width="128" height="120"/>

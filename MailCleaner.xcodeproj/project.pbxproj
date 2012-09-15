@@ -356,6 +356,7 @@
 		00B2FB2916012A9B005C93DB /* StarredFilterFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarredFilterFormInfoCreator.m; sourceTree = "<group>"; };
 		00B3B71B15DDA62C00A8FFCD /* MsgSyncContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgSyncContext.h; sourceTree = "<group>"; };
 		00B3B71C15DDA62C00A8FFCD /* MsgSyncContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgSyncContext.m; sourceTree = "<group>"; };
+		00B6DA9B1604BEC000C3B5EC /* ManualTesting.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = ManualTesting.md; sourceTree = "<group>"; };
 		00C4AB11158177C400E0868A /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		00C4AB131581784900E0868A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		00C5042B1603AB72007C6BE7 /* AppDescription.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = AppDescription.md; sourceTree = "<group>"; };
@@ -520,6 +521,7 @@
 		000566C31562F94D003D114D /* MailCleanerTests */ = {
 			isa = PBXGroup;
 			children = (
+				00B6DA9B1604BEC000C3B5EC /* ManualTesting.md */,
 				000566C41562F94D003D114D /* Supporting Files */,
 				0017B751157968EA001D5D28 /* TestMessageFiltering.h */,
 				0017B752157968EA001D5D28 /* TestMessageFiltering.m */,
@@ -554,9 +556,9 @@
 		0039E5E31566B45300CB259D /* App Data */ = {
 			isa = PBXGroup;
 			children = (
+				0039E5DA1566B14000CB259D /* AppData.xcdatamodeld */,
 				0081C55815EC21F00028BA3D /* Delete Rules */,
 				00A6FB3A159A48F600ED4D4B /* Catalogued Email Info */,
-				0039E5DA1566B14000CB259D /* AppData.xcdatamodeld */,
 				0039E5F71566BE6600CB259D /* SharedAppVals.h */,
 				0039E5F81566BE6600CB259D /* SharedAppVals.m */,
 				0039E5F61566BE3B00CB259D /* Message Filter */,
