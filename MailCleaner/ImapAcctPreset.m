@@ -17,6 +17,8 @@
 @synthesize fullEmailIsUserName;
 @synthesize defaultSyncFolders;
 @synthesize defaultTrashFolders;
+@synthesize immediatelyDeleteMsg;
+@synthesize matchFirstDefaultSyncFolder;
 
 -(id)init
 {

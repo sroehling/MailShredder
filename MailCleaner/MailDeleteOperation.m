@@ -252,7 +252,7 @@
 				[msgsToDeleteByLookupValue objectForKey:candidateMsgToDeleteLookup];
 			if(localEmailInfoForCandidateMsg != nil)
 			{
-				NSLog(@"Msg deleted: Message in dest folder: uid=%d subj=%@ size=%d",
+				NSLog(@"Msg Permanently deleted: Message in dest folder: uid=%d subj=%@ size=%d",
 					candidateMsgToDeleteFromDestFolder.uid,candidateMsgToDeleteFromDestFolder.subject,
 					candidateMsgToDeleteFromDestFolder.messageSize);
 

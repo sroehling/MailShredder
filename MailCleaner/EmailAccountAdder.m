@@ -161,6 +161,7 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 		newAcct.portNumber = [NSNumber numberWithInt:presetForDomain.portNum];
 		newAcct.useSSL = [NSNumber numberWithBool:presetForDomain.useSSL];
 		newAcct.imapServer = presetForDomain.imapServer;
+		newAcct.deleteHandlingDeleteMsg = [NSNumber numberWithBool:presetForDomain.immediatelyDeleteMsg];
 		
 		if(presetForDomain.fullEmailIsUserName)
 		{
@@ -184,6 +185,7 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	{
 		newAcct.portNumber = [NSNumber numberWithInt:presetForImapServer.portNum];
 		newAcct.useSSL = [NSNumber numberWithBool:presetForImapServer.useSSL];
+		newAcct.deleteHandlingDeleteMsg = [NSNumber numberWithBool:presetForImapServer.immediatelyDeleteMsg];
 		if(presetForImapServer.fullEmailIsUserName)
 		{
 			newAcct.userName = newAcct.emailAddress;
@@ -207,7 +209,13 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 			if([defaultSyncFolderName isEqualToString:acctFolder.folderName])
 			{
 				[newAcct addOnlySyncFoldersObject:acctFolder];
-				return;
+				if(acctPreset.matchFirstDefaultSyncFolder)
+				{
+					// If the matchFirstDefaultSyncFolder is TRUE,
+					// only setup the 1st matching folder as a default synchronization folder.
+					// Otherwise, match any matching folders.
+					return;
+				}
 			}
 		}
 	}

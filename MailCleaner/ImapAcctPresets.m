@@ -45,10 +45,10 @@
 			lineNum++;
 
 			NSArray *fields = [serverSettingsLine componentsSeparatedByString:@"\t"];
-			NSLog(@"Loading preset info: domain:%@ server:%@ usessl:%@ portnum:%@ usernameisfulladdress:%@",
+			NSLog(@"Loading preset info: domain:%@ server:%@ usessl:%@ portnum:%@ usernameisfulladdress:%@ immediately delete=%@",
 				[fields objectAtIndex:0],[fields objectAtIndex:1],
 				[fields objectAtIndex:2],[fields objectAtIndex:3],
-				[fields objectAtIndex:4]);
+				[fields objectAtIndex:4],[fields objectAtIndex:5]);
 				
 			ImapAcctPreset *preset = [[[ImapAcctPreset alloc] init] autorelease];
 			preset.domainName = [fields objectAtIndex:0];
@@ -56,10 +56,12 @@
 			NSString *scannedPortNum = [fields objectAtIndex:3];
 			NSString *scannedUseSSL = [fields objectAtIndex:2];
 			NSString *scannedFullUserNameIsEmail = [fields objectAtIndex:4];
+			NSString *scannedImmediatelyDeleteMsg = [fields objectAtIndex:5];
 			
 			preset.portNum = [scannedPortNum integerValue];
 			preset.useSSL = [scannedUseSSL boolValue];
 			preset.imapServer = [fields objectAtIndex:1];
+			preset.immediatelyDeleteMsg = [scannedImmediatelyDeleteMsg boolValue];
 			
 			preset.fullEmailIsUserName = [scannedFullUserNameIsEmail boolValue];
 			
@@ -68,11 +70,15 @@
 			// The second line is the number of folders in the default list of
 			// synchronized folders
 			/////////////////////////////////////////////////////////////////////
-			assert(lineNum < lines.count);
-			NSString *numDefaultSyncFoldersLine = [lines objectAtIndex:lineNum];
+			assert(lineNum < lines .count);
+			NSString *defaultSyncFoldersLine = [lines objectAtIndex:lineNum];
 			lineNum++;
+			NSArray *syncFields = [defaultSyncFoldersLine componentsSeparatedByString:@"\t"];
+			NSString *scannedNumDefaultSyncFolders = [syncFields objectAtIndex:0];
+			NSString *scannedMatchFirstSyncFolder = [syncFields objectAtIndex:1];
 			
-			NSInteger numDefaultSyncFolders = [numDefaultSyncFoldersLine integerValue];
+			NSInteger numDefaultSyncFolders = [scannedNumDefaultSyncFolders integerValue];
+			preset.matchFirstDefaultSyncFolder = [scannedMatchFirstSyncFolder boolValue];
 			assert(numDefaultSyncFolders >= 0);
 			NSLog(@"Reading default synchronized folders: count = %d",numDefaultSyncFolders);
 			for(NSInteger defaultFolder = 0; defaultFolder < numDefaultSyncFolders; defaultFolder++)

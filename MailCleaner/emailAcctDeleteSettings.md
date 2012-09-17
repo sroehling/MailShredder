@@ -11,4 +11,7 @@ upon personal preferences for message deletion.
 As described below, these settings work in conjunction with one 
 another to provide different message deletion behaviors.
 
-More TBD.
+More TBD:
+* GMail Specific
+* iCloud Specifics
+* Advanced - Create 2 accounts, one for permanent deletion

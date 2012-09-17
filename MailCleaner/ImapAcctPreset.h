@@ -16,8 +16,12 @@
 		BOOL useSSL;
 		NSUInteger portNum;
 		BOOL fullEmailIsUserName;
+		
 		NSMutableArray *defaultSyncFolders;
+		BOOL matchFirstDefaultSyncFolder;
+		
 		NSMutableArray *defaultTrashFolders;
+		BOOL immediatelyDeleteMsg;
 }
 
 @property(nonatomic,retain) NSString *domainName;
@@ -27,5 +31,7 @@
 @property BOOL useSSL;
 @property NSUInteger portNum;
 @property BOOL fullEmailIsUserName;
+@property BOOL immediatelyDeleteMsg;
+@property BOOL matchFirstDefaultSyncFolder;
 
 @end
