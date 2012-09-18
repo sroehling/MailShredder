@@ -90,7 +90,7 @@ NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY = @"currentEmailAcct"
 	return sharedVals;
 }
 
-+(void)initFromDatabase
++(BOOL)initFromDatabase
 {
     NSLog(@"Initializing database with default data ...");
 	
@@ -102,8 +102,11 @@ NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY = @"currentEmailAcct"
 
 		[SharedAppVals createWithDataModelController:dmcForInit];
 		[dmcForInit saveContext];
-
+		return TRUE; // Database was initialized
 	}
+	else {
+		return FALSE; // No initialization was done
+    }
         
 }
 

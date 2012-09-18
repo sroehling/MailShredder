@@ -10,6 +10,9 @@
 
 #import "GenericFieldBasedTableAddViewController.h"
 
+#import "PasscodeValidator.h"
+#import "PasscodeSetter.h"
+
 @class DataModelController;
 @class SharedAppVals;
 @class MailClientServerSyncController;
@@ -21,7 +24,7 @@
 @protocol CurrentEmailAccountChangedListener;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,
-			GenericTableAddViewSaveCompleteDelegate>
+			GenericTableAddViewSaveCompleteDelegate,PasscodeValidationDelegate,PasscodeSetDelegate>
 {
 	@private
 		DataModelController *appDmc;
@@ -40,12 +43,18 @@
 		NSMutableSet *accountChangeListers;
 		
 		UINavigationController *messageListNavController;
+
+		PasscodeValidator *passcodeValidator;
+		PasscodeSetter *passcodeSetter;
 		
 }
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property (nonatomic,retain) UINavigationController *messageListNavController;
+
+@property(nonatomic,retain) PasscodeValidator *passcodeValidator;
+@property(nonatomic,retain) PasscodeSetter *passcodeSetter;
 
 @property(nonatomic,retain) DataModelController *appDmc;
 @property(nonatomic,retain) SharedAppVals *sharedAppVals;

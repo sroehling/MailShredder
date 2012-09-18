@@ -44,7 +44,7 @@ extern NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY;
 @property (nonatomic, retain) StarredFilter *defaultStarredFilterStarredOrUnstarred;
 @property (nonatomic, retain) StarredFilter *defaultStarredFilterUnstarred;
 
-+(void)initFromDatabase;
++(BOOL)initFromDatabase;
 +(SharedAppVals*)getUsingDataModelController:(DataModelController*)dataModelController;
 +(SharedAppVals*)createWithDataModelController:(DataModelController*)dataModelController;
 

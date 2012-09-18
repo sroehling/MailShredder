@@ -20,6 +20,9 @@
 #import "MoreFormInfoCreator.h"
 #import "ColorHelper.h"
 
+#import "PasscodeHelper.h"
+#import "PTPasscodeViewController.h"
+
 #import "CompositeMailSyncProgressDelegate.h"
 
 #import "EmailAccount.h"
@@ -45,6 +48,8 @@
 @synthesize countMessageFilterCountsQueue;
 @synthesize msgSyncAndDeleteOperationQueue;
 @synthesize mailDeleteProgressDelegates;
+@synthesize passcodeValidator;
+@synthesize passcodeSetter;
 
 - (void)dealloc
 {
@@ -59,9 +64,42 @@
 	[countMessageFilterCountsQueue release];
 	[msgSyncAndDeleteOperationQueue release];
 	[mailDeleteProgressDelegates release];
+	[passcodeValidator release];
+	[passcodeSetter release];
     [super dealloc];
 }
 
+////////////////////////////////////////////////////////////////
+// The following methods are for startup screens to prompt for 
+// email account information and passcode verification. There
+// can be up 2 views shown before the regular message is shown:
+// 1. If no email account is defined, prompt for email account
+//    information.
+// 2. If passcode protection is enabled, prompt for the passcode.
+// 3. Set the root view to the message list and synchronize
+//    the messages.
+////////////////////////////////////////////////////////////////
+
+
+-(void)genericAddViewSaveCompleteForObject:(NSManagedObject*)addedObject
+{
+	// Called after an email account is specified.
+	assert([addedObject isKindOfClass:[EmailAccount class]]);
+		
+	// The first account becomes the current email account
+	self.sharedAppVals.currentEmailAcct = (EmailAccount*)addedObject;
+	
+	[self.appDmc saveContext];
+	
+	if ([self passcodeViewPromptNeeded])
+	{
+		[self showPasscodeView];
+	}
+	else 
+	{
+		[self finishStartupWithDefinedEmailAcctSettings];
+	}	
+}
 
 -(void)promptForEmailAcctInfoForDataModelController
 {
@@ -83,67 +121,61 @@
 	emailAcctNavController.title = LOCALIZED_STR(@"EMAIL_ACCOUNT_VIEW_TITLE");
 	emailAcctNavController.navigationBar.tintColor = [ColorHelper navBarTintColor];;	
 		
-	self.window.rootViewController = emailAcctNavController;
-	
+	self.window.rootViewController = emailAcctNavController;	
     [self.window makeKeyAndVisible];
-
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context
+-(void)passcodeSet
 {
-    if ([keyPath isEqual:SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY]) 
-	{
-		NSNumber *changeKind = (NSNumber*)[change objectForKey:NSKeyValueChangeKindKey];
-		if([changeKind integerValue] == NSKeyValueChangeSetting)
-		{
-			EmailAccount *oldAcct = (EmailAccount*)[change objectForKey:NSKeyValueChangeOldKey];
-			EmailAccount *newAcct = (EmailAccount*)[change objectForKey:NSKeyValueChangeNewKey];
-			if(oldAcct != newAcct)
-			{
-				NSLog(@"Current email account changed: Synchronizing messages");
-				[self syncWithServerInBackgroundThread];
-				
-				for(id<CurrentEmailAccountChangedListener> acctChangeListener 
-					in self.accountChangeListers)
-				{
-					[acctChangeListener currentAcctChanged:newAcct];
-				}
-			}
-		}
-
-
-    }
-}
-
--(void)finishStartupWithDefinedEmailAcctSettings
-{
-	self.window.rootViewController = self.messageListNavController;
-	
-    [self.window makeKeyAndVisible];
-	
-	[self syncWithServerInBackgroundThread];
-	
-	// If the currently selected email account changes, then update re-sync the email
-	// messages.
-	[self.sharedAppVals addObserver:self forKeyPath:SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY 
-			options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
-	
-}
-
--(void)genericAddViewSaveCompleteForObject:(NSManagedObject*)addedObject
-{
-
-	assert([addedObject isKindOfClass:[EmailAccount class]]);
-		
-	// The first account becomes the current email account
-	self.sharedAppVals.currentEmailAcct = (EmailAccount*)addedObject;
-	
-	[self.appDmc saveContext];
-	
 	[self finishStartupWithDefinedEmailAcctSettings];
+}
+
+-(void)passcodeValidated
+{
+	[self finishStartupWithDefinedEmailAcctSettings];
+}
+
+-(BOOL)passcodeViewPromptNeeded
+{
+	if(![PasscodeHelper passcodeHasBeenSetAtLeastOnce])
+	{
+		// The app has just launched for the first time
+		// and we need to set the passcode by default.
+		return TRUE;
+	}
+	else if ( [PasscodeHelper passcodeIsEnabled])
+	{
+		// The user has kept the passcode enabled,
+		// so we need to prompt for it.
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+
+-(void)showPasscodeView
+{
+	id<PTPasscodeViewControllerDelegate> passcodeDelegate;
+	
+	if([PasscodeHelper passcodeHasBeenSetAtLeastOnce])
+	{
+		passcodeDelegate = self.passcodeValidator;
+	}
+	else 
+	{
+		passcodeDelegate = self.passcodeSetter;
+	}
+
+	PTPasscodeViewController *passcodeViewController = 
+		[[[PTPasscodeViewController alloc] initWithDelegate:passcodeDelegate] autorelease];
+	UINavigationController *passcodeNavController = [[[UINavigationController alloc]
+		   initWithRootViewController:passcodeViewController] autorelease];
+
+	self.window.rootViewController = passcodeNavController;
+    [self.window makeKeyAndVisible];
 
 }
 
@@ -162,10 +194,42 @@
 	}
 }
 
+
+-(void)finishStartupWithDefinedEmailAcctSettings
+{
+	[self assignFirstEmailAccountToCurrentIfNotSelected];
+
+	self.window.rootViewController = self.messageListNavController;	
+    [self.window makeKeyAndVisible];
+
+	// If the currently selected email account changes, then update re-sync the email
+	// messages.
+	[self.sharedAppVals addObserver:self forKeyPath:SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY 
+			options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+}
+
+
+
+-(void)configStartingViewController
+{
+	if(![appDmc entitiesExistForEntityName:EMAIL_ACCOUNT_ENTITY_NAME])
+	{
+		[self promptForEmailAcctInfoForDataModelController];
+	}
+	else if ([self passcodeViewPromptNeeded])
+	{
+		[self showPasscodeView];
+	}
+	else 
+	{
+		[self finishStartupWithDefinedEmailAcctSettings];
+	}
+
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	[SharedAppVals initFromDatabase];
-
 
 	self.emailAccountAdder = [[[EmailAccountAdder alloc] init] autorelease];
 	
@@ -199,22 +263,53 @@
 	msgListController.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
 	msgListNavController.navigationBar.tintColor = [ColorHelper navBarTintColor];
 		
-	self.messageListNavController = msgListNavController;	
-		
-	if(![appDmc entitiesExistForEntityName:EMAIL_ACCOUNT_ENTITY_NAME])
-	{
-		[self promptForEmailAcctInfoForDataModelController];
-	}
-	else 
-	{
-		[self assignFirstEmailAccountToCurrentIfNotSelected];
-		
-		[self finishStartupWithDefinedEmailAcctSettings];
-
-	}
+	self.messageListNavController = msgListNavController;
 	
+	self.passcodeValidator = [[[PasscodeValidator alloc] initWithDelegate:self] autorelease];
+	self.passcodeSetter = [[[PasscodeSetter alloc] initWithDelegate:self] autorelease];
+
 	return YES;
 }
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+	 [self configStartingViewController];
+}
+
+
+////////////////////////////////////////////////////////////////
+// The methods below support global, background operations for 
+// message synchronization, updating message filter counts,
+// and message deletion.
+////////////////////////////////////////////////////////////////
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    if ([keyPath isEqual:SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY]) 
+	{
+		NSNumber *changeKind = (NSNumber*)[change objectForKey:NSKeyValueChangeKindKey];
+		if([changeKind integerValue] == NSKeyValueChangeSetting)
+		{
+			EmailAccount *oldAcct = (EmailAccount*)[change objectForKey:NSKeyValueChangeOldKey];
+			EmailAccount *newAcct = (EmailAccount*)[change objectForKey:NSKeyValueChangeNewKey];
+			if(oldAcct != newAcct)
+			{
+				NSLog(@"Current email account changed: Synchronizing messages");
+				[self syncWithServerInBackgroundThread];
+				
+				for(id<CurrentEmailAccountChangedListener> acctChangeListener 
+					in self.accountChangeListers)
+				{
+					[acctChangeListener currentAcctChanged:newAcct];
+				}
+			}
+		}
+    }
+}
+
 
 -(void)updateMessageFilterCountsInBackground
 {
@@ -246,34 +341,5 @@
 		initWithConnectionContext:syncConnectionContext andProgressDelegate:self.mailDeleteProgressDelegates] autorelease]];
 
 }
-
-- (void)applicationWillResignActive:(UIApplication *)application
-{
-	// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-	// Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-	// Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-	// If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-	// Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-	// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
-
 
 @end

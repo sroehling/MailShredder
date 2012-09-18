@@ -276,12 +276,14 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 		initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self 
 		action:@selector(topActionButtonPressed)] autorelease];
 		
-
-
 	self.navigationItem.leftBarButtonItem = actionButton;
 	
 	self.navigationItem.rightBarButtonItem = [UIHelper buttonItemWithImage:@"settings.png"
 		andTarget:self andAction:@selector(showSettings)];
+	
+	// Once the message view is finished loading, start a synchronization to refresh the messages.
+	AppDelegate *theAppDelegate = [AppHelper theAppDelegate];
+	[theAppDelegate performSelector:@selector(syncWithServerInBackgroundThread) withObject:nil afterDelay:2.0];
 
 }
 

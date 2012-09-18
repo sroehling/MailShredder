@@ -19,6 +19,8 @@
 #import "FormContext.h"
 #import "SectionInfo.h"
 #import "SavedMessageFilterListFormInfoCreator.h"
+#import "PasscodeFieldInfo.h"
+#import "BoolFieldEditInfo.h"
 
 @implementation MoreFormInfoCreator
 
@@ -67,7 +69,15 @@
 			andContentDescription:nil andSubViewFactory:savedFiltersViewControllerFactory] autorelease];
 		[formPopulator.currentSection addFieldEditInfo:savedFiltersFieldEditInfo];
 	}
-
+	
+	[formPopulator nextSection];
+	PasscodeFieldInfo *passcodeFieldInfo  = [[[PasscodeFieldInfo alloc] 
+				initWithParentController:parentContext.parentController] autorelease];
+	BoolFieldEditInfo *passcodeFieldEditInfo = 
+		[[[BoolFieldEditInfo alloc] 
+			initWithFieldInfo: passcodeFieldInfo
+			andSubtitle:nil] autorelease];
+	[formPopulator.currentSection addFieldEditInfo:passcodeFieldEditInfo];
 
 	[formPopulator nextSection];
 	
