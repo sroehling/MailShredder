@@ -35,9 +35,9 @@
 	
 	[formPopulator nextSectionWithTitle:LOCALIZED_STR(@"EMAIL_ACCOUNT_DELETE_SETTINGS_SECTION_HEADER")
 		 andHelpFile:@"emailAcctDeleteSettings"];
-	[formPopulator populateDeleteMsgsField:self.emailAccount];
 	[formPopulator populateSyncFoldersField:self.emailAccount]; 
 	[formPopulator populateMoveToDeleteFolderSetting:self.emailAccount];
+	[formPopulator populateDeleteMsgsField:self.emailAccount];
 
 	return formPopulator.formInfo;
 

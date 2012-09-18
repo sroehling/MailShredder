@@ -150,6 +150,9 @@
 		00EDA63315F6B62F00917916 /* FilterNameFieldValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00EDA63215F6B62F00917916 /* FilterNameFieldValidator.m */; };
 		00EDA63815F7C0D800917916 /* MessageFilterCountOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00EDA63715F7C0D800917916 /* MessageFilterCountOperation.m */; };
 		00F16E0A15FA7F0C00E3A21B /* DeleteSettingsEmailAccountFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F16E0915FA7F0C00E3A21B /* DeleteSettingsEmailAccountFormInfoCreator.m */; };
+		00F4711C1608CDB000315F5A /* emailAcctDeletionSettingsICloud.md in Resources */ = {isa = PBXBuildFile; fileRef = 00F4711B1608CDB000315F5A /* emailAcctDeletionSettingsICloud.md */; };
+		00F4711F1608CDFF00315F5A /* emailAcctDeletionSettingsGmail.md in Resources */ = {isa = PBXBuildFile; fileRef = 00F4711E1608CDFF00315F5A /* emailAcctDeletionSettingsGmail.md */; };
+		00F471211608CF2700315F5A /* emailAcctDeletionSettingsGoogleApps.md in Resources */ = {isa = PBXBuildFile; fileRef = 00F471201608CF2700315F5A /* emailAcctDeletionSettingsGoogleApps.md */; };
 		00F4A9BD15E2AFB100595C95 /* imapAcctPresets.txt in Resources */ = {isa = PBXBuildFile; fileRef = 00F4A9BC15E2AFB100595C95 /* imapAcctPresets.txt */; };
 /* End PBXBuildFile section */
 
@@ -359,6 +362,7 @@
 		00B2FB2916012A9B005C93DB /* StarredFilterFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarredFilterFormInfoCreator.m; sourceTree = "<group>"; };
 		00B3B71B15DDA62C00A8FFCD /* MsgSyncContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgSyncContext.h; sourceTree = "<group>"; };
 		00B3B71C15DDA62C00A8FFCD /* MsgSyncContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgSyncContext.m; sourceTree = "<group>"; };
+		00B4972F1607B3860048D81F /* MessageDeletionBehavior.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = MessageDeletionBehavior.md; sourceTree = "<group>"; };
 		00B6DA9B1604BEC000C3B5EC /* ManualTesting.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = ManualTesting.md; sourceTree = "<group>"; };
 		00B6DAA11604F06700C3B5EC /* mailcleaner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mailcleaner.png; sourceTree = "<group>"; };
 		00B6DAA21604F06700C3B5EC /* mailcleaner-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mailcleaner-72.png"; sourceTree = "<group>"; };
@@ -418,6 +422,9 @@
 		00EDA63715F7C0D800917916 /* MessageFilterCountOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageFilterCountOperation.m; sourceTree = "<group>"; };
 		00F16E0815FA7F0C00E3A21B /* DeleteSettingsEmailAccountFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteSettingsEmailAccountFormInfoCreator.h; sourceTree = "<group>"; };
 		00F16E0915FA7F0C00E3A21B /* DeleteSettingsEmailAccountFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteSettingsEmailAccountFormInfoCreator.m; sourceTree = "<group>"; };
+		00F4711B1608CDB000315F5A /* emailAcctDeletionSettingsICloud.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = emailAcctDeletionSettingsICloud.md; sourceTree = "<group>"; };
+		00F4711E1608CDFF00315F5A /* emailAcctDeletionSettingsGmail.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = emailAcctDeletionSettingsGmail.md; sourceTree = "<group>"; };
+		00F471201608CF2700315F5A /* emailAcctDeletionSettingsGoogleApps.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = emailAcctDeletionSettingsGoogleApps.md; sourceTree = "<group>"; };
 		00F4A9BC15E2AFB100595C95 /* imapAcctPresets.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = imapAcctPresets.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -794,7 +801,7 @@
 		006AE32D15F90FB3007EED2E /* Account Property Editing */ = {
 			isa = PBXGroup;
 			children = (
-				00DED4A315ED530E00C3B1EF /* emailAcctDeleteSettings.md */,
+				00F471221608D23300315F5A /* Message Deletion Settings Help */,
 				006AE32E15F91001007EED2E /* Port Number */,
 				00DED4B315ED82DB00C3B1EF /* Move to Folder for Deletion Setting */,
 				00DED4B215ED6CEB00C3B1EF /* Synchronized Folders Setting */,
@@ -851,6 +858,7 @@
 				00C5042B1603AB72007C6BE7 /* AppDescription.md */,
 				0065E3BB158920D500D59B2A /* SyncDesign.md */,
 				007ABE8B156AB618004BA8BF /* MailCleanerSpec.md */,
+				00B4972F1607B3860048D81F /* MessageDeletionBehavior.md */,
 			);
 			name = "Development Docs";
 			sourceTree = "<group>";
@@ -1116,6 +1124,17 @@
 			name = "Message Filter Count Operation";
 			sourceTree = "<group>";
 		};
+		00F471221608D23300315F5A /* Message Deletion Settings Help */ = {
+			isa = PBXGroup;
+			children = (
+				00DED4A315ED530E00C3B1EF /* emailAcctDeleteSettings.md */,
+				00F4711B1608CDB000315F5A /* emailAcctDeletionSettingsICloud.md */,
+				00F4711E1608CDFF00315F5A /* emailAcctDeletionSettingsGmail.md */,
+				00F471201608CF2700315F5A /* emailAcctDeletionSettingsGoogleApps.md */,
+			);
+			name = "Message Deletion Settings Help";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1214,6 +1233,9 @@
 				00B6DAA41604F06700C3B5EC /* mailcleaner.png in Resources */,
 				00B6DAA51604F06700C3B5EC /* mailcleaner-72.png in Resources */,
 				00B6DAA61604F06700C3B5EC /* mailcleaner@2x.png in Resources */,
+				00F4711C1608CDB000315F5A /* emailAcctDeletionSettingsICloud.md in Resources */,
+				00F4711F1608CDFF00315F5A /* emailAcctDeletionSettingsGmail.md in Resources */,
+				00F471211608CF2700315F5A /* emailAcctDeletionSettingsGoogleApps.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

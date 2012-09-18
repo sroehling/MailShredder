@@ -25,9 +25,9 @@
 		andParentController:parentContext.parentController];
 	
 	[formPopulator nextSection];
-	[formPopulator populateDeleteMsgsField:self.emailAccount];
 	[formPopulator populateSyncFoldersField:self.emailAccount]; 
 	[formPopulator populateMoveToDeleteFolderSetting:self.emailAccount];
+	[formPopulator populateDeleteMsgsField:self.emailAccount];
 
 	return formPopulator.formInfo;
 
