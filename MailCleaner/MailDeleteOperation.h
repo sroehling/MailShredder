@@ -10,6 +10,7 @@
 #import "MailServerConnectionProgressDelegate.h"
 
 @protocol MailDeleteProgressDelegate;
+@class MailDeleteCompletionInfo;
 
 @interface MailDeleteOperation : MailOperation
 {
@@ -28,7 +29,8 @@
 
 @protocol MailDeleteProgressDelegate <NSObject,MailServerConnectionProgressDelegate>
 
--(void)mailDeleteUpdateProgress:(CGFloat)percentProgress;
--(void)mailDeleteComplete:(BOOL)completeStatus;
+@optional
+	-(void)mailDeleteUpdateProgress:(CGFloat)percentProgress;
+	-(void)mailDeleteComplete:(BOOL)completeStatus withCompletionInfo:(MailDeleteCompletionInfo*)mailDeleteCompletionInfo;
 
 @end

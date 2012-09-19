@@ -10,11 +10,12 @@
 
 @protocol MailServerConnectionProgressDelegate <NSObject>
 
--(void)mailServerConnectionStarted;
--(void)mailServerConnectionEstablished;
--(void)mailServerConnectionFailed;
--(void)mailServerConnectionTeardownStarted;
--(void)mailServerConnectionTeardownFinished;
+@optional
+	-(void)mailServerConnectionStarted;
+	-(void)mailServerConnectionEstablished;
+	-(void)mailServerConnectionFailed;
+	-(void)mailServerConnectionTeardownStarted;
+	-(void)mailServerConnectionTeardownFinished;
 
 
 @end

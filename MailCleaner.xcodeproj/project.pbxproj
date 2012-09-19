@@ -32,6 +32,9 @@
 		0017B753157968EA001D5D28 /* TestMessageFiltering.m in Sources */ = {isa = PBXBuildFile; fileRef = 0017B752157968EA001D5D28 /* TestMessageFiltering.m */; };
 		0017B75915796A81001D5D28 /* libResultraGenericLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0017B75815796A81001D5D28 /* libResultraGenericLib.a */; };
 		0017B75A15798C89001D5D28 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003D599415641A3F00AD3D91 /* CoreData.framework */; };
+		001A93591609496E00740534 /* MailDeleteCompletionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 001A93581609496D00740534 /* MailDeleteCompletionInfo.m */; };
+		001A93641609788B00740534 /* deletemsgsdone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 001A93621609788A00740534 /* deletemsgsdone@2x.png */; };
+		001A93651609788B00740534 /* deletemsgsdone.png in Resources */ = {isa = PBXBuildFile; fileRef = 001A93631609788A00740534 /* deletemsgsdone.png */; };
 		0027518315B9E77B0025FDB8 /* MessageFilterTableFooterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0027518215B9E77B0025FDB8 /* MessageFilterTableFooterController.m */; };
 		00394EFC156EFE00006C3AE5 /* msgActionButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 00394EFB156EFE00006C3AE5 /* msgActionButton.png */; };
 		0039E5DC1566B14000CB259D /* AppData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0039E5DA1566B14000CB259D /* AppData.xcdatamodeld */; };
@@ -214,6 +217,10 @@
 		0017B751157968EA001D5D28 /* TestMessageFiltering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMessageFiltering.h; sourceTree = "<group>"; };
 		0017B752157968EA001D5D28 /* TestMessageFiltering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestMessageFiltering.m; sourceTree = "<group>"; };
 		0017B75815796A81001D5D28 /* libResultraGenericLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libResultraGenericLib.a; path = "../ResultraGenericLib/build/Release-iphoneos/libResultraGenericLib.a"; sourceTree = "<group>"; };
+		001A93571609496D00740534 /* MailDeleteCompletionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailDeleteCompletionInfo.h; sourceTree = "<group>"; };
+		001A93581609496D00740534 /* MailDeleteCompletionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailDeleteCompletionInfo.m; sourceTree = "<group>"; };
+		001A93621609788A00740534 /* deletemsgsdone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deletemsgsdone@2x.png"; sourceTree = "<group>"; };
+		001A93631609788A00740534 /* deletemsgsdone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deletemsgsdone.png; sourceTree = "<group>"; };
 		0027518115B9E77B0025FDB8 /* MessageFilterTableFooterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageFilterTableFooterController.h; sourceTree = "<group>"; };
 		0027518215B9E77B0025FDB8 /* MessageFilterTableFooterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageFilterTableFooterController.m; sourceTree = "<group>"; };
 		00394EFB156EFE00006C3AE5 /* msgActionButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = msgActionButton.png; sourceTree = "<group>"; };
@@ -622,6 +629,8 @@
 				00D498621575380600F8FD2F /* MsgListView.m */,
 				005E6A8515647602004198B6 /* EmailInfoActionView.h */,
 				005E6A8615647602004198B6 /* EmailInfoActionView.m */,
+				001A93621609788A00740534 /* deletemsgsdone@2x.png */,
+				001A93631609788A00740534 /* deletemsgsdone.png */,
 				003F2395156D43490009BFE3 /* MsgListTableViewController.h */,
 				003F2396156D43490009BFE3 /* MsgListTableViewController.m */,
 				008129E915B8ABEC00533E36 /* DeleteMsgConfirmationView.h */,
@@ -1011,6 +1020,8 @@
 				00707D7615D59B9B00DC8DA5 /* MailDeleteOperation.m */,
 				00B2FB0F15FFAA61005C93DB /* CompositeMailDeleteProgressDelegate.h */,
 				00B2FB1015FFAA61005C93DB /* CompositeMailDeleteProgressDelegate.m */,
+				001A93571609496D00740534 /* MailDeleteCompletionInfo.h */,
+				001A93581609496D00740534 /* MailDeleteCompletionInfo.m */,
 			);
 			name = "Delete Mail";
 			sourceTree = "<group>";
@@ -1236,6 +1247,8 @@
 				00F4711C1608CDB000315F5A /* emailAcctDeletionSettingsICloud.md in Resources */,
 				00F4711F1608CDFF00315F5A /* emailAcctDeletionSettingsGmail.md in Resources */,
 				00F471211608CF2700315F5A /* emailAcctDeletionSettingsGoogleApps.md in Resources */,
+				001A93641609788B00740534 /* deletemsgsdone@2x.png in Resources */,
+				001A93651609788B00740534 /* deletemsgsdone.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1363,6 +1376,7 @@
 				00B2FB2A16012A9B005C93DB /* StarredFilterFormInfoCreator.m in Sources */,
 				0059CEA616022DA000DDF6A8 /* SubjectFilter.m in Sources */,
 				0059CEAA160239C600DDF6A8 /* SubjectFilterFormInfoCreator.m in Sources */,
+				001A93591609496E00740534 /* MailDeleteCompletionInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

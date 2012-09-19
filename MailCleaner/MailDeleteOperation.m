@@ -17,6 +17,7 @@
 #import "EmailAccount.h"
 #import "AppHelper.h"
 #import "AppDelegate.h"
+#import "MailDeleteCompletionInfo.h"
 
 #define SYNC_PROGRESS_UPDATE_THRESHOLD 0.05
 
@@ -147,7 +148,7 @@
 }
 
 
--(void)deleteMarkedMsgs
+-(MailDeleteCompletionInfo*)deleteMarkedMsgs
 {
 	NSDictionary *folderByPath = [[self serverFoldersByName] retain];
 	NSMutableSet *serverFoldersToExpunge = [[NSMutableSet alloc] init];
@@ -206,7 +207,10 @@
 		if((currentProgress - deleteProgress) >= SYNC_PROGRESS_UPDATE_THRESHOLD)
 		{
 			deleteProgress = currentProgress;
-			[self.deleteProgressDelegate mailDeleteUpdateProgress:deleteProgress];
+			if([self.deleteProgressDelegate respondsToSelector:@selector(mailDeleteUpdateProgress:)])
+			{
+				[self.deleteProgressDelegate mailDeleteUpdateProgress:deleteProgress];
+			}
 		}
 			
 	}
@@ -277,6 +281,15 @@
 	
 	[serverFoldersToExpunge release];
 	[folderByPath release];
+	
+	MailDeleteCompletionInfo *completionInfo = [[[MailDeleteCompletionInfo alloc] init] autorelease];
+	completionInfo.didEraseMsgs = doDeleteMsgs;
+	if(deleteDestFolder != nil)
+	{
+		completionInfo.destinationFolder = deleteDestFolder.path;
+	}
+	completionInfo.numMsgsDeleted = numMsgsDeleted;
+	return completionInfo;
 
 }
 
@@ -293,12 +306,14 @@
 
 -(void)main
 {
+
+	MailDeleteCompletionInfo *deleteCompletionInfo = nil;
 	if([self.connectionContext establishConnection])
 	{
 		BOOL deleteSuccessful = FALSE;
 		@try 
 		{
-			[self deleteMarkedMsgs];
+			deleteCompletionInfo = [self deleteMarkedMsgs];
 			deleteSuccessful = TRUE;
 
 		}
@@ -312,7 +327,11 @@
 		{
 			[self.connectionContext teardownConnection];
 			
-			[self.deleteProgressDelegate mailDeleteComplete:deleteSuccessful];
+			if([self.deleteProgressDelegate respondsToSelector:@selector(mailDeleteComplete:withCompletionInfo:)])
+			{
+				[self.deleteProgressDelegate mailDeleteComplete:deleteSuccessful
+					withCompletionInfo:deleteCompletionInfo];
+			}
 
 			// Update the number of messages matching each saved message filter
 			// to reflect messages just deleted.
@@ -325,7 +344,11 @@
 		[self performSelectorOnMainThread:@selector(deleteFailedAlert) 
 			withObject:self waitUntilDone:TRUE];
 
-		[self.deleteProgressDelegate mailDeleteComplete:FALSE];
+		if([self.deleteProgressDelegate respondsToSelector:@selector(mailDeleteComplete:withCompletionInfo:)])
+		{
+			[self.deleteProgressDelegate mailDeleteComplete:FALSE withCompletionInfo:nil];
+		}
+		
 	}
 
 }

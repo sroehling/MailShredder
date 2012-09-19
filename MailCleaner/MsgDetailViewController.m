@@ -112,10 +112,6 @@
 	[self.detailView.bodyLoadActivity performSelectorOnMainThread:@selector(startAnimating) 
 		withObject:nil waitUntilDone:TRUE];
 }
--(void)mailServerConnectionEstablished {}
--(void)mailSyncUpdateProgress:(CGFloat)percentProgress {}
--(void)mailServerConnectionTeardownStarted {}
--(void)mailServerConnectionTeardownFinished {}
 
 -(void)mailServerConnectionFailed 
 {

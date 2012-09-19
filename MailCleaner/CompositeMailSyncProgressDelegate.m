@@ -37,7 +37,10 @@
 {
 	for(id<MailSyncProgressDelegate> subDelegate in self.subDelegates)
 	{
-		[subDelegate mailServerConnectionStarted];
+		if([subDelegate respondsToSelector:@selector(mailServerConnectionStarted)])
+		{
+			[subDelegate mailServerConnectionStarted];
+		}
 	}
 }
 
@@ -45,7 +48,10 @@
 {
 	for(id<MailSyncProgressDelegate> subDelegate in self.subDelegates)
 	{
-		[subDelegate mailServerConnectionEstablished];
+		if([subDelegate respondsToSelector:@selector(mailServerConnectionEstablished)])
+		{
+			[subDelegate mailServerConnectionEstablished];
+		}
 	}
 }
 
@@ -53,7 +59,10 @@
 {
 	for(id<MailSyncProgressDelegate> subDelegate in self.subDelegates)
 	{
-		[subDelegate mailServerConnectionFailed];
+		if([subDelegate respondsToSelector:@selector(mailServerConnectionFailed)])
+		{
+			[subDelegate mailServerConnectionFailed];
+		}
 	}
 }
 
@@ -61,7 +70,10 @@
 {
 	for(id<MailSyncProgressDelegate> subDelegate in self.subDelegates)
 	{
-		[subDelegate mailSyncUpdateProgress:percentProgress];
+		if([subDelegate respondsToSelector:@selector(mailSyncUpdateProgress:)])
+		{
+			[subDelegate mailSyncUpdateProgress:percentProgress];
+		}
 	}
 }
 
@@ -69,7 +81,10 @@
 {
 	for(id<MailSyncProgressDelegate> subDelegate in self.subDelegates)
 	{
-		[subDelegate mailServerConnectionTeardownStarted];
+		if([subDelegate respondsToSelector:@selector(mailServerConnectionTeardownStarted)])
+		{
+			[subDelegate mailServerConnectionTeardownStarted];
+		}
 	}
 }
 
@@ -77,7 +92,10 @@
 {
 	for(id<MailSyncProgressDelegate> subDelegate in self.subDelegates)
 	{
-		[subDelegate mailServerConnectionTeardownFinished];
+		if([subDelegate respondsToSelector:@selector(mailServerConnectionTeardownFinished)])
+		{
+			[subDelegate mailServerConnectionTeardownFinished];
+		}
 	}
 }
 
@@ -85,7 +103,10 @@
 {
 	for(id<MailSyncProgressDelegate> subDelegate in self.subDelegates)
 	{
-		[subDelegate mailSyncComplete:successfulCompletion];
+		if([subDelegate respondsToSelector:@selector(mailSyncComplete:)])
+		{
+			[subDelegate mailSyncComplete:successfulCompletion];
+		}
 	}
 }
 

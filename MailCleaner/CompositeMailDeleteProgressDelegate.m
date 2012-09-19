@@ -37,7 +37,10 @@
 {
 	for(id<MailDeleteProgressDelegate> subDelegate in self.subDelegates)
 	{
-		[subDelegate mailServerConnectionStarted];
+		if([subDelegate respondsToSelector:@selector(mailServerConnectionStarted)])
+		{
+			[subDelegate mailServerConnectionStarted];
+		}
 	}
 }
 
@@ -45,7 +48,10 @@
 {
 	for(id<MailDeleteProgressDelegate> subDelegate in self.subDelegates)
 	{
-		[subDelegate mailServerConnectionEstablished];
+		if([subDelegate respondsToSelector:@selector(mailServerConnectionEstablished)])
+		{
+			[subDelegate mailServerConnectionEstablished];
+		}
 	}
 }
 
@@ -53,7 +59,10 @@
 {
 	for(id<MailDeleteProgressDelegate> subDelegate in self.subDelegates)
 	{
-		[subDelegate mailServerConnectionFailed];
+		if([subDelegate respondsToSelector:@selector(mailServerConnectionFailed)])
+		{
+			[subDelegate mailServerConnectionFailed];
+		}
 	}
 }
 
@@ -61,7 +70,10 @@
 {
 	for(id<MailDeleteProgressDelegate> subDelegate in self.subDelegates)
 	{
-		[subDelegate mailServerConnectionTeardownStarted];
+		if([subDelegate respondsToSelector:@selector(mailServerConnectionTeardownStarted)])
+		{
+			[subDelegate mailServerConnectionTeardownStarted];
+		}
 	}
 }
 
@@ -69,15 +81,21 @@
 {
 	for(id<MailDeleteProgressDelegate> subDelegate in self.subDelegates)
 	{
-		[subDelegate mailServerConnectionTeardownFinished];
+		if([subDelegate respondsToSelector:@selector(mailServerConnectionTeardownFinished)])
+		{
+			[subDelegate mailServerConnectionTeardownFinished];
+		}
 	}
 }
 
--(void)mailDeleteComplete:(BOOL)completeStatus
+-(void)mailDeleteComplete:(BOOL)completeStatus withCompletionInfo:(MailDeleteCompletionInfo *)mailDeleteCompletionInfo
 {
 	for(id<MailDeleteProgressDelegate> subDelegate in self.subDelegates)
 	{
-		[subDelegate mailDeleteComplete:completeStatus];
+		if([subDelegate respondsToSelector:@selector(mailDeleteComplete:withCompletionInfo:)])
+		{
+			[subDelegate mailDeleteComplete:completeStatus withCompletionInfo:mailDeleteCompletionInfo];
+		}
 	}
 }
 
@@ -85,7 +103,10 @@
 {
 	for(id<MailDeleteProgressDelegate> subDelegate in self.subDelegates)
 	{
-		[subDelegate mailDeleteUpdateProgress:percentProgress];
+		if([subDelegate respondsToSelector:@selector(mailDeleteUpdateProgress:)])
+		{
+			[subDelegate mailDeleteUpdateProgress:percentProgress];
+		}
 	}
 }
 

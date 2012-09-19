@@ -244,10 +244,6 @@ const CGFloat ACTION_BUTTON_SIZE = 24.0f;
 		withObject:self waitUntilDone:FALSE];
 }
 
--(void)mailServerConnectionFailed
-{
-}
-
 -(void)updateStatusWithPercProgress
 {
 	self.statusLabel.text = [NSString stringWithFormat:@"%@ (%.0f%%)",
@@ -287,9 +283,6 @@ const CGFloat ACTION_BUTTON_SIZE = 24.0f;
 
 }
 
--(void)mailServerConnectionTeardownFinished
-{
-}
 
 -(void)mailSyncComplete:(BOOL)successfulCompletion
 {
@@ -299,7 +292,7 @@ const CGFloat ACTION_BUTTON_SIZE = 24.0f;
 		withObject:self waitUntilDone:FALSE];
 }
 
--(void)mailDeleteComplete:(BOOL)completeStatus
+-(void)mailDeleteComplete:(BOOL)completeStatus withCompletionInfo:(MailDeleteCompletionInfo *)mailDeleteCompletionInfo
 {
 	[self performSelectorOnMainThread:@selector(stopRefreshIndicator) 
 		withObject:self waitUntilDone:FALSE];

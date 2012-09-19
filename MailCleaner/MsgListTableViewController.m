@@ -27,6 +27,10 @@
 #import "SharedAppVals.h"
 #import "EmailAccount.h"
 #import "MsgPredicateHelper.h"
+#import "MailDeleteOperation.h"
+#import "CompositeMailDeleteProgressDelegate.h"
+#import "MailDeleteCompletionInfo.h"
+#import "MBProgressHUD.h"
 
 
 @implementation MsgListTableViewController
@@ -272,6 +276,7 @@
 	assert(appDelegate.mailSyncProgressDelegates != nil);
 	[appDelegate.mailSyncProgressDelegates addSubDelegate:self.msgListView.msgListActionFooter];
 	[appDelegate.mailDeleteProgressDelegates addSubDelegate:self.msgListView.msgListActionFooter];
+	[appDelegate.mailDeleteProgressDelegates addSubDelegate:self];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -309,6 +314,7 @@
 	assert(appDelegate.mailSyncProgressDelegates != nil);
 	[appDelegate.mailSyncProgressDelegates removeSubDelegate:self.msgListView.msgListActionFooter];	
 	[appDelegate.mailDeleteProgressDelegates removeSubDelegate:self.msgListView.msgListActionFooter];
+	[appDelegate.mailDeleteProgressDelegates removeSubDelegate:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -323,6 +329,40 @@
     return [sectionInfo numberOfObjects];
 }
 
+#pragma mark MailDeleteProgressDelegate
+
+-(void)showDeletionCompleteStatusHUD:(NSString*)completionStatus
+{
+	MBProgressHUD *hud = [[[MBProgressHUD alloc] initWithView:self.navigationController.view] autorelease];
+	[self.navigationController.view addSubview:hud];
+
+	// Configure for text only and offset down
+	hud.mode = MBProgressHUDModeCustomView;
+	hud.labelText = LOCALIZED_STR(@"MESSAGE_DELETION_COMPLETION_STATUS_TITLE");
+	hud.detailsLabelText =completionStatus;
+	hud.margin = 5.f;
+	hud.minSize = CGSizeMake(135.f, 135.f);
+	hud.dimBackground = YES;
+	hud.removeFromSuperViewOnHide = TRUE;
+	hud.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"deletemsgsdone.png"]] autorelease];
+
+	[hud show:TRUE];
+	[hud hide:YES afterDelay:4];
+
+}
+
+-(void)mailDeleteComplete:(BOOL)completeStatus withCompletionInfo:(MailDeleteCompletionInfo *)mailDeleteCompletionInfo
+{
+	if(completeStatus == TRUE)
+	{
+		assert(mailDeleteCompletionInfo != nil);
+		NSLog(@"MsgListTableViewController: mailDeleteComplete: %@",[mailDeleteCompletionInfo completionSummary]);
+
+		[self performSelectorOnMainThread:@selector(showDeletionCompleteStatusHUD:) 
+			withObject:[mailDeleteCompletionInfo completionSummary] waitUntilDone:TRUE];
+		
+	}
+}
 
 #pragma mark EmailActionViewDelegate
 

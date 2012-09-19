@@ -12,7 +12,8 @@
 
 @protocol MailSyncProgressDelegate <NSObject,MailServerConnectionProgressDelegate>
 
--(void)mailSyncUpdateProgress:(CGFloat)percentProgress;
--(void)mailSyncComplete:(BOOL)successfulCompletion;
+@optional
+	-(void)mailSyncUpdateProgress:(CGFloat)percentProgress;
+	-(void)mailSyncComplete:(BOOL)successfulCompletion;
 
 @end

@@ -10,13 +10,16 @@
 
 #import "EmailInfoActionView.h"
 #import "AppDelegate.h"
+#import "MailDeleteOperation.h"
+#import "MBProgressHUD.h"
 
 @class DataModelController;
 @class MsgListView;
 
 @interface MsgListTableViewController : UIViewController 
 	<NSFetchedResultsControllerDelegate,UITableViewDelegate,
-		UITableViewDataSource,EmailActionViewDelegate,CurrentEmailAccountChangedListener> {
+		UITableViewDataSource,EmailActionViewDelegate,
+		CurrentEmailAccountChangedListener,MailDeleteProgressDelegate> {
 	@private
 		DataModelController *appDmc;
 		DataModelController *saveMsgFilterDmc;

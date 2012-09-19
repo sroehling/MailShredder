@@ -135,7 +135,10 @@
 				
 			[self.connectionContext teardownConnection];
 
-			[self.syncProgressDelegate mailSyncComplete:TRUE];
+			if([self.syncProgressDelegate respondsToSelector:@selector(mailSyncComplete:)])
+			{
+				[self.syncProgressDelegate mailSyncComplete:TRUE];
+			}
 			
 			// Update the number of messages matching each saved message filter
 			// to reflect the sychronization.
@@ -145,7 +148,11 @@
 		{
 			[self performSelectorOnMainThread:@selector(syncFailedAlert) 
 				withObject:self waitUntilDone:TRUE];
-			[self.syncProgressDelegate mailSyncComplete:FALSE];
+				
+			if([self.syncProgressDelegate respondsToSelector:@selector(mailSyncComplete:)])
+			{
+				[self.syncProgressDelegate mailSyncComplete:FALSE];
+			}	
 		}
 		@finally 
 		{
@@ -157,8 +164,11 @@
 	else 
 	{
 		[self performSelectorOnMainThread:@selector(syncFailedAlert) 
-			withObject:self waitUntilDone:TRUE];	
-		[self.syncProgressDelegate mailSyncComplete:FALSE];
+			withObject:self waitUntilDone:TRUE];
+		if([self.syncProgressDelegate respondsToSelector:@selector(mailSyncComplete:)])
+		{
+			[self.syncProgressDelegate mailSyncComplete:FALSE];
+		}
 	}
 	
 	NSLog(@"MailSyncOperation: Mail sync execution finished");

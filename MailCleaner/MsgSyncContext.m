@@ -157,8 +157,11 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 	BOOL progressThresholdCrossed = [syncProgressCounter incrementProgressCount];
 	if(progressThresholdCrossed)
 	{
-		[self.progressDelegate mailSyncUpdateProgress:
-			[syncProgressCounter currentProgress]];
+		if([self.progressDelegate respondsToSelector:@selector(mailSyncUpdateProgress:)])
+		{
+			[self.progressDelegate mailSyncUpdateProgress:
+				[syncProgressCounter currentProgress]];
+		}
 	}
 	if((newLocalMsgsCreated % MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD) == 0)
 	{

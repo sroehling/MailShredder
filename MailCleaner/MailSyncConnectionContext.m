@@ -95,7 +95,10 @@
 		password:password];
 	if(!connectionSucceeded)
 	{
-		[self.progressDelegate mailServerConnectionFailed];
+		if([self.progressDelegate respondsToSelector:@selector(mailServerConnectionFailed)])
+		{
+			[self.progressDelegate mailServerConnectionFailed];
+		}
 		@throw [NSException exceptionWithName:@"IMAPServerConnectionFailed" reason:@"Connection to IMAP server failed" userInfo:nil];
 	}
 	
@@ -132,13 +135,19 @@
 {
 	[self setupContext];
 		
-	[self.progressDelegate mailServerConnectionStarted]; 
+	if([self.progressDelegate respondsToSelector:@selector(mailServerConnectionStarted)])
+	{
+		[self.progressDelegate mailServerConnectionStarted]; 
+	}
 	
 	@try
 	{
     	[self connect];
 		
-		[self.progressDelegate mailServerConnectionEstablished];
+		if([self.progressDelegate respondsToSelector:@selector(mailServerConnectionEstablished)])
+		{
+			[self.progressDelegate mailServerConnectionEstablished];
+		}
 
 		return TRUE;
 
@@ -172,7 +181,11 @@
 
 -(void)teardownConnection
 {
-	[self.progressDelegate mailServerConnectionTeardownStarted];
+
+	if([self.progressDelegate respondsToSelector:@selector(mailServerConnectionTeardownStarted)])
+	{
+		[self.progressDelegate mailServerConnectionTeardownStarted];
+	}
 		
 	[self disconnect];
 
@@ -180,7 +193,10 @@
 		
 	[self teardownContext];						
 															
-	[self.progressDelegate mailServerConnectionTeardownFinished];
+	if([self.progressDelegate respondsToSelector:@selector(mailServerConnectionTeardownFinished)])
+	{
+		[self.progressDelegate mailServerConnectionTeardownFinished];
+	}
 
 }
 

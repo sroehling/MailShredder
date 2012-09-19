@@ -215,6 +215,12 @@
 "EMAIL_ACCOUNT_CONNECTION_TEST_STATUS_CONNECTION_ESTABLISHED" = "Connection Established";
 "EMAIL_ACCOUNT_CONNECTION_TEST_STATUS_TEST_SUCCEEDED" = "Connection Test Succeeded";
 
+"MESSAGE_DELETION_COMPLETION_STATUS_PERMANENTLY_DELETE_FORMAT" = "%d messages permanently deleted";
+"MESSAGE_DELETION_COMPLETION_STATUS_MOVED_THEN_PERMANENTLY_DELETE_FORMAT" = "%d messages permanently deleted (after first being moved to trash folder '%@')";
+"MESSAGE_DELETION_COMPLETION_STATUS_MOVED_TO_TRASH_FOLDER" = "%d messages moved to trash folder '%@'";
+"MESSAGE_DELETION_COMPLETION_STATUS_NO_ACTION" = "No action taken for selected messages. Please check the message deletion settings for this account."; 
+"MESSAGE_DELETION_COMPLETION_STATUS_TITLE" = "Deletion Complete";
+
 "TIME_UNIT_WEEKS" = "Weeks";
 "TIME_UNIT_MONTHS" = "Months";
 "TIME_UNIT_YEARS" = "Years";
