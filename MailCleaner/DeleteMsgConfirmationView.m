@@ -65,6 +65,7 @@ const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 	self.subjectLabel.text = currentMsgInfo.subject;
 }
 
+
 - (id)initWithFrame:(CGRect)frame andMsgsToDelete:(NSArray*)theMsgsToDelete
 	andAppDataModelController:(DataModelController*)theAppDmc
 {
@@ -256,7 +257,7 @@ const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 	currYOffset +=  DELETE_CONFIRMATION_BUTTON_HEIGHT + DELETE_CONFIRMATION_VERT_SPACE;
 	[self layoutButton:self.deleteButton usingViewWidth:viewWidth andYOffset:currYOffset];
 	
-	currYOffset +=  DELETE_CONFIRMATION_BUTTON_HEIGHT + DELETE_CONFIRMATION_VERT_SPACE;
+	currYOffset +=  1.5*DELETE_CONFIRMATION_BUTTON_HEIGHT + DELETE_CONFIRMATION_VERT_SPACE;
 	[self layoutButton:self.deleteAllButton usingViewWidth:viewWidth andYOffset:currYOffset];
 
 	// Double the space between the last button and cancel button
