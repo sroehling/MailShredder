@@ -45,6 +45,8 @@ const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 @synthesize subjectLabel;
 @synthesize subjectCaption;
 
+@synthesize currentMsgNumber;
+
 @synthesize msgsToDelete;
 @synthesize msgDisplayView;
 @synthesize msgsConfirmedForDeletion;
@@ -78,6 +80,7 @@ const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 		assert([theMsgsToDelete count] > 0);
 		self.msgsToDelete = theMsgsToDelete;
 		currentMsgIndex = 0;
+		
 		self.msgsConfirmedForDeletion = [[[NSMutableSet alloc] init] autorelease];
  
 		self.deleteButton = [UIHelper buttonWithBackgroundColor:[UIColor redColor] andTitleColor:[UIColor whiteColor]];
@@ -140,6 +143,16 @@ const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 		[self.msgDisplayView addSubview:self.subjectLabel]; 
 		[self.msgDisplayView addSubview:self.subjectCaption];
 		
+		self.currentMsgNumber = [[UILabel alloc] initWithFrame:CGRectZero];
+		self.currentMsgNumber.backgroundColor = [UIColor clearColor];
+		self.currentMsgNumber.opaque = NO;
+		self.currentMsgNumber.textAlignment = UITextAlignmentRight;
+		self.currentMsgNumber.textColor = [UIColor whiteColor];
+		self.currentMsgNumber.highlightedTextColor = [UIColor whiteColor];
+		self.currentMsgNumber.font = [UIFont boldSystemFontOfSize:12];
+		[self addSubview:self.currentMsgNumber];
+		[self configureMsgNumberLabel];
+
 		[self configureCurrentMsg];
 	   
 	}
@@ -251,7 +264,16 @@ const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 	
 	// Layout the buttons for confirming the deletion or canceling.
  
-	currYOffset +=  self.msgDisplayView.frame.size.height + DELETE_CONFIRMATION_VERT_SPACE;
+	currYOffset +=  self.msgDisplayView.frame.size.height;
+	
+	CGRect msgNumberFrame = self.currentMsgNumber.frame;
+	msgNumberFrame.origin.x = DELETE_CONFIRMATION_LEFT_MARGIN;
+	msgNumberFrame.size.width = DELETE_CONFIRMATION_BUTTON_WIDTH;
+	msgNumberFrame.size.height = 20.0;
+	msgNumberFrame.origin.y = currYOffset;
+	[self.currentMsgNumber setFrame:msgNumberFrame];
+	
+	currYOffset += msgNumberFrame.size.height + DELETE_CONFIRMATION_VERT_SPACE;
 	[self layoutButton:self.skipButton usingViewWidth:viewWidth andYOffset:currYOffset];
 	
 	currYOffset +=  DELETE_CONFIRMATION_BUTTON_HEIGHT + DELETE_CONFIRMATION_VERT_SPACE;
@@ -286,9 +308,22 @@ const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 	
 }
 
--(void)advanceCurrentMessage
+-(void)configureMsgNumberLabel
+{
+	self.currentMsgNumber.text = [NSString stringWithFormat:
+		LOCALIZED_STR(@"DELETE_CONFIRMATION_CURRENT_MESSAGE_FORMAT"),
+		currentMsgIndex+1,self.msgsToDelete.count];
+}
+
+-(void)incrementMsgNumber
 {
 	currentMsgIndex ++;
+	[self configureMsgNumberLabel];
+}
+
+-(void)advanceCurrentMessage
+{
+	[self incrementMsgNumber];
 	if(currentMsgIndex >= [self.msgsToDelete count])
 	{		
 		[self deleteConfirmedMsgsInBackgroundThread];
@@ -348,6 +383,8 @@ const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 	
 	[subjectLabel release];
 	[subjectCaption release];
+	
+	[currentMsgNumber release];
 	
 	[msgDisplayView release];
 

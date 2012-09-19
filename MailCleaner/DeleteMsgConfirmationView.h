@@ -27,6 +27,8 @@
 		UILabel *subjectlabel;
 		UILabel *subjectCaption;
 		
+		UILabel *currentMsgNumber;
+		
 		UIView *msgDisplayView;
 		
 		NSArray *msgsToDelete;
@@ -50,6 +52,8 @@
 
 @property(nonatomic,retain) UILabel *subjectLabel;
 @property(nonatomic,retain) UILabel *subjectCaption;
+
+@property(nonatomic,retain) UILabel *currentMsgNumber;
 
 @property(nonatomic,retain) UIView *msgDisplayView;
 
