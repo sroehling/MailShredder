@@ -51,6 +51,7 @@ const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 @synthesize msgDisplayView;
 @synthesize msgsConfirmedForDeletion;
 @synthesize appDmc;
+@synthesize delegate;
 
 -(EmailInfo*)currentMsg
 {    
@@ -70,6 +71,7 @@ const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 
 - (id)initWithFrame:(CGRect)frame andMsgsToDelete:(NSArray*)theMsgsToDelete
 	andAppDataModelController:(DataModelController*)theAppDmc
+	andDelegate:(id<DeleteMsgConfirmationViewDelegate>)deleteDelegate
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -80,6 +82,7 @@ const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 		assert([theMsgsToDelete count] > 0);
 		self.msgsToDelete = theMsgsToDelete;
 		currentMsgIndex = 0;
+		self.delegate = deleteDelegate;
 		
 		self.msgsConfirmedForDeletion = [[[NSMutableSet alloc] init] autorelease];
  
@@ -297,15 +300,10 @@ const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 
 -(void)deleteConfirmedMsgsInBackgroundThread
 {
-	for (EmailInfo *info in self.msgsConfirmedForDeletion)
+	if(self.delegate != nil)
 	{
-		info.deleted = [NSNumber numberWithBool:TRUE];		
+		[self.delegate msgsConfirmedForDeletion:self.msgsConfirmedForDeletion];
 	}
-	[self.appDmc saveContext];
-	
-	AppDelegate *appDelegate = [AppHelper theAppDelegate];
-	[appDelegate deleteMarkedMsgsInBackgroundThread];
-	
 }
 
 -(void)configureMsgNumberLabel

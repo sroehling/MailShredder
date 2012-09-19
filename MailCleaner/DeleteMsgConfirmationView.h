@@ -10,6 +10,8 @@
 
 @class DataModelController;
 
+@protocol DeleteMsgConfirmationViewDelegate;
+
 @interface DeleteMsgConfirmationView : UIView
 {
 	@private
@@ -36,6 +38,8 @@
 		NSMutableSet *msgsConfirmedForDeletion;
 		
 		DataModelController *appDmc;
+		
+		id<DeleteMsgConfirmationViewDelegate> delegate;
 
 }
 
@@ -62,9 +66,19 @@
 
 @property(nonatomic,retain) DataModelController *appDmc;
 
+@property(nonatomic,assign) id<DeleteMsgConfirmationViewDelegate> delegate;
+
 
 - (id)initWithFrame:(CGRect)frame andMsgsToDelete:(NSArray*)theMsgsToDelete
-	andAppDataModelController:(DataModelController*)theAppDmc;
+	andAppDataModelController:(DataModelController*)theAppDmc
+	andDelegate:(id<DeleteMsgConfirmationViewDelegate>)deleteDelegate;
+
+
+@end
+
+@protocol DeleteMsgConfirmationViewDelegate <NSObject>
+
+-(void)msgsConfirmedForDeletion:(NSSet*)confirmedMsgs;
 
 
 @end

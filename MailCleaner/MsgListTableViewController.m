@@ -41,6 +41,8 @@
 @synthesize msgListView;
 @synthesize selectedEmailInfos;
 
+@synthesize msgsConfirmedForDeletion;
+
 
 -(void)newMessageFilterDidSaveNoficiationHandler:(NSNotification*)notification
 {
@@ -452,12 +454,56 @@
 		DeleteMsgConfirmationView *deleteConfirmationView = [[[DeleteMsgConfirmationView alloc]
 			initWithFrame:self.navigationController.view.frame
 			andMsgsToDelete:trashedMsgs 
-			andAppDataModelController:self.appDmc] autorelease];
+			andAppDataModelController:self.appDmc
+			andDelegate:self] autorelease];
 		
 		[self.navigationController.view addSubview:deleteConfirmationView];
 	}
 
 }
+
+-(void)msgsConfirmedForDeletion:(NSSet *)confirmedMsgs
+{
+	self.msgsConfirmedForDeletion = confirmedMsgs;
+	if(confirmedMsgs.count > 0)
+	{
+		NSString *preDeletionSummary = [self.currentEmailAcct msgDeletionPreDeletionSummary:confirmedMsgs.count];
+	
+		NSString *msgCountDescription = (confirmedMsgs.count == 1)?
+			LOCALIZED_STR(@"MESSAGE_DELETE_SINGULAR_MESSAGE_LABEL"):
+			LOCALIZED_STR(@"MESSAGE_DELETE_PLURAL_MESSAGE_LABEL");
+	
+		NSString *finalConfirmationMsg = [NSString 
+			stringWithFormat:LOCALIZED_STR(@"MESSAGE_DELETE_FINAL_CONFIRMATION_FORMAT"),
+				confirmedMsgs.count,msgCountDescription,preDeletionSummary];
+
+		UIAlertView *finalConfirmationAlert = [[[UIAlertView alloc] 
+			initWithTitle:LOCALIZED_STR(@"MESSAGE_DELETE_FINAL_CONFIRMATION_TITLE")
+			message:finalConfirmationMsg delegate:self 
+			cancelButtonTitle:LOCALIZED_STR(@"MESSAGE_DELETE_FINAL_CONFIRMATION_CANCEL_BUTTON_TITLE")
+			otherButtonTitles:nil] autorelease];
+		[finalConfirmationAlert addButtonWithTitle:LOCALIZED_STR(@"MESSAGE_DELETE_FINAL_CONFIRMATION_DELETE_BUTTON_TITLE")];
+		[finalConfirmationAlert show];
+	}
+}
+
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+	NSLog(@"Alert view dismissed: buton index = %d",buttonIndex);
+	if(alertView.cancelButtonIndex != buttonIndex)
+	{
+		assert(self.msgsConfirmedForDeletion != nil); // Must be set in msgsConfirmedForDeletionMethod
+		for (EmailInfo *info in self.msgsConfirmedForDeletion)
+		{
+			info.deleted = [NSNumber numberWithBool:TRUE];		
+		}
+		[self.appDmc saveContext];
+		
+		AppDelegate *appDelegate = [AppHelper theAppDelegate];
+		[appDelegate deleteMarkedMsgsInBackgroundThread];
+	}
+}
+
 
 
 #pragma mark CurrentEmailAccountChangedListener
@@ -474,6 +520,7 @@
 	[msgListView release];
 	[selectedEmailInfos release];
 	[saveMsgFilterDmc release];
+	[msgsConfirmedForDeletion release];
 	[super dealloc];
 }
 

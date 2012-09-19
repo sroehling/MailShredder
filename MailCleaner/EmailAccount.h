@@ -100,6 +100,11 @@ extern NSString * const EMAIL_ACCOUNT_DELETE_HANDLING_MOVE_TO_FOLDER_KEY;
 // are no folders, then all the folders are synchronized.
 -(NSDictionary*)syncFoldersByName;
 
+// Based upon the deletion rules configured for this account,
+// this will generate a message describing in detail what will
+// happen to these messages and whether or not it can be undone.
+-(NSString*)msgDeletionPreDeletionSummary:(NSUInteger)numMsgsToBeDeleted;
+
 @end
 
 @interface EmailAccount (CoreDataGeneratedAccessors)

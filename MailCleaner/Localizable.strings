@@ -218,10 +218,21 @@
 "EMAIL_ACCOUNT_CONNECTION_TEST_STATUS_TEST_SUCCEEDED" = "Connection Test Succeeded";
 
 "MESSAGE_DELETION_COMPLETION_STATUS_PERMANENTLY_DELETE_FORMAT" = "%d messages permanently deleted";
-"MESSAGE_DELETION_COMPLETION_STATUS_MOVED_THEN_PERMANENTLY_DELETE_FORMAT" = "%d messages permanently deleted (after first being moved to trash folder '%@')";
-"MESSAGE_DELETION_COMPLETION_STATUS_MOVED_TO_TRASH_FOLDER" = "%d messages moved to trash folder '%@'";
+"MESSAGE_DELETION_COMPLETION_STATUS_MOVED_THEN_PERMANENTLY_DELETE_FORMAT" = "%d messages permanently deleted (after first being moved to folder '%@')";
+"MESSAGE_DELETION_COMPLETION_STATUS_MOVED_TO_TRASH_FOLDER" = "%d messages moved to folder '%@'";
 "MESSAGE_DELETION_COMPLETION_STATUS_NO_ACTION" = "No action taken for selected messages. Please check the message deletion settings for this account."; 
 "MESSAGE_DELETION_COMPLETION_STATUS_TITLE" = "Deletion Complete";
+
+"MESSAGE_DELETE_SINGULAR_MESSAGE_LABEL" = "message";
+"MESSAGE_DELETE_PLURAL_MESSAGE_LABEL" = "messages";
+"MESSAGE_DELETE_ACTION_SUMMARY_PERMANENTLY_DELETE_FORMAT" = "The %@ will be permanently deleted. This cannot be undone.";
+"MESSAGE_DELETE_ACTION_SUMMARY_MOVE_THEN_PERMANENTLY_DELETE_FORMAT" = "The %@ will be permanently deleted (after first being moved to email folder '%@'). This cannot be undone.";
+"MESSAGE_DELETE_ACTION_SUMMARY_MOVE_FORMAT" = "The %@ will be moved to the email folder '%@'";
+
+"MESSAGE_DELETE_FINAL_CONFIRMATION_FORMAT" = "Are you sure you want to delete %d %@? %@";
+"MESSAGE_DELETE_FINAL_CONFIRMATION_TITLE" = "Final Delete Confirmation";
+"MESSAGE_DELETE_FINAL_CONFIRMATION_CANCEL_BUTTON_TITLE" = "Cancel";
+"MESSAGE_DELETE_FINAL_CONFIRMATION_DELETE_BUTTON_TITLE" = "Delete";
 
 "TIME_UNIT_WEEKS" = "Weeks";
 "TIME_UNIT_MONTHS" = "Months";

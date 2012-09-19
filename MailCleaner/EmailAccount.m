@@ -137,4 +137,45 @@ NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX = @"EmailAccountLoginInfo";
 	return currEmailAddressByAddress;
 }
 
+-(NSString*)msgDeletionPreDeletionSummary:(NSUInteger)numMsgsToBeDeleted
+{
+	BOOL deletionErasesMsgs = [self.deleteHandlingDeleteMsg boolValue];
+	NSString *deleteFolder =(self.deleteHandlingMoveToFolder != nil)?self.deleteHandlingMoveToFolder.folderName:nil;
+	
+	NSString *msgCountDescription;
+	if(numMsgsToBeDeleted == 1)
+	{
+		msgCountDescription = LOCALIZED_STR(@"MESSAGE_DELETE_SINGULAR_MESSAGE_LABEL");
+	}
+	else 
+	{
+		msgCountDescription = LOCALIZED_STR(@"MESSAGE_DELETE_PLURAL_MESSAGE_LABEL");
+	}
+
+	if(deleteFolder != nil) 
+	{
+		if(deletionErasesMsgs)
+		{
+			return [NSString 
+				stringWithFormat:LOCALIZED_STR(@"MESSAGE_DELETE_ACTION_SUMMARY_MOVE_THEN_PERMANENTLY_DELETE_FORMAT"),
+				msgCountDescription,deleteFolder];
+		}
+		else 
+		{
+			return [NSString stringWithFormat:LOCALIZED_STR(@"MESSAGE_DELETE_ACTION_SUMMARY_MOVE_FORMAT"),
+				msgCountDescription,deleteFolder];
+
+		}
+	}
+	else if (deletionErasesMsgs)
+	{
+		return [NSString stringWithFormat:LOCALIZED_STR(@"MESSAGE_DELETE_ACTION_SUMMARY_PERMANENTLY_DELETE_FORMAT"),
+			msgCountDescription];
+	}
+	else 
+	{
+		return LOCALIZED_STR(@"MESSAGE_DELETION_COMPLETION_STATUS_NO_ACTION");
+	}
+}
+
 @end
