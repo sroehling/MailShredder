@@ -14,6 +14,7 @@
 {
 	@private
 		UIButton *deleteButton;
+		UIButton *deleteAllButton;
 		UIButton *skipButton;
 		UIButton *cancelButton;
 
@@ -38,6 +39,7 @@
 
 @property(nonatomic,retain) UIButton *cancelButton;
 @property(nonatomic,retain) UIButton *deleteButton;
+@property(nonatomic,retain) UIButton *deleteAllButton;
 @property(nonatomic,retain) UIButton *skipButton;
 
 @property(nonatomic,retain) UILabel *sendDateLabel;

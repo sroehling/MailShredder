@@ -33,6 +33,7 @@ const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 
 @synthesize cancelButton;
 @synthesize deleteButton;
+@synthesize deleteAllButton;
 @synthesize skipButton;
 
 @synthesize sendDateLabel;
@@ -85,6 +86,15 @@ const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 		[self.deleteButton addTarget:self
 				action:@selector(deleteButtonPressed) forControlEvents:UIControlEventTouchUpInside];
 		[self addSubview:self.deleteButton];
+
+
+		self.deleteAllButton = [UIHelper buttonWithBackgroundColor:[UIColor redColor] andTitleColor:[UIColor whiteColor]];
+ 		[self.deleteAllButton setTitle:
+			LOCALIZED_STR(@"DELETE_CONFIRMATION_DELETE_ALL_BUTTON_TITLE") 
+			forState:UIControlStateNormal];
+		[self.deleteAllButton addTarget:self
+				action:@selector(deleteAllButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+		[self addSubview:self.deleteAllButton];
 
 		self.cancelButton = [UIHelper buttonWithBackgroundColor:[UIColor whiteColor] andTitleColor:[UIColor blackColor]];
 		[self.cancelButton setTitle:
@@ -241,13 +251,14 @@ const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 	// Layout the buttons for confirming the deletion or canceling.
  
 	currYOffset +=  self.msgDisplayView.frame.size.height + DELETE_CONFIRMATION_VERT_SPACE;
-	
-	[self layoutButton:self.deleteButton usingViewWidth:viewWidth andYOffset:currYOffset];
-	
-	currYOffset +=  DELETE_CONFIRMATION_VERT_SPACE + DELETE_CONFIRMATION_BUTTON_HEIGHT;
-	
 	[self layoutButton:self.skipButton usingViewWidth:viewWidth andYOffset:currYOffset];
 	
+	currYOffset +=  DELETE_CONFIRMATION_BUTTON_HEIGHT + DELETE_CONFIRMATION_VERT_SPACE;
+	[self layoutButton:self.deleteButton usingViewWidth:viewWidth andYOffset:currYOffset];
+	
+	currYOffset +=  DELETE_CONFIRMATION_BUTTON_HEIGHT + DELETE_CONFIRMATION_VERT_SPACE;
+	[self layoutButton:self.deleteAllButton usingViewWidth:viewWidth andYOffset:currYOffset];
+
 	// Double the space between the last button and cancel button
 	currYOffset += DELETE_CONFIRMATION_VERT_SPACE*2.0 + DELETE_CONFIRMATION_BUTTON_HEIGHT;
 
@@ -261,22 +272,26 @@ const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 	[self removeFromSuperview];
 }
 
+-(void)deleteConfirmedMsgsInBackgroundThread
+{
+	for (EmailInfo *info in self.msgsConfirmedForDeletion)
+	{
+		info.deleted = [NSNumber numberWithBool:TRUE];		
+	}
+	[self.appDmc saveContext];
+	
+	AppDelegate *appDelegate = [AppHelper theAppDelegate];
+	[appDelegate deleteMarkedMsgsInBackgroundThread];
+	
+}
+
 -(void)advanceCurrentMessage
 {
 	currentMsgIndex ++;
 	if(currentMsgIndex >= [self.msgsToDelete count])
-	{
-		// Done confirming the messages.
-		for (EmailInfo *info in self.msgsConfirmedForDeletion)
-		{
-			info.deleted = [NSNumber numberWithBool:TRUE];		
-		}
-		[self.appDmc saveContext];
+	{		
+		[self deleteConfirmedMsgsInBackgroundThread];
 		
-		AppDelegate *appDelegate = [AppHelper theAppDelegate];
-		[appDelegate deleteMarkedMsgsInBackgroundThread];
-		
-
 		[self removeFromSuperview];
 	}
 	else 
@@ -292,14 +307,33 @@ const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 	[self advanceCurrentMessage];
 }
 
+-(void)confirmCurrentMessageForDeletion
+{
+	EmailInfo *currentMsgInfo = [self currentMsg];
+	assert(currentMsgInfo != nil);
+	[self.msgsConfirmedForDeletion addObject:currentMsgInfo];
+}
+
 -(void)deleteButtonPressed
 {
-	NSLog(@"Delete button pressed");
-	
-	EmailInfo *currentMsgInfo = [self currentMsg];
-	[self.msgsConfirmedForDeletion addObject:currentMsgInfo];
+	[self confirmCurrentMessageForDeletion];
 	
 	[self advanceCurrentMessage];
+}
+
+-(void)deleteAllButtonPressed
+{
+	[self confirmCurrentMessageForDeletion];
+	currentMsgIndex++;
+	
+	while(currentMsgIndex < [self.msgsToDelete count])
+	{
+		[self confirmCurrentMessageForDeletion];
+		currentMsgIndex++;
+	}
+	
+	[self deleteConfirmedMsgsInBackgroundThread];
+	[self removeFromSuperview];
 }
 
 
@@ -318,6 +352,7 @@ const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 
 	[cancelButton release];
 	[deleteButton release];
+	[deleteAllButton release];
 	[skipButton release];
 
 	[msgsToDelete release];
