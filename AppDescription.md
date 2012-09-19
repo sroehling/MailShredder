@@ -1,7 +1,7 @@
 # MailCleaner
 
 MailCleaner is a specialized email utility to zero in on and 
-selectively delete old or unwanted email. 
+selectively delete old, unwanted, and/or confidential emails. 
 
 Selectively deleting emails is important to protect your privacy, limit the 
 advertising profile email providers build on you, limit your potential 
@@ -11,7 +11,9 @@ purge unneeded emails or keep your account storage under quota.
 
 For example, MailCleaner can help you periodically delete emails
 with bank statements, online purchase receipts, or 
-confidential communications.
+confidential communications. After filtering and reviewing
+your email with MailCleaner, you'll likely be surprised
+how many emails you'll want to delete.
 
 MailCleaner currently supports email accounts with IMAP support, such as 
 Gmail, Google Apps for businesses, or iCloud.
