@@ -133,13 +133,14 @@
 "EMAIL_READ_FILTER_MATCH_READ_OR_UNREAD" = "Any";
 "EMAIL_READ_FILTER_MATCH_READ_OR_UNREAD_SUBTITLE" = "Match messages which are either read or unread.";
 
-"EMAIL_STARRED_FILTER_MATCH_STARRED" = "Starred";
-"EMAIL_STARRED_FILTER_MATCH_UNSTARRED" = "Not Starred";
+"EMAIL_STARRED_FILTER_MATCH_STARRED" = "Flagged";
+"EMAIL_STARRED_FILTER_MATCH_UNSTARRED" = "Not Flagged";
 "EMAIL_STARRED_FILTER_MATCH_STARRED_OR_UNSTARRED" = "Any";
-"EMAIL_STARRED_FILTER_MATCH_STARRED_OR_UNSTARRED_SUBTITLE" = "Match messages which are either starred(flagged) or not.";
-"EMAIL_STARRED_FILTER_FIELD_CAPTION" = "Starred?";
-"EMAIL_STARRED_FILTER_TITLE" = "Message Starred";
-"EMAIL_STARRED_FILTER_FIELD_SUBTITLE" = "Filter on whether messages is starred (flagged) or not.";
+"EMAIL_STARRED_FILTER_MATCH_STARRED_OR_UNSTARRED_SUBTITLE" = "Match messages which are either flagged(starred) or not.";
+"EMAIL_STARRED_FILTER_FIELD_CAPTION" = "Flagged?";
+"EMAIL_STARRED_FILTER_TITLE" = "Message Flagged";
+"EMAIL_STARRED_FILTER_FIELD_SUBTITLE" = "Filter on whether messages is flagged (starred) or not.";
+"MESSAGE_STARRED_FILTER_TITLE" = "Message Flag";
 
 "EMAIL_SUBJECT_FILTER_MATCH_ANY" = "Any";
 "EMAIL_SUBJECT_FILTER_MATCH_CONTAINS" = "Subject Contains '%@'";

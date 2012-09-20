@@ -23,7 +23,7 @@
     FormPopulator *formPopulator = [[[FormPopulator alloc] 
 		initWithFormContext:parentContext] autorelease];
 			
-    formPopulator.formInfo.title = LOCALIZED_STR(@"MESSAGE_READ_FILTER_TITLE");
+    formPopulator.formInfo.title = LOCALIZED_STR(@"MESSAGE_STARRED_FILTER_TITLE");
 	
 	[formPopulator nextSection];
 	
