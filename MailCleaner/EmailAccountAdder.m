@@ -198,6 +198,15 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 		}
 		entryProgressServerInfoComplete = TRUE;
 	}
+	else
+	{
+		// Always default the user name to the full email address
+		// This can be changed if the user needs to.
+		// With entryProgressServerInfoComplete not set to TRUE,
+		// the form will transition to show the full account settings
+		// before doing a connection test.
+		newAcct.userName = newAcct.emailAddress;
+	}
 }
 
 -(void)populateAcctWithDefaultSyncFolder:(EmailAccount*)newAcct andPreset:(ImapAcctPreset*)acctPreset
