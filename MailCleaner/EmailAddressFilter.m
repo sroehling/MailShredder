@@ -43,8 +43,7 @@ NSInteger const MAX_SPECIFIC_ADDRESS_SYNOPSIS = 2;
 
 -(NSString*)matchAnyAddressTitle
 {	
-	return [NSString stringWithFormat:LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_ANY_ADDRESS_TITLE_FORMAT"),
-		[self addressType]];
+	return LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_ANY_ADDRESS_TITLE");
 }
 
 -(BOOL)filterMatchesAnyAddress

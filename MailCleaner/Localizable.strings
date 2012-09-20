@@ -69,13 +69,13 @@
 "MESSAGE_RULE_NAME_PLACEHOLDER" = "Enter a Name";
 
 
-"AGE_FILTER_NONE_TITLE" = "Any Date";
+"AGE_FILTER_NONE_TITLE" = "Any";
 "AGE_FILTER_NONE_SUBTITLE" = "Include messages with any send date.";
 "AGE_FILTER_COMPARISON_OLDER" = "Older Than";
 "AGE_FILTER_COMPARISON_NEWER" = "Newer Than";
 "AGE_FILTER_SYNOPSIS_FORMAT" = "%@ %d %@";
 
-"EMAIL_ADDRESS_FILTER_ANY_ADDRESS_TITLE_FORMAT" = "Any %@";
+"EMAIL_ADDRESS_FILTER_ANY_ADDRESS_TITLE" = "Any";
 "EMAIL_ADDRESS_FILTER_SELECTED_FORMAT" = "Specific %@";
 "EMAIL_ADDRESS_FILTER_UNSELECTED_FORMAT" = "%@ Not in List";
 
@@ -99,7 +99,7 @@
 "MESSAGE_FILTER_NAME_VALIDATION_MSG" = "Please enter a valid name for the message filter. The name cannot be empty or the same as another filter";
 
 
-"EMAIL_DOMAIN_FILTER_NONE_TITLE" = "Any Domain";
+"EMAIL_DOMAIN_FILTER_NONE_TITLE" = "Any";
 "EMAIL_DOMAIN_FILTER_SELECTED" = "Specific Domains";
 "EMAIL_FOLDER_FILTER_SELECTED_REMAINING_DOMAINS_FORMAT" = "and %d more"; 
 "EMAIL_DOMAIN_FILTER_DOMAIN_LIST_TITLE" = "Match Domains";
@@ -112,7 +112,7 @@
 "EMAIL_DOMAIN_FILTER_ADDRESS_LIST_SECTION_TITLE" = "Domain List";
 
 
-"EMAIL_FOLDER_FILTER_NONE_TITLE" = "Any Folder";
+"EMAIL_FOLDER_FILTER_NONE_TITLE" = "Any";
 "EMAIL_FOLDER_FILTER_SELECTED" = "Specific Folders";
 "EMAIL_FOLDER_FILTER_SELECTED_REMAINING_FOLDERS_FORMAT" = "and %d more";
 "EMAIL_FOLDER_FILTER_DOMAIN_LIST_TITLE" = "Match Folders";
@@ -130,16 +130,18 @@
 "MESSAGE_READ_FILTER_TITLE" = "Message Read";
 "EMAIL_READ_FILTER_MATCH_READ" = "Read";
 "EMAIL_READ_FILTER_MATCH_UNREAD" = "Unread";
-"EMAIL_READ_FILTER_MATCH_READ_OR_UNREAD" = "Read or Unread";
+"EMAIL_READ_FILTER_MATCH_READ_OR_UNREAD" = "Any";
+"EMAIL_READ_FILTER_MATCH_READ_OR_UNREAD_SUBTITLE" = "Match messages which are either read or unread.";
 
 "EMAIL_STARRED_FILTER_MATCH_STARRED" = "Starred";
 "EMAIL_STARRED_FILTER_MATCH_UNSTARRED" = "Not Starred";
-"EMAIL_STARRED_FILTER_MATCH_STARRED_OR_UNSTARRED" = "Starred or Not Starred";
+"EMAIL_STARRED_FILTER_MATCH_STARRED_OR_UNSTARRED" = "Any";
+"EMAIL_STARRED_FILTER_MATCH_STARRED_OR_UNSTARRED_SUBTITLE" = "Match messages which are either starred(flagged) or not.";
 "EMAIL_STARRED_FILTER_FIELD_CAPTION" = "Starred?";
 "EMAIL_STARRED_FILTER_TITLE" = "Message Starred";
 "EMAIL_STARRED_FILTER_FIELD_SUBTITLE" = "Filter on whether messages is starred (flagged) or not.";
 
-"EMAIL_SUBJECT_FILTER_MATCH_ANY" = "Any Subject";
+"EMAIL_SUBJECT_FILTER_MATCH_ANY" = "Any";
 "EMAIL_SUBJECT_FILTER_MATCH_CONTAINS" = "Subject Contains '%@'";
 "EMAIL_SUBJECT_FILTER_TABLE_SUBTITLE" = "Enter what to search for in the subject. To match all subjects, leave the 'Subject Contains' field empty."; 
 "EMAIL_SUBJECT_FILTER_TITLE" = "Subject Filter";

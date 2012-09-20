@@ -37,6 +37,7 @@ extern NSUInteger const STARRED_FILTER_MATCH_LOGIC_STARRED_OR_UNSTARRED;
 	andMatchLogic:(NSUInteger)theMatchLogic;
 
 -(NSString*)filterSynopsis;
+-(NSString*)filterSubtitle;
 -(NSPredicate*)filterPredicate;
 -(BOOL)filterMatchesAnyStarredStatus;
 

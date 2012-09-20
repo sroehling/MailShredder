@@ -19,7 +19,7 @@
 	assert(theReadFilter != nil);
 	self = [super initWithManagedObj:theReadFilter 
 		andCaption:[theReadFilter filterSynopsis] 
-		andContent:nil andSubtitle:nil];
+		andContent:nil andSubtitle:[theReadFilter filterSubtitle]];
 	if(self)
 	{
 		self.readFilter = theReadFilter;

@@ -19,7 +19,7 @@
 	assert(theStarredFilter != nil);
 	self = [super initWithManagedObj:theStarredFilter 
 		andCaption:[theStarredFilter filterSynopsis]
-		andContent:nil andSubtitle:nil];
+		andContent:nil andSubtitle:[theStarredFilter filterSubtitle]];
 	if(self)
 	{
 		self.starredFilter = theStarredFilter;

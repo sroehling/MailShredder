@@ -37,6 +37,7 @@ extern NSUInteger const READ_FILTER_MATCH_LOGIC_READ_OR_UNREAD;
 	andMatchLogic:(NSUInteger)theMatchLogic;
 
 -(NSString*)filterSynopsis;
+-(NSString*)filterSubtitle;
 -(NSPredicate*)filterPredicate;
 -(BOOL)filterMatchesAnyReadStatus;
 

@@ -59,6 +59,26 @@ NSUInteger const STARRED_FILTER_MATCH_LOGIC_STARRED_OR_UNSTARRED = 2;
 	}
 }
 
+-(NSString*)filterSubtitle
+{
+	NSUInteger matchLogic = [self.matchLogic unsignedIntegerValue];
+	
+	if(matchLogic == STARRED_FILTER_MATCH_LOGIC_STARRED)
+	{
+		return @"";
+	}
+	else if(matchLogic == STARRED_FILTER_MATCH_LOGIC_UNSTARRED)
+	{
+		return @"";
+	}
+	else 
+	{		
+		assert(matchLogic == STARRED_FILTER_MATCH_LOGIC_STARRED_OR_UNSTARRED);
+		return LOCALIZED_STR(@"EMAIL_STARRED_FILTER_MATCH_STARRED_OR_UNSTARRED_SUBTITLE");
+	}
+}
+
+
 -(NSPredicate*)filterPredicate
 {
 

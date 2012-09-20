@@ -60,6 +60,26 @@ NSUInteger const READ_FILTER_MATCH_LOGIC_READ_OR_UNREAD=2;
 
 }
 
+-(NSString*)filterSubtitle
+{
+	NSUInteger matchLogic = [self.matchLogic unsignedIntegerValue];
+		
+	if(matchLogic == READ_FILTER_MATCH_LOGIC_READ)
+	{
+		return @"";
+	}
+	else if(matchLogic == READ_FILTER_MATCH_LOGIC_UNREAD)
+	{
+		return @"";
+	}
+	else 
+	{
+		assert(matchLogic == READ_FILTER_MATCH_LOGIC_READ_OR_UNREAD);
+		return LOCALIZED_STR(@"EMAIL_READ_FILTER_MATCH_READ_OR_UNREAD_SUBTITLE");
+	}
+
+}
+
 -(NSPredicate*)filterPredicate
 {
 	NSUInteger matchLogic = [self.matchLogic unsignedIntegerValue];
