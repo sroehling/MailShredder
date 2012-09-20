@@ -147,7 +147,7 @@
     <entity name="SubjectFilter" representedClassName="SubjectFilter" syncable="YES">
         <attribute name="caseSensitive" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="searchString" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="messageFilterSubjectFilters" toMany="YES" minCount="1" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="subjectFilter" inverseEntity="MessageFilter" syncable="YES"/>
+        <relationship name="messageFilterSubjectFilters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="subjectFilter" inverseEntity="MessageFilter" syncable="YES"/>
     </entity>
     <elements>
         <element name="AgeFilter" positionX="160" positionY="192" width="128" height="75"/>
