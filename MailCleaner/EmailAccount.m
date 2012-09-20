@@ -65,8 +65,8 @@ NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX = @"EmailAccountLoginInfo";
 {
 
 	EmailAccount *newAcct = [acctDmc insertObject:EMAIL_ACCOUNT_ENTITY_NAME];
-	newAcct.portNumber = [NSNumber numberWithInt:EMAIL_ACCOUNT_DEFAULT_PORT_NOSSL];
-	newAcct.useSSL = [NSNumber numberWithBool:FALSE];
+	newAcct.portNumber = [NSNumber numberWithInt:EMAIL_ACCOUNT_DEFAULT_PORT_SSL];
+	newAcct.useSSL = [NSNumber numberWithBool:TRUE];
 	
 	NSString *uniqueIDCandidate;
 	NSArray *collidingUniqueIDs;
