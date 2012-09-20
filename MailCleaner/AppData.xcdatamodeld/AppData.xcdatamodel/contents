@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11E53" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1810" systemVersion="11E53" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="AgeFilter" representedClassName="AgeFilter" isAbstract="YES" syncable="YES">
         <relationship name="messageFilterAgeFilter" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="ageFilter" inverseEntity="MessageFilter" syncable="YES"/>
     </entity>
     <entity name="AgeFilterComparison" representedClassName="AgeFilterComparison" parentEntity="AgeFilter" syncable="YES">
         <attribute name="comparison" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="interval" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="showInFilterPopupMenu" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="timeUnit" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="sharedAppValsDefaultAgeFilterNewer1Month" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterNewer1Month" inverseEntity="SharedAppVals" syncable="YES"/>
         <relationship name="sharedAppValsDefaultAgeFilterNewer1Year" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterNewer1Year" inverseEntity="SharedAppVals" syncable="YES"/>
@@ -151,7 +152,7 @@
     </entity>
     <elements>
         <element name="AgeFilter" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="AgeFilterComparison" positionX="160" positionY="192" width="128" height="225"/>
+        <element name="AgeFilterComparison" positionX="160" positionY="192" width="128" height="240"/>
         <element name="AgeFilterNone" positionX="160" positionY="192" width="128" height="60"/>
         <element name="EmailAccount" positionX="160" positionY="192" width="128" height="240"/>
         <element name="EmailAddress" positionX="160" positionY="192" width="128" height="105"/>

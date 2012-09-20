@@ -50,6 +50,7 @@
 #import "ReadFilter.h"
 #import "StarredFilter.h"
 #import "SubjectFilter.h"
+#import "AgeFilterComparison.h"
 
 CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 
@@ -202,6 +203,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 -(TableMenuViewController *)actionsPopupTableMenuController
 {
 	BOOL oneOrMoreMsgsSelected = ([self.selectedEmailInfos count] > 0)?TRUE:FALSE;
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
 
 	NSMutableArray *sections = [[[NSMutableArray alloc] init] autorelease];
 	TableMenuSection *narrowFilterSection = [[[TableMenuSection alloc] 
@@ -218,23 +220,31 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_DOMAINS_MENU_TITLE")
 		 andTarget:self andSelector:@selector(narrowToSelectedDomains)
 		 andEnabled:oneOrMoreMsgsSelected] autorelease]];
+		 
+	TableMenuItem *ageFilterItem = [[[TableMenuItem alloc] 
+		initWithTitle:sharedAppVals.defaultAgeFilterOlder3Months.filterSynopsis
+		 andTarget:self andSelector:@selector(narrowToAgeFilter:)] autorelease];
+	ageFilterItem.objectForSelector = sharedAppVals.defaultAgeFilterOlder3Months;
+	[narrowFilterSection addMenuItem:ageFilterItem];
+
+	ageFilterItem = [[[TableMenuItem alloc] 
+		initWithTitle:sharedAppVals.defaultAgeFilterOlder6Months.filterSynopsis
+		 andTarget:self andSelector:@selector(narrowToAgeFilter:)] autorelease];
+	ageFilterItem.objectForSelector = sharedAppVals.defaultAgeFilterOlder6Months;
+	[narrowFilterSection addMenuItem:ageFilterItem];
+
+	ageFilterItem = [[[TableMenuItem alloc] 
+		initWithTitle:sharedAppVals.defaultAgeFilterOlder1Year.filterSynopsis
+		 andTarget:self andSelector:@selector(narrowToAgeFilter:)] autorelease];
+	ageFilterItem.objectForSelector = sharedAppVals.defaultAgeFilterOlder1Year;
+	[narrowFilterSection addMenuItem:ageFilterItem];
+	
+		 
 	[sections addObject:narrowFilterSection];
 
 	TableMenuSection *saveFilterSection = [[[TableMenuSection alloc] 
 	initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_CREATE_SAVED_FILTER_SECTION_TITLE")] autorelease];
-	[saveFilterSection addMenuItem:[[[TableMenuItem alloc] 
-		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_ADDRESSES_MENU_TITLE")
-		 andTarget:self andSelector:@selector(createMsgFilterSelectedAddresses)
-		 andEnabled:oneOrMoreMsgsSelected] autorelease]];
-	[saveFilterSection addMenuItem:[[[TableMenuItem alloc] 
-		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_RECIPIENTS_MENU_TITLE")
-		 andTarget:self andSelector:@selector(createMsgFilterSelectedRecipients)
-		 andEnabled:oneOrMoreMsgsSelected] autorelease]];		 
-	[saveFilterSection addMenuItem:[[[TableMenuItem alloc] 
-		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_DOMAINS_MENU_TITLE")
-		 andTarget:self andSelector:@selector(createMsgFilterSelectedDomains)
-		 andEnabled:oneOrMoreMsgsSelected] autorelease]];
-	[saveFilterSection addMenuItem:[[[TableMenuItem alloc] 
+	[saveFilterSection addMenuItem:[[[TableMenuItem alloc]
 		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_CURRENT_FILTER_MENU_TITLE")
 		 andTarget:self andSelector:@selector(createMsgFilterCurrentFilter)] autorelease]];
 	[sections addObject:saveFilterSection];
@@ -480,6 +490,22 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	[self.actionsPopupController dismissPopoverAnimated:TRUE];
 }
 
+-(void)narrowToAgeFilter:(id)ageFilter
+{
+	assert([ageFilter isKindOfClass:[AgeFilter class]]);
+	AgeFilterComparison *theComparison = (AgeFilterComparison*)ageFilter;
+
+	MessageFilter *currentFilter = [self currentAcctMsgFilter];
+	[currentFilter resetFilterName];
+
+	currentFilter.ageFilter = theComparison;
+	[self.appDmc saveContext];
+	
+	[self refreshMessageList];
+	
+	[self.actionsPopupController dismissPopoverAnimated:TRUE];
+}
+
 -(void)pushNewMessageFilterForm:(MessageFilter*)newFilter
 {
 	SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:self.saveMsgFilterDmc];
@@ -502,64 +528,6 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 }
 
 
--(void)createMsgFilterSelectedAddresses
-{
-	NSLog(@"Create trash rule from selected addresses");
-	
-	MessageFilter *newFilter = [self resetObjectContextAndCreateNewMessageFilter];
-	NSSet *selectedAddresses = [CoreDataHelper objectsInOtherContext:self.saveMsgFilterDmc.managedObjectContext 
-		forOriginalObjs:[self selectedAddresses]];
-	
-	if([selectedAddresses count] > 0)
-	{
-		[newFilter.fromAddressFilter setAddresses:selectedAddresses];
-
-		[self pushNewMessageFilterForm:newFilter];
-	}
-	else 
-	{
-		[self.actionsPopupController dismissPopoverAnimated:TRUE];
-	}
-
-}
-
--(void)createMsgFilterSelectedRecipients
-{
-	NSLog(@"Create trash rule from selected recipients");
-	
-	MessageFilter *newFilter = [self resetObjectContextAndCreateNewMessageFilter];
-	NSSet *selectedRecipients = [CoreDataHelper objectsInOtherContext:self.saveMsgFilterDmc.managedObjectContext 
-		forOriginalObjs:[self selectedRecipients]];
-	
-	if([selectedRecipients count] > 0)
-	{
-		[newFilter.recipientAddressFilter setAddresses:selectedRecipients];
-
-		[self pushNewMessageFilterForm:newFilter];
-	}
-	else 
-	{
-		[self.actionsPopupController dismissPopoverAnimated:TRUE];
-	}
-}
-
--(void)createMsgFilterSelectedDomains
-{
-	NSLog(@"Create trash rule from selected domains");
-	
-	MessageFilter *newFilter = [self resetObjectContextAndCreateNewMessageFilter];
-	NSSet *selectedDomains = [CoreDataHelper objectsInOtherContext:self.saveMsgFilterDmc.managedObjectContext 
-		forOriginalObjs:[self selectedDomains]];
-	if([selectedDomains count] > 0)
-	{
-		[newFilter.emailDomainFilter setDomains:selectedDomains];
-		[self pushNewMessageFilterForm:newFilter];
-	}
-	else 
-	{
-		[self.actionsPopupController dismissPopoverAnimated:TRUE];
-	}
-}
 
 -(void)createMsgFilterCurrentFilter
 {

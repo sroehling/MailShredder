@@ -25,6 +25,7 @@ NSUInteger const AGE_FILTER_COMPARISON_NEWER = 1;
 @dynamic interval;
 @dynamic timeUnit;
 @dynamic comparison;
+@dynamic showInFilterPopupMenu;
 
 // Inverse relationships
 @dynamic sharedAppValsDefaultAgeFilterNewer1Month;

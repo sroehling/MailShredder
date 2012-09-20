@@ -26,6 +26,7 @@ extern NSUInteger const AGE_FILTER_COMPARISON_NEWER;
 @property (nonatomic, retain) NSNumber * interval;
 @property (nonatomic, retain) NSNumber * timeUnit;
 @property (nonatomic, retain) NSNumber * comparison;
+@property (nonatomic, retain) NSNumber * showInFilterPopupMenu;
 
 // Inverse Relationships
 @property (nonatomic, retain) SharedAppVals *sharedAppValsDefaultAgeFilterNewer1Month;
