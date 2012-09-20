@@ -149,6 +149,8 @@
 		00DED4B615ED833A00C3B1EF /* MoveToFolderForDeletionFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DED4B515ED833A00C3B1EF /* MoveToFolderForDeletionFormInfoCreator.m */; };
 		00DED4B915ED8D6600C3B1EF /* MoveToFolderSelectionFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DED4B815ED8D6600C3B1EF /* MoveToFolderSelectionFieldEditInfo.m */; };
 		00DED4BC15EE814A00C3B1EF /* DontMoveToFolderSelectionFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DED4BB15EE814900C3B1EF /* DontMoveToFolderSelectionFieldEditInfo.m */; };
+		00E420EC160BC079007CFA48 /* msgflag.png in Resources */ = {isa = PBXBuildFile; fileRef = 00E420EB160BC079007CFA48 /* msgflag.png */; };
+		00E420EF160BC534007CFA48 /* msgflag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00E420EE160BC534007CFA48 /* msgflag@2x.png */; };
 		00E9944A15643244003B9771 /* EmailInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9944915643244003B9771 /* EmailInfoTableViewController.m */; };
 		00EDA63315F6B62F00917916 /* FilterNameFieldValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00EDA63215F6B62F00917916 /* FilterNameFieldValidator.m */; };
 		00EDA63815F7C0D800917916 /* MessageFilterCountOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00EDA63715F7C0D800917916 /* MessageFilterCountOperation.m */; };
@@ -421,6 +423,8 @@
 		00DED4B815ED8D6600C3B1EF /* MoveToFolderSelectionFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveToFolderSelectionFieldEditInfo.m; sourceTree = "<group>"; };
 		00DED4BA15EE814900C3B1EF /* DontMoveToFolderSelectionFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DontMoveToFolderSelectionFieldEditInfo.h; sourceTree = "<group>"; };
 		00DED4BB15EE814900C3B1EF /* DontMoveToFolderSelectionFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DontMoveToFolderSelectionFieldEditInfo.m; sourceTree = "<group>"; };
+		00E420EB160BC079007CFA48 /* msgflag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = msgflag.png; sourceTree = "<group>"; };
+		00E420EE160BC534007CFA48 /* msgflag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "msgflag@2x.png"; sourceTree = "<group>"; };
 		00E9944815643244003B9771 /* EmailInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoTableViewController.h; sourceTree = "<group>"; };
 		00E9944915643244003B9771 /* EmailInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoTableViewController.m; sourceTree = "<group>"; };
 		00EDA63115F6B62F00917916 /* FilterNameFieldValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterNameFieldValidator.h; sourceTree = "<group>"; };
@@ -711,6 +715,8 @@
 		00472B1815ACA02000C6BC82 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				00E420EB160BC079007CFA48 /* msgflag.png */,
+				00E420EE160BC534007CFA48 /* msgflag@2x.png */,
 				00561E7D15F5265F0020229D /* settings@2x.png */,
 				00561E7E15F5265F0020229D /* settings.png */,
 				00561E7515F5060D0020229D /* checkbox@2x.png */,
@@ -1249,6 +1255,8 @@
 				00F471211608CF2700315F5A /* emailAcctDeletionSettingsGoogleApps.md in Resources */,
 				001A93641609788B00740534 /* deletemsgsdone@2x.png in Resources */,
 				001A93651609788B00740534 /* deletemsgsdone.png in Resources */,
+				00E420EC160BC079007CFA48 /* msgflag.png in Resources */,
+				00E420EF160BC534007CFA48 /* msgflag@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

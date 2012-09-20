@@ -141,7 +141,10 @@
 		[self.msgListView.msgListTableView selectRowAtIndexPath:indexPath 
 		animated:FALSE scrollPosition:UITableViewScrollPositionNone];
 	}
-	cell.accessoryType =UITableViewCellAccessoryDetailDisclosureButton;	
+	cell.accessoryType =UITableViewCellAccessoryDetailDisclosureButton;
+	
+	[cell configureForMsgFlagged:[info.isStarred boolValue]];
+	[cell configureForMsgRead:[info.isRead boolValue]];
 }
 
 -(void)updateSelectionForCurrentResults

@@ -16,11 +16,16 @@ extern NSString *const MSG_TABLE_CELL_IDENTIFIER;
 		UILabel *fromLabel;
 		UIImageView *selectedCheckbox;
 		UILabel *subjectlabel;
+		UIImageView *msgFlag;
 }
 
 @property(nonatomic,retain) UILabel *sendDateLabel;
 @property(nonatomic,retain) UILabel *fromLabel;
 @property(nonatomic,retain) UIImageView *selectedCheckbox;
 @property(nonatomic,retain) UILabel *subjectLabel;
+@property(nonatomic,retain) UIImageView *msgFlag;
+
+-(void)configureForMsgRead:(BOOL)msgIsRead;
+-(void)configureForMsgFlagged:(BOOL)msgIsFlagged;
 
 @end
