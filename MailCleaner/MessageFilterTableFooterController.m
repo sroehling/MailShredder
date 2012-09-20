@@ -17,6 +17,12 @@
 #import "TableMenuItem.h"
 #import "FormContext.h"
 #import "TableMenuSection.h"
+#import "UIHelper.h"
+
+CGFloat const MESSAGE_FILTER_FOOTER_RESET_BUTTON_HEIGHT = 30.0f;
+CGFloat const MESSAGE_FILTER_FOOTER_RESET_BUTTON_MARGIN = 10.0f;
+CGFloat const MESSAGE_FILTER_FOOTER_RESET_BUTTON_FONT_SIZE = 15.0f;
+
 
 @implementation MessageFilterTableFooterController
 
@@ -49,19 +55,26 @@
 	[super dealloc];
 }
 
+
 -(UIView*)footerView
 {
-	NSMutableArray *buttonInfo = [[[NSMutableArray alloc] init] autorelease];
+		 
+	UIButton *resetButton = [UIHelper buttonWithBackgroundColor:[UIColor whiteColor] 
+			andTitleColor:[UIColor darkGrayColor] 
+			andTarget:self andAction:@selector(resetFilter) andTitle:LOCALIZED_STR(@"MESSAGE_FILTER_RESET_FILTER_BUTTON_TITLE") 
+			andFontSize:MESSAGE_FILTER_FOOTER_RESET_BUTTON_FONT_SIZE];
 
-	[buttonInfo addObject:[[[ButtonListItemInfo alloc] 
-		initWithTitle:LOCALIZED_STR(@"MESSAGE_FILTER_RESET_FILTER_BUTTON_TITLE")
-		 andTarget:self andSelector:@selector(resetFilter)] autorelease]];
-				
-	CGRect buttonListFrame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width-10, 
-		[ButtonListView buttonListHeight:buttonInfo]);	 
-	ButtonListView *footerButtonList = [[[ButtonListView alloc] initWithFrame:buttonListFrame 
-		andButtonListItemInfo:buttonInfo] autorelease];
-	return footerButtonList;
+	CGRect buttonFrame = CGRectMake(MESSAGE_FILTER_FOOTER_RESET_BUTTON_MARGIN, 0, 
+		[UIScreen mainScreen].bounds.size.width-(2 * MESSAGE_FILTER_FOOTER_RESET_BUTTON_MARGIN), 
+		MESSAGE_FILTER_FOOTER_RESET_BUTTON_HEIGHT);
+	[resetButton setFrame:buttonFrame];
+	
+	UIView *theFooterView = [[[UIView alloc] initWithFrame:CGRectMake(0,0,
+		[UIScreen mainScreen].bounds.size.width,MESSAGE_FILTER_FOOTER_RESET_BUTTON_HEIGHT)] autorelease];
+	[theFooterView addSubview:resetButton];
+	
+	return theFooterView;
+		
 
 }
 

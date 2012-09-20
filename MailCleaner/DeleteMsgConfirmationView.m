@@ -20,14 +20,15 @@
 #import <QuartzCore/QuartzCore.h>
 
 
-const CGFloat DELETE_CONFIRMATION_BUTTON_HEIGHT = 30.0f;
-const CGFloat DELETE_CONFIRMATION_BUTTON_WIDTH = 280.0f;
-const CGFloat DELETE_CONFIRMATION_VERT_SPACE = 15.0f;
-const CGFloat DELETE_CONFIRMATION_LEFT_MARGIN = 10.0f;
-const CGFloat DELETE_CONFIRMATION_RIGHT_MARGIN = 10.0f;
-const CGFloat DELETE_CONFIRMATION_TOP_MARGIN = 10.0f;
-const CGFloat DELETE_CONFIRMATION_BOTTOM_MARGIN = 10.0f;
-const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
+CGFloat const DELETE_CONFIRMATION_BUTTON_HEIGHT = 30.0f;
+CGFloat const DELETE_CONFIRMATION_BUTTON_FONT_SIZE = 15.0f;
+CGFloat const DELETE_CONFIRMATION_BUTTON_WIDTH = 280.0f;
+CGFloat const DELETE_CONFIRMATION_VERT_SPACE = 15.0f;
+CGFloat const DELETE_CONFIRMATION_LEFT_MARGIN = 10.0f;
+CGFloat const DELETE_CONFIRMATION_RIGHT_MARGIN = 10.0f;
+CGFloat const DELETE_CONFIRMATION_TOP_MARGIN = 10.0f;
+CGFloat const DELETE_CONFIRMATION_BOTTOM_MARGIN = 10.0f;
+CGFloat const DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 
 @implementation DeleteMsgConfirmationView
 
@@ -86,35 +87,21 @@ const CGFloat DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 		
 		self.msgsConfirmedForDeletion = [[[NSMutableSet alloc] init] autorelease];
  
-		self.deleteButton = [UIHelper buttonWithBackgroundColor:[UIColor redColor] andTitleColor:[UIColor whiteColor]];
- 		[self.deleteButton setTitle:
-			LOCALIZED_STR(@"DELETE_CONFIRMATION_DELETE_BUTTON_TITLE") 
-			forState:UIControlStateNormal];
-		[self.deleteButton addTarget:self
-				action:@selector(deleteButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-		[self addSubview:self.deleteButton];
+		self.deleteButton = [UIHelper buttonWithBackgroundColor:[UIColor redColor] 
+			andTitleColor:[UIColor whiteColor] andTarget:self andAction:@selector(deleteButtonPressed) andTitle:LOCALIZED_STR(@"DELETE_CONFIRMATION_DELETE_BUTTON_TITLE")  
+				andFontSize:DELETE_CONFIRMATION_BUTTON_FONT_SIZE];
+ 		[self addSubview:self.deleteButton];
 
+		self.deleteAllButton = [UIHelper buttonWithBackgroundColor:[UIColor redColor] 
+			andTitleColor:[UIColor whiteColor] andTarget:self andAction:@selector(deleteAllButtonPressed) andTitle:LOCALIZED_STR(@"DELETE_CONFIRMATION_DELETE_ALL_BUTTON_TITLE") andFontSize:DELETE_CONFIRMATION_BUTTON_FONT_SIZE];
+ 		[self addSubview:self.deleteAllButton];
 
-		self.deleteAllButton = [UIHelper buttonWithBackgroundColor:[UIColor redColor] andTitleColor:[UIColor whiteColor]];
- 		[self.deleteAllButton setTitle:
-			LOCALIZED_STR(@"DELETE_CONFIRMATION_DELETE_ALL_BUTTON_TITLE") 
-			forState:UIControlStateNormal];
-		[self.deleteAllButton addTarget:self
-				action:@selector(deleteAllButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-		[self addSubview:self.deleteAllButton];
-
-		self.cancelButton = [UIHelper buttonWithBackgroundColor:[UIColor whiteColor] andTitleColor:[UIColor blackColor]];
-		[self.cancelButton setTitle:
-			LOCALIZED_STR(@"DELETE_CONFIRMATION_CANCEL_BUTTON_TITLE") 
-			forState:UIControlStateNormal];
-		[self.cancelButton addTarget:self
-				action:@selector(cancelButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+		self.cancelButton = [UIHelper buttonWithBackgroundColor:[UIColor whiteColor] 
+			andTitleColor:[UIColor blackColor] andTarget:self andAction:@selector(cancelButtonPressed) andTitle:LOCALIZED_STR(@"DELETE_CONFIRMATION_CANCEL_BUTTON_TITLE")  andFontSize:DELETE_CONFIRMATION_BUTTON_FONT_SIZE];
 		[self addSubview:self.cancelButton];
 		
-		self.skipButton = [UIHelper buttonWithBackgroundColor:[UIColor whiteColor] andTitleColor:[UIColor blackColor]];
-		[self.skipButton setTitle:LOCALIZED_STR(@"DELETE_CONFIRMATION_SKIP_BUTTON_TITLE") 
-			forState:UIControlStateNormal];
-		[self.skipButton addTarget:self action:@selector(skipButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+		self.skipButton = [UIHelper buttonWithBackgroundColor:[UIColor whiteColor] 
+			andTitleColor:[UIColor blackColor] andTarget:self andAction:@selector(skipButtonPressed) andTitle:LOCALIZED_STR(@"DELETE_CONFIRMATION_SKIP_BUTTON_TITLE") andFontSize:DELETE_CONFIRMATION_BUTTON_FONT_SIZE];
 		[self addSubview:self.skipButton];
 
  
