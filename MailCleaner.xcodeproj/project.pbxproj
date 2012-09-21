@@ -20,7 +20,6 @@
 		000566BF1562F94D003D114D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000566911562F94C003D114D /* UIKit.framework */; };
 		000566C01562F94D003D114D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000566931562F94C003D114D /* Foundation.framework */; };
 		000566C81562F94D003D114D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 000566C61562F94D003D114D /* InfoPlist.strings */; };
-		000567041562FFC4003D114D /* libResultraGenericLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000567031562FFC4003D114D /* libResultraGenericLib.a */; };
 		0005672A15630DDD003D114D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0005672915630DDD003D114D /* Localizable.strings */; };
 		000BBA9B159CE800003A7158 /* EmailFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 000BBA9A159CE800003A7158 /* EmailFolder.m */; };
 		000BBA9F159CE801003A7158 /* EmailFolderFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 000BBA9E159CE801003A7158 /* EmailFolderFilter.m */; };
@@ -30,11 +29,11 @@
 		000BBAAC159CFA10003A7158 /* EmailFolderFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 000BBAAB159CFA0F003A7158 /* EmailFolderFilterFormInfoCreator.m */; };
 		0017B74C157928D7001D5D28 /* MsgPredicateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0017B74B157928D7001D5D28 /* MsgPredicateHelper.m */; };
 		0017B753157968EA001D5D28 /* TestMessageFiltering.m in Sources */ = {isa = PBXBuildFile; fileRef = 0017B752157968EA001D5D28 /* TestMessageFiltering.m */; };
-		0017B75915796A81001D5D28 /* libResultraGenericLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0017B75815796A81001D5D28 /* libResultraGenericLib.a */; };
 		0017B75A15798C89001D5D28 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003D599415641A3F00AD3D91 /* CoreData.framework */; };
 		001A93591609496E00740534 /* MailDeleteCompletionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 001A93581609496D00740534 /* MailDeleteCompletionInfo.m */; };
 		001A93641609788B00740534 /* deletemsgsdone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 001A93621609788A00740534 /* deletemsgsdone@2x.png */; };
 		001A93651609788B00740534 /* deletemsgsdone.png in Resources */ = {isa = PBXBuildFile; fileRef = 001A93631609788A00740534 /* deletemsgsdone.png */; };
+		00257FC4160CCF2F005D5DED /* ResultraGenericLibResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 00B0EC17160CBD2E00B57B56 /* ResultraGenericLibResources.bundle */; };
 		0027518315B9E77B0025FDB8 /* MessageFilterTableFooterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0027518215B9E77B0025FDB8 /* MessageFilterTableFooterController.m */; };
 		00394EFC156EFE00006C3AE5 /* msgActionButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 00394EFB156EFE00006C3AE5 /* msgActionButton.png */; };
 		0039E5DC1566B14000CB259D /* AppData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0039E5DA1566B14000CB259D /* AppData.xcdatamodeld */; };
@@ -78,7 +77,6 @@
 		006AE33315F9113F007EED2E /* FullEmailAccountFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AE33215F9113F007EED2E /* FullEmailAccountFormInfoCreator.m */; };
 		006AE33615F919E4007EED2E /* ImapAcctPresets.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AE33515F919E4007EED2E /* ImapAcctPresets.m */; };
 		006AE33915F94B29007EED2E /* IMAPServerEmailAccountFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AE33815F94B29007EED2E /* IMAPServerEmailAccountFormInfoCreator.m */; };
-		006D6650156D70A300074979 /* ResultraGenericLibResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */; };
 		006D6675156E8E2500074979 /* MsgTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 006D6674156E8E2500074979 /* MsgTableCell.m */; };
 		006F179815F2748F0089A299 /* loadfilter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 006F179615F2748F0089A299 /* loadfilter@2x.png */; };
 		006F179915F2748F0089A299 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 006F179715F2748F0089A299 /* search@2x.png */; };
@@ -109,6 +107,12 @@
 		00A6FB58159B850A00ED4D4B /* MailAddressHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB57159B850900ED4D4B /* MailAddressHelper.m */; };
 		00AAF2E015B4B3ED00BFF03C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00AAF2DF15B4B3ED00BFF03C /* Security.framework */; };
 		00AAF2E815B61ED000BFF03C /* EmailAcctFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AAF2E715B61ED000BFF03C /* EmailAcctFieldEditInfo.m */; };
+		00B0EBF1160CBCA200B57B56 /* libmailcore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B0EBDF160CBBF100B57B56 /* libmailcore.a */; };
+		00B0EBF6160CBCA200B57B56 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B0EBF2160CBCA200B57B56 /* libcrypto.a */; };
+		00B0EBF7160CBCA200B57B56 /* libetpan_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B0EBF3160CBCA200B57B56 /* libetpan_ios.a */; };
+		00B0EBF8160CBCA200B57B56 /* libsasl2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B0EBF4160CBCA200B57B56 /* libsasl2.a */; };
+		00B0EBF9160CBCA200B57B56 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B0EBF5160CBCA200B57B56 /* libssl.a */; };
+		00B0EC1C160CBD6000B57B56 /* libResultraGenericLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B0EC13160CBD2E00B57B56 /* libResultraGenericLib.a */; };
 		00B2FB1115FFAA62005C93DB /* CompositeMailDeleteProgressDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B2FB1015FFAA61005C93DB /* CompositeMailDeleteProgressDelegate.m */; };
 		00B2FB1416000598005C93DB /* MsgDetailHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B2FB1316000597005C93DB /* MsgDetailHelper.m */; };
 		00B2FB19160108C4005C93DB /* StarredFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B2FB18160108C4005C93DB /* StarredFilter.m */; };
@@ -123,11 +127,6 @@
 		00B6DAA61604F06700C3B5EC /* mailcleaner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B6DAA31604F06700C3B5EC /* mailcleaner@2x.png */; };
 		00C4AB141581784900E0868A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB131581784900E0868A /* CFNetwork.framework */; };
 		00C4AB15158178FC00E0868A /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB11158177C400E0868A /* libiconv.dylib */; };
-		00C6F64515E3E86900B37F6C /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C6F64015E3E86900B37F6C /* libcrypto.a */; };
-		00C6F64615E3E86900B37F6C /* libetpan_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C6F64115E3E86900B37F6C /* libetpan_ios.a */; };
-		00C6F64715E3E86900B37F6C /* libmailcore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C6F64215E3E86900B37F6C /* libmailcore.a */; };
-		00C6F64815E3E86900B37F6C /* libsasl2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C6F64315E3E86900B37F6C /* libsasl2.a */; };
-		00C6F64915E3E86900B37F6C /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C6F64415E3E86900B37F6C /* libssl.a */; };
 		00C8777415B306EE0063F88B /* PortNumFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8777315B306EE0063F88B /* PortNumFieldEditInfo.m */; };
 		00C8970A15AF34560006FF2F /* MoreFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8970915AF34560006FF2F /* MoreFormInfoCreator.m */; };
 		00C8971915AF3F0E0006FF2F /* about.md in Resources */ = {isa = PBXBuildFile; fileRef = 00C8971815AF3F0E0006FF2F /* about.md */; };
@@ -183,6 +182,69 @@
 			remoteGlobalIDString = 0005668C1562F94C003D114D;
 			remoteInfo = MailCleaner;
 		};
+		00B0EBDC160CBBF100B57B56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00B0EBC5160CBBEF00B57B56 /* MailCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = MailCore;
+		};
+		00B0EBDE160CBBF100B57B56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00B0EBC5160CBBEF00B57B56 /* MailCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8618B5710DADB5C00C41188;
+			remoteInfo = "MailCore iOS";
+		};
+		00B0EBE0160CBBF100B57B56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00B0EBC5160CBBEF00B57B56 /* MailCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8DFCF4915801A5000C01975;
+			remoteInfo = Tests;
+		};
+		00B0EBE6160CBC0000B57B56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00B0EBC5160CBBEF00B57B56 /* MailCore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F8618B5610DADB5C00C41188;
+			remoteInfo = "MailCore iOS";
+		};
+		00B0EC12160CBD2E00B57B56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00B0EC09160CBD2E00B57B56 /* ResultraGenericLib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0041073014EEE8300063E307;
+			remoteInfo = ResultraGenericLib;
+		};
+		00B0EC14160CBD2E00B57B56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00B0EC09160CBD2E00B57B56 /* ResultraGenericLib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0041073D14EEE8300063E307;
+			remoteInfo = ResultraGenericLibTests;
+		};
+		00B0EC16160CBD2E00B57B56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00B0EC09160CBD2E00B57B56 /* ResultraGenericLib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 004E287B14EF1B060025D89E;
+			remoteInfo = ResultraGenericLibResources;
+		};
+		00B0EC18160CBD4300B57B56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00B0EC09160CBD2E00B57B56 /* ResultraGenericLib.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0041072F14EEE8300063E307;
+			remoteInfo = ResultraGenericLib;
+		};
+		00B0EC1A160CBD4300B57B56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00B0EC09160CBD2E00B57B56 /* ResultraGenericLib.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 004E287A14EF1B060025D89E;
+			remoteInfo = ResultraGenericLibResources;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -200,7 +262,6 @@
 		000566BD1562F94D003D114D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		000566C51562F94D003D114D /* MailCleanerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MailCleanerTests-Info.plist"; sourceTree = "<group>"; };
 		000566C71562F94D003D114D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		000567031562FFC4003D114D /* libResultraGenericLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libResultraGenericLib.a; path = "../ResultraGenericLib/build/Release-iphoneos/libResultraGenericLib.a"; sourceTree = "<group>"; };
 		0005672915630DDD003D114D /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		000BBA99159CE800003A7158 /* EmailFolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailFolder.h; sourceTree = "<group>"; };
 		000BBA9A159CE800003A7158 /* EmailFolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailFolder.m; sourceTree = "<group>"; };
@@ -218,7 +279,6 @@
 		0017B74B157928D7001D5D28 /* MsgPredicateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgPredicateHelper.m; sourceTree = "<group>"; };
 		0017B751157968EA001D5D28 /* TestMessageFiltering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMessageFiltering.h; sourceTree = "<group>"; };
 		0017B752157968EA001D5D28 /* TestMessageFiltering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestMessageFiltering.m; sourceTree = "<group>"; };
-		0017B75815796A81001D5D28 /* libResultraGenericLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libResultraGenericLib.a; path = "../ResultraGenericLib/build/Release-iphoneos/libResultraGenericLib.a"; sourceTree = "<group>"; };
 		001A93571609496D00740534 /* MailDeleteCompletionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailDeleteCompletionInfo.h; sourceTree = "<group>"; };
 		001A93581609496D00740534 /* MailDeleteCompletionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailDeleteCompletionInfo.m; sourceTree = "<group>"; };
 		001A93621609788A00740534 /* deletemsgsdone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deletemsgsdone@2x.png"; sourceTree = "<group>"; };
@@ -297,7 +357,6 @@
 		006AE33515F919E4007EED2E /* ImapAcctPresets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImapAcctPresets.m; sourceTree = "<group>"; };
 		006AE33715F94B28007EED2E /* IMAPServerEmailAccountFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAPServerEmailAccountFormInfoCreator.h; sourceTree = "<group>"; };
 		006AE33815F94B29007EED2E /* IMAPServerEmailAccountFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMAPServerEmailAccountFormInfoCreator.m; sourceTree = "<group>"; };
-		006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ResultraGenericLibResources.bundle; path = "../../../Library/Developer/Xcode/DerivedData/MailCleaner-dtuamkacbllkfkggcpkuqouuqrpt/Build/Products/Debug-iphonesimulator/ResultraGenericLibResources.bundle"; sourceTree = "<group>"; };
 		006D6673156E8E2500074979 /* MsgTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgTableCell.h; sourceTree = "<group>"; };
 		006D6674156E8E2500074979 /* MsgTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgTableCell.m; sourceTree = "<group>"; };
 		006F179615F2748F0089A299 /* loadfilter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loadfilter@2x.png"; sourceTree = "<group>"; };
@@ -352,6 +411,12 @@
 		00AAF2DF15B4B3ED00BFF03C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		00AAF2E615B61ECF00BFF03C /* EmailAcctFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAcctFieldEditInfo.h; sourceTree = "<group>"; };
 		00AAF2E715B61ED000BFF03C /* EmailAcctFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAcctFieldEditInfo.m; sourceTree = "<group>"; };
+		00B0EBC5160CBBEF00B57B56 /* MailCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MailCore.xcodeproj; path = ../MailCore/MailCore.xcodeproj; sourceTree = "<group>"; };
+		00B0EBF2160CBCA200B57B56 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../MailCore/iOSPorts/ports/security/openssl/build/Release-iphoneos/libcrypto.a"; sourceTree = "<group>"; };
+		00B0EBF3160CBCA200B57B56 /* libetpan_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libetpan_ios.a; path = "../MailCore/libetpan/build-mac/build/Release-iphoneos/libetpan_ios.a"; sourceTree = "<group>"; };
+		00B0EBF4160CBCA200B57B56 /* libsasl2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsasl2.a; path = "../MailCore/iOSPorts/ports/security/cyrus-sasl/build/Release-iphoneos/libsasl2.a"; sourceTree = "<group>"; };
+		00B0EBF5160CBCA200B57B56 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "../MailCore/iOSPorts/ports/security/openssl/build/Release-iphoneos/libssl.a"; sourceTree = "<group>"; };
+		00B0EC09160CBD2E00B57B56 /* ResultraGenericLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ResultraGenericLib.xcodeproj; path = ../ResultraGenericLib/ResultraGenericLib.xcodeproj; sourceTree = "<group>"; };
 		00B2FB0A15FF969B005C93DB /* MailServerConnectionProgressDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MailServerConnectionProgressDelegate.h; sourceTree = "<group>"; };
 		00B2FB0F15FFAA61005C93DB /* CompositeMailDeleteProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompositeMailDeleteProgressDelegate.h; sourceTree = "<group>"; };
 		00B2FB1015FFAA61005C93DB /* CompositeMailDeleteProgressDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompositeMailDeleteProgressDelegate.m; sourceTree = "<group>"; };
@@ -379,11 +444,6 @@
 		00C4AB11158177C400E0868A /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		00C4AB131581784900E0868A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		00C5042B1603AB72007C6BE7 /* AppDescription.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = AppDescription.md; sourceTree = "<group>"; };
-		00C6F64015E3E86900B37F6C /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../MailCore/iOSPorts/ports/security/openssl/build/Release-iphoneos/libcrypto.a"; sourceTree = "<group>"; };
-		00C6F64115E3E86900B37F6C /* libetpan_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libetpan_ios.a; path = "../MailCore/libetpan/build-mac/build/Release-iphoneos/libetpan_ios.a"; sourceTree = "<group>"; };
-		00C6F64215E3E86900B37F6C /* libmailcore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmailcore.a; path = "../MailCore/build/Release-iphoneos/libmailcore.a"; sourceTree = "<group>"; };
-		00C6F64315E3E86900B37F6C /* libsasl2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsasl2.a; path = "../MailCore/iOSPorts/ports/security/cyrus-sasl/build/Release-iphoneos/libsasl2.a"; sourceTree = "<group>"; };
-		00C6F64415E3E86900B37F6C /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "../MailCore/iOSPorts/ports/security/openssl/build/Release-iphoneos/libssl.a"; sourceTree = "<group>"; };
 		00C8777215B306EE0063F88B /* PortNumFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PortNumFieldEditInfo.h; sourceTree = "<group>"; };
 		00C8777315B306EE0063F88B /* PortNumFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PortNumFieldEditInfo.m; sourceTree = "<group>"; };
 		00C8970815AF34560006FF2F /* MoreFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreFormInfoCreator.h; sourceTree = "<group>"; };
@@ -444,17 +504,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00C6F64515E3E86900B37F6C /* libcrypto.a in Frameworks */,
-				00C6F64615E3E86900B37F6C /* libetpan_ios.a in Frameworks */,
-				00C6F64715E3E86900B37F6C /* libmailcore.a in Frameworks */,
-				00C6F64815E3E86900B37F6C /* libsasl2.a in Frameworks */,
-				00C6F64915E3E86900B37F6C /* libssl.a in Frameworks */,
+				00B0EC1C160CBD6000B57B56 /* libResultraGenericLib.a in Frameworks */,
+				00B0EBF6160CBCA200B57B56 /* libcrypto.a in Frameworks */,
+				00B0EBF7160CBCA200B57B56 /* libetpan_ios.a in Frameworks */,
+				00B0EBF8160CBCA200B57B56 /* libsasl2.a in Frameworks */,
+				00B0EBF9160CBCA200B57B56 /* libssl.a in Frameworks */,
+				00B0EBF1160CBCA200B57B56 /* libmailcore.a in Frameworks */,
 				009A092715BB4C0D0078880C /* StoreKit.framework in Frameworks */,
 				00AAF2E015B4B3ED00BFF03C /* Security.framework in Frameworks */,
 				00C4AB15158178FC00E0868A /* libiconv.dylib in Frameworks */,
 				00C4AB141581784900E0868A /* CFNetwork.framework in Frameworks */,
 				003D599515641A3F00AD3D91 /* CoreData.framework in Frameworks */,
-				000567041562FFC4003D114D /* libResultraGenericLib.a in Frameworks */,
 				000566921562F94C003D114D /* UIKit.framework in Frameworks */,
 				000566941562F94C003D114D /* Foundation.framework in Frameworks */,
 				000566961562F94C003D114D /* CoreGraphics.framework in Frameworks */,
@@ -469,7 +529,6 @@
 				0004B49C15C9AE9200EED41F /* Security.framework in Frameworks */,
 				0004B49A15C9AE6200EED41F /* StoreKit.framework in Frameworks */,
 				0017B75A15798C89001D5D28 /* CoreData.framework in Frameworks */,
-				0017B75915796A81001D5D28 /* libResultraGenericLib.a in Frameworks */,
 				000566BE1562F94D003D114D /* SenTestingKit.framework in Frameworks */,
 				000566BF1562F94D003D114D /* UIKit.framework in Frameworks */,
 				000566C01562F94D003D114D /* Foundation.framework in Frameworks */,
@@ -488,6 +547,8 @@
 				000566C31562F94D003D114D /* MailCleanerTests */,
 				000566901562F94C003D114D /* Frameworks */,
 				0005668E1562F94C003D114D /* Products */,
+				00B0EC09160CBD2E00B57B56 /* ResultraGenericLib.xcodeproj */,
+				00B0EBC5160CBBEF00B57B56 /* MailCore.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -784,19 +845,15 @@
 		0065E3B91586A57400D59B2A /* Libs */ = {
 			isa = PBXGroup;
 			children = (
-				006D664F156D70A300074979 /* ResultraGenericLibResources.bundle */,
+				00B0EBF2160CBCA200B57B56 /* libcrypto.a */,
+				00B0EBF3160CBCA200B57B56 /* libetpan_ios.a */,
+				00B0EBF4160CBCA200B57B56 /* libsasl2.a */,
+				00B0EBF5160CBCA200B57B56 /* libssl.a */,
 				009A092615BB4C0D0078880C /* StoreKit.framework */,
 				00AAF2DF15B4B3ED00BFF03C /* Security.framework */,
-				00C6F64015E3E86900B37F6C /* libcrypto.a */,
-				00C6F64115E3E86900B37F6C /* libetpan_ios.a */,
-				00C6F64215E3E86900B37F6C /* libmailcore.a */,
-				00C6F64315E3E86900B37F6C /* libsasl2.a */,
-				00C6F64415E3E86900B37F6C /* libssl.a */,
 				003D599415641A3F00AD3D91 /* CoreData.framework */,
-				000567031562FFC4003D114D /* libResultraGenericLib.a */,
 				00C4AB131581784900E0868A /* CFNetwork.framework */,
 				00C4AB11158177C400E0868A /* libiconv.dylib */,
-				0017B75815796A81001D5D28 /* libResultraGenericLib.a */,
 			);
 			name = Libs;
 			sourceTree = "<group>";
@@ -964,6 +1021,26 @@
 				00B3B72015DDE1FC00A8FFCD /* Delete Mail */,
 			);
 			name = "Mail Client Operations";
+			sourceTree = "<group>";
+		};
+		00B0EBC6160CBBEF00B57B56 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				00B0EBDD160CBBF100B57B56 /* MailCore.framework */,
+				00B0EBDF160CBBF100B57B56 /* libmailcore.a */,
+				00B0EBE1160CBBF100B57B56 /* Tests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		00B0EC0A160CBD2E00B57B56 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				00B0EC13160CBD2E00B57B56 /* libResultraGenericLib.a */,
+				00B0EC15160CBD2E00B57B56 /* ResultraGenericLibTests.octest */,
+				00B0EC17160CBD2E00B57B56 /* ResultraGenericLibResources.bundle */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		00B2FB1516010548005C93DB /* Read Filter */ = {
@@ -1167,6 +1244,9 @@
 				00C8971215AF3AA00006FF2F /* PBXBuildRule */,
 			);
 			dependencies = (
+				00B0EC19160CBD4300B57B56 /* PBXTargetDependency */,
+				00B0EC1B160CBD4300B57B56 /* PBXTargetDependency */,
+				00B0EBE7160CBC0000B57B56 /* PBXTargetDependency */,
 			);
 			name = MailCleaner;
 			productName = MailCleaner;
@@ -1210,6 +1290,16 @@
 			mainGroup = 000566821562F94C003D114D;
 			productRefGroup = 0005668E1562F94C003D114D /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 00B0EBC6160CBBEF00B57B56 /* Products */;
+					ProjectRef = 00B0EBC5160CBBEF00B57B56 /* MailCore.xcodeproj */;
+				},
+				{
+					ProductGroup = 00B0EC0A160CBD2E00B57B56 /* Products */;
+					ProjectRef = 00B0EC09160CBD2E00B57B56 /* ResultraGenericLib.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				0005668C1562F94C003D114D /* MailCleaner */,
@@ -1217,6 +1307,51 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		00B0EBDD160CBBF100B57B56 /* MailCore.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MailCore.framework;
+			remoteRef = 00B0EBDC160CBBF100B57B56 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		00B0EBDF160CBBF100B57B56 /* libmailcore.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libmailcore.a;
+			remoteRef = 00B0EBDE160CBBF100B57B56 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		00B0EBE1160CBBF100B57B56 /* Tests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Tests.octest;
+			remoteRef = 00B0EBE0160CBBF100B57B56 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		00B0EC13160CBD2E00B57B56 /* libResultraGenericLib.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libResultraGenericLib.a;
+			remoteRef = 00B0EC12160CBD2E00B57B56 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		00B0EC15160CBD2E00B57B56 /* ResultraGenericLibTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ResultraGenericLibTests.octest;
+			remoteRef = 00B0EC14160CBD2E00B57B56 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		00B0EC17160CBD2E00B57B56 /* ResultraGenericLibResources.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ResultraGenericLibResources.bundle;
+			remoteRef = 00B0EC16160CBD2E00B57B56 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		0005668B1562F94C003D114D /* Resources */ = {
@@ -1226,7 +1361,6 @@
 				007ABE8F156ACADE004BA8BF /* dummyEmails.txt in Resources */,
 				0005669C1562F94C003D114D /* InfoPlist.strings in Resources */,
 				0005672A15630DDD003D114D /* Localizable.strings in Resources */,
-				006D6650156D70A300074979 /* ResultraGenericLibResources.bundle in Resources */,
 				00394EFC156EFE00006C3AE5 /* msgActionButton.png in Resources */,
 				0054D2EA15ADF49D00270679 /* search.png in Resources */,
 				00C8971915AF3F0E0006FF2F /* about.md in Resources */,
@@ -1257,6 +1391,7 @@
 				001A93651609788B00740534 /* deletemsgsdone.png in Resources */,
 				00E420EC160BC079007CFA48 /* msgflag.png in Resources */,
 				00E420EF160BC534007CFA48 /* msgflag@2x.png in Resources */,
+				00257FC4160CCF2F005D5DED /* ResultraGenericLibResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1403,6 +1538,21 @@
 			isa = PBXTargetDependency;
 			target = 0005668C1562F94C003D114D /* MailCleaner */;
 			targetProxy = 000566C11562F94D003D114D /* PBXContainerItemProxy */;
+		};
+		00B0EBE7160CBC0000B57B56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "MailCore iOS";
+			targetProxy = 00B0EBE6160CBC0000B57B56 /* PBXContainerItemProxy */;
+		};
+		00B0EC19160CBD4300B57B56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ResultraGenericLib;
+			targetProxy = 00B0EC18160CBD4300B57B56 /* PBXContainerItemProxy */;
+		};
+		00B0EC1B160CBD4300B57B56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ResultraGenericLibResources;
+			targetProxy = 00B0EC1A160CBD4300B57B56 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
