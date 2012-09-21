@@ -79,6 +79,7 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 	EmailInfo *newEmailInfo = (EmailInfo*) [self.connectionContext.syncDmc insertObject:EMAIL_INFO_ENTITY_NAME];
 	
 	newEmailInfo.sendDate = msg.sentDateGMT;
+	assert(msg.sentDateGMT != nil);
 
 	newEmailInfo.senderAddress = [EmailAddress findOrAddAddress:msg.sender.email
 			withName:msg.sender.name andSendDate:msg.sentDateGMT
@@ -86,7 +87,7 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 				inDataModelController:self.connectionContext.syncDmc
 				andEmailAcct:self.syncAcct];
 
-	newEmailInfo.subject = msg.subject;
+	newEmailInfo.subject = (msg.subject==nil)?@"":msg.subject;
 	newEmailInfo.uid = [NSNumber numberWithUnsignedInt:msg.uid];
 	newEmailInfo.size = [NSNumber numberWithUnsignedInt:msg.messageSize];
 	
@@ -148,7 +149,14 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 	{
 		// Allocate a new local EmailInfo, since there's not an existing local
 		// one with the same UID.
-		[self emailInfoFromServerMsg:msg];
+		// TODO - This needs further investigation,
+		// but for some reason, some messages are coming
+		// through with nil subjects and/or send dates.
+		if((msg.sentDateGMT != nil) &&
+		  (msg.subject != nil))
+		{
+			[self emailInfoFromServerMsg:msg];
+		}
 		
 		newLocalMsgsCreated ++;
 
