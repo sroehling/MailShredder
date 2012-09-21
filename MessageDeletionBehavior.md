@@ -35,13 +35,17 @@ Some alternatives include:
 * DA9 - Provide some settings to tailor how much confirmation is done: e.g.:
   * Maximum number of bulk deletions.
 
-* DA10 - Allow "incremental bulk deletion", whereby a "page full" of messages can be reviewed and deleted at the same time.
+* **DA10** - Allow "incremental bulk deletion", whereby a "page full" of messages can be 
+  reviewed and deleted at the same time.
+  * For performance reasons, it also makes sense to only show a fixed number of messages
+    in the list (e.g., 100).
+  * With this option, a "select all" will only select up to the number of messages shown.
 
 * **DA11** (DONE) - While stepping through and confirming each messages's deletion, provide a "page number" for how many confirmation have been done (e.g. "1 of 5"). This will keep the user "in control" to confirm how many messages have been deleted and are remaining (and perhaps not just hit the "Delete All" button).
 
 * **DA12** - If the user deletes a large number of messages, get a second confirmation to proceed.
 
-* DA13 - In the delete confirmation view, provide a description of the deletion behavior, so the 
+* **DA13** (DONE) - In the delete confirmation view, provide a description of the deletion behavior, so the 
   user has feedback on what is about to occur.
 
 
