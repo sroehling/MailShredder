@@ -16,15 +16,17 @@
 #import "EmailAccount.h"
 #import "DateHelper.h"
 
-const CGFloat EMAIL_ACTION_VIEW_HEIGHT = 45.0;
-const CGFloat EMAIL_ACTION_VIEW_TOP_ROW_VERT_CENTER = 15.0;
-const CGFloat EMAIL_ACTION_VIEW_TOP_ROW_HEIGHT = 30.0;
-const CGFloat EMAIL_ACTION_VIEW_HORIZ_MARGIN = 8.0;
-const CGFloat EMAIL_ACTION_VIEW_STATUS_ROW_HEIGHT = 15.0;
+CGFloat const EMAIL_ACTION_VIEW_HEIGHT = 50.0;
+CGFloat const EMAIL_ACTION_VIEW_TOP_ROW_VERT_CENTER = 15.0;
+CGFloat const EMAIL_ACTION_VIEW_TOP_ROW_HEIGHT = 30.0;
+CGFloat const EMAIL_ACTION_VIEW_HORIZ_MARGIN = 8.0;
+CGFloat const EMAIL_ACTION_VIEW_STATUS_ROW_HEIGHT = 18.0;
 
-const CGFloat ACTION_BUTTON_FONT_SIZE = 12.0f;
-const CGFloat ACTION_BUTTON_SPACE = 5.0f;
-const CGFloat ACTION_BUTTON_SIZE = 24.0f;
+CGFloat const ACTION_BUTTON_FONT_SIZE = 13.0f;
+CGFloat const ACTION_BUTTON_SPACE = 5.0f;
+CGFloat const ACTION_BUTTON_SIZE = 24.0f;
+
+CGFloat const  EMAIL_ACTION_VIEW_STATUS_LABEL_FONT_SIZE = 11.0f;
 
 @implementation EmailInfoActionView
 
@@ -66,7 +68,7 @@ const CGFloat ACTION_BUTTON_SIZE = 24.0f;
 		
 		self.statusLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
 		self.statusLabel.textAlignment = UITextAlignmentCenter;
-		self.statusLabel.font = [UIFont systemFontOfSize:10.0];
+		self.statusLabel.font = [UIFont systemFontOfSize:EMAIL_ACTION_VIEW_STATUS_LABEL_FONT_SIZE];
 		self.statusLabel.textColor = [UIColor whiteColor];
 		self.statusLabel.numberOfLines = 1;
 		self.statusLabel.backgroundColor = [UIColor clearColor];

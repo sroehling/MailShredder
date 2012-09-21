@@ -12,13 +12,18 @@
 #import "TableCellHelper.h"
 #import "UIHelper.h"
 
-static CGFloat kLeftMargin = 6.0;
-static CGFloat kRightMargin = 6.0;
-static CGFloat kTopMargin = 4.0;
-static CGFloat kBottomMargin = 4.0;
-static CGFloat kLabelSpace = 4.0;
-static CGFloat kButtonWidth = 24.0;
-static CGFloat kButtonHeight = 24.0;
+static CGFloat const kLeftMargin = 6.0;
+static CGFloat const kRightMargin = 6.0;
+static CGFloat const kTopMargin = 4.0;
+static CGFloat const kBottomMargin = 4.0;
+static CGFloat const kLabelSpace = 4.0;
+static CGFloat const kLabelVerticalSpace = 5.0f;
+static CGFloat const kButtonWidth = 30.0;
+static CGFloat const kButtonHeight = 30.0;
+
+static CGFloat const kMessageFilterTableTitleFontSize = 13.0f;
+static CGFloat const kMessageFilterTableSubtitleFontSize = 11.0f;
+
 
 @implementation MessageFilterTableHeader
 
@@ -41,10 +46,11 @@ static CGFloat kButtonHeight = 24.0;
         self.header.textColor = [UIColor blackColor];
 		self.header.textAlignment = UITextAlignmentCenter;
         self.header.highlightedTextColor = [UIColor whiteColor];
-        self.header.font = [UIFont boldSystemFontOfSize:12];       
+        self.header.font = [UIFont boldSystemFontOfSize:kMessageFilterTableTitleFontSize];       
 		[self addSubview:self.header];
 		
 		self.subTitle = [TableCellHelper createWrappedSubtitleLabel];
+		self.subTitle.font = [UIFont systemFontOfSize:kMessageFilterTableSubtitleFontSize];
 		self.subTitle.textColor = [UIColor whiteColor];
 		self.subTitle.textAlignment = UITextAlignmentCenter;
 		[self addSubview:self.subTitle];
@@ -127,7 +133,7 @@ static CGFloat kButtonHeight = 24.0;
 		
 	if([subTitle.text length] > 0)
 	{
-		headerHeight += kLabelSpace;
+		headerHeight += kLabelVerticalSpace;
 		headerHeight += [self subTitleHeight];
 	}
 	
@@ -168,13 +174,11 @@ static CGFloat kButtonHeight = 24.0;
 
 	CGFloat subTitleWidth = [self subTitleWidth];
 	CGFloat subTitleX = CGRectGetMidX(self.bounds) - subTitleWidth/2.0;
-	CGFloat subTitleY = CGRectGetMaxY(self.header.bounds)+kLabelSpace;
+	CGFloat subTitleY = CGRectGetMaxY(self.header.bounds)+kLabelVerticalSpace;
 	CGRect subTitleFrame = CGRectMake(subTitleX, subTitleY, subTitleWidth,
 						[self subTitleHeight]);
 	[self.subTitle setFrame:subTitleFrame];
-	
-
-	
+		
 }
 
 

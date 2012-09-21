@@ -52,14 +52,13 @@
 #import "SubjectFilter.h"
 #import "AgeFilterComparison.h"
 
-CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
+CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 255.0f;
 
 @implementation EmailInfoTableViewController
 
 @synthesize messageFilterHeader;
 @synthesize actionsPopupController;
 @synthesize loadFilterPopoverController;
-@synthesize actionButton;
 @synthesize editFilterDmc;
 
 -(MessageFilter*)currentAcctMsgFilter
@@ -242,13 +241,21 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 		 
 	[sections addObject:narrowFilterSection];
 
-	TableMenuSection *saveFilterSection = [[[TableMenuSection alloc] 
-	initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_CREATE_SAVED_FILTER_SECTION_TITLE")] autorelease];
-	[saveFilterSection addMenuItem:[[[TableMenuItem alloc]
-		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_CURRENT_FILTER_MENU_TITLE")
+	TableMenuSection *currentFilterSection = [[[TableMenuSection alloc]
+	initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_CURRENT_FILTER_SECTION_TITLE")] autorelease];
+
+	[currentFilterSection addMenuItem:[[[TableMenuItem alloc]
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SAVE_CURRENT_FILTER_TITLE")
 		 andTarget:self andSelector:@selector(createMsgFilterCurrentFilter)] autorelease]];
-	[sections addObject:saveFilterSection];
+
+	[currentFilterSection addMenuItem:[[[TableMenuItem alloc]
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_EDIT_CURRENT_FILTER_TITLE")
+		 andTarget:self andSelector:@selector(msgFilterShowFilterEditor)] autorelease]];
+
+
+	[sections addObject:currentFilterSection];
 	
+		
 	CGFloat popupMenuHeight = EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT;
 	
 	return [[[TableMenuViewController alloc] 
@@ -281,13 +288,6 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 		name:NSManagedObjectContextDidSaveNotification 
 		object:self.editFilterDmc.managedObjectContext];	
 
-	
-	self.actionButton = [[[UIBarButtonItem alloc] 
-		initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self 
-		action:@selector(topActionButtonPressed)] autorelease];
-		
-	self.navigationItem.leftBarButtonItem = actionButton;
-	
 	self.navigationItem.rightBarButtonItem = [UIHelper buttonItemWithImage:@"settings.png"
 		andTarget:self andAction:@selector(showSettings)];
 	
@@ -355,8 +355,11 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	[self.navigationController dismissModalViewControllerAnimated:TRUE];
 }
 
-- (void)messageFilterHeaderEditFilterButtonPressed
+- (void)msgFilterShowFilterEditor
 {
+
+	[self.actionsPopupController dismissPopoverAnimated:TRUE];
+
 	[self.appDmc saveContext];
 	[self.editFilterDmc.managedObjectContext reset];
 	
@@ -569,7 +572,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 }
 
 
--(void)topActionButtonPressed
+-(void)messageFilterHeaderEditFilterButtonPressed
 {		
 	TableMenuViewController *popupMenuController = [self actionsPopupTableMenuController];
 	self.actionsPopupController = [[[WEPopoverController alloc] 
@@ -577,8 +580,17 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 	self.actionsPopupController.delegate = self;
 	[actionsPopupController setContainerViewProperties:[WEPopoverHelper containerViewProperties]];
 
-	[actionsPopupController presentPopoverFromBarButtonItem:self.actionButton 
-		permittedArrowDirections:UIPopoverArrowDirectionAny animated:TRUE];
+
+	// Convert the popup button from the view coordinates to local window coordinates
+	CGRect editFilterButtonWindowRect = [self.messageFilterHeader.editFilterButton.superview
+		convertRect:self.messageFilterHeader.editFilterButton.frame toView:nil];
+	CGRect editFilterRect = [self.navigationController.view
+		convertRect:editFilterButtonWindowRect fromView:nil];
+
+
+	[self.actionsPopupController presentPopoverFromRect:editFilterRect
+		inView:self.navigationController.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:TRUE];
+
 }
 
 - (void)popoverControllerDidDismissPopover:(WEPopoverController *)popoverController
@@ -599,7 +611,6 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 228.0f;
 
 -(void)dealloc
 {
-	[actionButton release];
 	[actionsPopupController release];
 	[messageFilterHeader release];
 	[editFilterDmc release];
