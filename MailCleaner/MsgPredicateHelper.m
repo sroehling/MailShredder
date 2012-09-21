@@ -12,6 +12,7 @@
 #import "EmailInfo.h"
 #import "DateHelper.h"
 #import "MessageFilter.h"
+#import "AppHelper.h"
 
 @implementation MsgPredicateHelper
 
@@ -29,6 +30,24 @@
 	return matchingCurrentAcctPredicate;
 }
 
++(NSFetchRequest*)emptyFetchRequestForLaunchScreenGeneration:(DataModelController*)appDmc
+{
+	NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
+	NSEntityDescription *entity = [NSEntityDescription
+		entityForName:EMAIL_INFO_ENTITY_NAME 
+		inManagedObjectContext:appDmc.managedObjectContext];
+	[fetchRequest setEntity:entity];
+ 
+	NSSortDescriptor *sort = [[NSSortDescriptor alloc]
+		initWithKey:EMAIL_INFO_SEND_DATE_KEY ascending:NO];
+	[fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+	
+
+	[fetchRequest setPredicate:[NSPredicate predicateWithValue:FALSE]];
+	[fetchRequest setFetchBatchSize:20];
+	
+	return fetchRequest;
+}
 
 +(NSFetchRequest*)emailInfoFetchRequestForDataModelController:(DataModelController*)appDmc
 	andFilter:(MessageFilter*)msgFilter

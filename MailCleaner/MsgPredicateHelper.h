@@ -19,5 +19,6 @@
 
 +(NSFetchRequest*)emailInfoFetchRequestForDataModelController:(DataModelController*)appDmc
 	andFilter:(MessageFilter*)msgFilter;
++(NSFetchRequest*)emptyFetchRequestForLaunchScreenGeneration:(DataModelController*)appDmc;
 
 @end

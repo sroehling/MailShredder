@@ -77,6 +77,11 @@ CGFloat const  EMAIL_ACTION_VIEW_STATUS_LABEL_FONT_SIZE = 11.0f;
  
 		[self addSubview:self.statusLabel];
 		
+		if([AppHelper generatingLaunchScreen])
+		{
+			self.statusLabel.hidden = TRUE;
+		}
+		
 		CGSize buttonSize = CGSizeMake(ACTION_BUTTON_SIZE,ACTION_BUTTON_SIZE);
 		CGSize actionButtonSize = CGSizeMake(100.0f, 25.0f);
 		
@@ -88,17 +93,29 @@ CGFloat const  EMAIL_ACTION_VIEW_STATUS_LABEL_FONT_SIZE = 11.0f;
 			withSize:buttonSize
 			withTarget:self andAction:@selector(actionButtonPressed)];
 		[self addSubview:self.emailActionsButton];
+		
+		NSString *selectAllTitle = LOCALIZED_STR(@"MSGS_ACTION_SELECT_ALL");
+		NSString *unselectAllTitle = LOCALIZED_STR(@"MSGS_ACTION_UNSELECT_ALL");
+		
+		if([AppHelper generatingLaunchScreen])
+		{
+			selectAllTitle = @"";
+			unselectAllTitle = @"";
+		}
 	
 		self.selectAllButton = [UIHelper imageButton:@"msgActionButton.png"
 			andSize:actionButtonSize
-			withTitle:LOCALIZED_STR(@"MSGS_ACTION_SELECT_ALL") 
+			withTitle:selectAllTitle 
 			andFontSize:ACTION_BUTTON_FONT_SIZE andFontColor:[UIColor whiteColor]
 			andTarget:self andAction:@selector(selectAll)];
 		[self addSubview:self.selectAllButton];
+		
+		
+		
 
 		self.unselectAllButton = [UIHelper imageButton:@"msgActionButton.png" 
 		    andSize:actionButtonSize
-			withTitle:LOCALIZED_STR(@"MSGS_ACTION_UNSELECT_ALL") 
+			withTitle:unselectAllTitle
 			andFontSize:ACTION_BUTTON_FONT_SIZE andFontColor:[UIColor whiteColor]
 			andTarget:self andAction:@selector(unselectAll)];
 		[self addSubview:self.unselectAllButton];

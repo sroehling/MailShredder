@@ -19,6 +19,6 @@ extern NSString * const APP_DATA_STORE_NAME;
 
 +(DataModelController*)appDataModelController;
 +(AppDelegate*)theAppDelegate;
-
++(BOOL)generatingLaunchScreen;
 
 @end

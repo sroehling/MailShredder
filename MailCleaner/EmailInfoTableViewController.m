@@ -267,7 +267,14 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 255.0f;
 {
     [super viewDidLoad];
   
-    self.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
+ 	NSString *viewTitle = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
+	if([AppHelper generatingLaunchScreen])
+	{
+		viewTitle = @" ";
+	}
+    self.title = viewTitle;
+
+
 	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
 
 	self.messageFilterHeader  = [[[MessageFilterTableHeader alloc] initWithDelegate:self] autorelease];

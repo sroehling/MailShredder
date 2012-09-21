@@ -177,8 +177,15 @@
 {
 
 	EmailAccount *currentAcct = [self currentEmailAcct];
-	NSFetchRequest *currentFilterFetchRequest = [MsgPredicateHelper 
+
+	NSFetchRequest *currentFilterFetchRequest = [MsgPredicateHelper
 		emailInfoFetchRequestForDataModelController:self.appDmc andFilter:currentAcct.msgListFilter];
+		
+	if([AppHelper generatingLaunchScreen])
+	{
+		NSFetchRequest *emptyRequest = [MsgPredicateHelper emptyFetchRequestForLaunchScreenGeneration:self.appDmc];
+		currentFilterFetchRequest = emptyRequest;
+	}
  
 	self.emailInfoFrc = [[[NSFetchedResultsController alloc] 
 			initWithFetchRequest:currentFilterFetchRequest
@@ -254,7 +261,12 @@
  
 	[self configureFetchedResultsController];
  
-    self.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
+	NSString *viewTitle = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
+	if([AppHelper generatingLaunchScreen])
+	{
+		viewTitle = @" ";
+	}
+    self.title = viewTitle;
 	
 	self.msgListView = [[[MsgListView alloc] initWithFrame:CGRectZero] autorelease];
 	self.msgListView.msgListActionFooter.delegate = self;

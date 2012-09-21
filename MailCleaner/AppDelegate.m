@@ -254,13 +254,19 @@
 	
 	self.countMessageFilterCountsQueue = [[[NSOperationQueue alloc] init] autorelease];
 
+
+	NSString *msgViewTitle = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
+	if([AppHelper generatingLaunchScreen])
+	{
+		msgViewTitle = @" ";
+	}
 	
 	EmailInfoTableViewController *msgListController = [[[EmailInfoTableViewController alloc] 
 		initWithAppDataModelController:appDmc] autorelease];
 	UINavigationController *msgListNavController = [[[UINavigationController alloc] 
 			initWithRootViewController:msgListController] autorelease];
-	msgListNavController.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
-	msgListController.title = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
+	msgListNavController.title = msgViewTitle;
+	msgListController.title = msgViewTitle;
 	msgListNavController.navigationBar.tintColor = [ColorHelper navBarTintColor];
 		
 	self.messageListNavController = msgListNavController;

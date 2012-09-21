@@ -11,6 +11,7 @@
 #import "ColorHelper.h"
 #import "TableCellHelper.h"
 #import "UIHelper.h"
+#import "AppHelper.h"
 
 static CGFloat const kLeftMargin = 6.0;
 static CGFloat const kRightMargin = 6.0;
@@ -55,7 +56,12 @@ static CGFloat const kMessageFilterTableSubtitleFontSize = 11.0f;
 		self.subTitle.textAlignment = UITextAlignmentCenter;
 		[self addSubview:self.subTitle];
 		
-
+		if([AppHelper generatingLaunchScreen])
+		{
+			self.subTitle.hidden = TRUE;
+			self.header.hidden = TRUE;
+		}
+		
 		self.delegate = theDelegate;
 		
 		self.editFilterButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];

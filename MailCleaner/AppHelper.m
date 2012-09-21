@@ -14,6 +14,8 @@
 NSString * const APP_DATA_DATA_MODEL_NAME = @"AppData";
 NSString * const APP_DATA_STORE_NAME = @"AppData.sqlite";
 
+static NSString * const APP_GENERATING_LAUNCH_SCREEN_ENV_VAR = @"APP_GENERATING_LAUNCH_SCREEN";
+
 @implementation AppHelper
 
 
@@ -31,6 +33,14 @@ NSString * const APP_DATA_STORE_NAME = @"AppData.sqlite";
 	AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	assert(appDelegate != nil);
 	return appDelegate;	
+}
+
++(BOOL)generatingLaunchScreen
+{
+	// To (re)generate the launch screens, temporarily
+	// return TRUE, then copy the screens from the
+	// screens from the simulator.
+	return FALSE;
 }
 
 

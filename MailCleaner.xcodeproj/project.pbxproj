@@ -34,6 +34,8 @@
 		001A93641609788B00740534 /* deletemsgsdone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 001A93621609788A00740534 /* deletemsgsdone@2x.png */; };
 		001A93651609788B00740534 /* deletemsgsdone.png in Resources */ = {isa = PBXBuildFile; fileRef = 001A93631609788A00740534 /* deletemsgsdone.png */; };
 		00257FC4160CCF2F005D5DED /* ResultraGenericLibResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 00B0EC17160CBD2E00B57B56 /* ResultraGenericLibResources.bundle */; };
+		00257FCB160D1C2B005D5DED /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 00257FC9160D1C2B005D5DED /* Default.png */; };
+		00257FCC160D1C2B005D5DED /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00257FCA160D1C2B005D5DED /* Default@2x.png */; };
 		0027518315B9E77B0025FDB8 /* MessageFilterTableFooterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0027518215B9E77B0025FDB8 /* MessageFilterTableFooterController.m */; };
 		00394EFC156EFE00006C3AE5 /* msgActionButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 00394EFB156EFE00006C3AE5 /* msgActionButton.png */; };
 		0039E5DC1566B14000CB259D /* AppData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0039E5DA1566B14000CB259D /* AppData.xcdatamodeld */; };
@@ -283,6 +285,8 @@
 		001A93581609496D00740534 /* MailDeleteCompletionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailDeleteCompletionInfo.m; sourceTree = "<group>"; };
 		001A93621609788A00740534 /* deletemsgsdone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deletemsgsdone@2x.png"; sourceTree = "<group>"; };
 		001A93631609788A00740534 /* deletemsgsdone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deletemsgsdone.png; sourceTree = "<group>"; };
+		00257FC9160D1C2B005D5DED /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		00257FCA160D1C2B005D5DED /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		0027518115B9E77B0025FDB8 /* MessageFilterTableFooterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageFilterTableFooterController.h; sourceTree = "<group>"; };
 		0027518215B9E77B0025FDB8 /* MessageFilterTableFooterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageFilterTableFooterController.m; sourceTree = "<group>"; };
 		00394EFB156EFE00006C3AE5 /* msgActionButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = msgActionButton.png; sourceTree = "<group>"; };
@@ -675,6 +679,8 @@
 		0039E5FA1566CD0800CB259D /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				00257FC9160D1C2B005D5DED /* Default.png */,
+				00257FCA160D1C2B005D5DED /* Default@2x.png */,
 				003D599D15641B8A00AD3D91 /* AppHelper.h */,
 				003D599E15641B8A00AD3D91 /* AppHelper.m */,
 				000566A01562F94C003D114D /* AppDelegate.h */,
@@ -1392,6 +1398,8 @@
 				00E420EC160BC079007CFA48 /* msgflag.png in Resources */,
 				00E420EF160BC534007CFA48 /* msgflag@2x.png in Resources */,
 				00257FC4160CCF2F005D5DED /* ResultraGenericLibResources.bundle in Resources */,
+				00257FCB160D1C2B005D5DED /* Default.png in Resources */,
+				00257FCC160D1C2B005D5DED /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
