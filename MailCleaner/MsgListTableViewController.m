@@ -180,6 +180,9 @@
 
 	NSFetchRequest *currentFilterFetchRequest = [MsgPredicateHelper
 		emailInfoFetchRequestForDataModelController:self.appDmc andFilter:currentAcct.msgListFilter];
+	
+	// Limit the number of results which are returned to a "page full" of results.
+	[currentFilterFetchRequest setFetchLimit:100];
 		
 	if([AppHelper generatingLaunchScreen])
 	{
