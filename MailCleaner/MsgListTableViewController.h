@@ -13,19 +13,23 @@
 #import "MailDeleteOperation.h"
 #import "MBProgressHUD.h"
 #import "DeleteMsgConfirmationView.h"
+#import "MsgListView.h"
 
 @class DataModelController;
-@class MsgListView;
 
 @interface MsgListTableViewController : UIViewController 
 	<NSFetchedResultsControllerDelegate,UITableViewDelegate,
 		UITableViewDataSource,EmailActionViewDelegate,
 		CurrentEmailAccountChangedListener,MailDeleteProgressDelegate,
-		DeleteMsgConfirmationViewDelegate> {
+		DeleteMsgConfirmationViewDelegate,MsgListViewDelegate> {
 	@private
 		DataModelController *appDmc;
 		DataModelController *saveMsgFilterDmc;
+		
 		NSFetchedResultsController *emailInfoFrc;
+		NSUInteger totalMsgCountCurrFilter;
+		NSUInteger currentMsgListPageSize;
+		
 		MsgListView *msgListView;
 		NSMutableSet *selectedEmailInfos;
 		
@@ -44,7 +48,7 @@
 
 // Reconfigure the fetched results controller, based upon the message filter
 // parameters, then reload the table data.
--(void)configureFetchedResultsController;
+-(void)configureFetchedResultsController:(BOOL)doResetPageSize;
 
 - (id)initWithAppDataModelController:(DataModelController*)theAppDmc;
 

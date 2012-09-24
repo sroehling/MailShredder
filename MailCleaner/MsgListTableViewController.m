@@ -33,6 +33,8 @@
 #import "MBProgressHUD.h"
 
 
+static NSUInteger const MSG_LIST_STARTING_PAGE_SIZE = 100;
+
 @implementation MsgListTableViewController
 
 @synthesize emailInfoFrc;
@@ -81,12 +83,14 @@
 {
 	assert(emailInfo != nil);
 	[self.selectedEmailInfos addObject:emailInfo];
+	[self.msgListView.msgListActionFooter updateMsgCount:self.selectedEmailInfos.count];
 }
 
 -(void)deselectEmailInfo:(EmailInfo*)emailInfo
 {
 	assert(emailInfo != nil);
 	[self.selectedEmailInfos removeObject:emailInfo];
+	[self.msgListView.msgListActionFooter updateMsgCount:self.selectedEmailInfos.count];
 }
 
 
@@ -173,16 +177,27 @@
 }
 
 
--(void)configureFetchedResultsController
+-(void)configureFetchedResultsController:(BOOL)doResetPageSize
 {
 
 	EmailAccount *currentAcct = [self currentEmailAcct];
 
 	NSFetchRequest *currentFilterFetchRequest = [MsgPredicateHelper
 		emailInfoFetchRequestForDataModelController:self.appDmc andFilter:currentAcct.msgListFilter];
-	
+		
+	NSError* countError = nil;
+	totalMsgCountCurrFilter = [self.appDmc.managedObjectContext countForFetchRequest:currentFilterFetchRequest error:&countError];
+	NSLog(@"Total Count of messages matching filter: %d",totalMsgCountCurrFilter);
+		
+	if(doResetPageSize)
+	{
+		currentMsgListPageSize = MSG_LIST_STARTING_PAGE_SIZE;
+	}
 	// Limit the number of results which are returned to a "page full" of results.
-	[currentFilterFetchRequest setFetchLimit:100];
+	[currentFilterFetchRequest setFetchLimit:currentMsgListPageSize];
+	
+	NSUInteger loadedMsgCount = [self.appDmc.managedObjectContext countForFetchRequest:currentFilterFetchRequest error:&countError];
+	[self.msgListView updateLoadedMessageCount:loadedMsgCount andTotalMessageCount:totalMsgCountCurrFilter];
 		
 	if([AppHelper generatingLaunchScreen])
 	{
@@ -262,7 +277,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
  
-	[self configureFetchedResultsController];
+	[self configureFetchedResultsController:TRUE];
  
 	NSString *viewTitle = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
 	if([AppHelper generatingLaunchScreen])
@@ -275,6 +290,7 @@
 	self.msgListView.msgListActionFooter.delegate = self;
 	self.msgListView.msgListTableView.delegate = self;
 	self.msgListView.msgListTableView.dataSource = self;
+	self.msgListView.delegate = self;
 	
 	self.view = self.msgListView;
 
@@ -308,7 +324,7 @@
 	{
 		[self.appDmc saveContextAndIgnoreErrors];
 	}
-	[self configureFetchedResultsController];
+	[self configureFetchedResultsController:TRUE];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -422,7 +438,7 @@
         case NSFetchedResultsChangeDelete:
             [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 			// If the object happens to be selected, remove it from the selected list.
-			[self.selectedEmailInfos removeObject:anObject];
+			[self deselectEmailInfo:anObject];
             break;
  
         case NSFetchedResultsChangeUpdate:
@@ -522,13 +538,17 @@
 	}
 }
 
-
+-(void)msgListViewLoadMoreMessagesButtonPressed
+{
+	currentMsgListPageSize += MSG_LIST_STARTING_PAGE_SIZE;
+	[self configureFetchedResultsController:FALSE];
+}
 
 #pragma mark CurrentEmailAccountChangedListener
 
 -(void)currentAcctChanged:(EmailAccount *)currentAccount
 {
-	[self configureFetchedResultsController];
+	[self configureFetchedResultsController:TRUE];
 }
 
 -(void)dealloc

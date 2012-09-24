@@ -8,12 +8,33 @@
 
 #import "MsgListView.h"
 #import "EmailInfoActionView.h"
+#import "UIHelper.h"
+#import "LocalizationHelper.h"
+
+static CGFloat const MSG_LIST_LOAD_MORE_BUTTON_FONT = 13.0f;
+static CGFloat const MSG_LIST_LOAD_MORE_BUTTON_MARGIN = 5.0f;
+
+static CGFloat const MSG_LIST_LOAD_MORE_LABEL_HEIGHT = 20.0f;
+static CGFloat const MSG_LIST_LOAD_MORE_BUTTON_HEIGHT = 25.0f;
+static CGFloat const MSG_LIST_LOAD_MORE_FOOTER_HEIGHT = 50.0f;
 
 @implementation MsgListView
 
 @synthesize msgListTableView;
 @synthesize msgListActionFooter;
 @synthesize headerView;
+@synthesize loadMoreMsgsTableFooter;
+@synthesize loadMoreStatusLabel;
+@synthesize loadMoreButton;
+
+@synthesize delegate;
+
+-(void)loadMoreMsgs
+{
+	assert(self.delegate != nil);
+	[self.delegate msgListViewLoadMoreMessagesButtonPressed];
+	NSLog(@"Load more messages");
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -31,6 +52,36 @@
 		self.msgListTableView.allowsMultipleSelection = TRUE;
 		[self addSubview:self.msgListTableView];
 		
+		// Setup a footer view for the table with a "show more"
+		// messages button and summary of messages shown.
+		self.loadMoreStatusLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+		self.loadMoreStatusLabel.textAlignment = UITextAlignmentCenter;
+		self.loadMoreStatusLabel.font = [UIFont systemFontOfSize:11.0f];
+		self.loadMoreStatusLabel.textColor = [UIColor darkGrayColor];
+		self.loadMoreStatusLabel.numberOfLines = 2;
+		self.loadMoreStatusLabel.backgroundColor = [UIColor clearColor];
+		self.loadMoreStatusLabel.opaque = NO;
+		[self.loadMoreStatusLabel setFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width-(2 * MSG_LIST_LOAD_MORE_BUTTON_MARGIN), MSG_LIST_LOAD_MORE_LABEL_HEIGHT)];
+		
+		self.loadMoreButton = [UIHelper buttonWithBackgroundColor:[UIColor lightGrayColor]
+		andTitleColor:[UIColor whiteColor]
+		andTarget:self andAction:@selector(loadMoreMsgs)
+			andTitle:LOCALIZED_STR(@"MESSAGE_LIST_LOAD_MORE_MESSAGES_BUTTON_TITLE")
+		andFontSize:MSG_LIST_LOAD_MORE_BUTTON_FONT];
+
+		CGRect buttonFrame = CGRectMake(MSG_LIST_LOAD_MORE_BUTTON_MARGIN, MSG_LIST_LOAD_MORE_LABEL_HEIGHT,
+			[UIScreen mainScreen].bounds.size.width-(2 * MSG_LIST_LOAD_MORE_BUTTON_MARGIN),
+			MSG_LIST_LOAD_MORE_BUTTON_HEIGHT);
+		[loadMoreButton setFrame:buttonFrame];
+		
+		self.loadMoreMsgsTableFooter = [[[UIView alloc] initWithFrame:CGRectMake(0,0,
+			[UIScreen mainScreen].bounds.size.width,MSG_LIST_LOAD_MORE_FOOTER_HEIGHT)] autorelease];
+		[self.loadMoreMsgsTableFooter addSubview:self.loadMoreStatusLabel];
+		[self.loadMoreMsgsTableFooter addSubview:self.loadMoreButton];
+
+		
+		self.msgListTableView.tableFooterView = self.loadMoreMsgsTableFooter;
+
 		self.msgListActionFooter = [[[EmailInfoActionView alloc] init] autorelease];
 		[self addSubview:self.msgListActionFooter];
 		
@@ -71,10 +122,31 @@
 
 }
 
+-(void)updateLoadedMessageCount:(NSUInteger)msgsLoaded
+	andTotalMessageCount:(NSUInteger)totalMessageCount
+{
+	NSLog(@"MsgListView: Update message counts: loaded %d of total %d", msgsLoaded,totalMessageCount);
+	if(msgsLoaded < totalMessageCount)
+	{
+		self.loadMoreStatusLabel.text = [NSString stringWithFormat:LOCALIZED_STR(@"MESSAGE_LIST_LOAD_FIRST_STATUS_FORMAT"),
+			msgsLoaded,totalMessageCount];
+		self.loadMoreButton.hidden = FALSE;
+	}
+	else
+	{
+		self.loadMoreStatusLabel.text = [NSString stringWithFormat:LOCALIZED_STR(@"MESSAGE_LIST_LOAD_ALL_STATUS_FORMAT"),
+			totalMessageCount];
+		self.loadMoreButton.hidden = TRUE;
+	}
+}
+
 -(void)dealloc
 {
 	[msgListActionFooter release];
 	[msgListTableView release];
+	[loadMoreMsgsTableFooter release];
+	[loadMoreStatusLabel release];
+	[loadMoreButton release];
 	[super dealloc];
 }
 

@@ -28,6 +28,8 @@ extern const CGFloat EMAIL_ACTION_VIEW_HEIGHT;
 		UILabel *statusLabel;
 		CGFloat syncProgress;
 		
+		UILabel *numSelectedMsgsLabel;
+		
 		id<EmailActionViewDelegate> delegate;
 }
 
@@ -37,8 +39,11 @@ extern const CGFloat EMAIL_ACTION_VIEW_HEIGHT;
 @property(nonatomic,retain) UIButton *refreshMsgsButton;
 @property(nonatomic,retain) UIActivityIndicatorView *refeshActivityIndicator;
 @property(nonatomic,retain) UILabel *statusLabel;
+@property(nonatomic,retain) UILabel *numSelectedMsgsLabel;
 
 @property(nonatomic,assign) id<EmailActionViewDelegate> delegate;
+
+-(void)updateMsgCount:(NSUInteger)selectedMsgCount;
 
 @end
 

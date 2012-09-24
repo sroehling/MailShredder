@@ -331,7 +331,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 255.0f;
 	[self refreshMessageFilterHeader];
 		// TODO - Need to update selection to only include those messages which are seen.
 
-	[self configureFetchedResultsController];
+	[self configureFetchedResultsController:TRUE];
 }
 
 

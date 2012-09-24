@@ -16,9 +16,12 @@
 #import "EmailAccount.h"
 #import "DateHelper.h"
 
-CGFloat const EMAIL_ACTION_VIEW_HEIGHT = 50.0;
-CGFloat const EMAIL_ACTION_VIEW_TOP_ROW_VERT_CENTER = 15.0;
-CGFloat const EMAIL_ACTION_VIEW_TOP_ROW_HEIGHT = 30.0;
+CGFloat const EMAIL_ACTION_VIEW_HEIGHT = 55.0;
+CGFloat const EMAIL_ACTION_VIEW_SELECTION_ROW_HEIGHT = 5.0;
+
+CGFloat const EMAIL_ACTION_VIEW_BUTTON_ROW_VERT_CENTER = 15.0;
+CGFloat const EMAIL_ACTION_VIEW_BUTTON_ROW_HEIGHT = 30.0;
+
 CGFloat const EMAIL_ACTION_VIEW_HORIZ_MARGIN = 8.0;
 CGFloat const EMAIL_ACTION_VIEW_STATUS_ROW_HEIGHT = 18.0;
 
@@ -36,6 +39,7 @@ CGFloat const  EMAIL_ACTION_VIEW_STATUS_LABEL_FONT_SIZE = 11.0f;
 @synthesize refreshMsgsButton;
 @synthesize refeshActivityIndicator;
 @synthesize statusLabel;
+@synthesize numSelectedMsgsLabel;
 
 @synthesize delegate;
 
@@ -56,6 +60,18 @@ CGFloat const  EMAIL_ACTION_VIEW_STATUS_LABEL_FONT_SIZE = 11.0f;
 
 }
 
+-(UILabel*)emailInfoViewStatusLabel
+{
+	UILabel *theStatusLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+	theStatusLabel.textAlignment = UITextAlignmentCenter;
+	theStatusLabel.font = [UIFont systemFontOfSize:EMAIL_ACTION_VIEW_STATUS_LABEL_FONT_SIZE];
+	theStatusLabel.textColor = [UIColor whiteColor];
+	theStatusLabel.numberOfLines = 1;
+	theStatusLabel.backgroundColor = [UIColor clearColor];
+	theStatusLabel.opaque = NO;
+	return theStatusLabel;
+}
+
 -(id)init
 {
 	CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
@@ -66,17 +82,13 @@ CGFloat const  EMAIL_ACTION_VIEW_STATUS_LABEL_FONT_SIZE = 11.0f;
 		self.autoresizesSubviews = YES;
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		
-		self.statusLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-		self.statusLabel.textAlignment = UITextAlignmentCenter;
-		self.statusLabel.font = [UIFont systemFontOfSize:EMAIL_ACTION_VIEW_STATUS_LABEL_FONT_SIZE];
-		self.statusLabel.textColor = [UIColor whiteColor];
-		self.statusLabel.numberOfLines = 1;
-		self.statusLabel.backgroundColor = [UIColor clearColor];
-		self.statusLabel.opaque = NO;
+		self.statusLabel = [self emailInfoViewStatusLabel];
 		self.statusLabel.text = [self lastUpdatedStatus];
- 
 		[self addSubview:self.statusLabel];
 		
+		self.numSelectedMsgsLabel = [self emailInfoViewStatusLabel];
+ 		[self addSubview:self.numSelectedMsgsLabel];
+
 		if([AppHelper generatingLaunchScreen])
 		{
 			self.statusLabel.hidden = TRUE;
@@ -110,9 +122,6 @@ CGFloat const  EMAIL_ACTION_VIEW_STATUS_LABEL_FONT_SIZE = 11.0f;
 			andTarget:self andAction:@selector(selectAll)];
 		[self addSubview:self.selectAllButton];
 		
-		
-		
-
 		self.unselectAllButton = [UIHelper imageButton:@"msgActionButton.png" 
 		    andSize:actionButtonSize
 			withTitle:unselectAllTitle
@@ -137,6 +146,7 @@ CGFloat const  EMAIL_ACTION_VIEW_STATUS_LABEL_FONT_SIZE = 11.0f;
 	[unselectAllButton release];
 	[refeshActivityIndicator release];
 	[statusLabel release];
+	[numSelectedMsgsLabel release];
 	[super dealloc];
 }
 
@@ -175,6 +185,8 @@ CGFloat const  EMAIL_ACTION_VIEW_STATUS_LABEL_FONT_SIZE = 11.0f;
 {
 	[super layoutSubviews];
 	
+	CGFloat currYOffset = EMAIL_ACTION_VIEW_SELECTION_ROW_HEIGHT;
+	
 	CGFloat centerButtonsWidth = 
 		self.selectAllButton.frame.size.width +
 		self.unselectAllButton.frame.size.width + 
@@ -185,21 +197,31 @@ CGFloat const  EMAIL_ACTION_VIEW_STATUS_LABEL_FONT_SIZE = 11.0f;
 	// Layout the 2 center buttons for select and unselect all.		
 	CGRect buttonFrame = self.unselectAllButton.frame;
 	buttonFrame.origin.x = currXOffset;
-	buttonFrame.origin.y = EMAIL_ACTION_VIEW_TOP_ROW_VERT_CENTER - buttonFrame.size.height/2.0;
+	buttonFrame.origin.y = currYOffset + EMAIL_ACTION_VIEW_BUTTON_ROW_VERT_CENTER - buttonFrame.size.height/2.0;
 	[self.unselectAllButton setFrame:buttonFrame];
 	
 	currXOffset += buttonFrame.size.width + ACTION_BUTTON_SPACE;
 	
 	buttonFrame = self.selectAllButton.frame;
 	buttonFrame.origin.x = currXOffset;
-	buttonFrame.origin.y = EMAIL_ACTION_VIEW_TOP_ROW_VERT_CENTER - buttonFrame.size.height/2.0;
+	buttonFrame.origin.y = currYOffset + EMAIL_ACTION_VIEW_BUTTON_ROW_VERT_CENTER - buttonFrame.size.height/2.0;
 	[self.selectAllButton setFrame:buttonFrame];
+
 	
 	// Layout the button for deleting selected/all messages on the RHS of the view		
 	buttonFrame = self.emailActionsButton.frame;
 	buttonFrame.origin.x = self.frame.size.width - buttonFrame.size.width - EMAIL_ACTION_VIEW_HORIZ_MARGIN;
 	buttonFrame.origin.y = EMAIL_ACTION_VIEW_HEIGHT/2.0 - buttonFrame.size.height/2.0;
 	[self.emailActionsButton setFrame:buttonFrame];
+	
+	// Center the selection count above the delete button
+	[self.numSelectedMsgsLabel sizeToFit];
+	CGRect numMsgsFrame = self.numSelectedMsgsLabel.frame;
+	numMsgsFrame.origin.x = buttonFrame.origin.x + buttonFrame.size.width/2.0 -
+		numMsgsFrame.size.width/2.0;
+	numMsgsFrame.origin.y = 2.0;
+	[self.numSelectedMsgsLabel setFrame:numMsgsFrame];
+
 
 
 	// Layout the refresh button on the LHS of the view
@@ -215,14 +237,29 @@ CGFloat const  EMAIL_ACTION_VIEW_STATUS_LABEL_FONT_SIZE = 11.0f;
 	refreshIndicatorFrame.origin.y = buttonFrame.origin.y + buttonFrame.size.height/2.0 
 		- refreshIndicatorFrame.size.height/2.0;; //buttonFrame.origin.y;
 	[self.refeshActivityIndicator setFrame:refreshIndicatorFrame];
+	
+	currYOffset += EMAIL_ACTION_VIEW_BUTTON_ROW_HEIGHT;
 
 	CGRect statusFrame = self.statusLabel.frame;
 	statusFrame.origin.x = 0.0;
-	statusFrame.origin.y = EMAIL_ACTION_VIEW_TOP_ROW_HEIGHT;
+	statusFrame.origin.y = currYOffset;
 	statusFrame.size.width = self.frame.size.width;
 	statusFrame.size.height = EMAIL_ACTION_VIEW_STATUS_ROW_HEIGHT;
 	[self.statusLabel setFrame:statusFrame];
 		
+}
+
+-(void)updateMsgCount:(NSUInteger)selectedMsgCount
+{
+	if(selectedMsgCount>0)
+	{
+		self.numSelectedMsgsLabel.text = [NSString stringWithFormat:@"%d",selectedMsgCount];
+	}
+	else
+	{
+		self.numSelectedMsgsLabel.text = @"";
+	}
+	[self.numSelectedMsgsLabel sizeToFit];
 }
 
 #pragma mark MailSyncProgressDelegate

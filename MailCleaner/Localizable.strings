@@ -42,6 +42,9 @@
 "MESSAGE_LIST_LOAD_FILTER_FILTER_SECTION_TITLE" = "Load Filter";
 "MESSAGE_LIST_ACTION_EDIT_CURRENT_FILTER_TITLE" = "Edit ...";
 "MESSAGE_LIST_ACTION_SAVE_CURRENT_FILTER_TITLE" = "Save ...";
+"MESSAGE_LIST_LOAD_MORE_MESSAGES_BUTTON_TITLE" = "Show More Messages";
+"MESSAGE_LIST_LOAD_FIRST_STATUS_FORMAT" = "Showing first %d of %d messages matching current filter";
+"MESSAGE_LIST_LOAD_ALL_STATUS_FORMAT" = "Showing all %d messages matching current filter";
 
 
 "MSG_DETAIL_VIEW_TITLE" = "Message";
