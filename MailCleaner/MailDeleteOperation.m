@@ -274,10 +274,7 @@
 	}
 	
 	// Delete the local EmailInfo objects for the messages just deleted
-	for(EmailInfo *markedForDeletion  in msgsMarkedForDeletion)
-	{
-		[self.connectionContext.syncDmc deleteObject:markedForDeletion];
-	}
+	[self.connectionContext.syncDmc deleteObjects:msgsMarkedForDeletion];
 	
 	[serverFoldersToExpunge release];
 	[folderByPath release];

@@ -24,8 +24,6 @@
 "MESSAGE_SYNC_FAILURE_ALERT_MSG" = "There was a failure connecting to the current email account. Double-check the email account settings and your internet connection then try again.";
 "MESSAGE_SYNC_FAILURE_ALERT_BUTTON_TITLE" = "Ok";
 
-
-
 "MESSAGE_FILTER_TITLE" = "Message Filter";
 "MESSAGE_FILTER_FORM_SUBHEADER_TEXT" = "The parameters below configure which messages are shown in the message list. A message must match all the parameters to be shown.";
 "MESSAGE_FILTER_RESET_FILTER_BUTTON_TITLE" = "Reset Filter";
@@ -45,6 +43,7 @@
 "MESSAGE_LIST_LOAD_MORE_MESSAGES_BUTTON_TITLE" = "Show More Messages";
 "MESSAGE_LIST_LOAD_FIRST_STATUS_FORMAT" = "Showing first %d of %d messages matching current filter";
 "MESSAGE_LIST_LOAD_ALL_STATUS_FORMAT" = "Showing all %d messages matching current filter";
+"MESSAGE_LIST_LOAD_NO_MATCHING_STATUS" = "No messages matching current filter";
 
 
 "MSG_DETAIL_VIEW_TITLE" = "Message";

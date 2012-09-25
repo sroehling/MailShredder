@@ -64,6 +64,12 @@
 	[fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
 	
 	NSPredicate *currentAcctPredicate = [MsgPredicateHelper emailInfoInCurrentAcctPredicate:appDmc];
+	
+	// Once a message has been confirmed for deletion, it no longer needs to be shown
+	// in the message list or used for counting the number of messages matching each
+	// filter.
+	NSPredicate *notDeletedPredicate = [NSPredicate predicateWithFormat:@"%K == %@",
+		EMAIL_INFO_DELETED_KEY,[NSNumber numberWithBool:FALSE]];
 		
 	NSDate *baseDate = [DateHelper today];
 	NSPredicate *filterPredicate = [msgFilter filterPredicate:baseDate];
@@ -71,7 +77,7 @@
 	
 	
 	NSPredicate *matchFilterInCurrentAcct = [NSCompoundPredicate andPredicateWithSubpredicates:
-		[NSArray arrayWithObjects:currentAcctPredicate, filterPredicate,nil]];
+		[NSArray arrayWithObjects:currentAcctPredicate, filterPredicate,notDeletedPredicate,nil]];
 
 	[fetchRequest setPredicate:matchFilterInCurrentAcct];
 	[fetchRequest setFetchBatchSize:20];

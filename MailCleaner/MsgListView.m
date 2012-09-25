@@ -58,7 +58,7 @@ static CGFloat const MSG_LIST_LOAD_MORE_FOOTER_HEIGHT = 50.0f;
 		self.loadMoreStatusLabel.textAlignment = UITextAlignmentCenter;
 		self.loadMoreStatusLabel.font = [UIFont systemFontOfSize:11.0f];
 		self.loadMoreStatusLabel.textColor = [UIColor darkGrayColor];
-		self.loadMoreStatusLabel.numberOfLines = 2;
+		self.loadMoreStatusLabel.numberOfLines = 1;
 		self.loadMoreStatusLabel.backgroundColor = [UIColor clearColor];
 		self.loadMoreStatusLabel.opaque = NO;
 		[self.loadMoreStatusLabel setFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width-(2 * MSG_LIST_LOAD_MORE_BUTTON_MARGIN), MSG_LIST_LOAD_MORE_LABEL_HEIGHT)];
@@ -126,7 +126,12 @@ static CGFloat const MSG_LIST_LOAD_MORE_FOOTER_HEIGHT = 50.0f;
 	andTotalMessageCount:(NSUInteger)totalMessageCount
 {
 	NSLog(@"MsgListView: Update message counts: loaded %d of total %d", msgsLoaded,totalMessageCount);
-	if(msgsLoaded < totalMessageCount)
+	if(totalMessageCount == 0)
+	{
+		self.loadMoreStatusLabel.text = LOCALIZED_STR(@"MESSAGE_LIST_LOAD_NO_MATCHING_STATUS");
+		self.loadMoreButton.hidden = TRUE;
+	}
+	else if(msgsLoaded < totalMessageCount)
 	{
 		self.loadMoreStatusLabel.text = [NSString stringWithFormat:LOCALIZED_STR(@"MESSAGE_LIST_LOAD_FIRST_STATUS_FORMAT"),
 			msgsLoaded,totalMessageCount];

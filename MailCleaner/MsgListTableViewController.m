@@ -33,7 +33,8 @@
 #import "MBProgressHUD.h"
 
 
-static NSUInteger const MSG_LIST_STARTING_PAGE_SIZE = 100;
+static NSUInteger const MSG_LIST_STARTING_PAGE_SIZE = 5;
+static CGFloat const MSG_LIST_COMPLETE_STATUS_HUD_DISPLAY_TIME = 3.0f;
 
 @implementation MsgListTableViewController
 
@@ -311,6 +312,7 @@ static NSUInteger const MSG_LIST_STARTING_PAGE_SIZE = 100;
 	AppDelegate *appDelegate = [AppHelper theAppDelegate];
 	assert(appDelegate.mailSyncProgressDelegates != nil);
 	[appDelegate.mailSyncProgressDelegates addSubDelegate:self.msgListView.msgListActionFooter];
+	[appDelegate.mailSyncProgressDelegates addSubDelegate:self];
 	[appDelegate.mailDeleteProgressDelegates addSubDelegate:self.msgListView.msgListActionFooter];
 	[appDelegate.mailDeleteProgressDelegates addSubDelegate:self];
 }
@@ -348,7 +350,8 @@ static NSUInteger const MSG_LIST_STARTING_PAGE_SIZE = 100;
 	// takes place.
 	AppDelegate *appDelegate = [AppHelper theAppDelegate];
 	assert(appDelegate.mailSyncProgressDelegates != nil);
-	[appDelegate.mailSyncProgressDelegates removeSubDelegate:self.msgListView.msgListActionFooter];	
+	[appDelegate.mailSyncProgressDelegates removeSubDelegate:self.msgListView.msgListActionFooter];
+	[appDelegate.mailSyncProgressDelegates removeSubDelegate:self];
 	[appDelegate.mailDeleteProgressDelegates removeSubDelegate:self.msgListView.msgListActionFooter];
 	[appDelegate.mailDeleteProgressDelegates removeSubDelegate:self];
 }
@@ -383,7 +386,7 @@ static NSUInteger const MSG_LIST_STARTING_PAGE_SIZE = 100;
 	hud.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"deletemsgsdone.png"]] autorelease];
 
 	[hud show:TRUE];
-	[hud hide:YES afterDelay:4];
+	[hud hide:YES afterDelay:MSG_LIST_COMPLETE_STATUS_HUD_DISPLAY_TIME];
 
 }
 
@@ -398,6 +401,16 @@ static NSUInteger const MSG_LIST_STARTING_PAGE_SIZE = 100;
 			withObject:[mailDeleteCompletionInfo completionSummary] waitUntilDone:TRUE];
 		
 	}
+}
+
+-(void)reconfigFetchedResultsAfterSync
+{
+	[self configureFetchedResultsController:FALSE];
+}
+
+-(void)mailSyncComplete:(BOOL)successfulCompletion
+{
+	[self performSelectorOnMainThread:@selector(reconfigFetchedResultsAfterSync) withObject:nil waitUntilDone:TRUE];
 }
 
 #pragma mark EmailActionViewDelegate
@@ -535,6 +548,11 @@ static NSUInteger const MSG_LIST_STARTING_PAGE_SIZE = 100;
 		
 		AppDelegate *appDelegate = [AppHelper theAppDelegate];
 		[appDelegate deleteMarkedMsgsInBackgroundThread];
+
+		// Once the synchronization is complete, reconfigure
+		// the FRC. This ensures the number of messages shown
+		// stays within the current page size.
+		[self configureFetchedResultsController:FALSE];
 	}
 }
 

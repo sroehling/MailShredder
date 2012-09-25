@@ -30,7 +30,7 @@
 	// table views, etc.
     [self.mainThreadDmc.managedObjectContext 
 		performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) 
-		withObject:notification waitUntilDone:NO];
+		withObject:notification waitUntilDone:TRUE];
 
 }
 

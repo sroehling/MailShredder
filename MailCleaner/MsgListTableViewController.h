@@ -20,7 +20,8 @@
 @interface MsgListTableViewController : UIViewController 
 	<NSFetchedResultsControllerDelegate,UITableViewDelegate,
 		UITableViewDataSource,EmailActionViewDelegate,
-		CurrentEmailAccountChangedListener,MailDeleteProgressDelegate,
+		CurrentEmailAccountChangedListener,
+		MailDeleteProgressDelegate,MailSyncProgressDelegate,
 		DeleteMsgConfirmationViewDelegate,MsgListViewDelegate> {
 	@private
 		DataModelController *appDmc;
