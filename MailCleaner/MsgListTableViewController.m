@@ -33,7 +33,7 @@
 #import "MBProgressHUD.h"
 
 
-static NSUInteger const MSG_LIST_STARTING_PAGE_SIZE = 5;
+static NSUInteger const MSG_LIST_STARTING_PAGE_SIZE = 100;
 static CGFloat const MSG_LIST_COMPLETE_STATUS_HUD_DISPLAY_TIME = 3.0f;
 
 @implementation MsgListTableViewController
