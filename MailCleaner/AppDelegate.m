@@ -248,11 +248,18 @@
 	
 		
 	self.getBodyOperationQueue = [[[NSOperationQueue alloc] init] autorelease];
+	self.getBodyOperationQueue.maxConcurrentOperationCount = 1;
+	
 	self.mailSyncProgressDelegates = [[[CompositeMailSyncProgressDelegate alloc] init] autorelease];
 	self.mailDeleteProgressDelegates = [[[CompositeMailDeleteProgressDelegate alloc] init] autorelease];
+	
 	self.msgSyncAndDeleteOperationQueue = [[[NSOperationQueue alloc] init] autorelease];
+	// For synchronization and deletion, the maximum concurrency count is 1, since both sync
+	// and delete operations work on the same objects, notably including EmailFolder and EmailInfo.
+	self.msgSyncAndDeleteOperationQueue.maxConcurrentOperationCount = 1;
 	
 	self.countMessageFilterCountsQueue = [[[NSOperationQueue alloc] init] autorelease];
+	self.countMessageFilterCountsQueue.maxConcurrentOperationCount = 1;
 
 
 	NSString *msgViewTitle = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
