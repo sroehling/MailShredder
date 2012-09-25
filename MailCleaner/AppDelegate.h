@@ -36,9 +36,8 @@
 		
 		CompositeMailSyncProgressDelegate *mailSyncProgressDelegates;
 		CompositeMailDeleteProgressDelegate *mailDeleteProgressDelegates;
-		NSOperationQueue *msgSyncAndDeleteOperationQueue;
+		NSOperationQueue *backgroundOperationsQueue;
 
-		NSOperationQueue *countMessageFilterCountsQueue;
 		
 		NSMutableSet *accountChangeListers;
 		
@@ -61,12 +60,11 @@
 
 @property(nonatomic,retain) CompositeMailSyncProgressDelegate *mailSyncProgressDelegates;
 @property(nonatomic,retain) CompositeMailDeleteProgressDelegate *mailDeleteProgressDelegates;
-@property(nonatomic,retain) NSOperationQueue *msgSyncAndDeleteOperationQueue;
+@property(nonatomic,retain) NSOperationQueue *backgroundOperationsQueue;
 
 
 @property(nonatomic,retain) EmailAccountAdder *emailAccountAdder;
 @property(nonatomic,retain) NSOperationQueue *getBodyOperationQueue;
-@property(nonatomic,retain) NSOperationQueue *countMessageFilterCountsQueue;
 
 @property(nonatomic,retain) NSMutableSet *accountChangeListers;
 

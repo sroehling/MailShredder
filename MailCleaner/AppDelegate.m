@@ -45,8 +45,7 @@
 @synthesize getBodyOperationQueue;
 @synthesize accountChangeListers;
 @synthesize messageListNavController;
-@synthesize countMessageFilterCountsQueue;
-@synthesize msgSyncAndDeleteOperationQueue;
+@synthesize backgroundOperationsQueue;
 @synthesize mailDeleteProgressDelegates;
 @synthesize passcodeValidator;
 @synthesize passcodeSetter;
@@ -61,8 +60,7 @@
 	[emailAccountAdder release];
 	[getBodyOperationQueue release];
 	[accountChangeListers release];
-	[countMessageFilterCountsQueue release];
-	[msgSyncAndDeleteOperationQueue release];
+	[backgroundOperationsQueue release];
 	[mailDeleteProgressDelegates release];
 	[passcodeValidator release];
 	[passcodeSetter release];
@@ -253,14 +251,11 @@
 	self.mailSyncProgressDelegates = [[[CompositeMailSyncProgressDelegate alloc] init] autorelease];
 	self.mailDeleteProgressDelegates = [[[CompositeMailDeleteProgressDelegate alloc] init] autorelease];
 	
-	self.msgSyncAndDeleteOperationQueue = [[[NSOperationQueue alloc] init] autorelease];
+	self.backgroundOperationsQueue = [[[NSOperationQueue alloc] init] autorelease];
 	// For synchronization and deletion, the maximum concurrency count is 1, since both sync
 	// and delete operations work on the same objects, notably including EmailFolder and EmailInfo.
-	self.msgSyncAndDeleteOperationQueue.maxConcurrentOperationCount = 1;
+	self.backgroundOperationsQueue.maxConcurrentOperationCount = 1;
 	
-	self.countMessageFilterCountsQueue = [[[NSOperationQueue alloc] init] autorelease];
-	self.countMessageFilterCountsQueue.maxConcurrentOperationCount = 1;
-
 
 	NSString *msgViewTitle = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
 	if([AppHelper generatingLaunchScreen])
@@ -329,7 +324,10 @@
 	MessageFilterCountOperation *countMsgsOperation = 
 		[[[MessageFilterCountOperation alloc] initWithMainThreadDmc:self.appDmc 
 		andEmailAccount:self.sharedAppVals.currentEmailAcct] autorelease];
-	[self.countMessageFilterCountsQueue addOperation:countMsgsOperation];
+		
+	countMsgsOperation.queuePriority = NSOperationQueuePriorityHigh;
+		
+	[self.backgroundOperationsQueue addOperation:countMsgsOperation];
 }
 
 -(void)syncWithServerInBackgroundThread
@@ -338,8 +336,13 @@
 		initWithMainThreadDmc:self.appDmc
 		andProgressDelegate:self.mailSyncProgressDelegates] autorelease];
 		
-	[self.msgSyncAndDeleteOperationQueue addOperation:[[[MailSyncOperation alloc]  
-		initWithConnectionContext:syncConnectionContext andProgressDelegate:self.mailSyncProgressDelegates] autorelease]];
+	MailSyncOperation *syncOperation = [[[MailSyncOperation alloc]
+		initWithConnectionContext:syncConnectionContext
+		andProgressDelegate:self.mailSyncProgressDelegates] autorelease];
+		
+	syncOperation.queuePriority = NSOperationQueuePriorityLow;
+		
+	[self.backgroundOperationsQueue addOperation:syncOperation];
 }
 
 
@@ -349,9 +352,14 @@
 	MailSyncConnectionContext *syncConnectionContext = [[[MailSyncConnectionContext alloc]
 		initWithMainThreadDmc:self.appDmc
 		andProgressDelegate:self.mailDeleteProgressDelegates] autorelease];
+	
+	MailDeleteOperation *deleteOperation = [[[MailDeleteOperation alloc]  
+		initWithConnectionContext:syncConnectionContext
+		andProgressDelegate:self.mailDeleteProgressDelegates] autorelease];
 		
-	[self.msgSyncAndDeleteOperationQueue addOperation:[[[MailDeleteOperation alloc]  
-		initWithConnectionContext:syncConnectionContext andProgressDelegate:self.mailDeleteProgressDelegates] autorelease]];
+	deleteOperation.queuePriority = NSOperationQueuePriorityNormal;
+		
+	[self.backgroundOperationsQueue addOperation:deleteOperation];
 
 }
 
