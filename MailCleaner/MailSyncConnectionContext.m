@@ -52,6 +52,8 @@
 
 		self.emailAcctInfo = sharedVals.currentEmailAcct;
 		
+		contextIsSetup = FALSE;
+		
 
 	}
 	return self;
@@ -113,22 +115,33 @@
 	// are thread specific.
 	// The per-thread DataModelController (and underlynig NSManagedObjectContext) must be 
 	// allocated in the worker thread.
-	self.syncDmc = [[[DataModelController alloc] 
-			initWithPersistentStoreCoord:self.mainThreadDmc.managedObjectContext.persistentStoreCoordinator] autorelease];
-			
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-		selector:@selector(mailSyncThreadDidSaveNotificationHandler:)
-		name:NSManagedObjectContextDidSaveNotification 
-		object:self.syncDmc.managedObjectContext];
+	
+	if(!contextIsSetup)
+	{
+		self.syncDmc = [[[DataModelController alloc] 
+				initWithPersistentStoreCoord:self.mainThreadDmc.managedObjectContext.persistentStoreCoordinator] autorelease];
+				
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+			selector:@selector(mailSyncThreadDidSaveNotificationHandler:)
+			name:NSManagedObjectContextDidSaveNotification 
+			object:self.syncDmc.managedObjectContext];
+		
+		contextIsSetup = TRUE;
+	}
+		
+	
 }
 
 -(void)teardownContext
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self 
-			name:NSManagedObjectContextDidSaveNotification 
-			object:self.syncDmc.managedObjectContext];
-			
-	[syncDmc release];
+	if(contextIsSetup)
+	{
+		[[NSNotificationCenter defaultCenter] removeObserver:self 
+				name:NSManagedObjectContextDidSaveNotification 
+				object:self.syncDmc.managedObjectContext];
+				
+		[syncDmc release];
+	}
 }
 
 -(BOOL)establishConnection

@@ -22,6 +22,8 @@
 		CTCoreAccount *mailAcct;
 		EmailAccount *emailAcctInfo;
 		id<MailServerConnectionProgressDelegate> progressDelegate;
+		
+		BOOL contextIsSetup;
 
 }
 
@@ -38,9 +40,14 @@
 	andProgressDelegate:(id<MailServerConnectionProgressDelegate>)theProgressDelegate;
 	
 -(EmailAccount*)acctInSyncObjectContext;	
-	
+
+// The following happen in order when a connection context
+// is used for mail synchronization or delete.
+-(void)setupContext;
 -(BOOL)establishConnection;
 -(void)teardownConnection;
+-(void)teardownContext;
+
 -(void)saveLocalChanges;
 
 @end

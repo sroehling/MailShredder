@@ -304,6 +304,21 @@
 -(void)main
 {
 
+	// Every time messages have been confirmed  for deletion, a new MailDeleteOperation is queued up.
+	// However, if 2 or more operations are in the queue, then the first one will delete all the messages.
+	// In this case, there won't be any messages left which are marked for deletion, and the
+	// operation can be terminated before connecting to the mail server, etc.
+	[self.connectionContext setupContext];
+	
+	NSUInteger countOfMsgsMarkedForDeletion = [self.connectionContext.syncDmc
+		countObjectsForEntityName:EMAIL_INFO_ENTITY_NAME andPredicate:[MsgPredicateHelper markedForDeletion]];
+	if(countOfMsgsMarkedForDeletion == 0)
+	{
+		NSLog(@"Message deletion operation: No messages currently marked for deletion: no operation needed");
+		[self.connectionContext teardownContext];
+		return;
+	}
+
 	MailDeleteCompletionInfo *deleteCompletionInfo = nil;
 	if([self.connectionContext establishConnection])
 	{
