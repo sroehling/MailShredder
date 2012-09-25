@@ -10,11 +10,12 @@
 #import "TableCellHelper.h"
 #import "ColorHelper.h"
 
-CGFloat const MSG_TABLE_CELL_LEFT_MARGIN = 5.0f;
-CGFloat const MSG_TABLE_CELL_TOP_MARGIN = 5.0f;
-CGFloat const MSG_TABLE_CELL_RIGHT_MARGIN = 5.0f;
-CGFloat const MSG_TABLE_CELL_LABEL_HORIZ_SPACE = 5.0f;
-CGFloat const MSG_TABLE_CELL_HEADER_FONT_SIZE = 13.0f;
+static CGFloat const MSG_TABLE_CELL_LEFT_MARGIN = 5.0f;
+static CGFloat const MSG_TABLE_CELL_TOP_MARGIN = 5.0f;
+static CGFloat const MSG_TABLE_CELL_RIGHT_MARGIN = 5.0f;
+static CGFloat const MSG_TABLE_CELL_LABEL_HORIZ_SPACE = 5.0f;
+static CGFloat const MSG_TABLE_CELL_HEADER_FONT_SIZE = 13.0f;
+static CGFloat const MSG_TABLE_CELL_SUBJECT_FLAG_SPACE = 2.0f;
 
 NSString *const MSG_TABLE_CELL_IDENTIFIER = @"MsgTableCell";
 
@@ -152,7 +153,8 @@ NSString *const MSG_TABLE_CELL_IDENTIFIER = @"MsgTableCell";
 	CGRect subjectFrame = self.subjectLabel.frame;
 	subjectFrame.origin.x = fromFrame.origin.x;
 	subjectFrame.origin.y = secondRowYStart;
-	subjectFrame.size.width = contentFrame.size.width - MSG_TABLE_CELL_RIGHT_MARGIN - subjectFrame.origin.x;
+	// Make the subject frame just wide enough so it doesn't bump into the message flag indicator.
+	subjectFrame.size.width = flagFrame.origin.x - subjectFrame.origin.x - MSG_TABLE_CELL_SUBJECT_FLAG_SPACE;
 	[self.subjectLabel setFrame:subjectFrame]; 
 }
 
