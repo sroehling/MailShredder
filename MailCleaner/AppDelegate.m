@@ -349,6 +349,15 @@
 -(void)deleteMarkedMsgsInBackgroundThread
 {
 
+	// Assuming this method was called after marking more messages for deletion, we
+	// also need to recalculate the filters' message filter counts. Even while,
+	// the deletion is taking place, this will give the user accurate feedback on
+	// the remaining number of messages matching the different filters. The
+	// counting operation must happen before the delete operation, which should
+	// happen because the couting operation is added to the queue first, but
+	// also has a higher priority.
+	[self updateMessageFilterCountsInBackground];
+
 	MailSyncConnectionContext *syncConnectionContext = [[[MailSyncConnectionContext alloc]
 		initWithMainThreadDmc:self.appDmc
 		andProgressDelegate:self.mailDeleteProgressDelegates] autorelease];
