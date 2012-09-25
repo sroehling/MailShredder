@@ -247,3 +247,10 @@
 "TIME_UNIT_MONTH" = "Month";
 "TIME_UNIT_YEAR" = "Year";
 
+/* This string is also defined in ResultraGenericLib. The ones here overrides the
+  more generic strings given the library */
+"PASSCODE_ENTRY_PROMPT" = "Enter a passcode for MailCleaner";
+"PASSCODE_VERIFY_PROMPT" = "Enter your MailCleaner passcode";
+
+
+

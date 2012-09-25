@@ -171,6 +171,7 @@
 		[[[PTPasscodeViewController alloc] initWithDelegate:passcodeDelegate] autorelease];
 	UINavigationController *passcodeNavController = [[[UINavigationController alloc]
 		   initWithRootViewController:passcodeViewController] autorelease];
+	passcodeNavController.navigationBar.tintColor = [ColorHelper navBarTintColor];;	
 
 	self.window.rootViewController = passcodeNavController;
     [self.window makeKeyAndVisible];
