@@ -103,15 +103,8 @@ NSInteger const MAX_SPECIFIC_DOMAIN_SYNOPSIS = 2;
 	}
 	else 
 	{
-		NSMutableArray *specificDomainPredicates = [[[NSMutableArray alloc] init] autorelease];
-		for(EmailDomain *senderDomain in self.selectedDomains)
-		{
-			[specificDomainPredicates addObject:[NSPredicate predicateWithFormat:@"%K == %@",
-				EMAIL_INFO_SENDER_DOMAIN_KEY,senderDomain]];
-		}
-
-		NSPredicate *matchSpecificDomains = 
-			[NSCompoundPredicate orPredicateWithSubpredicates:specificDomainPredicates];
+		NSPredicate *matchSpecificDomains = [NSPredicate predicateWithFormat:@"%K IN %@",
+				EMAIL_INFO_SENDER_DOMAIN_KEY,self.selectedDomains];
 			
 		if([self.matchUnselected boolValue])
 		{
