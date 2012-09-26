@@ -270,6 +270,8 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 255.0f;
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
+	
+	firstTimeLoading = TRUE;
   
  	NSString *viewTitle = LOCALIZED_STR(@"MESSAGES_VIEW_TITLE");
 	if([AppHelper generatingLaunchScreen])
@@ -344,7 +346,31 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 255.0f;
 	[super viewWillAppear:animated];
 	
 	[self refreshMessageFilterHeader];
+	
+	
 
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
+	
+	
+	// Each time the message list table view appears (or re-appears), update
+	// the message counts used in for the filter menu. This is important in the
+	// case that a filter is edited in the settings, then the user comes
+	// back to view the message list.
+	if(!firstTimeLoading)
+	{
+		// Only recalcuate the filter counts after the first time
+		// the view is loaded. This is in consideration that the
+		// message filters' counts are calculated at the end of a sync
+		// operation, and should be correct when the App was shut down.
+		AppDelegate *theAppDelegate = [AppHelper theAppDelegate];
+		[theAppDelegate updateMessageFilterCountsInBackground];
+	}
+	firstTimeLoading = FALSE;
+	
 }
 
 -(void)viewDidUnload

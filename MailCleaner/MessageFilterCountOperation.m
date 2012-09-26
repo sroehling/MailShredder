@@ -96,10 +96,20 @@
 				NSFetchRequest *savedFilterFetch = [MsgPredicateHelper 
 					emailInfoFetchRequestForDataModelController:msgCountsDmc andFilter:savedFilter];
 					
-				NSArray *matchingMsgs = [CoreDataHelper executeFetchOrThrow:savedFilterFetch 
-						inManagedObectContext:msgCountsDmc.managedObjectContext];
-				NSLog(@"Matching message count for filter: %@ = %d",savedFilter.filterName,[matchingMsgs count]);
-				savedFilter.matchingMsgs = [NSNumber numberWithInt:[matchingMsgs count]];	 
+				NSError *countError = nil;
+				NSUInteger filterMatchCount = [msgCountsDmc.managedObjectContext
+				countForFetchRequest:savedFilterFetch error:&countError];
+				if (countError != nil)
+				{
+					NSLog(@"Unresolved error %@", [countError description]);
+					[NSException raise:NSGenericException format:[countError description] arguments:nil];
+				}
+			
+				NSLog(@"Matching message count for filter: %@ = %d",savedFilter.filterName,filterMatchCount);
+				if([savedFilter.matchingMsgs unsignedIntegerValue] != filterMatchCount)
+				{
+					savedFilter.matchingMsgs = [NSNumber numberWithUnsignedInteger:filterMatchCount];
+				}
 			}
 			
 			[self.changeNotificationsLock lock];

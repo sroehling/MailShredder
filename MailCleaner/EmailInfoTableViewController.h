@@ -27,6 +27,8 @@
 		WEPopoverController *actionsPopupController;
 		WEPopoverController *loadFilterPopoverController;
 		DataModelController *editFilterDmc;
+		
+		BOOL firstTimeLoading;
 }
 
 @property(nonatomic,retain) MessageFilterTableHeader *messageFilterHeader;
