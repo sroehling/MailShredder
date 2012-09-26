@@ -13,7 +13,7 @@
 @class EmailAddress;
 @class EmailAddressFilter;
 
-@interface EmailAddressFieldEditInfo : StaticFieldEditInfo
+@interface EmailAddressFieldEditInfo : NSObject<FieldEditInfo>
 {
 	@private
 		EmailAddress* emailAddr;

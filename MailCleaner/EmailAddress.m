@@ -14,6 +14,7 @@
 
 NSString * const EMAIL_ADDRESS_ENTITY_NAME = @"EmailAddress";
 NSString * const EMAIL_ADDRESS_ACCT_KEY = @"addressAccount";
+NSString * const EMAIL_ADDRESS_NAME_OR_ADDRESS_KEY = @"nameOrAddress";
 
 @implementation EmailAddress
 

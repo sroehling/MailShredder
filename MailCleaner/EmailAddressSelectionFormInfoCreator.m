@@ -21,6 +21,7 @@
 #import "SectionInfo.h"
 #import "FormInfo.h"
 #import "SharedAppVals.h"
+#import "CollectionHelper.h"
 
 @implementation EmailAddressSelectionFormInfoCreator
 
@@ -43,6 +44,21 @@
 	return nil;
 }
 
+-(NSString*)emailAddressSectionName:(EmailAddress*)theAddress
+{
+	NSString *nameOrAddr = theAddress.nameOrAddress;
+	
+	if(nameOrAddr.length > 1)
+	{
+		// Skip the @ sign
+		return [nameOrAddr substringWithRange:NSMakeRange(1, 1)];
+	}
+	else
+	{
+		return @"";
+	}
+}
+
 - (FormInfo*)createFormInfoWithContext:(FormContext*)parentContext
 {
 
@@ -54,7 +70,6 @@
 	formPopulator.formInfo.objectAdder = [[[EmailAddressFilterAddressAdder alloc] 
 		initWithEmailAddressFilter:self.emailAddressFilter] autorelease];
 		
-	[formPopulator nextSection];
 	
 	SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:parentContext.dataModelController];
 	NSPredicate *currentAcctPredicate = [NSPredicate predicateWithFormat:@"%K=%@",
@@ -62,10 +77,29 @@
 		
 	NSArray *senderAddresses = [parentContext.dataModelController 
 		fetchObjectsForEntityName:EMAIL_ADDRESS_ENTITY_NAME andPredicate:currentAcctPredicate];
-	for(EmailAddress *senderAddress in senderAddresses)
+		
+	// Sort the addresses - If the email address is accompanied by a name, use the name;
+	// otherwise, use the characters in the email address.
+	NSArray *sortedAddresses = [CollectionHelper sortArray:senderAddresses
+			withKey:EMAIL_ADDRESS_NAME_OR_ADDRESS_KEY andAscending:TRUE];
+	
+	NSMutableArray *sectionIndices = [[[NSMutableArray alloc] init]autorelease];
+	
+	NSString *currentSectionName = nil;
+	
+	for(EmailAddress *senderAddress in sortedAddresses)
 	{
-		// Only display the address for selection if 
+		// Only display the address for selection if
 		// it is not already in the set of selected addresses.
+		NSString *emailAddrSectionName = [self emailAddressSectionName:senderAddress];
+		if(	(currentSectionName == nil)||
+			(![currentSectionName isEqualToString:emailAddrSectionName]))
+		{
+			currentSectionName = emailAddrSectionName;
+			[sectionIndices addObject:currentSectionName];
+			[formPopulator nextSectionWithTitle:currentSectionName];
+		}
+		
 		if([self.emailAddressFilter.selectedAddresses member:senderAddress] == nil)
 		{
 			EmailAddressFieldEditInfo *senderAddrFieldEditInfo = 
@@ -74,6 +108,8 @@
 			[formPopulator.currentSection addFieldEditInfo:senderAddrFieldEditInfo];
 		}
 	}
+	
+	formPopulator.formInfo.sectionIndices = sectionIndices;
 
 			
 	return formPopulator.formInfo;

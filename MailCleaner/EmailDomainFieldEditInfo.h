@@ -13,7 +13,7 @@
 @class EmailDomain;
 @class EmailDomainFilter;
 
-@interface EmailDomainFieldEditInfo : StaticFieldEditInfo
+@interface EmailDomainFieldEditInfo : NSObject <FieldEditInfo>
 {
 	@private
 		EmailDomain* emailDomain;

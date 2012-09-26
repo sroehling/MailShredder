@@ -13,6 +13,7 @@
 
 NSString * const EMAIL_DOMAIN_ENTITY_NAME = @"EmailDomain";
 NSString * const EMAIL_DOMAIN_ACCT_KEY = @"domainAcct";
+NSString * const EMAIL_DOMAIN_NAME_KEY = @"domainName";
 
 @implementation EmailDomain
 

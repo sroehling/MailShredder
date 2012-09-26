@@ -11,6 +11,9 @@
 #import "DataModelController.h"
 #import "EmailDomainFilter.h"
 
+static CGFloat const EMAIL_DOMAIN_CELL_HEIGHT = 25.0f;
+static NSString * const EMAIL_DOMAIN_FIELD_CELL_ID = @"EmailDomainFieldCellID";
+
 @implementation EmailDomainFieldEditInfo
 
 @synthesize emailDomain;
@@ -18,22 +21,13 @@
 
 -(id)initWithEmailDomain:(EmailDomain*)theEmailDomain
 {
-	self = [super initWithManagedObj:theEmailDomain 
-		andCaption:theEmailDomain.domainName andContent:@""];
+	self = [super init];
 	if(self)
 	{
 		self.emailDomain = theEmailDomain;
 	}
 	return self;
 }
-
--(id)initWithManagedObj:(NSManagedObject *)theFieldObj andCaption:(NSString *)theCaption 
-	andContent:(NSString *)theContent
-{
-	assert(0);
-	return nil;
-}
-
 
 -(void)dealloc
 {
@@ -65,5 +59,57 @@
 	assert([self supportsDelete]);
 	[self.parentFilter removeSelectedDomainsObject:self.emailDomain];
 }
+
+
+- (CGFloat)cellHeightForWidth:(CGFloat)width
+{
+	return EMAIL_DOMAIN_CELL_HEIGHT;
+}
+
+- (UITableViewCell*)cellForFieldEdit:(UITableView *)tableView
+{
+    assert(tableView!=nil);
+	
+	UITableViewCell *tableCell = [tableView dequeueReusableCellWithIdentifier:EMAIL_DOMAIN_FIELD_CELL_ID];
+	if(tableCell == nil)
+	{
+		tableCell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+			reuseIdentifier:EMAIL_DOMAIN_FIELD_CELL_ID] autorelease];
+	}
+	
+	tableCell.textLabel.text = self.emailDomain.domainName;
+	tableCell.textLabel.font = [UIFont boldSystemFontOfSize:13.0f];
+	
+	return tableCell;
+		
+ }
+
+
+- (BOOL)fieldIsInitializedInParentObject
+{
+    return FALSE;
+}
+
+- (void)disableFieldAccess
+{
+    // no-op
+    // TBD - should this be a no-op
+}
+
+- (NSManagedObject*) managedObject
+{
+    return self.emailDomain;
+}
+
+- (NSString*)detailTextLabel
+{
+    return @"N/A";
+}
+
+- (NSString*)textLabel
+{
+    return @"N/A";
+}
+
 
 @end

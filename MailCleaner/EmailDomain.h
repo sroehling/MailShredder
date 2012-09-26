@@ -14,6 +14,7 @@
 
 extern NSString * const EMAIL_DOMAIN_ENTITY_NAME;
 extern NSString * const EMAIL_DOMAIN_ACCT_KEY;
+extern NSString * const EMAIL_DOMAIN_NAME_KEY;
 
 @interface EmailDomain : NSManagedObject
 {

@@ -16,6 +16,7 @@
 
 extern NSString * const EMAIL_ADDRESS_ENTITY_NAME;
 extern NSString * const EMAIL_ADDRESS_ACCT_KEY;
+extern NSString * const EMAIL_ADDRESS_NAME_OR_ADDRESS_KEY;
 
 @interface EmailAddress : NSManagedObject
 {

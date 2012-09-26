@@ -17,6 +17,7 @@
 #import "SectionInfo.h"
 #import "EmailDomainFilterDomainAdder.h"
 #import "SharedAppVals.h"
+#import "CollectionHelper.h"
 
 @implementation EmailDomainSelectionFormInfoCreator
 
@@ -39,6 +40,12 @@
 	return nil;
 }
 
+-(NSString*)domainSectionName:(EmailDomain*)domain
+{
+	NSString *sectionName = [domain.domainName substringToIndex:1];
+	return [sectionName uppercaseString];
+}
+
 - (FormInfo*)createFormInfoWithContext:(FormContext*)parentContext
 {
 
@@ -50,17 +57,35 @@
 	formPopulator.formInfo.objectAdder = [[[EmailDomainFilterDomainAdder alloc] 
 		initWithEmailDomainFilter:self.emailDomainFilter] autorelease];
 		
-	[formPopulator nextSection];
 	
 	SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:parentContext.dataModelController];
 	NSPredicate *currentAcctPredicate = [NSPredicate predicateWithFormat:@"%K=%@",
 		EMAIL_DOMAIN_ACCT_KEY,sharedVals.currentEmailAcct];
 
+
+	NSString *currentSectionName = nil;
+
+
+	NSMutableArray *sectionIndices = [[[NSMutableArray alloc] init] autorelease];
 		
 	NSArray *senderDomains = [parentContext.dataModelController 
 		fetchObjectsForEntityName:EMAIL_DOMAIN_ENTITY_NAME andPredicate:currentAcctPredicate];
-	for(EmailDomain *senderDomain in senderDomains)
+		
+	NSArray *sortedDomains = [CollectionHelper sortArray:senderDomains withKey:EMAIL_DOMAIN_NAME_KEY andAscending:TRUE];
+		
+	for(EmailDomain *senderDomain in sortedDomains)
 	{
+		NSString *domainSectionName = [self domainSectionName:senderDomain];
+		if((currentSectionName == nil) ||
+		   (![currentSectionName isEqualToString:domainSectionName]))
+		{
+			currentSectionName = domainSectionName;
+			[formPopulator nextSectionWithTitle:currentSectionName];
+			[sectionIndices addObject:currentSectionName];
+			
+		}
+	
+	
 		// Only display the domain for selection if 
 		// it is not already in the set of selected domains.
 		if([self.emailDomainFilter.selectedDomains member:senderDomain] == nil)
@@ -71,6 +96,8 @@
 			[formPopulator.currentSection addFieldEditInfo:senderDomainFieldEditInfo];
 		}
 	}
+
+	formPopulator.formInfo.sectionIndices = sectionIndices;
 
 	return formPopulator.formInfo;
 }
