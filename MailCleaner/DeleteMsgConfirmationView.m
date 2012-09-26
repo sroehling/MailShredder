@@ -17,6 +17,7 @@
 #import "AppHelper.h"
 #import "EmailAddress.h"
 #import "MsgDetailHelper.h"
+#import "CollectionHelper.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -81,7 +82,10 @@ CGFloat const DELETE_CONFIRMATION_CAPTION_WIDTH = 60.0f;
 	
 		assert(theMsgsToDelete != nil);
 		assert([theMsgsToDelete count] > 0);
-		self.msgsToDelete = theMsgsToDelete;
+
+		self.msgsToDelete = [CollectionHelper sortArray:theMsgsToDelete
+			withKey:EMAIL_INFO_SEND_DATE_KEY andAscending:FALSE];
+
 		currentMsgIndex = 0;
 		self.delegate = deleteDelegate;
 		
