@@ -48,10 +48,9 @@
 {
 	NSString *nameOrAddr = theAddress.nameOrAddress;
 	
-	if(nameOrAddr.length > 1)
+	if(nameOrAddr.length > 0)
 	{
-		// Skip the @ sign
-		return [nameOrAddr substringWithRange:NSMakeRange(1, 1)];
+		return [[nameOrAddr substringToIndex:1] uppercaseString];
 	}
 	else
 	{
