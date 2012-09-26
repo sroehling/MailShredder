@@ -31,19 +31,19 @@ extern NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH;
 @interface MessageFilter : NSManagedObject
 
 @property (nonatomic, retain) NSString * filterName;
+
 @property (nonatomic, retain) AgeFilter *ageFilter;
 @property (nonatomic, retain) EmailDomainFilter *emailDomainFilter;
 @property (nonatomic, retain) EmailFolderFilter *folderFilter;
-
+@property (nonatomic, retain) ReadFilter *readFilter;
+@property (nonatomic, retain) StarredFilter *starredFilter;
+@property (nonatomic, retain) SubjectFilter *subjectFilter;
 @property (nonatomic, retain) FromAddressFilter *fromAddressFilter;
 @property (nonatomic, retain) RecipientAddressFilter *recipientAddressFilter;
 
 @property (nonatomic, retain) EmailAccount *emailAcctMsgListFilter;
 @property (nonatomic, retain) EmailAccount *emailAcctSavedFilter;
 
-@property (nonatomic, retain) ReadFilter *readFilter;
-@property (nonatomic, retain) StarredFilter *starredFilter;
-@property (nonatomic, retain) SubjectFilter *subjectFilter;
 
 // This is the number of messages matching the filter. This is
 // updated after delete or synchronization operations, so it will be
@@ -55,6 +55,8 @@ extern NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH;
 
 -(BOOL)nonEmptyFilterName;
 -(void)resetFilterName;
+
+-(BOOL)matchesAnyMessage;
 
 -(NSString*)filterSynopsis;
 

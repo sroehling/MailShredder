@@ -119,9 +119,12 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 255.0f;
 	NSMutableArray *sections = [[[NSMutableArray alloc] init] autorelease];
 
 	TableMenuSection *section = [[[TableMenuSection alloc] initWithSectionName:@""] autorelease];
-	[section addMenuItem:[[[TableMenuItem alloc] 
+	
+	TableMenuItem *resetMenuItem = [[[TableMenuItem alloc] 
 		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_RESET_FILTER_MENU_TITLE")
-		 andTarget:self andSelector:@selector(changeFilterResetToDefault)] autorelease]];
+		 andTarget:self andSelector:@selector(changeFilterResetToDefault)] autorelease];
+	resetMenuItem.enabled = [self currentAcctMsgFilter].matchesAnyMessage?FALSE:TRUE;
+	[section addMenuItem:resetMenuItem];
 	[sections addObject:section];
 	
 	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
@@ -203,7 +206,7 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 255.0f;
 {
 	BOOL oneOrMoreMsgsSelected = ([self.selectedEmailInfos count] > 0)?TRUE:FALSE;
 	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
-
+	
 	NSMutableArray *sections = [[[NSMutableArray alloc] init] autorelease];
 	TableMenuSection *narrowFilterSection = [[[TableMenuSection alloc] 
 		initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_NARROW_FILTER_SECTION_TITLE")] autorelease];
@@ -244,14 +247,15 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 255.0f;
 	TableMenuSection *currentFilterSection = [[[TableMenuSection alloc]
 	initWithSectionName:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_CURRENT_FILTER_SECTION_TITLE")] autorelease];
 
-	[currentFilterSection addMenuItem:[[[TableMenuItem alloc]
+	TableMenuItem *saveMenuItem = [[[TableMenuItem alloc]
 		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SAVE_CURRENT_FILTER_TITLE")
-		 andTarget:self andSelector:@selector(createMsgFilterCurrentFilter)] autorelease]];
+		 andTarget:self andSelector:@selector(createMsgFilterCurrentFilter)] autorelease];
+	saveMenuItem.enabled = [self currentAcctMsgFilter].matchesAnyMessage?FALSE:TRUE;
+	[currentFilterSection addMenuItem:saveMenuItem];
 
 	[currentFilterSection addMenuItem:[[[TableMenuItem alloc]
 		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_EDIT_CURRENT_FILTER_TITLE")
 		 andTarget:self andSelector:@selector(msgFilterShowFilterEditor)] autorelease]];
-
 
 	[sections addObject:currentFilterSection];
 	

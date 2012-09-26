@@ -209,4 +209,25 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 	}
 }
 
+-(BOOL)matchesAnyMessage
+{
+
+	if(	[self.ageFilter filterMatchesAnyAge] &&
+		[self.fromAddressFilter filterMatchesAnyAddress] &&
+		[self.recipientAddressFilter filterMatchesAnyAddress] &&
+		[self.subjectFilter filterMatchesAnySubject] &&
+		[self.emailDomainFilter filterMatchesAnyDomain] &&
+		[self.folderFilter filterMatchesAnyFolder] &&
+		[self.readFilter filterMatchesAnyReadStatus] &&
+		[self.starredFilter filterMatchesAnyStarredStatus])
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+
 @end
