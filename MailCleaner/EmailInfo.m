@@ -19,6 +19,7 @@ NSString * const EMAIL_INFO_SENDER_DOMAIN_KEY = @"senderDomain";
 NSString * const EMAIL_INFO_STARRED_KEY = @"isStarred";
 NSString * const EMAIL_INFO_READ_KEY = @"isRead";
 NSString * const EMAIL_INFO_SUBJECT_KEY = @"subject";
+NSString * const EMAIL_INFO_RECIPIENT_ADDRESSES_KEY = @"recipientAddresses";
 
 @implementation EmailInfo
 

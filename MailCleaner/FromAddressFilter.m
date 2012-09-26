@@ -23,6 +23,29 @@ NSString * const FROM_ADDRESS_FILTER_ENTITY_NAME = @"FromAddressFilter";
 				EMAIL_INFO_SENDER_ADDRESS_KEY,selectedAddr];
 }
 
+-(NSPredicate*)filterPredicate
+{
+	if([self.selectedAddresses count] == 0)
+	{
+		return [NSPredicate predicateWithValue:TRUE];
+	}
+	else 
+	{
+		NSPredicate *matchSpecificAddrs = [NSPredicate predicateWithFormat:@"%K IN %@",
+					EMAIL_INFO_SENDER_ADDRESS_KEY,self.selectedAddresses];
+					
+		if([self.matchUnselected boolValue])
+		{
+			return [NSCompoundPredicate notPredicateWithSubpredicate:matchSpecificAddrs];
+		}
+		else
+		{
+			return matchSpecificAddrs;
+		}
+
+	}
+}
+
 -(NSString*)fieldCaption
 {
 	return LOCALIZED_STR(@"FROM_ADDRESS_TITLE");

@@ -8,6 +8,7 @@
 
 #import "RecipientAddressFilter.h"
 #import "EmailAddress.h"
+#import "EmailInfo.h"
 #import "LocalizationHelper.h"
 
 NSString * const RECIPIENT_ADDRESS_FILTER_ENTITY_NAME = @"RecipientAddressFilter";
@@ -16,11 +17,29 @@ NSString * const RECIPIENT_ADDRESS_FILTER_ENTITY_NAME = @"RecipientAddressFilter
 
 @dynamic messageFilterRecipientAddressFilter;
 
--(NSPredicate*)emailInfoMatchSelectedAddrPredicate:(EmailAddress*)selectedAddr
+-(NSPredicate*)filterPredicate
 {
-	return [NSPredicate predicateWithFormat:
-		@"ANY recipientAddresses.address = [cd] %@", selectedAddr.address];
+	if([self.selectedAddresses count] == 0)
+	{
+		return [NSPredicate predicateWithValue:TRUE];
+	}
+	else 
+	{
+		NSPredicate *matchSpecificAddrs =  [NSPredicate predicateWithFormat:@"ANY %K IN %@",
+			EMAIL_INFO_RECIPIENT_ADDRESSES_KEY,self.selectedAddresses];
+			
+		if([self.matchUnselected boolValue])
+		{
+			return [NSCompoundPredicate notPredicateWithSubpredicate:matchSpecificAddrs];
+		}
+		else
+		{
+			return matchSpecificAddrs;
+		}
+	
+	}
 }
+
 
 -(NSString*)fieldCaption
 {

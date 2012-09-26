@@ -111,30 +111,8 @@ NSInteger const MAX_SPECIFIC_ADDRESS_SYNOPSIS = 2;
 
 -(NSPredicate*)filterPredicate
 {
-	if([self.selectedAddresses count] == 0)
-	{
-		return [NSPredicate predicateWithValue:TRUE];
-	}
-	else 
-	{
-		NSMutableArray *specificAddrPredicates = [[[NSMutableArray alloc] init] autorelease];
-		for(EmailAddress *selectedAddr in self.selectedAddresses)
-		{
-			[specificAddrPredicates addObject:[self emailInfoMatchSelectedAddrPredicate:selectedAddr]];
-		}
-
-		NSPredicate *matchSpecificAddrs = 
-			[NSCompoundPredicate orPredicateWithSubpredicates:specificAddrPredicates];
-			
-		if([self.matchUnselected boolValue])
-		{
-			return [NSCompoundPredicate notPredicateWithSubpredicate:matchSpecificAddrs];
-		}
-		else
-		{
-			return matchSpecificAddrs;
-		}
-	}
+	assert(0); // must be overridden
+	return nil;
 }
 
 -(void)setAddresses:(NSSet *)selectedAddresses
