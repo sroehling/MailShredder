@@ -10,14 +10,15 @@
 #import "EmailAddress.h"
 #import "EmailAddressFilter.h"
 
-static CGFloat ROW_HEIGHT_ADDRESS_AND_NAME = 40.0f;
-static CGFloat ROW_HEIGHT_ADDRESS_ONLY = 25.0f;
+static CGFloat const ROW_HEIGHT_ADDRESS_AND_NAME = 40.0f;
+static CGFloat const ROW_HEIGHT_ADDRESS_ONLY = 25.0f;
+static CGFloat const ROW_HEIGHT_WITH_DELETE = 35.0f;
 
-static NSUInteger CELL_TYPE_ADDRESS_AND_NAME = 0;
-static NSUInteger CELL_TYPE_ADDRESS_ONLY = 1;
+static NSUInteger const CELL_TYPE_ADDRESS_AND_NAME = 0;
+static NSUInteger const CELL_TYPE_ADDRESS_ONLY = 1;
 
-static NSString *ADDRESS_AND_NAME_CELL_ID = @"EmailAddressAndNameCell";
-static NSString *ADDRESS_ONLY_CELL_ID = @"EmailAddressOnlyCell";
+static NSString * const ADDRESS_AND_NAME_CELL_ID = @"EmailAddressAndNameCell";
+static NSString * const ADDRESS_ONLY_CELL_ID = @"EmailAddressOnlyCell";
 
 @implementation EmailAddressFieldEditInfo
 
@@ -100,8 +101,17 @@ static NSString *ADDRESS_ONLY_CELL_ID = @"EmailAddressOnlyCell";
 
 - (CGFloat)cellHeightForWidth:(CGFloat)width
 {
-	return [self cellType] == CELL_TYPE_ADDRESS_AND_NAME?
+	CGFloat normalRowHeight =  [self cellType] == CELL_TYPE_ADDRESS_AND_NAME?
 		ROW_HEIGHT_ADDRESS_AND_NAME:ROW_HEIGHT_ADDRESS_ONLY;
+		
+	if([self supportsDelete])
+	{
+		return MAX(ROW_HEIGHT_WITH_DELETE,normalRowHeight);
+	}
+	else
+	{
+		return normalRowHeight;
+	}
 }
 
 - (UITableViewCell*)cellForFieldEdit:(UITableView *)tableView

@@ -13,6 +13,7 @@
 
 static CGFloat const EMAIL_DOMAIN_CELL_HEIGHT = 25.0f;
 static NSString * const EMAIL_DOMAIN_FIELD_CELL_ID = @"EmailDomainFieldCellID";
+static CGFloat const ROW_HEIGHT_WITH_DELETE = 35.0f;
 
 @implementation EmailDomainFieldEditInfo
 
@@ -63,7 +64,16 @@ static NSString * const EMAIL_DOMAIN_FIELD_CELL_ID = @"EmailDomainFieldCellID";
 
 - (CGFloat)cellHeightForWidth:(CGFloat)width
 {
-	return EMAIL_DOMAIN_CELL_HEIGHT;
+	CGFloat normalHeight =  EMAIL_DOMAIN_CELL_HEIGHT;
+	
+	if([self supportsDelete])
+	{
+		return MAX(ROW_HEIGHT_WITH_DELETE,normalHeight);
+	}
+	else
+	{
+		return normalHeight;
+	}
 }
 
 - (UITableViewCell*)cellForFieldEdit:(UITableView *)tableView
