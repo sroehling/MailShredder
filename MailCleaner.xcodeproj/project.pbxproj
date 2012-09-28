@@ -143,6 +143,8 @@
 		00D498811576EC0100F8FD2F /* MessageFilterObjectAdder.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D498801576EC0100F8FD2F /* MessageFilterObjectAdder.m */; };
 		00D498921577F02B00F8FD2F /* MailCleanerFormPopulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D498911577F02B00F8FD2F /* MailCleanerFormPopulator.m */; };
 		00D4989915781DA600F8FD2F /* SavedMessageFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4989815781DA500F8FD2F /* SavedMessageFilterFormInfoCreator.m */; };
+		00DA6FA51614AFA300F22DEB /* FolderDeletionMsgSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA6FA41614AFA300F22DEB /* FolderDeletionMsgSet.m */; };
+		00DA6FA81614B0C900F22DEB /* FolderDeletionMsgs.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA6FA71614B0C800F22DEB /* FolderDeletionMsgs.m */; };
 		00DED4A415ED530E00C3B1EF /* emailAcctDeleteSettings.md in Resources */ = {isa = PBXBuildFile; fileRef = 00DED4A315ED530E00C3B1EF /* emailAcctDeleteSettings.md */; };
 		00DED4A815ED59E200C3B1EF /* SyncFoldersFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DED4A715ED59E200C3B1EF /* SyncFoldersFormInfoCreator.m */; };
 		00DED4AB15ED5CC800C3B1EF /* SyncFoldersFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DED4AA15ED5CC800C3B1EF /* SyncFoldersFieldEditInfo.m */; };
@@ -474,6 +476,10 @@
 		00D498911577F02B00F8FD2F /* MailCleanerFormPopulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailCleanerFormPopulator.m; sourceTree = "<group>"; };
 		00D4989715781DA500F8FD2F /* SavedMessageFilterFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedMessageFilterFormInfoCreator.h; sourceTree = "<group>"; };
 		00D4989815781DA500F8FD2F /* SavedMessageFilterFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedMessageFilterFormInfoCreator.m; sourceTree = "<group>"; };
+		00DA6FA31614AFA300F22DEB /* FolderDeletionMsgSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderDeletionMsgSet.h; sourceTree = "<group>"; };
+		00DA6FA41614AFA300F22DEB /* FolderDeletionMsgSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderDeletionMsgSet.m; sourceTree = "<group>"; };
+		00DA6FA61614B0C800F22DEB /* FolderDeletionMsgs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderDeletionMsgs.h; sourceTree = "<group>"; };
+		00DA6FA71614B0C800F22DEB /* FolderDeletionMsgs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderDeletionMsgs.m; sourceTree = "<group>"; };
 		00DED4A315ED530E00C3B1EF /* emailAcctDeleteSettings.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = emailAcctDeleteSettings.md; sourceTree = "<group>"; };
 		00DED4A615ED59E200C3B1EF /* SyncFoldersFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncFoldersFormInfoCreator.h; sourceTree = "<group>"; };
 		00DED4A715ED59E200C3B1EF /* SyncFoldersFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncFoldersFormInfoCreator.m; sourceTree = "<group>"; };
@@ -1111,6 +1117,10 @@
 				00B2FB1015FFAA61005C93DB /* CompositeMailDeleteProgressDelegate.m */,
 				001A93571609496D00740534 /* MailDeleteCompletionInfo.h */,
 				001A93581609496D00740534 /* MailDeleteCompletionInfo.m */,
+				00DA6FA31614AFA300F22DEB /* FolderDeletionMsgSet.h */,
+				00DA6FA41614AFA300F22DEB /* FolderDeletionMsgSet.m */,
+				00DA6FA61614B0C800F22DEB /* FolderDeletionMsgs.h */,
+				00DA6FA71614B0C800F22DEB /* FolderDeletionMsgs.m */,
 			);
 			name = "Delete Mail";
 			sourceTree = "<group>";
@@ -1528,6 +1538,8 @@
 				0059CEA616022DA000DDF6A8 /* SubjectFilter.m in Sources */,
 				0059CEAA160239C600DDF6A8 /* SubjectFilterFormInfoCreator.m in Sources */,
 				001A93591609496E00740534 /* MailDeleteCompletionInfo.m in Sources */,
+				00DA6FA51614AFA300F22DEB /* FolderDeletionMsgSet.m in Sources */,
+				00DA6FA81614B0C900F22DEB /* FolderDeletionMsgs.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

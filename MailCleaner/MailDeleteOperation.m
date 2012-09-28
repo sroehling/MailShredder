@@ -18,8 +18,23 @@
 #import "AppHelper.h"
 #import "AppDelegate.h"
 #import "MailDeleteCompletionInfo.h"
+#import "FolderDeletionMsgSet.h"
+#import "FolderDeletionMsgs.h"
+
+#import <libetpan/libetpan.h>
+#import <libetpan/imapdriver_tools.h>
 
 #define SYNC_PROGRESS_UPDATE_THRESHOLD 0.05
+
+@interface CTCoreFolder()
+
+// messagesForSet is defined internally to CTCoreFolder. This "class extension"
+// suffices as an external declaration of this selector, even though the selector
+// itself is not shared in the header file for CTCoreFolder.
+-(NSArray *)messagesForSet:(struct mailimap_set *)set
+	fetchAttributes:(CTFetchAttributes)attrs uidFetch:(BOOL)uidFetch;
+
+@end
 
 @implementation MailDeleteOperation
 
@@ -75,62 +90,24 @@
 }
 
 
--(void)deleteOneMsg:(CTCoreMessage*)msgToDelete 
-	fromOriginalFolder:(CTCoreFolder*)origMsgFolder
-	moveToDestFolderForDelete:(CTCoreFolder*)destDeleteFolder
-	andDoDeleteMsg:(BOOL)doDeleteMsg
-	andExpungeFolders:(NSMutableSet*)expungeFolders
-{
-
-	if(destDeleteFolder != nil)
-	{
-		NSLog(@"Msg Delete: Message in orig folder: uid=%d %@",
-			msgToDelete.uid,msgToDelete.subject);
-
-		if(![origMsgFolder.path isEqualToString:destDeleteFolder.path])
-		{
-			// Different paths, move the message
-			NSUInteger nextUIDInDestFolder = [destDeleteFolder uidNext];
-			BOOL moveSuccessful = [origMsgFolder moveMessageWithUID:msgToDelete.uid 
-				toPath:destDeleteFolder.path];
-			NSLog(@"next UID in dest folder = %d",nextUIDInDestFolder);
-				
-			if(!moveSuccessful)
-			{
-				@throw [NSException exceptionWithName:@"FailureMovingMessage" 
-					reason:@"Couldn't move message to deletion folder" userInfo:nil];
-			}
-			// After moving the message, we don't know exactly what UID it will have in the 
-			// new folder, although nextUIDInDestFolder is a good guess. So, for this
-			// reason we wait until the end to delete messages, then get a list of new
-			// UIDs in the destination folder and delete the messages with these new
-			// UIDs.
-		}
-		else 
-		{
-			// The message is already in the destination delete folder, so there's no need 
-			// to move the message. However, if the setting is still
-			// to delete the message, we still need to delete it from from the destination
-			// folder.
-			if(doDeleteMsg)
-			{
-				[origMsgFolder setFlags:CTFlagDeleted forMessage:msgToDelete];
-				[expungeFolders addObject:origMsgFolder];
-			}
-		}
-	}
-	else if(doDeleteMsg) 
-	{
-		[origMsgFolder setFlags:CTFlagDeleted forMessage:msgToDelete];
-		[expungeFolders addObject:origMsgFolder];
-	}
-
-}
-
 -(NSString*)messageLookupForSubject:(NSString*)subject sendDate:(NSDate*)sendDate msgSize:(NSUInteger)msgSize
 {
 	NSString *msgDateStr = [[DateHelper theHelper].longDateFormatter stringFromDate:sendDate];
 	return [NSString stringWithFormat:@"%@-%d-%@",msgDateStr,msgSize,subject];
+}
+
+-(NSString*)messageLookupForCoreMsg:(CTCoreMessage*)coreMsg
+{
+	return [self messageLookupForSubject:coreMsg.subject
+			sendDate:coreMsg.sentDateGMT msgSize:coreMsg.messageSize];
+
+}
+
+-(NSString*)messageLookupForEmailInfo:(EmailInfo*)emailInfo
+{
+	return [self messageLookupForSubject:emailInfo.subject
+			sendDate:emailInfo.sendDate 
+			msgSize:[emailInfo.size unsignedIntegerValue] ];
 }
 
 -(NSMutableDictionary*)msgsToDeleteByLookupValue:(NSArray*)msgsMarkedForDeletion
@@ -138,9 +115,7 @@
 	NSMutableDictionary *msgsByLookupValue = [[[NSMutableDictionary alloc] init] autorelease];
 	for(EmailInfo *markedForDeletion  in msgsMarkedForDeletion)
 	{
-		NSString *msgLookup = [self messageLookupForSubject:markedForDeletion.subject 
-			sendDate:markedForDeletion.sendDate 
-			msgSize:[markedForDeletion.size unsignedIntegerValue] ];
+		NSString *msgLookup = [self messageLookupForEmailInfo:markedForDeletion];
 		NSLog(@"Lookup for msg to be deleted: %@",msgLookup);
 		[msgsByLookupValue setObject:markedForDeletion forKey:msgLookup];
 	}
@@ -148,15 +123,91 @@
 }
 
 
+-(BOOL)copyCoreMessages:(NSArray*)msgList
+	fromFolder:(CTCoreFolder*)srcFolder toFolder:(CTCoreFolder*)destFolder
+{
+	// This implementation is intended to be basically the same
+	// as imapdriver_copy_message, but support the simultaneous
+	// copy of multiple messages.
+	
+	struct mailimap_set * uid_set = mailimap_set_new_empty();
+	for(CTCoreMessage *msg in msgList)
+	{
+		/* int add_ret_status =  */ mailimap_set_add_single(uid_set,msg.uid);
+
+	}
+	
+	const char *dest_mb_path = [destFolder.path cStringUsingEncoding:NSUTF8StringEncoding];
+
+	// The following manipulations are also found in imapdriver.c
+	/* int copy_return_status  = */ mailimap_uid_copy(srcFolder.imapSession,
+		uid_set, dest_mb_path);
+		
+
+	mailimap_set_free(uid_set);
+	
+	return TRUE;
+}
+
+-(BOOL)deleteCoreMsgs:(NSArray*)coreMsgList fromFolder:(CTCoreFolder*)msgFolder
+{
+	for(CTCoreMessage *coreMsg in coreMsgList)
+	{
+		[msgFolder setFlags:CTFlagDeleted forMessage:coreMsg];
+	}
+	[msgFolder expunge];
+	return TRUE;
+}
+
+-(NSArray*)emailInfoToValidCoreMsgList:(NSSet*)emailInfoList
+	withMsgFolder:(CTCoreFolder*)msgFolder
+{
+
+	struct mailimap_set * uid_set = mailimap_set_new_empty();
+	
+	for(EmailInfo *emailInfo in emailInfoList)
+	{
+		/* int add_ret_status =  */ mailimap_set_add_single(uid_set,[emailInfo.uid unsignedIntegerValue]);
+
+	}
+
+	NSArray *validCoreMsgs = [msgFolder messagesForSet:uid_set fetchAttributes:CTFetchAttrDefaultsOnly uidFetch:YES];
+
+	// messagesForSet calls mailimap_set_free on the given set, so there's
+	// no need to call the same function here.
+	//	mailimap_set_free(uid_set); <--- Not needed!
+
+	return validCoreMsgs;
+
+  }
+
+-(BOOL)deleteEmailInfoMsgList:(NSSet*)msgList fromFolder:(CTCoreFolder*)srcFolder
+{
+	NSArray *validMsgs = [self emailInfoToValidCoreMsgList:msgList withMsgFolder:srcFolder];
+
+	[self deleteCoreMsgs:validMsgs fromFolder:srcFolder];
+
+	return TRUE;
+}
+
+-(BOOL)moveEmailInfoMsgs:(NSSet*)emailInfoMsgList
+	fromFolder:(CTCoreFolder*)srcFolder toFolder:(CTCoreFolder*)destFolder
+{
+
+	NSArray *validCoreMsgs = [self emailInfoToValidCoreMsgList:emailInfoMsgList withMsgFolder:srcFolder];
+	
+	[self copyCoreMessages:validCoreMsgs fromFolder:srcFolder toFolder:destFolder];
+	
+	[self deleteCoreMsgs:validCoreMsgs fromFolder:srcFolder];
+	
+	return TRUE;
+}
+
 -(MailDeleteCompletionInfo*)deleteMarkedMsgs
 {
-	NSDictionary *folderByPath = [[self serverFoldersByName] retain];
-	NSMutableSet *serverFoldersToExpunge = [[NSMutableSet alloc] init];
-		
-	CGFloat deleteProgress = 0.0;
-	NSUInteger numMsgsDeleted = 0;
-	
+	NSDictionary *folderByPath = [self serverFoldersByName];
 	CTCoreFolder *deleteDestFolder = [self destFolderForDelete:folderByPath];
+	
 	NSUInteger nextUIDInDeleteFolder = 0;
 	if(deleteDestFolder != nil)
 	{
@@ -172,6 +223,15 @@
 	NSArray *msgsMarkedForDeletion = [self.connectionContext.syncDmc 
 		fetchObjectsForEntityName:EMAIL_INFO_ENTITY_NAME 
 		andPredicate:[MsgPredicateHelper markedForDeletion]];
+		
+	// folderDeletionMsgs an index of the messages by source folder. This
+	// is used so the messages can be moved (copied then deleted) or deleted
+	// in bulk from the source folder (rather than 1 by 1 as they appear
+	// in msgsMarkedForDeletion.
+	FolderDeletionMsgs *folderDeletionMsgs = [[[FolderDeletionMsgs alloc]
+		initWithMsgsToDelete:msgsMarkedForDeletion
+		andMailAcct:self.connectionContext.mailAcct] autorelease];
+		
 	
 	// The following dictionary is book-keeping when/if a message is 
 	// first moved to a destination folder, then deleted from there.
@@ -180,50 +240,53 @@
 	// be deleted.
 	NSMutableDictionary *msgsToDeleteByLookupValue = 
 		[self msgsToDeleteByLookupValue:msgsMarkedForDeletion];
-
-	for(EmailInfo *markedForDeletion  in msgsMarkedForDeletion)
+		
+	NSUInteger numMsgsDeleted = 0;
+	for(FolderDeletionMsgSet *folderDeletionMsgSet in folderDeletionMsgs.folderDeletionMsgSets)
 	{
-		
-		NSLog(@"Deleting msg: msg ID = %d, subject = %@",[markedForDeletion.uid integerValue],
-			markedForDeletion.subject);
-		CTCoreFolder *msgFolder = (CTCoreFolder*)[folderByPath 
-			objectForKey:markedForDeletion.folderInfo.folderName];
-		if(msgFolder != nil)
-		{
-			NSLog(@"Deleting msg: uid= %d, send date = %@, subj = %@", [markedForDeletion.uid integerValue],
-					[DateHelper stringFromDate:markedForDeletion.sendDate],markedForDeletion.subject);
-
-			CTCoreMessage *msgMarkedForDeletion = [msgFolder messageWithUID:[markedForDeletion.uid unsignedIntValue]];
-			if(msgMarkedForDeletion != nil)
-			{
-				[self deleteOneMsg:msgMarkedForDeletion fromOriginalFolder:msgFolder 
-					moveToDestFolderForDelete:deleteDestFolder andDoDeleteMsg:doDeleteMsgs
-					andExpungeFolders:serverFoldersToExpunge];
-			}
-		}
-		
-		numMsgsDeleted ++;
-		CGFloat currentProgress = (CGFloat)numMsgsDeleted/((CGFloat)[msgsMarkedForDeletion count]);
-		if((currentProgress - deleteProgress) >= SYNC_PROGRESS_UPDATE_THRESHOLD)
-		{
-			deleteProgress = currentProgress;
-			if([self.deleteProgressDelegate respondsToSelector:@selector(mailDeleteUpdateProgress:)])
-			{
-				[self.deleteProgressDelegate mailDeleteUpdateProgress:deleteProgress];
-			}
-		}
-			
-	}
 	
-	if([serverFoldersToExpunge count] > 0)
-	{
-		for(CTCoreFolder *sererFolderWithDeletedMsgs in serverFoldersToExpunge)
+		CTCoreFolder *origMsgFolder = folderDeletionMsgSet.srcFolder;
+		if(deleteDestFolder != nil)
 		{
-			[sererFolderWithDeletedMsgs expunge];
+			if(![origMsgFolder.path isEqualToString:deleteDestFolder.path])
+			{
+				// Different paths => move the messages
+				
+				[self moveEmailInfoMsgs:folderDeletionMsgSet.msgsToDelete
+					fromFolder:origMsgFolder toFolder:deleteDestFolder];
+				// After moving the message, we don't know exactly what UID it will have in the 
+				// new folder, although nextUIDInDestFolder is a good guess. So, for this
+				// reason we wait until the end to delete messages, then get a list of new
+				// UIDs in the destination folder and delete the messages with these new
+				// UIDs.
+			}
+			else 
+			{
+				// The message(s) is already in the destination delete folder, so there's no need 
+				// to move the message. However, if the setting is still
+				// to delete the message, we still need to delete it from from the destination
+				// folder.
+				if(doDeleteMsgs)
+				{
+					[self deleteEmailInfoMsgList:folderDeletionMsgSet.msgsToDelete fromFolder:origMsgFolder];
+				}
+			}
 		}
-	}
+		else if(doDeleteMsgs)
+		{
+			// There is not a destination folder, so we don't need to move the message.
+			// However, if the messages are set for immediate deletion, still deleted
+			// it immediately in place.
+			[self deleteEmailInfoMsgList:folderDeletionMsgSet.msgsToDelete fromFolder:origMsgFolder];
+		}
+
 		
+	} // For each Folder's deletion message set.
+	
 		
+	// The messages have been moved to a destination folder. If the doDeleteMsgs (immediately)
+	// flag has been set, then deleted the messages immediately from there.
+	// 
 	// [1] In the destination folder, get the list of messages which are new since the 
 	// delete operation started and delete them. 
 	// 
@@ -241,6 +304,7 @@
 			
 		NSArray *newMsgsInDeleteFolder = [deleteDestFolder messagesFromUID:nextUIDInDeleteFolder to:0 
 			withFetchAttributes:CTFetchAttrEnvelope];
+		NSMutableArray *msgsConfirmedForDeleteAfterMoving = [[[NSMutableArray alloc] init] autorelease];
 		for(CTCoreMessage *candidateMsgToDeleteFromDestFolder in newMsgsInDeleteFolder)
 		{
 					
@@ -248,20 +312,14 @@
 			// check that the a hash of the immutable message properties (such as 
 			// date and subject) is the same as the candidate for deletion in the 
 			// delete folder.
-			NSString *candidateMsgToDeleteLookup = 
-				[self messageLookupForSubject:candidateMsgToDeleteFromDestFolder.subject 
-					sendDate:candidateMsgToDeleteFromDestFolder.sentDateGMT 
-					msgSize:candidateMsgToDeleteFromDestFolder.messageSize];
-			EmailInfo *localEmailInfoForCandidateMsg = 
-				[msgsToDeleteByLookupValue objectForKey:candidateMsgToDeleteLookup];
+			EmailInfo *localEmailInfoForCandidateMsg = [msgsToDeleteByLookupValue
+				objectForKey:[self messageLookupForCoreMsg:candidateMsgToDeleteFromDestFolder]];
 			if(localEmailInfoForCandidateMsg != nil)
 			{
 				NSLog(@"Msg Permanently deleted: Message in dest folder: uid=%d subj=%@ size=%d",
 					candidateMsgToDeleteFromDestFolder.uid,candidateMsgToDeleteFromDestFolder.subject,
 					candidateMsgToDeleteFromDestFolder.messageSize);
-
-				[deleteDestFolder setFlags:CTFlagDeleted forMessage:candidateMsgToDeleteFromDestFolder];
-				[serverFoldersToExpunge addObject:deleteDestFolder];
+				[msgsConfirmedForDeleteAfterMoving addObject:candidateMsgToDeleteFromDestFolder];
 			}
 			else 
 			{
@@ -271,13 +329,15 @@
 			}
 		}
 		
+		[self deleteCoreMsgs:msgsConfirmedForDeleteAfterMoving fromFolder:deleteDestFolder];
+		
 	}
+	
+	numMsgsDeleted = msgsMarkedForDeletion.count;
 	
 	// Delete the local EmailInfo objects for the messages just deleted
 	[self.connectionContext.syncDmc deleteObjects:msgsMarkedForDeletion];
 	
-	[serverFoldersToExpunge release];
-	[folderByPath release];
 	
 	MailDeleteCompletionInfo *completionInfo = [[[MailDeleteCompletionInfo alloc] init] autorelease];
 	completionInfo.didEraseMsgs = doDeleteMsgs;
