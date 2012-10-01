@@ -10,16 +10,16 @@
 
 #import "FormInfoCreator.h"
 
-@class EmailAddressFilter;
+@class EmailAddressFilterFormInfo;
 
 @interface EmailAddressFilterFormInfoCreator: NSObject <FormInfoCreator> {
 	@private
-		EmailAddressFilter *emailAddressFilter;
+		EmailAddressFilterFormInfo *emailAddressFilterFormInfo;
     
 }
 
-@property(nonatomic,retain) EmailAddressFilter *emailAddressFilter;
+@property(nonatomic,retain) EmailAddressFilterFormInfo *emailAddressFilterFormInfo;
 
--(id)initWithEmailAddressFilter:(EmailAddressFilter*)theEmailAddrFilter;
+-(id)initWithEmailAddressFilter:(EmailAddressFilterFormInfo*)theEmailAddrFilterFormInfo;
 
 @end

@@ -59,9 +59,11 @@
 	[formPopulator populateAgeFilterInParentObj:self.msgFilter 
 		withAgeFilterPropertyKey:MESSAGE_FILTER_AGE_FILTER_KEY];
 		
-	[formPopulator populateEmailAddressFilter:self.msgFilter.fromAddressFilter];
+	[formPopulator populateEmailAddressFilter:self.msgFilter.fromAddressFilter
+		andDoSelectRecipients:FALSE andDoSelectSenders:TRUE];
 	
-	[formPopulator populateEmailAddressFilter:self.msgFilter.recipientAddressFilter];
+	[formPopulator populateEmailAddressFilter:self.msgFilter.recipientAddressFilter
+		andDoSelectRecipients:TRUE andDoSelectSenders:FALSE];
 
 	[formPopulator populateEmailDomainFilter:self.msgFilter.emailDomainFilter];
 

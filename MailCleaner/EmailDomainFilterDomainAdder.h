@@ -10,6 +10,7 @@
 
 #import "TableViewObjectAdder.h"
 #import "MultipleSelectionAddViewController.h"
+#import "MultipleSelectionAddListener.h"
 
 @class EmailDomainFilter;
 

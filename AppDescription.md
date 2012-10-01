@@ -55,11 +55,17 @@ Gmail, Google Apps for businesses, or iCloud.
     * In exchange for free email service, some email providers scan your 
       email to build an advertising profile on you. Left unchecked,
       more and more email will be available for scanning.
+  * Protect others' privacy - delete sensitive conversations others might send.
   * If you're running out of space or over quota.
   * Keep the size of your inbox minimized, potentially improving
     the performance for reading and writing emails.
   * Purge old emails which are no longer "protected 
     communications" (e.g. after 180 days)
+  * Why delete just 1 message? If one message is seen which can potentially be
+    deleted, select all of them like to also delete.
     
+## Examples
 
+* "noreply" type bulk mail
+* Old Email newsletters - e.g. from church, stock trading.
   

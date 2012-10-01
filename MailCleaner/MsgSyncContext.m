@@ -85,7 +85,8 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 			withName:msg.sender.name andSendDate:msg.sentDateGMT
 			withCurrentAddresses:self.currEmailAddressByAddress 
 				inDataModelController:self.connectionContext.syncDmc
-				andEmailAcct:self.syncAcct];
+				andEmailAcct:self.syncAcct
+				andIsRecipientAddr:FALSE andIsSenderAddr:TRUE];
 
 	newEmailInfo.subject = (msg.subject==nil)?@"":msg.subject;
 	newEmailInfo.uid = [NSNumber numberWithUnsignedInt:msg.uid];
@@ -95,7 +96,8 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 			findOrAddDomainName:[MailAddressHelper emailAddressDomainName:msg.sender.email] 
 			withCurrentDomains:self.currDomainByDomainName 
 			inDataModelController:self.connectionContext.syncDmc
-			andEmailAcct:self.syncAcct];	
+			andEmailAcct:self.syncAcct
+			andIsRecipientDomain:FALSE andIsSenderDomain:TRUE];
 
 	newEmailInfo.emailAcct = self.syncAcct;
 		
@@ -109,7 +111,7 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 					withName:toAddress.name andSendDate:msg.sentDateGMT
 					withCurrentAddresses:self.currEmailAddressByAddress 
 					inDataModelController:self.connectionContext.syncDmc
-					andEmailAcct:self.syncAcct];
+					andEmailAcct:self.syncAcct andIsRecipientAddr:TRUE andIsSenderAddr:FALSE];
 		[newEmailInfo addRecipientAddressesObject:recipientAddress];
 	}
 	

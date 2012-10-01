@@ -9,20 +9,22 @@
 #import "EmailAddressFilterAddressAdder.h"
 #import "EmailAddressFilter.h"
 #import "MultipleSelectionAddViewController.h"
-#import "EmailAddressSelectionFormInfoCreator.h"
 #import "FormContext.h"
+#import "EmailAddressSelectionTableConfigurator.h"
+#import "MultiSelectionCoreDataTableViewController.h"
+#import "EmailAddressFilterFormInfo.h"
 
 @implementation EmailAddressFilterAddressAdder
 
-@synthesize emailAddressFilter;
+@synthesize emailAddressFilterFormInfo;
 
--(id)initWithEmailAddressFilter:(EmailAddressFilter*)theAddressFilter
+-(id)initWithEmailAddressFilter:(EmailAddressFilterFormInfo*)theAddressFilterFormInfo
 {
 	self = [super init];
 	if(self)
 	{
-		assert(theAddressFilter != nil);
-		self.emailAddressFilter = theAddressFilter;
+		assert(theAddressFilterFormInfo != nil);
+		self.emailAddressFilterFormInfo = theAddressFilterFormInfo;
 	}
 	return self;
 }
@@ -37,17 +39,16 @@
 {
 	NSLog(@"Add email address to address filter");
 	
-	EmailAddressSelectionFormInfoCreator *emailAddressFormInfoCreator = 
-		[[[EmailAddressSelectionFormInfoCreator alloc] 
-		initWithEmailAddressFilter:self.emailAddressFilter] autorelease];
+	EmailAddressSelectionTableConfigurator *tableConfigurator =
+		[[[EmailAddressSelectionTableConfigurator alloc]
+			initWithDataModelController:parentContext.dataModelController
+			andFilterFormInfo:self.emailAddressFilterFormInfo] autorelease];
 		
-	MultipleSelectionAddViewController *senderAddressSelectionController = 
-		[[[MultipleSelectionAddViewController alloc] 
-			initWithFormInfoCreator:emailAddressFormInfoCreator andDataModelController:parentContext.dataModelController 
-			andSelectionDoneListener:self] autorelease];
+	MultiSelectionCoreDataTableViewController *selectionViewController =
+		[[[MultiSelectionCoreDataTableViewController alloc] initWithTableConfigurator:tableConfigurator andSelectionDoneListener:self] autorelease];
 	
     [parentContext.parentController.navigationController 
-		pushViewController:senderAddressSelectionController animated:YES];
+		pushViewController:selectionViewController animated:YES];
 }
 
 -(void)multipleSelectionAddFinishedSelection:(NSSet *)selectedObjs
@@ -55,7 +56,7 @@
 	NSLog(@"Finished selecting email addresses: %@",[selectedObjs description]);
 
 	assert(selectedObjs != nil);
-	[self.emailAddressFilter addSelectedAddresses:selectedObjs];
+	[self.emailAddressFilterFormInfo.emailAddressFilter addSelectedAddresses:selectedObjs];
 	
 }
 
@@ -66,7 +67,7 @@
 
 -(void)dealloc
 {
-	[emailAddressFilter release];
+	[emailAddressFilterFormInfo release];
 	[super dealloc];
 }
 

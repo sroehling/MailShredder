@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1810" systemVersion="11E53" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1810" systemVersion="11G56" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="AgeFilter" representedClassName="AgeFilter" isAbstract="YES" syncable="YES">
         <relationship name="messageFilterAgeFilter" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="ageFilter" inverseEntity="MessageFilter" syncable="YES"/>
     </entity>
@@ -43,8 +43,12 @@
     </entity>
     <entity name="EmailAddress" representedClassName="EmailAddress" syncable="YES">
         <attribute name="address" attributeType="String" minValueString="1" syncable="YES"/>
+        <attribute name="addressSort" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isRecipientAddr" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isSenderAddr" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nameDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="sectionName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="addressAccount" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="addressesInAcct" inverseEntity="EmailAccount" syncable="YES"/>
         <relationship name="emailInfoRecipientAddress" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailInfo" inverseName="recipientAddresses" inverseEntity="EmailInfo" syncable="YES"/>
         <relationship name="emailInfosWithSenderAddress" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailInfo" inverseName="senderAddress" inverseEntity="EmailInfo" syncable="YES"/>
@@ -56,6 +60,9 @@
     </entity>
     <entity name="EmailDomain" representedClassName="EmailDomain" syncable="YES">
         <attribute name="domainName" attributeType="String" syncable="YES"/>
+        <attribute name="isRecipientDomain" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isSenderDomain" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="sectionName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="domainAcct" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="domainsInAcct" inverseEntity="EmailAccount" syncable="YES"/>
         <relationship name="emailDomainFilterSelectedDomains" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailDomainFilter" inverseName="selectedDomains" inverseEntity="EmailDomainFilter" syncable="YES"/>
         <relationship name="emailInfosWithDomainForSender" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailInfo" inverseName="senderDomain" inverseEntity="EmailInfo" syncable="YES"/>
@@ -155,9 +162,9 @@
         <element name="AgeFilterComparison" positionX="160" positionY="192" width="128" height="240"/>
         <element name="AgeFilterNone" positionX="160" positionY="192" width="128" height="60"/>
         <element name="EmailAccount" positionX="160" positionY="192" width="128" height="240"/>
-        <element name="EmailAddress" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="EmailAddress" positionX="160" positionY="192" width="128" height="210"/>
         <element name="EmailAddressFilter" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="EmailDomain" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="EmailDomain" positionX="160" positionY="192" width="128" height="150"/>
         <element name="EmailDomainFilter" positionX="160" positionY="192" width="128" height="105"/>
         <element name="EmailFolder" positionX="160" positionY="192" width="128" height="90"/>
         <element name="EmailFolderFilter" positionX="160" positionY="192" width="128" height="105"/>

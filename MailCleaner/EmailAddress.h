@@ -16,7 +16,12 @@
 
 extern NSString * const EMAIL_ADDRESS_ENTITY_NAME;
 extern NSString * const EMAIL_ADDRESS_ACCT_KEY;
-extern NSString * const EMAIL_ADDRESS_NAME_OR_ADDRESS_KEY;
+extern NSString * const EMAIL_ADDRESS_SORT_KEY;
+extern NSString * const EMAIL_ADDRESS_ADDRESS_KEY;
+extern NSString * const EMAIL_ADDRESS_NAME_KEY;
+extern NSString * const EMAIL_ADDRESS_SECTION_NAME_KEY;
+extern NSString * const EMAIL_ADDRESS_IS_RECIPIENT_KEY;
+extern NSString * const EMAIL_ADDRESS_IS_SENDER_KEY;
 
 @interface EmailAddress : NSManagedObject
 {
@@ -27,6 +32,13 @@ extern NSString * const EMAIL_ADDRESS_NAME_OR_ADDRESS_KEY;
 @property (nonatomic, retain) NSString * address;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSDate * nameDate;
+
+@property (nonatomic, retain) NSString * addressSort;
+@property (nonatomic, retain) NSString * sectionName;
+
+@property (nonatomic, retain) NSNumber * isRecipientAddr;
+@property (nonatomic, retain) NSNumber * isSenderAddr;
+
 
 
 @property (nonatomic, retain) NSSet *selectedAddressEmailAddress;
@@ -44,11 +56,12 @@ extern NSString * const EMAIL_ADDRESS_NAME_OR_ADDRESS_KEY;
 	andSendDate:(NSDate*)sendDate
 	withCurrentAddresses:(NSMutableDictionary*)currAddressByName 
 			inDataModelController:(DataModelController*)appDataDmc
-			andEmailAcct:(EmailAccount*)emailAcct;
+			andEmailAcct:(EmailAccount*)emailAcct
+	andIsRecipientAddr:(BOOL)recipientAddr andIsSenderAddr:(BOOL)senderAddr;
 
+-(NSString*)nameOrAddress;
 +(NSString*)formattedAddresses:(NSSet*)addresses;
 -(NSString*)formattedAddress;
--(NSString*)nameOrAddress;
 
 @end
 

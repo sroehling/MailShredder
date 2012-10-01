@@ -28,6 +28,7 @@
 #import "StarredFilterFormInfoCreator.h"
 #import "SubjectFilter.h"
 #import "SubjectFilterFormInfoCreator.h"
+#import "EmailAddressFilterFormInfo.h"
 
 @implementation MailCleanerFormPopulator
 
@@ -128,10 +129,17 @@
 }
 
 -(void)populateEmailAddressFilter:(EmailAddressFilter*)emailAddressFilter
+	andDoSelectRecipients:(BOOL)selectRecipients andDoSelectSenders:(BOOL)selectSenders
 {
+
+	EmailAddressFilterFormInfo *filterFormInfo =
+		[[[EmailAddressFilterFormInfo alloc] initWithEmailAddressFilter:emailAddressFilter] autorelease];
+	filterFormInfo.selectFromRecipients = selectRecipients;
+	filterFormInfo.selectFromSenders = selectSenders;
+
 	EmailAddressFilterFormInfoCreator *addrFilterFormInfoCreator = 
 		[[[EmailAddressFilterFormInfoCreator alloc] 
-			initWithEmailAddressFilter:emailAddressFilter] autorelease];
+			initWithEmailAddressFilter:filterFormInfo] autorelease];
 
 	StaticNavFieldEditInfo *messageAddrFieldEditInfo = 
 		[[[StaticNavFieldEditInfo alloc] 

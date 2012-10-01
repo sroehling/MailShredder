@@ -20,18 +20,19 @@
 #import "EmailAddressFieldEditInfo.h"
 #import "SectionInfo.h"
 #import "VariableHeightTableHeader.h"
+#import "EmailAddressFilterFormInfo.h"
 
 @implementation EmailAddressFilterFormInfoCreator
 
-@synthesize emailAddressFilter;
+@synthesize emailAddressFilterFormInfo;
 
--(id)initWithEmailAddressFilter:(EmailAddressFilter*)theEmailAddrFilter
+-(id)initWithEmailAddressFilter:(EmailAddressFilterFormInfo*)theEmailAddrFilterFormInfo
 {
 	self = [super init];
 	if(self)
 	{
-		assert(theEmailAddrFilter != nil);
-		self.emailAddressFilter = theEmailAddrFilter;
+		assert(theEmailAddrFilterFormInfo != nil);
+		self.emailAddressFilterFormInfo = theEmailAddrFilterFormInfo;
 	}
 	return self;
 }
@@ -55,16 +56,15 @@
 	
 	tableHeader.header.text = [NSString stringWithFormat:
 		LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_TABLE_HEADER_TITLE_FORMAT"),
-		[self.emailAddressFilter addressType]];
+		[self.emailAddressFilterFormInfo.emailAddressFilter addressType]];
 	tableHeader.subHeader.text = LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_TABLE_HEADER_SUBTITLE");
 	[tableHeader resizeForChildren];
 	formPopulator.formInfo.headerView = tableHeader;
 
 	formPopulator.formInfo.objectAdder = [[[EmailAddressFilterAddressAdder alloc] 
-		initWithEmailAddressFilter:self.emailAddressFilter] autorelease];
+		initWithEmailAddressFilter:self.emailAddressFilterFormInfo] autorelease];
 
-	
-	NSSet *senderAddresses = self.emailAddressFilter.selectedAddresses;
+	NSSet *senderAddresses = self.emailAddressFilterFormInfo.emailAddressFilter.selectedAddresses;
 
 	if([senderAddresses count]>0)
 	{
@@ -75,14 +75,14 @@
 			EmailAddressFieldEditInfo *senderAddrFieldEditInfo = 
 				[[[EmailAddressFieldEditInfo alloc] 
 					initWithEmailAddress:senderAddress] autorelease];
-			senderAddrFieldEditInfo.parentFilter = self.emailAddressFilter;
+			senderAddrFieldEditInfo.parentFilter = self.emailAddressFilterFormInfo.emailAddressFilter;
 			[formPopulator.currentSection addFieldEditInfo:senderAddrFieldEditInfo];
 		}
 
 
 		[formPopulator nextSection];
 		
-		[formPopulator populateBoolFieldInParentObj:self.emailAddressFilter 
+		[formPopulator populateBoolFieldInParentObj:self.emailAddressFilterFormInfo.emailAddressFilter 
 			withBoolField:EMAIL_ADDRESS_FILTER_MATCH_UNSELECTED_KEY 
 			andFieldLabel:LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_MATCH_UNSELECTED_FIELD_LABEL") 
 			andSubTitle:LOCALIZED_STR(@"EMAIL_ADDRESS_FILTER_MATCH_UNSELECTED_FIELD_SUBTITLE")];
@@ -95,7 +95,7 @@
 
 -(void)dealloc
 {
-	[emailAddressFilter release];
+	[emailAddressFilterFormInfo release];
 	[super dealloc];
 }
 

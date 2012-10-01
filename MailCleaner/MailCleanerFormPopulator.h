@@ -24,7 +24,9 @@
 -(void)populateStarredFilterInParentObj:(NSManagedObject*)parentObj
 	withStarredFilterPropertyKey:(NSString*)starredFilterKey;	
 	
--(void)populateEmailAddressFilter:(EmailAddressFilter*)emailAddressFilter;
+-(void)populateEmailAddressFilter:(EmailAddressFilter*)emailAddressFilter
+	andDoSelectRecipients:(BOOL)selectRecipients andDoSelectSenders:(BOOL)selectSenders;
+
 -(void)populateEmailDomainFilter:(EmailDomainFilter*)emailDomainFilter;
 -(void)populateEmailFolderFilter:(EmailFolderFilter*)emailFolderFilter;
 -(void)populateSubjectFilter:(SubjectFilter*)subjectFilter;

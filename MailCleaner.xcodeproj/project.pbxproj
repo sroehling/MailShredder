@@ -61,7 +61,6 @@
 		0053EFBF158FE371003F6B6E /* EmailAddressFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0053EFBE158FE370003F6B6E /* EmailAddressFilterFormInfoCreator.m */; };
 		0053EFC7158FF3E3003F6B6E /* EmailAddressFilterAddressAdder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0053EFC6158FF3E3003F6B6E /* EmailAddressFilterAddressAdder.m */; };
 		0053EFCA158FFC3B003F6B6E /* EmailAddressFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0053EFC9158FFC3A003F6B6E /* EmailAddressFieldEditInfo.m */; };
-		0053EFCD1590EEB5003F6B6E /* EmailAddressSelectionFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0053EFCC1590EEB3003F6B6E /* EmailAddressSelectionFormInfoCreator.m */; };
 		0054D2EA15ADF49D00270679 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 0054D2E915ADF49D00270679 /* search.png */; };
 		00561E7115F40EED0020229D /* deleteMsgs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00561E7015F40EED0020229D /* deleteMsgs@2x.png */; };
 		00561E7415F416820020229D /* msgActionButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00561E7315F416820020229D /* msgActionButton@2x.png */; };
@@ -103,7 +102,6 @@
 		00A6FB3E159A493200ED4D4B /* EmailDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB3D159A493200ED4D4B /* EmailDomain.m */; };
 		00A6FB41159A4C9F00ED4D4B /* EmailDomainFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB40159A4C9F00ED4D4B /* EmailDomainFilter.m */; };
 		00A6FB45159A57DF00ED4D4B /* EmailDomainFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB44159A57DF00ED4D4B /* EmailDomainFieldEditInfo.m */; };
-		00A6FB49159A8C4F00ED4D4B /* EmailDomainSelectionFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB48159A8C4E00ED4D4B /* EmailDomainSelectionFormInfoCreator.m */; };
 		00A6FB4C159A8DF100ED4D4B /* EmailDomainFilterDomainAdder.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB4B159A8DF100ED4D4B /* EmailDomainFilterDomainAdder.m */; };
 		00A6FB4F159A908200ED4D4B /* EmailDomainFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB4E159A908100ED4D4B /* EmailDomainFilterFormInfoCreator.m */; };
 		00A6FB58159B850A00ED4D4B /* MailAddressHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB57159B850900ED4D4B /* MailAddressHelper.m */; };
@@ -155,6 +153,7 @@
 		00E420EC160BC079007CFA48 /* msgflag.png in Resources */ = {isa = PBXBuildFile; fileRef = 00E420EB160BC079007CFA48 /* msgflag.png */; };
 		00E420EF160BC534007CFA48 /* msgflag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00E420EE160BC534007CFA48 /* msgflag@2x.png */; };
 		00E9944A15643244003B9771 /* EmailInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9944915643244003B9771 /* EmailInfoTableViewController.m */; };
+		00E9F6CB16163ED9002BA59E /* EmailAddressSelectionTableConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9F6CA16163ED9002BA59E /* EmailAddressSelectionTableConfigurator.m */; };
 		00EDA63315F6B62F00917916 /* FilterNameFieldValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00EDA63215F6B62F00917916 /* FilterNameFieldValidator.m */; };
 		00EDA63815F7C0D800917916 /* MessageFilterCountOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00EDA63715F7C0D800917916 /* MessageFilterCountOperation.m */; };
 		00F16E0A15FA7F0C00E3A21B /* DeleteSettingsEmailAccountFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F16E0915FA7F0C00E3A21B /* DeleteSettingsEmailAccountFormInfoCreator.m */; };
@@ -162,6 +161,8 @@
 		00F4711F1608CDFF00315F5A /* emailAcctDeletionSettingsGmail.md in Resources */ = {isa = PBXBuildFile; fileRef = 00F4711E1608CDFF00315F5A /* emailAcctDeletionSettingsGmail.md */; };
 		00F471211608CF2700315F5A /* emailAcctDeletionSettingsGoogleApps.md in Resources */ = {isa = PBXBuildFile; fileRef = 00F471201608CF2700315F5A /* emailAcctDeletionSettingsGoogleApps.md */; };
 		00F4A9BD15E2AFB100595C95 /* imapAcctPresets.txt in Resources */ = {isa = PBXBuildFile; fileRef = 00F4A9BC15E2AFB100595C95 /* imapAcctPresets.txt */; };
+		00F9B3911617BC430054E402 /* EmailAddressFilterFormInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F9B3901617BC430054E402 /* EmailAddressFilterFormInfo.m */; };
+		00F9B3941618F4F50054E402 /* EmailDomainSelectionTableConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F9B3931618F4F50054E402 /* EmailDomainSelectionTableConfigurator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -335,8 +336,6 @@
 		0053EFC6158FF3E3003F6B6E /* EmailAddressFilterAddressAdder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddressFilterAddressAdder.m; sourceTree = "<group>"; };
 		0053EFC8158FFC3A003F6B6E /* EmailAddressFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddressFieldEditInfo.h; sourceTree = "<group>"; };
 		0053EFC9158FFC3A003F6B6E /* EmailAddressFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddressFieldEditInfo.m; sourceTree = "<group>"; };
-		0053EFCB1590EEB2003F6B6E /* EmailAddressSelectionFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddressSelectionFormInfoCreator.h; sourceTree = "<group>"; };
-		0053EFCC1590EEB3003F6B6E /* EmailAddressSelectionFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddressSelectionFormInfoCreator.m; sourceTree = "<group>"; };
 		0054D2E915ADF49D00270679 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		00561E7015F40EED0020229D /* deleteMsgs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deleteMsgs@2x.png"; sourceTree = "<group>"; };
 		00561E7315F416820020229D /* msgActionButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "msgActionButton@2x.png"; sourceTree = "<group>"; };
@@ -406,8 +405,6 @@
 		00A6FB40159A4C9F00ED4D4B /* EmailDomainFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailDomainFilter.m; sourceTree = "<group>"; };
 		00A6FB43159A57DF00ED4D4B /* EmailDomainFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailDomainFieldEditInfo.h; sourceTree = "<group>"; };
 		00A6FB44159A57DF00ED4D4B /* EmailDomainFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailDomainFieldEditInfo.m; sourceTree = "<group>"; };
-		00A6FB47159A8C4E00ED4D4B /* EmailDomainSelectionFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailDomainSelectionFormInfoCreator.h; sourceTree = "<group>"; };
-		00A6FB48159A8C4E00ED4D4B /* EmailDomainSelectionFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailDomainSelectionFormInfoCreator.m; sourceTree = "<group>"; };
 		00A6FB4A159A8DF100ED4D4B /* EmailDomainFilterDomainAdder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailDomainFilterDomainAdder.h; sourceTree = "<group>"; };
 		00A6FB4B159A8DF100ED4D4B /* EmailDomainFilterDomainAdder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailDomainFilterDomainAdder.m; sourceTree = "<group>"; };
 		00A6FB4D159A908100ED4D4B /* EmailDomainFilterFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailDomainFilterFormInfoCreator.h; sourceTree = "<group>"; };
@@ -497,6 +494,8 @@
 		00E420EE160BC534007CFA48 /* msgflag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "msgflag@2x.png"; sourceTree = "<group>"; };
 		00E9944815643244003B9771 /* EmailInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoTableViewController.h; sourceTree = "<group>"; };
 		00E9944915643244003B9771 /* EmailInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoTableViewController.m; sourceTree = "<group>"; };
+		00E9F6C916163ED9002BA59E /* EmailAddressSelectionTableConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddressSelectionTableConfigurator.h; sourceTree = "<group>"; };
+		00E9F6CA16163ED9002BA59E /* EmailAddressSelectionTableConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddressSelectionTableConfigurator.m; sourceTree = "<group>"; };
 		00EDA63115F6B62F00917916 /* FilterNameFieldValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterNameFieldValidator.h; sourceTree = "<group>"; };
 		00EDA63215F6B62F00917916 /* FilterNameFieldValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterNameFieldValidator.m; sourceTree = "<group>"; };
 		00EDA63615F7C0D800917916 /* MessageFilterCountOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageFilterCountOperation.h; sourceTree = "<group>"; };
@@ -507,6 +506,10 @@
 		00F4711E1608CDFF00315F5A /* emailAcctDeletionSettingsGmail.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = emailAcctDeletionSettingsGmail.md; sourceTree = "<group>"; };
 		00F471201608CF2700315F5A /* emailAcctDeletionSettingsGoogleApps.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = emailAcctDeletionSettingsGoogleApps.md; sourceTree = "<group>"; };
 		00F4A9BC15E2AFB100595C95 /* imapAcctPresets.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = imapAcctPresets.txt; sourceTree = "<group>"; };
+		00F9B38F1617BC430054E402 /* EmailAddressFilterFormInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddressFilterFormInfo.h; sourceTree = "<group>"; };
+		00F9B3901617BC430054E402 /* EmailAddressFilterFormInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddressFilterFormInfo.m; sourceTree = "<group>"; };
+		00F9B3921618F4F50054E402 /* EmailDomainSelectionTableConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailDomainSelectionTableConfigurator.h; sourceTree = "<group>"; };
+		00F9B3931618F4F50054E402 /* EmailDomainSelectionTableConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailDomainSelectionTableConfigurator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -824,14 +827,16 @@
 		0053EFCE1590EEC9003F6B6E /* Email Address Filter (Sender) */ = {
 			isa = PBXGroup;
 			children = (
+				00F9B38F1617BC430054E402 /* EmailAddressFilterFormInfo.h */,
+				00F9B3901617BC430054E402 /* EmailAddressFilterFormInfo.m */,
 				0053EFC8158FFC3A003F6B6E /* EmailAddressFieldEditInfo.h */,
 				0053EFC9158FFC3A003F6B6E /* EmailAddressFieldEditInfo.m */,
-				0053EFCB1590EEB2003F6B6E /* EmailAddressSelectionFormInfoCreator.h */,
-				0053EFCC1590EEB3003F6B6E /* EmailAddressSelectionFormInfoCreator.m */,
 				0053EFBD158FE370003F6B6E /* EmailAddressFilterFormInfoCreator.h */,
 				0053EFBE158FE370003F6B6E /* EmailAddressFilterFormInfoCreator.m */,
 				0053EFC5158FF3E2003F6B6E /* EmailAddressFilterAddressAdder.h */,
 				0053EFC6158FF3E3003F6B6E /* EmailAddressFilterAddressAdder.m */,
+				00E9F6C916163ED9002BA59E /* EmailAddressSelectionTableConfigurator.h */,
+				00E9F6CA16163ED9002BA59E /* EmailAddressSelectionTableConfigurator.m */,
 			);
 			name = "Email Address Filter (Sender)";
 			sourceTree = "<group>";
@@ -998,12 +1003,12 @@
 			children = (
 				00A6FB43159A57DF00ED4D4B /* EmailDomainFieldEditInfo.h */,
 				00A6FB44159A57DF00ED4D4B /* EmailDomainFieldEditInfo.m */,
-				00A6FB47159A8C4E00ED4D4B /* EmailDomainSelectionFormInfoCreator.h */,
-				00A6FB48159A8C4E00ED4D4B /* EmailDomainSelectionFormInfoCreator.m */,
 				00A6FB4A159A8DF100ED4D4B /* EmailDomainFilterDomainAdder.h */,
 				00A6FB4B159A8DF100ED4D4B /* EmailDomainFilterDomainAdder.m */,
 				00A6FB4D159A908100ED4D4B /* EmailDomainFilterFormInfoCreator.h */,
 				00A6FB4E159A908100ED4D4B /* EmailDomainFilterFormInfoCreator.m */,
+				00F9B3921618F4F50054E402 /* EmailDomainSelectionTableConfigurator.h */,
+				00F9B3931618F4F50054E402 /* EmailDomainSelectionTableConfigurator.m */,
 			);
 			name = "Email Domain Filter";
 			sourceTree = "<group>";
@@ -1473,11 +1478,9 @@
 				0053EFBF158FE371003F6B6E /* EmailAddressFilterFormInfoCreator.m in Sources */,
 				0053EFC7158FF3E3003F6B6E /* EmailAddressFilterAddressAdder.m in Sources */,
 				0053EFCA158FFC3B003F6B6E /* EmailAddressFieldEditInfo.m in Sources */,
-				0053EFCD1590EEB5003F6B6E /* EmailAddressSelectionFormInfoCreator.m in Sources */,
 				00A6FB3E159A493200ED4D4B /* EmailDomain.m in Sources */,
 				00A6FB41159A4C9F00ED4D4B /* EmailDomainFilter.m in Sources */,
 				00A6FB45159A57DF00ED4D4B /* EmailDomainFieldEditInfo.m in Sources */,
-				00A6FB49159A8C4F00ED4D4B /* EmailDomainSelectionFormInfoCreator.m in Sources */,
 				00A6FB4C159A8DF100ED4D4B /* EmailDomainFilterDomainAdder.m in Sources */,
 				00A6FB4F159A908200ED4D4B /* EmailDomainFilterFormInfoCreator.m in Sources */,
 				00A6FB58159B850A00ED4D4B /* MailAddressHelper.m in Sources */,
@@ -1540,6 +1543,9 @@
 				001A93591609496E00740534 /* MailDeleteCompletionInfo.m in Sources */,
 				00DA6FA51614AFA300F22DEB /* FolderDeletionMsgSet.m in Sources */,
 				00DA6FA81614B0C900F22DEB /* FolderDeletionMsgs.m in Sources */,
+				00E9F6CB16163ED9002BA59E /* EmailAddressSelectionTableConfigurator.m in Sources */,
+				00F9B3911617BC430054E402 /* EmailAddressFilterFormInfo.m in Sources */,
+				00F9B3941618F4F50054E402 /* EmailDomainSelectionTableConfigurator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

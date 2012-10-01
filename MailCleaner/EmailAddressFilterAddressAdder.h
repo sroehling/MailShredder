@@ -9,18 +9,19 @@
 #import <Foundation/Foundation.h>
 #import "TableViewObjectAdder.h"
 #import "MultipleSelectionAddViewController.h"
+#import "MultipleSelectionAddListener.h"
 
-@class EmailAddressFilter;
+@class EmailAddressFilterFormInfo;
 
 @interface EmailAddressFilterAddressAdder : NSObject 
 	<TableViewObjectAdder,MultipleSelectionAddListener> 
 {
 	@private
-		EmailAddressFilter *emailAddressFilter;
+		EmailAddressFilterFormInfo *emailAddressFilterFormInfo;
 }
 
-@property(nonatomic,retain) EmailAddressFilter *emailAddressFilter;
+@property(nonatomic,retain) EmailAddressFilterFormInfo *emailAddressFilterFormInfo;
 
--(id)initWithEmailAddressFilter:(EmailAddressFilter*)theAddressFilter;
+-(id)initWithEmailAddressFilter:(EmailAddressFilterFormInfo*)theAddressFilterFormInfo;
 
 @end

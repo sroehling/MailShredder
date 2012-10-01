@@ -8,8 +8,9 @@
 
 #import "EmailDomainFilterDomainAdder.h"
 #import "EmailDomainFilter.h"
-#import "EmailDomainSelectionFormInfoCreator.h"
 #import "FormContext.h"
+#import "EmailDomainSelectionTableConfigurator.h"
+#import "MultiSelectionCoreDataTableViewController.h"
 
 @implementation EmailDomainFilterDomainAdder
 
@@ -35,19 +36,18 @@
 -(void)addObjectFromTableView:(FormContext*)parentContext
 {
 	NSLog(@"Add email domain to domain filter");
-	
-	EmailDomainSelectionFormInfoCreator *emailDomainFormInfoCreator = 
-		[[[EmailDomainSelectionFormInfoCreator alloc] 
-		initWithEmailDomainFilter:self.emailDomainFilter] autorelease];
-		
-	MultipleSelectionAddViewController *senderAddressSelectionController = 
-		[[[MultipleSelectionAddViewController alloc] 
-			initWithFormInfoCreator:emailDomainFormInfoCreator 
-			andDataModelController:parentContext.dataModelController 
-			andSelectionDoneListener:self] autorelease];
+			
+	EmailDomainSelectionTableConfigurator *tableConfigurator =
+		[[[EmailDomainSelectionTableConfigurator alloc]
+			initWithDataModelController:parentContext.dataModelController
+			andDomainFilter:self.emailDomainFilter] autorelease];
+			
+	MultiSelectionCoreDataTableViewController *selectionViewController =
+		[[[MultiSelectionCoreDataTableViewController alloc]
+		initWithTableConfigurator:tableConfigurator andSelectionDoneListener:self] autorelease];
 	
     [parentContext.parentController.navigationController 
-		pushViewController:senderAddressSelectionController animated:YES];
+		pushViewController:selectionViewController animated:YES];
 }
 
 -(void)multipleSelectionAddFinishedSelection:(NSSet *)selectedObjs
