@@ -273,6 +273,20 @@ static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 255.0f;
 			andMenuSections:sections andMenuHeight:popupMenuHeight] autorelease];
 }
 
+-(void)launchPostViewLoadMailServerActions
+{
+	AppDelegate *theAppDelegate = [AppHelper theAppDelegate];
+	
+	
+	// If the app was shutdown before finishing any deletes, some deletions will be pending.
+	// By launching a deletion background thread, any unfinished (but already confirmed)
+	// deletions will be finished.
+	[theAppDelegate deleteMarkedMsgsInBackgroundThread];
+	
+	// Always launch a server synchronization to get the latest messages.
+	[theAppDelegate syncWithServerInBackgroundThread];
+}
+
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
@@ -311,8 +325,7 @@ static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 255.0f;
 		andTarget:self andAction:@selector(showSettings)];
 	
 	// Once the message view is finished loading, start a synchronization to refresh the messages.
-	AppDelegate *theAppDelegate = [AppHelper theAppDelegate];
-	[theAppDelegate performSelector:@selector(syncWithServerInBackgroundThread) withObject:nil afterDelay:2.0];
+	[self performSelector:@selector(launchPostViewLoadMailServerActions) withObject:nil afterDelay:2.0];
 
 }
 
