@@ -52,7 +52,11 @@
 #import "SubjectFilter.h"
 #import "AgeFilterComparison.h"
 
-CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 255.0f;
+static CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 255.0f;
+
+static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MENU_WIDTH = 220.0f;
+static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 255.0f;
+
 
 @implementation EmailInfoTableViewController
 
@@ -158,11 +162,12 @@ CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 255.0f;
 	{
 		tableMenuHeightForAllFilters = 44.0f;
 	}
-	CGFloat tableMenuHeight = MIN(EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT,tableMenuHeightForAllFilters); 
+	CGFloat tableMenuHeight = MIN(EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT	,tableMenuHeightForAllFilters);
 
 	TableMenuViewController *loadFilterMenuController = [[[TableMenuViewController alloc] 
 			initWithStyle:UITableViewStyleGrouped 
-			andMenuSections:sections andMenuHeight:tableMenuHeight] autorelease];
+			andMenuSections:sections andMenuHeight:tableMenuHeight
+			andWidth:EMAIL_INFO_TABLE_LOAD_FILTER_MENU_WIDTH] autorelease];
 
 	self.loadFilterPopoverController = [[[WEPopoverController alloc] 
 		initWithContentViewController:loadFilterMenuController] autorelease];
