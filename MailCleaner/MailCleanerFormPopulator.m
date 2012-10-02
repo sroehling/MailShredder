@@ -60,7 +60,7 @@
 	StaticNavFieldEditInfo *messageAgeFieldEditInfo = 
 		[[[StaticNavFieldEditInfo alloc] 
 			initWithCaption:LOCALIZED_STR(@"MESSAGE_AGE_TITLE")
-			andSubtitle:LOCALIZED_STR(@"MESSAGE_AGE_SUBTITLE") 
+			andSubtitle:nil
 			andContentDescription:[ageFilter filterSynopsis]
 			andSubViewFactory:ageFilterViewFactory] autorelease];
 	[self.currentSection addFieldEditInfo:messageAgeFieldEditInfo];		
@@ -92,7 +92,7 @@
 	StaticNavFieldEditInfo *messageAgeFieldEditInfo = 
 		[[[StaticNavFieldEditInfo alloc] 
 			initWithCaption:LOCALIZED_STR(@"EMAIL_READ_FILTER_FIELD_CAPTION")
-			andSubtitle:LOCALIZED_STR(@"EMAIL_READ_FILTER_FIELD_SUBTITLE") 
+			andSubtitle:nil
 			andContentDescription:[readFilter filterSynopsis]
 			andSubViewFactory:readFilterViewFactory] autorelease];
 	[self.currentSection addFieldEditInfo:messageAgeFieldEditInfo];
@@ -122,7 +122,7 @@
 	StaticNavFieldEditInfo *messageAgeFieldEditInfo = 
 		[[[StaticNavFieldEditInfo alloc] 
 			initWithCaption:LOCALIZED_STR(@"EMAIL_STARRED_FILTER_FIELD_CAPTION")
-			andSubtitle:LOCALIZED_STR(@"EMAIL_STARRED_FILTER_FIELD_SUBTITLE") 
+			andSubtitle:nil
 			andContentDescription:[starredFilter filterSynopsis]
 			andSubViewFactory:starredFilterViewFactory] autorelease];
 	[self.currentSection addFieldEditInfo:messageAgeFieldEditInfo];

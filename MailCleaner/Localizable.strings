@@ -58,7 +58,6 @@
 
 "MESSAGE_AGE_TITLE" = "Send Date";
 "MESSAGE_AGE_FILTER_PROMPT" = "Select a send date criterion";
-"MESSAGE_AGE_SUBTITLE" = "Filter by date the message was sent";
 
 "MSG_LIST_ACTION_DELETE_ALL_BUTTON_TITLE" = "Delete All Trashed Messages";
 "MSG_LIST_ACTION_DELETE_SELECTED_BUTTON_TITLE" = "Delete Selected Messages";
@@ -129,7 +128,6 @@
 "EMAIL_FOLDER_FILTER_ADDRESS_LIST_SECTION_TITLE" = "Folder List";
 
 "EMAIL_READ_FILTER_FIELD_CAPTION" = "Read?";
-"EMAIL_READ_FILTER_FIELD_SUBTITLE" = "Filter on whether message is read or not";
 "MESSAGE_READ_FILTER_TITLE" = "Message Read";
 "EMAIL_READ_FILTER_MATCH_READ" = "Read";
 "EMAIL_READ_FILTER_MATCH_UNREAD" = "Unread";
@@ -142,7 +140,6 @@
 "EMAIL_STARRED_FILTER_MATCH_STARRED_OR_UNSTARRED_SUBTITLE" = "Match messages which are either flagged(starred) or not.";
 "EMAIL_STARRED_FILTER_FIELD_CAPTION" = "Flagged?";
 "EMAIL_STARRED_FILTER_TITLE" = "Message Flagged";
-"EMAIL_STARRED_FILTER_FIELD_SUBTITLE" = "Filter on whether messages is flagged (starred) or not.";
 "MESSAGE_STARRED_FILTER_TITLE" = "Message Flag";
 
 "EMAIL_SUBJECT_FILTER_MATCH_ANY" = "Any";
