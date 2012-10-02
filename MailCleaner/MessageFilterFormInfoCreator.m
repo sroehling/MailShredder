@@ -22,6 +22,7 @@
 #import "VariableHeightTableHeader.h"
 #import "MessageFilterTableFooterController.h"
 #import "FromAddressFilter.h"
+#import "SenderDomainFilter.h"
 
 @implementation MessageFilterFormInfoCreator
 
@@ -65,7 +66,7 @@
 	[formPopulator populateEmailAddressFilter:self.msgFilter.recipientAddressFilter
 		andDoSelectRecipients:TRUE andDoSelectSenders:FALSE];
 
-	[formPopulator populateEmailDomainFilter:self.msgFilter.emailDomainFilter];
+	[formPopulator populateEmailDomainFilter:self.msgFilter.senderDomainFilter];
 
 	[formPopulator populateEmailFolderFilter:self.msgFilter.folderFilter];
 

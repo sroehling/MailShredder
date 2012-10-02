@@ -46,6 +46,8 @@ extern NSString * const EMAIL_INFO_RECIPIENT_ADDRESSES_KEY;
 @property (nonatomic, retain) EmailAccount *emailAcct;
 
 @property (nonatomic, retain) NSSet *recipientAddresses;
+@property (nonatomic, retain) NSSet *recipientDomains;
+
 @property (nonatomic, retain) NSNumber * size;
 
 @property (nonatomic, retain) NSNumber * isRead;
@@ -62,5 +64,11 @@ extern NSString * const EMAIL_INFO_RECIPIENT_ADDRESSES_KEY;
 - (void)removeRecipientAddressesObject:(EmailAddress *)value;
 - (void)addRecipientAddresses:(NSSet *)values;
 - (void)removeRecipientAddresses:(NSSet *)values;
+
+- (void)addRecipientDomainsObject:(EmailDomain *)value;
+- (void)removeRecipientDomainsObject:(EmailDomain *)value;
+- (void)addRecipientDomains:(NSSet *)values;
+- (void)removeRecipientDomains:(NSSet *)values;
+
 
 @end

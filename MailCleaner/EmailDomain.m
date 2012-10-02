@@ -15,6 +15,7 @@ NSString * const EMAIL_DOMAIN_ENTITY_NAME = @"EmailDomain";
 NSString * const EMAIL_DOMAIN_ACCT_KEY = @"domainAcct";
 NSString * const EMAIL_DOMAIN_NAME_KEY = @"domainName";
 NSString * const EMAIL_DOMAIN_SECTION_NAME_KEY = @"sectionName";
+NSString * const EMAIL_DOMAIN_IS_SENDER_KEY = @"isSenderDomain";
 
 @implementation EmailDomain
 
@@ -24,6 +25,8 @@ NSString * const EMAIL_DOMAIN_SECTION_NAME_KEY = @"sectionName";
 @dynamic isRecipientDomain;
 @dynamic isSenderDomain;
 @dynamic sectionName;
+
+@dynamic emailInfoRecipientDomains;
 
 // This property is not persisted via CoreData. It is used for tracking of 
 // selection of the EmailAddress in a table view.

@@ -51,6 +51,7 @@
 #import "StarredFilter.h"
 #import "SubjectFilter.h"
 #import "AgeFilterComparison.h"
+#import "SenderDomainFilter.h"
 
 static CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 255.0f;
 
@@ -88,7 +89,7 @@ static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 255.0f;
 	MessageFilter *currentFilter = sharedAppVals.currentEmailAcct.msgListFilter;
 
 	currentFilter.filterName = selectedFilter.filterName;
-	[currentFilter.emailDomainFilter setDomains:selectedFilter.emailDomainFilter.selectedDomains];
+	[currentFilter.senderDomainFilter setDomains:selectedFilter.senderDomainFilter.selectedDomains];
 	[currentFilter.fromAddressFilter setAddresses:selectedFilter.fromAddressFilter.selectedAddresses];
 	[currentFilter.recipientAddressFilter setAddresses:selectedFilter.recipientAddressFilter.selectedAddresses];
 	[currentFilter.folderFilter setFolders:selectedFilter.folderFilter.selectedFolders];
@@ -527,7 +528,7 @@ static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 255.0f;
 		MessageFilter *currentFilter = [self currentAcctMsgFilter];
 		[currentFilter resetFilterName];
 
-		[currentFilter.emailDomainFilter setDomains:selectedDomains];
+		[currentFilter.senderDomainFilter setDomains:selectedDomains];
 		[self.appDmc saveContext];
 		
 		[self refreshMessageList];
@@ -581,9 +582,9 @@ static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 255.0f;
 	MessageFilter *newFilter = [self resetObjectContextAndCreateNewMessageFilter];
 	MessageFilter *msgFilter = [self currentAcctMsgFilter];
 	
-	[newFilter.emailDomainFilter setDomains:
+	[newFilter.senderDomainFilter setDomains:
 		[CoreDataHelper objectsInOtherContext:self.saveMsgFilterDmc.managedObjectContext 
-		forOriginalObjs:msgFilter.emailDomainFilter.selectedDomains]];
+		forOriginalObjs:msgFilter.senderDomainFilter.selectedDomains]];
 		
 	[newFilter.fromAddressFilter setAddresses:
 		[CoreDataHelper objectsInOtherContext:self.saveMsgFilterDmc.managedObjectContext 

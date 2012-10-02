@@ -11,17 +11,12 @@
 
 @class EmailDomain, MessageFilter;
 
-extern NSString * const EMAIL_DOMAIN_FILTER_ENTITY_NAME;
 extern NSString * const EMAIL_DOMAIN_FILTER_MATCH_UNSELECTED_KEY;
 
 @interface EmailDomainFilter : NSManagedObject
 
 @property (nonatomic, retain) NSSet *selectedDomains;
 @property (nonatomic, retain) NSNumber * matchUnselected;
-
-// Inverse relationships
-@property (nonatomic, retain) MessageFilter *messageFilterDomainFilter;
-
 
 -(NSString*)filterSynopsis;
 -(NSString*)filterSynopsisShort;

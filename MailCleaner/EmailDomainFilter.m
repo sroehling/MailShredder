@@ -12,7 +12,6 @@
 #import "EmailInfo.h"
 #import "LocalizationHelper.h"
 
-NSString * const EMAIL_DOMAIN_FILTER_ENTITY_NAME = @"EmailDomainFilter";
 NSString * const EMAIL_DOMAIN_FILTER_MATCH_UNSELECTED_KEY = @"matchUnselected";
 
 NSInteger const MAX_SPECIFIC_DOMAIN_SYNOPSIS = 2;
@@ -22,9 +21,6 @@ NSInteger const MAX_SPECIFIC_DOMAIN_SYNOPSIS = 2;
 @dynamic selectedDomains;
 @dynamic matchUnselected;
 
-
-// Inverse relationships
-@dynamic messageFilterDomainFilter;
 
 -(void)resetFilter
 {
@@ -97,24 +93,8 @@ NSInteger const MAX_SPECIFIC_DOMAIN_SYNOPSIS = 2;
 
 -(NSPredicate*)filterPredicate
 {
-	if([self.selectedDomains count] == 0)
-	{
-		return [NSPredicate predicateWithValue:TRUE];
-	}
-	else 
-	{
-		NSPredicate *matchSpecificDomains = [NSPredicate predicateWithFormat:@"%K IN %@",
-				EMAIL_INFO_SENDER_DOMAIN_KEY,self.selectedDomains];
-			
-		if([self.matchUnselected boolValue])
-		{
-			return [NSCompoundPredicate notPredicateWithSubpredicate:matchSpecificDomains];
-		}
-		else 
-		{
-			return matchSpecificDomains;
-		}
-	}
+	assert(0);
+	return nil; // must be overridden
 }
 
 -(BOOL)filterMatchesAnyDomain

@@ -21,6 +21,7 @@
 #import "EmailAccount.h"
 #import "MailCleanerFormPopulator.h"
 #import "FilterNameFieldValidator.h"
+#import "SenderDomainFilter.h"
 
 @implementation SavedMessageFilterFormInfoCreator
 
@@ -84,7 +85,7 @@
 	[formPopulator populateEmailAddressFilter:self.messageFilter.recipientAddressFilter
 		andDoSelectRecipients:TRUE andDoSelectSenders:FALSE];
 
-	[formPopulator populateEmailDomainFilter:self.messageFilter.emailDomainFilter];
+	[formPopulator populateEmailDomainFilter:self.messageFilter.senderDomainFilter];
 
 	[formPopulator populateEmailFolderFilter:self.messageFilter.folderFilter];
 	

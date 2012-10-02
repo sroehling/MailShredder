@@ -22,6 +22,8 @@
 #import "ReadFilter.h"
 #import "StarredFilter.h"
 #import "LocalizationHelper.h"
+#import "RecipientDomainFilter.h"
+#import "SenderDomainFilter.h"
 
 NSString * const MESSAGE_FILTER_ENTITY_NAME = @"MessageFilter";
 NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
@@ -35,7 +37,9 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 @dynamic filterName;
 
 @dynamic ageFilter;
-@dynamic emailDomainFilter;
+@dynamic senderDomainFilter;
+@dynamic recipientDomainFilter;
+
 @dynamic folderFilter;
 @dynamic recipientAddressFilter;
 @dynamic fromAddressFilter;
@@ -63,8 +67,12 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 	msgListFilter.recipientAddressFilter = (RecipientAddressFilter*)
 		[filterDmc insertObject:RECIPIENT_ADDRESS_FILTER_ENTITY_NAME];
 		
-	msgListFilter.emailDomainFilter = (EmailDomainFilter*)
-		[filterDmc insertObject:EMAIL_DOMAIN_FILTER_ENTITY_NAME];
+	msgListFilter.senderDomainFilter = (SenderDomainFilter*)
+		[filterDmc insertObject:SENDER_DOMAIN_FILTER_ENTITY_NAME];
+
+	msgListFilter.recipientDomainFilter = (RecipientDomainFilter*)
+		[filterDmc insertObject:RECIPIENT_DOMAIN_FILTER_ENTITY_NAME];
+
 		
 	msgListFilter.folderFilter = (EmailFolderFilter*)
 		[filterDmc insertObject:EMAIL_FOLDER_FILTER_ENTITY_NAME];
@@ -96,9 +104,14 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 	assert(recipientAddressPredicate != nil);
 	[predicates addObject:recipientAddressPredicate]; 
 
-	NSPredicate *emailDomainPredicate = [self.emailDomainFilter filterPredicate];
-	assert(emailDomainPredicate != nil);
-	[predicates addObject:emailDomainPredicate];
+	NSPredicate *senderDomainPredicate = [self.senderDomainFilter filterPredicate];
+	assert(senderDomainPredicate != nil);
+	[predicates addObject:senderDomainPredicate];
+	
+// TODO - Include the following to implement recipient domain filter
+//	NSPredicate *recipientDomainPredicate = [self.recipientDomainFilter filterPredicate];
+//	assert(recipientDomainPredicate != nil);
+//	[predicates addObject:recipientDomainPredicate];
 	
 	NSPredicate *emailFolderPredicate = [self.folderFilter filterPredicate];
 	assert(emailFolderPredicate != nil);
@@ -145,7 +158,11 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 	
 	[self.fromAddressFilter resetFilter];
 	[self.recipientAddressFilter resetFilter];
-	[self.emailDomainFilter resetFilter];
+	[self.senderDomainFilter resetFilter];
+	
+// TODO - Include the following to implement recipient domain filters
+//	[self.recipientDomainFilter resetFilter];
+
 	[self.folderFilter resetFilter];
 	[self.subjectFilter resetFilter];
 
@@ -179,11 +196,17 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 		[synopsisParts addObject:[self.subjectFilter filterSynopsis]];	
 	}
 	
-	if(![self.emailDomainFilter filterMatchesAnyDomain])
+	if(![self.senderDomainFilter filterMatchesAnyDomain])
 	{
-		[synopsisParts addObject:[self.emailDomainFilter filterSynopsis]];
+		[synopsisParts addObject:[self.senderDomainFilter filterSynopsis]];
 	}
-	
+
+// TODO - Include the following to implement recipient domain filters
+//	if(![self.recipientDomainFilter filterMatchesAnyDomain])
+//	{
+//		[synopsisParts addObject:[self.recipientDomainFilter filterSynopsis]];
+//	}
+
 	if(![self.folderFilter filterMatchesAnyFolder])
 	{
 		[synopsisParts addObject:[self.folderFilter filterSynopsis]];
@@ -216,7 +239,9 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 		[self.fromAddressFilter filterMatchesAnyAddress] &&
 		[self.recipientAddressFilter filterMatchesAnyAddress] &&
 		[self.subjectFilter filterMatchesAnySubject] &&
-		[self.emailDomainFilter filterMatchesAnyDomain] &&
+		[self.senderDomainFilter filterMatchesAnyDomain] &&
+// TODO - Include the following to implement recipient domain filters
+//		[self.recipientDomainFilter filterMatchesAnyDomain] &&
 		[self.folderFilter filterMatchesAnyFolder] &&
 		[self.readFilter filterMatchesAnyReadStatus] &&
 		[self.starredFilter filterMatchesAnyStarredStatus])

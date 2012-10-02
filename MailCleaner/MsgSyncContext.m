@@ -113,6 +113,14 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 					inDataModelController:self.connectionContext.syncDmc
 					andEmailAcct:self.syncAcct andIsRecipientAddr:TRUE andIsSenderAddr:FALSE];
 		[newEmailInfo addRecipientAddressesObject:recipientAddress];
+		
+		EmailDomain *recipientDomain = [EmailDomain 
+			findOrAddDomainName:[MailAddressHelper emailAddressDomainName:msg.sender.email] 
+			withCurrentDomains:self.currDomainByDomainName 
+			inDataModelController:self.connectionContext.syncDmc
+			andEmailAcct:self.syncAcct
+			andIsRecipientDomain:TRUE andIsSenderDomain:FALSE];
+		[newEmailInfo addRecipientDomainsObject:recipientDomain];
 	}
 	
 	newEmailInfo.folderInfo = self.currFolder;

@@ -67,6 +67,15 @@
 	}
 	
 	
+	// TODO - To implement recipient domain selection, a flag needs to be
+	// passed in to indicate whether to select senders' domains or recipients'
+	// domains.
+	NSPredicate *matchSenderDomains = [NSPredicate predicateWithFormat:@"%K = %@",
+				EMAIL_DOMAIN_IS_SENDER_KEY,[NSNumber numberWithBool:TRUE]];
+		[fetchPredicates addObject:matchSenderDomains];
+
+	
+	
 	NSPredicate *dontMatchAlreadySelectedDomains = [NSCompoundPredicate notPredicateWithSubpredicate:
 		[NSPredicate predicateWithFormat:@"SELF IN %@",
 		self.domainFilter.selectedDomains]];

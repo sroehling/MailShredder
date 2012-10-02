@@ -163,6 +163,8 @@
 		00F4A9BD15E2AFB100595C95 /* imapAcctPresets.txt in Resources */ = {isa = PBXBuildFile; fileRef = 00F4A9BC15E2AFB100595C95 /* imapAcctPresets.txt */; };
 		00F9B3911617BC430054E402 /* EmailAddressFilterFormInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F9B3901617BC430054E402 /* EmailAddressFilterFormInfo.m */; };
 		00F9B3941618F4F50054E402 /* EmailDomainSelectionTableConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F9B3931618F4F50054E402 /* EmailDomainSelectionTableConfigurator.m */; };
+		00F9B397161B57340054E402 /* RecipientDomainFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F9B396161B57340054E402 /* RecipientDomainFilter.m */; };
+		00F9B39A161B57360054E402 /* SenderDomainFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F9B399161B57350054E402 /* SenderDomainFilter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -510,6 +512,10 @@
 		00F9B3901617BC430054E402 /* EmailAddressFilterFormInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddressFilterFormInfo.m; sourceTree = "<group>"; };
 		00F9B3921618F4F50054E402 /* EmailDomainSelectionTableConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailDomainSelectionTableConfigurator.h; sourceTree = "<group>"; };
 		00F9B3931618F4F50054E402 /* EmailDomainSelectionTableConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailDomainSelectionTableConfigurator.m; sourceTree = "<group>"; };
+		00F9B395161B57330054E402 /* RecipientDomainFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipientDomainFilter.h; sourceTree = "<group>"; };
+		00F9B396161B57340054E402 /* RecipientDomainFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipientDomainFilter.m; sourceTree = "<group>"; };
+		00F9B398161B57350054E402 /* SenderDomainFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SenderDomainFilter.h; sourceTree = "<group>"; };
+		00F9B399161B57350054E402 /* SenderDomainFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SenderDomainFilter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -784,6 +790,10 @@
 			children = (
 				00A6FB3F159A4C9F00ED4D4B /* EmailDomainFilter.h */,
 				00A6FB40159A4C9F00ED4D4B /* EmailDomainFilter.m */,
+				00F9B398161B57350054E402 /* SenderDomainFilter.h */,
+				00F9B399161B57350054E402 /* SenderDomainFilter.m */,
+				00F9B395161B57330054E402 /* RecipientDomainFilter.h */,
+				00F9B396161B57340054E402 /* RecipientDomainFilter.m */,
 			);
 			name = "Domain Filter";
 			sourceTree = "<group>";
@@ -1546,6 +1556,8 @@
 				00E9F6CB16163ED9002BA59E /* EmailAddressSelectionTableConfigurator.m in Sources */,
 				00F9B3911617BC430054E402 /* EmailAddressFilterFormInfo.m in Sources */,
 				00F9B3941618F4F50054E402 /* EmailDomainSelectionTableConfigurator.m in Sources */,
+				00F9B397161B57340054E402 /* RecipientDomainFilter.m in Sources */,
+				00F9B39A161B57360054E402 /* SenderDomainFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

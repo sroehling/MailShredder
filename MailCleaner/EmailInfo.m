@@ -28,6 +28,7 @@ NSString * const EMAIL_INFO_RECIPIENT_ADDRESSES_KEY = @"recipientAddresses";
 @dynamic subject;
 @dynamic deleted;
 @dynamic recipientAddresses;
+@dynamic recipientDomains;
 @dynamic emailAcct;
 @dynamic senderAddress;
 @dynamic size;

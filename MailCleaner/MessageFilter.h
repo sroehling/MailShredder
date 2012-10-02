@@ -20,6 +20,8 @@
 @class ReadFilter;
 @class StarredFilter;
 @class SubjectFilter;
+@class SenderDomainFilter;
+@class RecipientDomainFilter;
 
 extern NSString * const MESSAGE_FILTER_ENTITY_NAME;
 extern NSString * const MESSAGE_FILTER_AGE_FILTER_KEY;
@@ -33,7 +35,10 @@ extern NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH;
 @property (nonatomic, retain) NSString * filterName;
 
 @property (nonatomic, retain) AgeFilter *ageFilter;
-@property (nonatomic, retain) EmailDomainFilter *emailDomainFilter;
+
+@property (nonatomic, retain) SenderDomainFilter *senderDomainFilter;
+@property (nonatomic, retain) RecipientDomainFilter *recipientDomainFilter;
+
 @property (nonatomic, retain) EmailFolderFilter *folderFilter;
 @property (nonatomic, retain) ReadFilter *readFilter;
 @property (nonatomic, retain) StarredFilter *starredFilter;
