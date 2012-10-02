@@ -27,15 +27,16 @@ extern NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY;
 // Defaults and "singleton" objects only
 // needing one instance.
 @property (nonatomic, retain) AgeFilterNone *defaultAgeFilterNone;
-@property (nonatomic, retain) AgeFilterComparison *defaultAgeFilterNewer1Month;
-@property (nonatomic, retain) AgeFilterComparison *defaultAgeFilterNewer1Year;
-@property (nonatomic, retain) AgeFilterComparison *defaultAgeFilterNewer3Months;
-@property (nonatomic, retain) AgeFilterComparison *defaultAgeFilterNewer6Months;
 @property (nonatomic, retain) AgeFilterComparison *defaultAgeFilterOlder1Month;
 @property (nonatomic, retain) AgeFilterComparison *defaultAgeFilterOlder1Year;
 @property (nonatomic, retain) AgeFilterComparison *defaultAgeFilterOlder2Years;
 @property (nonatomic, retain) AgeFilterComparison *defaultAgeFilterOlder3Months;
 @property (nonatomic, retain) AgeFilterComparison *defaultAgeFilterOlder6Months;
+@property (nonatomic, retain) AgeFilterComparison *defaultAgeFilterOlder3Years;
+@property (nonatomic, retain) AgeFilterComparison *defaultAgeFilterOlder4Years;
+@property (nonatomic, retain) AgeFilterComparison *defaultAgeFilterOlder5Years;
+@property (nonatomic, retain) AgeFilterComparison *defaultAgeFilterOlder18Months;
+
 
 @property (nonatomic, retain) ReadFilter *defaultReadFilterRead;
 @property (nonatomic, retain) ReadFilter *defaultReadFilterReadOrUnread;

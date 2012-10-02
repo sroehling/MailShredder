@@ -29,15 +29,16 @@ extern NSUInteger const AGE_FILTER_COMPARISON_NEWER;
 @property (nonatomic, retain) NSNumber * showInFilterPopupMenu;
 
 // Inverse Relationships
-@property (nonatomic, retain) SharedAppVals *sharedAppValsDefaultAgeFilterNewer1Month;
-@property (nonatomic, retain) SharedAppVals *sharedAppValsDefaultAgeFilterNewer1Year;
-@property (nonatomic, retain) SharedAppVals *sharedAppValsDefaultAgeFilterNewer3Months;
-@property (nonatomic, retain) SharedAppVals *sharedAppValsDefaultAgeFilterNewer6Months;
 @property (nonatomic, retain) SharedAppVals *sharedAppValsDefaultAgeFilterOlder1Month;
 @property (nonatomic, retain) SharedAppVals *sharedAppValsDefaultAgeFilterOlder1Year;
 @property (nonatomic, retain) SharedAppVals *sharedAppValsDefaultAgeFilterOlder2Years;
 @property (nonatomic, retain) SharedAppVals *sharedAppValsDefaultAgeFilterOlder3Months;
 @property (nonatomic, retain) SharedAppVals *sharedAppValsDefaultAgeFilterOlder6Months;
+@property (nonatomic, retain) SharedAppVals *sharedAppValsDefaultAgeFilterOlder3Years;
+@property (nonatomic, retain) SharedAppVals *sharedAppValsDefaultAgeFilterOlder4Years;
+@property (nonatomic, retain) SharedAppVals *sharedAppValsDefaultAgeFilterOlder5Years;
+@property (nonatomic, retain) SharedAppVals *sharedAppValsDefaultAgeFilterOlder18Months;
+
 
 +(AgeFilterComparison*)filterWithDataModelController:(DataModelController*)dmc
 	andComparisonType:(NSUInteger)theComparison

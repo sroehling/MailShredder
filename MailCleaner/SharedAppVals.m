@@ -30,15 +30,16 @@ NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY = @"currentEmailAcct"
 
 @dynamic defaultAgeFilterNone;
 
-@dynamic defaultAgeFilterNewer1Month;
-@dynamic defaultAgeFilterNewer1Year;
-@dynamic defaultAgeFilterNewer3Months;
-@dynamic defaultAgeFilterNewer6Months;
 @dynamic defaultAgeFilterOlder1Month;
 @dynamic defaultAgeFilterOlder1Year;
 @dynamic defaultAgeFilterOlder2Years;
 @dynamic defaultAgeFilterOlder3Months;
 @dynamic defaultAgeFilterOlder6Months;
+@dynamic defaultAgeFilterOlder3Years;
+@dynamic defaultAgeFilterOlder4Years;
+@dynamic defaultAgeFilterOlder5Years;
+@dynamic defaultAgeFilterOlder18Months;
+
 
 @dynamic defaultReadFilterRead;
 @dynamic defaultReadFilterReadOrUnread;
@@ -53,15 +54,6 @@ NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY = @"currentEmailAcct"
 	
 	sharedVals.defaultAgeFilterNone = (AgeFilterNone*)[dataModelController insertObject:AGE_FILTER_NONE_ENTITY_NAME];
 	
-	sharedVals.defaultAgeFilterNewer1Month = [AgeFilterComparison filterWithDataModelController:dataModelController 
-		andComparisonType:AGE_FILTER_COMPARISON_NEWER andInterval:1 andTimeUnit:AGE_FILTER_COMPARISON_TIME_UNIT_MONTHS];
-	sharedVals.defaultAgeFilterNewer1Year = [AgeFilterComparison filterWithDataModelController:dataModelController 
-		andComparisonType:AGE_FILTER_COMPARISON_NEWER andInterval:1 andTimeUnit:AGE_FILTER_COMPARISON_TIME_UNIT_YEARS];
-	sharedVals.defaultAgeFilterNewer3Months = [AgeFilterComparison filterWithDataModelController:dataModelController 
-		andComparisonType:AGE_FILTER_COMPARISON_NEWER andInterval:3 andTimeUnit:AGE_FILTER_COMPARISON_TIME_UNIT_MONTHS];
-	sharedVals.defaultAgeFilterNewer6Months = [AgeFilterComparison filterWithDataModelController:dataModelController 
-		andComparisonType:AGE_FILTER_COMPARISON_NEWER andInterval:6 andTimeUnit:AGE_FILTER_COMPARISON_TIME_UNIT_MONTHS];
-
 	sharedVals.defaultAgeFilterOlder1Month = [AgeFilterComparison filterWithDataModelController:dataModelController 
 		andComparisonType:AGE_FILTER_COMPARISON_OLDER andInterval:1 andTimeUnit:AGE_FILTER_COMPARISON_TIME_UNIT_MONTHS];
 	sharedVals.defaultAgeFilterOlder1Year = [AgeFilterComparison filterWithDataModelController:dataModelController 
@@ -71,10 +63,21 @@ NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY = @"currentEmailAcct"
 		andComparisonType:AGE_FILTER_COMPARISON_OLDER andInterval:2 andTimeUnit:AGE_FILTER_COMPARISON_TIME_UNIT_YEARS];
 	sharedVals.defaultAgeFilterOlder3Months = [AgeFilterComparison filterWithDataModelController:dataModelController 
 		andComparisonType:AGE_FILTER_COMPARISON_OLDER andInterval:3 andTimeUnit:AGE_FILTER_COMPARISON_TIME_UNIT_MONTHS];
-	sharedVals.defaultAgeFilterNewer3Months.showInFilterPopupMenu = [NSNumber numberWithBool:TRUE];
+	sharedVals.defaultAgeFilterOlder3Months.showInFilterPopupMenu = [NSNumber numberWithBool:TRUE];
 	sharedVals.defaultAgeFilterOlder6Months = [AgeFilterComparison filterWithDataModelController:dataModelController 
 		andComparisonType:AGE_FILTER_COMPARISON_OLDER andInterval:6 andTimeUnit:AGE_FILTER_COMPARISON_TIME_UNIT_MONTHS];
 	sharedVals.defaultAgeFilterOlder6Months.showInFilterPopupMenu = [NSNumber numberWithBool:TRUE];
+	
+	sharedVals.defaultAgeFilterOlder3Years = [AgeFilterComparison filterWithDataModelController:dataModelController
+		andComparisonType:AGE_FILTER_COMPARISON_OLDER andInterval:3 andTimeUnit:AGE_FILTER_COMPARISON_TIME_UNIT_YEARS];
+	sharedVals.defaultAgeFilterOlder4Years = [AgeFilterComparison filterWithDataModelController:dataModelController
+		andComparisonType:AGE_FILTER_COMPARISON_OLDER andInterval:4 andTimeUnit:AGE_FILTER_COMPARISON_TIME_UNIT_YEARS];
+	sharedVals.defaultAgeFilterOlder5Years = [AgeFilterComparison filterWithDataModelController:dataModelController
+		andComparisonType:AGE_FILTER_COMPARISON_OLDER andInterval:5 andTimeUnit:AGE_FILTER_COMPARISON_TIME_UNIT_YEARS];
+	sharedVals.defaultAgeFilterOlder18Months = [AgeFilterComparison filterWithDataModelController:dataModelController
+		andComparisonType:AGE_FILTER_COMPARISON_OLDER andInterval:18 andTimeUnit:AGE_FILTER_COMPARISON_TIME_UNIT_MONTHS];
+	
+	
 		
 	sharedVals.defaultReadFilterRead = [ReadFilter readFilterInDataModelController:dataModelController 
 				andMatchLogic:READ_FILTER_MATCH_LOGIC_READ];

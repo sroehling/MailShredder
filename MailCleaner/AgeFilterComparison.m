@@ -28,15 +28,16 @@ NSUInteger const AGE_FILTER_COMPARISON_NEWER = 1;
 @dynamic showInFilterPopupMenu;
 
 // Inverse relationships
-@dynamic sharedAppValsDefaultAgeFilterNewer1Month;
-@dynamic sharedAppValsDefaultAgeFilterNewer1Year;
-@dynamic sharedAppValsDefaultAgeFilterNewer3Months;
-@dynamic sharedAppValsDefaultAgeFilterNewer6Months;
 @dynamic sharedAppValsDefaultAgeFilterOlder1Month;
 @dynamic sharedAppValsDefaultAgeFilterOlder1Year;
 @dynamic sharedAppValsDefaultAgeFilterOlder2Years;
 @dynamic sharedAppValsDefaultAgeFilterOlder3Months;
 @dynamic sharedAppValsDefaultAgeFilterOlder6Months;
+@dynamic sharedAppValsDefaultAgeFilterOlder3Years;
+@dynamic sharedAppValsDefaultAgeFilterOlder4Years;
+@dynamic sharedAppValsDefaultAgeFilterOlder5Years;
+@dynamic sharedAppValsDefaultAgeFilterOlder18Months;
+
 
 
 +(AgeFilterComparison*)filterWithDataModelController:(DataModelController*)dmc
