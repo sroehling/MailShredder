@@ -220,9 +220,19 @@
 	
 	BOOL doDeleteMsgs = [[self.connectionContext acctInSyncObjectContext].deleteHandlingDeleteMsg boolValue];
 		
+		
+	// Limit the messages deleted to those which are both in the current
+	// account and marked for deletion.
+	NSPredicate *markedForDeletion = [MsgPredicateHelper markedForDeletion];
+	NSPredicate *msgsInCurrentAcct = [NSPredicate predicateWithFormat:@"%K = %@",
+		EMAIL_INFO_ACCT_KEY,
+		self.connectionContext.acctInSyncObjectContext];
+	NSPredicate *markedInCurrentAcct = [NSCompoundPredicate andPredicateWithSubpredicates:
+		[NSArray arrayWithObjects:markedForDeletion,msgsInCurrentAcct, nil]];
+		
 	NSArray *msgsMarkedForDeletion = [self.connectionContext.syncDmc 
 		fetchObjectsForEntityName:EMAIL_INFO_ENTITY_NAME 
-		andPredicate:[MsgPredicateHelper markedForDeletion]];
+		andPredicate:markedInCurrentAcct];
 		
 	// folderDeletionMsgs an index of the messages by source folder. This
 	// is used so the messages can be moved (copied then deleted) or deleted
