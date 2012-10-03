@@ -88,6 +88,7 @@
     <entity name="EmailInfo" representedClassName="EmailInfo" syncable="YES">
         <attribute name="deleted" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="isRead" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isSentMsg" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="isStarred" attributeType="Boolean" syncable="YES"/>
         <attribute name="sendDate" attributeType="Date" syncable="YES"/>
         <attribute name="size" attributeType="Integer 32" syncable="YES"/>
@@ -115,6 +116,7 @@
         <relationship name="recipientAddressFilter" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="RecipientAddressFilter" inverseName="messageFilterRecipientAddressFilter" inverseEntity="RecipientAddressFilter" syncable="YES"/>
         <relationship name="recipientDomainFilter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="RecipientDomainFilter" inverseName="messageFilterRecipientDomainFilter" inverseEntity="RecipientDomainFilter" syncable="YES"/>
         <relationship name="senderDomainFilter" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="SenderDomainFilter" inverseName="messageFilterSenderDomainFilter" inverseEntity="SenderDomainFilter" syncable="YES"/>
+        <relationship name="sentReceivedFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SentReceivedFilter" inverseName="messageFilterSentReceivedFilter" inverseEntity="SentReceivedFilter" syncable="YES"/>
         <relationship name="starredFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="StarredFilter" inverseName="messageFilterStarredFilter" inverseEntity="StarredFilter" syncable="YES"/>
         <relationship name="subjectFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SubjectFilter" inverseName="messageFilterSubjectFilters" inverseEntity="SubjectFilter" syncable="YES"/>
     </entity>
@@ -134,6 +136,13 @@
     <entity name="SenderDomainFilter" representedClassName="SenderDomainFilter" parentEntity="EmailDomainFilter" syncable="YES">
         <relationship name="messageFilterSenderDomainFilter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="senderDomainFilter" inverseEntity="MessageFilter" syncable="YES"/>
     </entity>
+    <entity name="SentReceivedFilter" representedClassName="SentReceivedFilter" syncable="YES">
+        <attribute name="matchLogic" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="messageFilterSentReceivedFilter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="sentReceivedFilter" inverseEntity="MessageFilter" syncable="YES"/>
+        <relationship name="sharedAppValsSentReceivedFilterEither" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultSentReceivedFilterEither" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsSentReceivedFilterReceived" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultSentReceivedFilterReceived" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsSentReceivedFilterSent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultSentReceivedFilterSent" inverseEntity="SharedAppVals" syncable="YES"/>
+    </entity>
     <entity name="SharedAppVals" representedClassName="SharedAppVals" syncable="YES">
         <relationship name="currentEmailAcct" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="sharedAppValsCurrentEmailAcct" inverseEntity="EmailAccount" syncable="YES"/>
         <relationship name="defaultAgeFilterNone" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterNone" inverseName="sharedAppValsDefaultAgeFilterNone" inverseEntity="AgeFilterNone" syncable="YES"/>
@@ -149,6 +158,9 @@
         <relationship name="defaultReadFilterRead" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ReadFilter" inverseName="sharedAppValsDefaultReadFilterRead" inverseEntity="ReadFilter" syncable="YES"/>
         <relationship name="defaultReadFilterReadOrUnread" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ReadFilter" inverseName="sharedAppValsDefaultReadFilterReadOrUnread" inverseEntity="ReadFilter" syncable="YES"/>
         <relationship name="defaultReadFilterUnread" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ReadFilter" inverseName="sharedAppValsDefaultReadFilterUnread" inverseEntity="ReadFilter" syncable="YES"/>
+        <relationship name="defaultSentReceivedFilterEither" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SentReceivedFilter" inverseName="sharedAppValsSentReceivedFilterEither" inverseEntity="SentReceivedFilter" syncable="YES"/>
+        <relationship name="defaultSentReceivedFilterReceived" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SentReceivedFilter" inverseName="sharedAppValsSentReceivedFilterReceived" inverseEntity="SentReceivedFilter" syncable="YES"/>
+        <relationship name="defaultSentReceivedFilterSent" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SentReceivedFilter" inverseName="sharedAppValsSentReceivedFilterSent" inverseEntity="SentReceivedFilter" syncable="YES"/>
         <relationship name="defaultStarredFilterStarred" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="StarredFilter" inverseName="sharedAppValsDefaultStarredFilterStarred" inverseEntity="StarredFilter" syncable="YES"/>
         <relationship name="defaultStarredFilterStarredOrUnstarred" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="StarredFilter" inverseName="sharedAppValsDefaultStarredFilterStarredOrUnstarred" inverseEntity="StarredFilter" syncable="YES"/>
         <relationship name="defaultStarredFilterUnstarred" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="StarredFilter" inverseName="sharedAppValsDefaultStarredFilterUnstarred" inverseEntity="StarredFilter" syncable="YES"/>
@@ -176,15 +188,16 @@
         <element name="EmailDomainFilter" positionX="160" positionY="192" width="128" height="75"/>
         <element name="EmailFolder" positionX="160" positionY="192" width="128" height="90"/>
         <element name="EmailFolderFilter" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="EmailInfo" positionX="160" positionY="192" width="128" height="240"/>
+        <element name="EmailInfo" positionX="160" positionY="192" width="128" height="255"/>
         <element name="FromAddressFilter" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="MessageFilter" positionX="160" positionY="192" width="128" height="240"/>
+        <element name="MessageFilter" positionX="160" positionY="192" width="128" height="255"/>
         <element name="ReadFilter" positionX="160" positionY="192" width="128" height="120"/>
         <element name="RecipientAddressFilter" positionX="160" positionY="192" width="128" height="60"/>
         <element name="RecipientDomainFilter" positionX="160" positionY="192" width="128" height="60"/>
         <element name="SenderDomainFilter" positionX="160" positionY="192" width="128" height="60"/>
-        <element name="SharedAppVals" positionX="160" positionY="192" width="128" height="300"/>
+        <element name="SharedAppVals" positionX="160" positionY="192" width="128" height="345"/>
         <element name="StarredFilter" positionX="160" positionY="192" width="128" height="120"/>
         <element name="SubjectFilter" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="SentReceivedFilter" positionX="160" positionY="192" width="128" height="120"/>
     </elements>
 </model>

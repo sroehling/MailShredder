@@ -96,6 +96,10 @@
 
 	[formPopulator populateStarredFilterInParentObj:self.messageFilter 
 		withStarredFilterPropertyKey:MESSAGE_FILTER_STARRED_FILTER_KEY];
+
+	[formPopulator populateSentReceivedFilterInParentObj:self.messageFilter
+		withSentReceivedFilterPropertyKey:MESSAGE_FILTER_SENT_RECEIVED_FILTER_KEY];
+
 	
 	return formPopulator.formInfo;
 }

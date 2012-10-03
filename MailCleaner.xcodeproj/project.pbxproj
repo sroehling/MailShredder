@@ -107,6 +107,9 @@
 		00A6FB58159B850A00ED4D4B /* MailAddressHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB57159B850900ED4D4B /* MailAddressHelper.m */; };
 		00AAF2E015B4B3ED00BFF03C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00AAF2DF15B4B3ED00BFF03C /* Security.framework */; };
 		00AAF2E815B61ED000BFF03C /* EmailAcctFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AAF2E715B61ED000BFF03C /* EmailAcctFieldEditInfo.m */; };
+		00AFA80E161CA0100030EC20 /* SentReceivedFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AFA80D161CA0100030EC20 /* SentReceivedFilter.m */; };
+		00AFA812161CA7350030EC20 /* SentReceivedFilterFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AFA811161CA7350030EC20 /* SentReceivedFilterFieldEditInfo.m */; };
+		00AFA815161CAC420030EC20 /* SentReceivedFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AFA814161CAC420030EC20 /* SentReceivedFilterFormInfoCreator.m */; };
 		00B0EBF1160CBCA200B57B56 /* libmailcore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B0EBDF160CBBF100B57B56 /* libmailcore.a */; };
 		00B0EBF6160CBCA200B57B56 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B0EBF2160CBCA200B57B56 /* libcrypto.a */; };
 		00B0EBF7160CBCA200B57B56 /* libetpan_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B0EBF3160CBCA200B57B56 /* libetpan_ios.a */; };
@@ -416,6 +419,12 @@
 		00AAF2DF15B4B3ED00BFF03C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		00AAF2E615B61ECF00BFF03C /* EmailAcctFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAcctFieldEditInfo.h; sourceTree = "<group>"; };
 		00AAF2E715B61ED000BFF03C /* EmailAcctFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAcctFieldEditInfo.m; sourceTree = "<group>"; };
+		00AFA80C161CA0100030EC20 /* SentReceivedFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentReceivedFilter.h; sourceTree = "<group>"; };
+		00AFA80D161CA0100030EC20 /* SentReceivedFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SentReceivedFilter.m; sourceTree = "<group>"; };
+		00AFA810161CA7350030EC20 /* SentReceivedFilterFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentReceivedFilterFieldEditInfo.h; sourceTree = "<group>"; };
+		00AFA811161CA7350030EC20 /* SentReceivedFilterFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SentReceivedFilterFieldEditInfo.m; sourceTree = "<group>"; };
+		00AFA813161CAC420030EC20 /* SentReceivedFilterFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentReceivedFilterFormInfoCreator.h; sourceTree = "<group>"; };
+		00AFA814161CAC420030EC20 /* SentReceivedFilterFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SentReceivedFilterFormInfoCreator.m; sourceTree = "<group>"; };
 		00B0EBC5160CBBEF00B57B56 /* MailCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MailCore.xcodeproj; path = ../MailCore/MailCore.xcodeproj; sourceTree = "<group>"; };
 		00B0EBF2160CBCA200B57B56 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../MailCore/iOSPorts/ports/security/openssl/build/Release-iphoneos/libcrypto.a"; sourceTree = "<group>"; };
 		00B0EBF3160CBCA200B57B56 /* libetpan_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libetpan_ios.a; path = "../MailCore/libetpan/build-mac/build/Release-iphoneos/libetpan_ios.a"; sourceTree = "<group>"; };
@@ -678,6 +687,7 @@
 		0039E5F61566BE3B00CB259D /* Message Filter */ = {
 			isa = PBXGroup;
 			children = (
+				00AFA80B161C9FF50030EC20 /* Sent Received Filter */,
 				0059CEA216022D7A00DDF6A8 /* Subject Filter */,
 				00B2FB161601054F005C93DB /* Starred Filter */,
 				00B2FB1516010548005C93DB /* Read Filter */,
@@ -728,6 +738,7 @@
 		0039E5FC1566CE0700CB259D /* Message Filter */ = {
 			isa = PBXGroup;
 			children = (
+				00AFA80F161CA71B0030EC20 /* Sent Received Filter */,
 				0059CEA7160239AD00DDF6A8 /* Subject Filter */,
 				00B2FB1E16011AB5005C93DB /* Read Filter */,
 				00B2FB1D16011AA9005C93DB /* Starred Filter */,
@@ -1048,6 +1059,26 @@
 				00B3B72015DDE1FC00A8FFCD /* Delete Mail */,
 			);
 			name = "Mail Client Operations";
+			sourceTree = "<group>";
+		};
+		00AFA80B161C9FF50030EC20 /* Sent Received Filter */ = {
+			isa = PBXGroup;
+			children = (
+				00AFA80C161CA0100030EC20 /* SentReceivedFilter.h */,
+				00AFA80D161CA0100030EC20 /* SentReceivedFilter.m */,
+			);
+			name = "Sent Received Filter";
+			sourceTree = "<group>";
+		};
+		00AFA80F161CA71B0030EC20 /* Sent Received Filter */ = {
+			isa = PBXGroup;
+			children = (
+				00AFA810161CA7350030EC20 /* SentReceivedFilterFieldEditInfo.h */,
+				00AFA811161CA7350030EC20 /* SentReceivedFilterFieldEditInfo.m */,
+				00AFA813161CAC420030EC20 /* SentReceivedFilterFormInfoCreator.h */,
+				00AFA814161CAC420030EC20 /* SentReceivedFilterFormInfoCreator.m */,
+			);
+			name = "Sent Received Filter";
 			sourceTree = "<group>";
 		};
 		00B0EBC6160CBBEF00B57B56 /* Products */ = {
@@ -1558,6 +1589,9 @@
 				00F9B3941618F4F50054E402 /* EmailDomainSelectionTableConfigurator.m in Sources */,
 				00F9B397161B57340054E402 /* RecipientDomainFilter.m in Sources */,
 				00F9B39A161B57360054E402 /* SenderDomainFilter.m in Sources */,
+				00AFA80E161CA0100030EC20 /* SentReceivedFilter.m in Sources */,
+				00AFA812161CA7350030EC20 /* SentReceivedFilterFieldEditInfo.m in Sources */,
+				00AFA815161CAC420030EC20 /* SentReceivedFilterFormInfoCreator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

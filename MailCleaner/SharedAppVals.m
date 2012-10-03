@@ -20,6 +20,7 @@
 #import "EmailFolderFilter.h"
 #import "ReadFilter.h"
 #import "StarredFilter.h"
+#import "SentReceivedFilter.h"
 
 NSString * const SHARED_APP_VALS_ENTITY_NAME = @"SharedAppVals";
 NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY = @"currentEmailAcct";
@@ -40,13 +41,18 @@ NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY = @"currentEmailAcct"
 @dynamic defaultAgeFilterOlder5Years;
 @dynamic defaultAgeFilterOlder18Months;
 
-
 @dynamic defaultReadFilterRead;
 @dynamic defaultReadFilterReadOrUnread;
 @dynamic defaultReadFilterUnread;
+
 @dynamic defaultStarredFilterStarred;
 @dynamic defaultStarredFilterStarredOrUnstarred;
 @dynamic defaultStarredFilterUnstarred;
+
+@dynamic defaultSentReceivedFilterEither;
+@dynamic defaultSentReceivedFilterReceived;
+@dynamic defaultSentReceivedFilterSent;
+
 
 +(SharedAppVals*)createWithDataModelController:(DataModelController*)dataModelController
 {
@@ -92,7 +98,11 @@ NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY = @"currentEmailAcct"
 		andMatchLogic:STARRED_FILTER_MATCH_LOGIC_STARRED_OR_UNSTARRED];
 	sharedVals.defaultStarredFilterUnstarred = [StarredFilter starredFilterInDataModelController:dataModelController 
 		andMatchLogic:STARRED_FILTER_MATCH_LOGIC_UNSTARRED];
-
+		
+	sharedVals.defaultSentReceivedFilterEither = [SentReceivedFilter sentReceivedFilterInDataModelController:dataModelController andMatchLogic:SENT_RECEIVED_FILTER_MATCH_LOGIC_EITHER];
+	sharedVals.defaultSentReceivedFilterReceived = [SentReceivedFilter sentReceivedFilterInDataModelController:dataModelController andMatchLogic:SENT_RECEIVED_FILTER_MATCH_LOGIC_RECEIVED];
+	sharedVals.defaultSentReceivedFilterSent = [SentReceivedFilter sentReceivedFilterInDataModelController:dataModelController andMatchLogic:SENT_RECEIVED_FILTER_MATCH_LOGIC_SENT];
+		
 	return sharedVals;
 }
 

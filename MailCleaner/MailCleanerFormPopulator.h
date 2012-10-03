@@ -22,7 +22,10 @@
 	withReadFilterPropertyKey:(NSString*)readFilterKey;
 	
 -(void)populateStarredFilterInParentObj:(NSManagedObject*)parentObj
-	withStarredFilterPropertyKey:(NSString*)starredFilterKey;	
+	withStarredFilterPropertyKey:(NSString*)starredFilterKey;
+
+-(void)populateSentReceivedFilterInParentObj:(NSManagedObject*)parentObj
+	withSentReceivedFilterPropertyKey:(NSString*)filterKey;
 	
 -(void)populateEmailAddressFilter:(EmailAddressFilter*)emailAddressFilter
 	andDoSelectRecipients:(BOOL)selectRecipients andDoSelectSenders:(BOOL)selectSenders;

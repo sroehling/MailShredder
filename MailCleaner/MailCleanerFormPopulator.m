@@ -29,6 +29,8 @@
 #import "SubjectFilter.h"
 #import "SubjectFilterFormInfoCreator.h"
 #import "EmailAddressFilterFormInfo.h"
+#import "SentReceivedFilter.h"
+#import "SentReceivedFilterFormInfoCreator.h"
 
 @implementation MailCleanerFormPopulator
 
@@ -127,6 +129,39 @@
 			andSubViewFactory:starredFilterViewFactory] autorelease];
 	[self.currentSection addFieldEditInfo:messageAgeFieldEditInfo];
 }
+
+
+-(void)populateSentReceivedFilterInParentObj:(NSManagedObject*)parentObj
+	withSentReceivedFilterPropertyKey:(NSString*)filterKey
+{
+	
+	ManagedObjectFieldInfo *assignmentFieldInfo = [[[ManagedObjectFieldInfo alloc] 
+		initWithManagedObject:parentObj
+		andFieldKey:filterKey 
+		andFieldLabel:LOCALIZED_STR(@"SENT_RECEIVED_FILTER_FIELD_CAPTION")
+		andFieldPlaceholder:@"N/A"] autorelease];
+
+	SentReceivedFilterFormInfoCreator *sentReceivedFilterFormInfoCreator =
+		[[[SentReceivedFilterFormInfoCreator alloc] init] autorelease];
+	
+	SelectableObjectTableViewControllerFactory *sentReceivedFilterViewFactory =
+		[[[SelectableObjectTableViewControllerFactory alloc]
+			initWithFormInfoCreator:sentReceivedFilterFormInfoCreator
+			andAssignedField:assignmentFieldInfo] autorelease];
+	sentReceivedFilterViewFactory.closeAfterSelection = TRUE;
+	
+	SentReceivedFilter *sentReceivedFilter = (SentReceivedFilter*)[parentObj valueForKey:filterKey];
+	assert(sentReceivedFilter != nil);
+	
+	StaticNavFieldEditInfo *messageAgeFieldEditInfo = 
+		[[[StaticNavFieldEditInfo alloc] 
+			initWithCaption:LOCALIZED_STR(@"SENT_RECEIVED_FILTER_FIELD_CAPTION")
+			andSubtitle:nil
+			andContentDescription:[sentReceivedFilter filterSynopsis]
+			andSubViewFactory:sentReceivedFilterViewFactory] autorelease];
+	[self.currentSection addFieldEditInfo:messageAgeFieldEditInfo];
+}
+
 
 -(void)populateEmailAddressFilter:(EmailAddressFilter*)emailAddressFilter
 	andDoSelectRecipients:(BOOL)selectRecipients andDoSelectSenders:(BOOL)selectSenders

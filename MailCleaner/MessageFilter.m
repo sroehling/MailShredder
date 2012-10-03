@@ -24,12 +24,14 @@
 #import "LocalizationHelper.h"
 #import "RecipientDomainFilter.h"
 #import "SenderDomainFilter.h"
+#import "SentReceivedFilter.h"
 
 NSString * const MESSAGE_FILTER_ENTITY_NAME = @"MessageFilter";
 NSString * const MESSAGE_FILTER_AGE_FILTER_KEY = @"ageFilter";
 NSString * const MESSAGE_FILTER_READ_FILTER_KEY = @"readFilter";
 NSString * const MESSAGE_FILTER_STARRED_FILTER_KEY = @"starredFilter";
 NSString * const MESSAGE_FILTER_NAME_KEY = @"filterName";
+NSString * const MESSAGE_FILTER_SENT_RECEIVED_FILTER_KEY = @"sentReceivedFilter";
 NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 
 @implementation MessageFilter
@@ -45,6 +47,8 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 @dynamic fromAddressFilter;
 @dynamic readFilter;
 @dynamic starredFilter;
+@dynamic sentReceivedFilter;
+
 @dynamic subjectFilter;
 
 @dynamic matchingMsgs;
@@ -73,7 +77,6 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 	msgListFilter.recipientDomainFilter = (RecipientDomainFilter*)
 		[filterDmc insertObject:RECIPIENT_DOMAIN_FILTER_ENTITY_NAME];
 
-		
 	msgListFilter.folderFilter = (EmailFolderFilter*)
 		[filterDmc insertObject:EMAIL_FOLDER_FILTER_ENTITY_NAME];
 		
@@ -83,6 +86,8 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 	msgListFilter.starredFilter = sharedVals.defaultStarredFilterStarredOrUnstarred;
 	
 	msgListFilter.readFilter = sharedVals.defaultReadFilterReadOrUnread;
+	
+	msgListFilter.sentReceivedFilter = sharedVals.defaultSentReceivedFilterEither;
 		
 	return msgListFilter;
 }
@@ -124,6 +129,10 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 	NSPredicate *starredPredicate = [self.starredFilter filterPredicate];
 	assert(starredPredicate != nil);
 	[predicates addObject:starredPredicate];
+	
+	NSPredicate *sentReceivedPredicate = [self.sentReceivedFilter filterPredicate];
+	assert(sentReceivedPredicate != nil);
+	[predicates addObject:sentReceivedPredicate];
 	
 	NSPredicate *subjectPredicate = [self.subjectFilter filterPredicate];
 	assert(subjectPredicate != nil);
@@ -169,6 +178,8 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 	self.starredFilter = sharedVals.defaultStarredFilterStarredOrUnstarred;
 	
 	self.readFilter = sharedVals.defaultReadFilterReadOrUnread;
+	
+	self.sentReceivedFilter = sharedVals.defaultSentReceivedFilterEither;
 
 }
 
@@ -222,6 +233,11 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 		[synopsisParts addObject:[self.starredFilter filterSynopsis]];
 	}
 	
+	if(![self.sentReceivedFilter filterMatchesEitherSentOrReceived])
+	{
+		[synopsisParts addObject:[self.sentReceivedFilter filterSynopsis]];
+	}
+	
 	if([synopsisParts count] > 0)
 	{
 		return [synopsisParts componentsJoinedByString:@", "];
@@ -244,6 +260,7 @@ NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH = 32;
 //		[self.recipientDomainFilter filterMatchesAnyDomain] &&
 		[self.folderFilter filterMatchesAnyFolder] &&
 		[self.readFilter filterMatchesAnyReadStatus] &&
+		[self.sentReceivedFilter filterMatchesEitherSentOrReceived] &&
 		[self.starredFilter filterMatchesAnyStarredStatus])
 	{
 		return TRUE;

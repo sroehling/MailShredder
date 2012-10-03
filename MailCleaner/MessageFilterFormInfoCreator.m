@@ -77,6 +77,8 @@
 		
 	[formPopulator populateStarredFilterInParentObj:self.msgFilter 
 		withStarredFilterPropertyKey:MESSAGE_FILTER_STARRED_FILTER_KEY];
+		
+	[formPopulator populateSentReceivedFilterInParentObj:self.msgFilter withSentReceivedFilterPropertyKey:MESSAGE_FILTER_SENT_RECEIVED_FILTER_KEY];
 	 
 	formPopulator.formInfo.footerController = 
 		[[[MessageFilterTableFooterController alloc] initWithMessageFilter:self.msgFilter 

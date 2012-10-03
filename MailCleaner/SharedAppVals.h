@@ -19,6 +19,7 @@ extern NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY;
 @class EmailAccount;
 @class ReadFilter;
 @class StarredFilter;
+@class SentReceivedFilter;
 
 @interface SharedAppVals : NSManagedObject
 
@@ -41,9 +42,15 @@ extern NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY;
 @property (nonatomic, retain) ReadFilter *defaultReadFilterRead;
 @property (nonatomic, retain) ReadFilter *defaultReadFilterReadOrUnread;
 @property (nonatomic, retain) ReadFilter *defaultReadFilterUnread;
+
 @property (nonatomic, retain) StarredFilter *defaultStarredFilterStarred;
 @property (nonatomic, retain) StarredFilter *defaultStarredFilterStarredOrUnstarred;
 @property (nonatomic, retain) StarredFilter *defaultStarredFilterUnstarred;
+
+@property (nonatomic, retain) SentReceivedFilter *defaultSentReceivedFilterEither;
+@property (nonatomic, retain) SentReceivedFilter *defaultSentReceivedFilterReceived;
+@property (nonatomic, retain) SentReceivedFilter *defaultSentReceivedFilterSent;
+
 
 +(BOOL)initFromDatabase;
 +(SharedAppVals*)getUsingDataModelController:(DataModelController*)dataModelController;

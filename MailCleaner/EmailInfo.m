@@ -20,6 +20,7 @@ NSString * const EMAIL_INFO_STARRED_KEY = @"isStarred";
 NSString * const EMAIL_INFO_READ_KEY = @"isRead";
 NSString * const EMAIL_INFO_SUBJECT_KEY = @"subject";
 NSString * const EMAIL_INFO_RECIPIENT_ADDRESSES_KEY = @"recipientAddresses";
+NSString * const EMAIL_INFO_IS_SENT_MSG_KEY = @"isSentMsg";
 
 @implementation EmailInfo
 
@@ -38,6 +39,8 @@ NSString * const EMAIL_INFO_RECIPIENT_ADDRESSES_KEY = @"recipientAddresses";
 
 @dynamic isRead;
 @dynamic isStarred;
+@dynamic isSentMsg;
+
 
 - (NSDate*)sendDateLocalTimeZone 
 {

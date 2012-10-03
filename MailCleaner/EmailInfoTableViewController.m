@@ -53,7 +53,7 @@
 #import "AgeFilterComparison.h"
 #import "SenderDomainFilter.h"
 
-static CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 255.0f;
+static CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 295.0f;
 
 static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MENU_WIDTH = 220.0f;
 static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 255.0f;
@@ -228,6 +228,17 @@ static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 255.0f;
 		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SELECTED_DOMAINS_MENU_TITLE")
 		 andTarget:self andSelector:@selector(narrowToSelectedDomains)
 		 andEnabled:oneOrMoreMsgsSelected] autorelease]];
+
+	[narrowFilterSection addMenuItem:[[[TableMenuItem alloc]
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_SENT_MSGS_MENU_TITLE")
+		 andTarget:self andSelector:@selector(narrowToSentMsgs)
+		 andEnabled:TRUE] autorelease]];
+	[narrowFilterSection addMenuItem:[[[TableMenuItem alloc] 
+		initWithTitle:LOCALIZED_STR(@"MESSAGE_LIST_ACTION_RECEIVED_MSGS_MENU_TITLE")
+		 andTarget:self andSelector:@selector(narrowToReceivedMsgs)
+		 andEnabled:TRUE] autorelease]];
+		 
+		 
 		 
 	TableMenuItem *ageFilterItem = [[[TableMenuItem alloc] 
 		initWithTitle:sharedAppVals.defaultAgeFilterOlder3Months.filterSynopsis
@@ -558,6 +569,34 @@ static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 255.0f;
 	[currentFilter resetFilterName];
 
 	currentFilter.ageFilter = theComparison;
+	[self.appDmc saveContext];
+	
+	[self refreshMessageList];
+	
+	[self.actionsPopupController dismissPopoverAnimated:TRUE];
+}
+
+-(void)narrowToSentMsgs
+{
+	SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:self.appDmc];
+
+	MessageFilter *currentFilter = [self currentAcctMsgFilter];
+	currentFilter.sentReceivedFilter = sharedVals.defaultSentReceivedFilterSent;
+
+	[self.appDmc saveContext];
+	
+	[self refreshMessageList];
+	
+	[self.actionsPopupController dismissPopoverAnimated:TRUE];
+}
+
+-(void)narrowToReceivedMsgs
+{
+	SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:self.appDmc];
+
+	MessageFilter *currentFilter = [self currentAcctMsgFilter];
+	currentFilter.sentReceivedFilter = sharedVals.defaultSentReceivedFilterReceived;
+	
 	[self.appDmc saveContext];
 	
 	[self refreshMessageList];

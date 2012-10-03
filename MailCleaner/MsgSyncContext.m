@@ -87,6 +87,16 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 				inDataModelController:self.connectionContext.syncDmc
 				andEmailAcct:self.syncAcct
 				andIsRecipientAddr:FALSE andIsSenderAddr:TRUE];
+				
+	if([[self.syncAcct.emailAddress uppercaseString]
+		isEqualToString:[msg.sender.email uppercaseString]])
+	{
+		newEmailInfo.isSentMsg = [NSNumber numberWithBool:TRUE];
+	}
+	else
+	{
+		newEmailInfo.isSentMsg = [NSNumber numberWithBool:FALSE];
+	}
 
 	newEmailInfo.subject = (msg.subject==nil)?@"":msg.subject;
 	newEmailInfo.uid = [NSNumber numberWithUnsignedInt:msg.uid];

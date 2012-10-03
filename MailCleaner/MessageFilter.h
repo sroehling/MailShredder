@@ -22,6 +22,7 @@
 @class SubjectFilter;
 @class SenderDomainFilter;
 @class RecipientDomainFilter;
+@class SentReceivedFilter;
 
 extern NSString * const MESSAGE_FILTER_ENTITY_NAME;
 extern NSString * const MESSAGE_FILTER_AGE_FILTER_KEY;
@@ -29,6 +30,7 @@ extern NSString * const MESSAGE_FILTER_NAME_KEY;
 extern NSString * const MESSAGE_FILTER_READ_FILTER_KEY;
 extern NSString * const MESSAGE_FILTER_STARRED_FILTER_KEY;
 extern NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH;
+extern NSString * const MESSAGE_FILTER_SENT_RECEIVED_FILTER_KEY;
 
 @interface MessageFilter : NSManagedObject
 
@@ -42,6 +44,8 @@ extern NSInteger const MESSAGE_FILTER_NAME_MAX_LENGTH;
 @property (nonatomic, retain) EmailFolderFilter *folderFilter;
 @property (nonatomic, retain) ReadFilter *readFilter;
 @property (nonatomic, retain) StarredFilter *starredFilter;
+@property (nonatomic, retain) SentReceivedFilter *sentReceivedFilter;
+
 @property (nonatomic, retain) SubjectFilter *subjectFilter;
 @property (nonatomic, retain) FromAddressFilter *fromAddressFilter;
 @property (nonatomic, retain) RecipientAddressFilter *recipientAddressFilter;
