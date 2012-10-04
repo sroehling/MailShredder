@@ -50,12 +50,19 @@
 	[super dealloc];
 }
 
--(void)msgCountsThreadDidSaveNotificationHandler:(NSNotification*)notification
+-(void)mergeChangesFromCountingThread:(NSNotification*)notification
 {
 	[self.changeNotificationsLock lock];
 	[self.mainThreadDmc.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
+	[self.mainThreadDmc saveContext];
 	[self.changeNotificationsLock unlock];
+}
 
+
+-(void)msgCountsThreadDidSaveNotificationHandler:(NSNotification*)notification
+{
+	[self performSelectorOnMainThread:@selector(mergeChangesFromCountingThread)
+		withObject:notification waitUntilDone:TRUE];
 }
 
 -(void)mainThreadDidSaveNotificationHandler:(NSNotification*)notification

@@ -22,16 +22,20 @@
 @synthesize mailAcct;
 @synthesize emailAcctInfo;
 
-- (void)mailSyncThreadDidSaveNotificationHandler:(NSNotification *)notification
+-(void)mergeChangesFromConnectionThread:(NSNotification *)notification
 {
     // This method is invoked as a subscriber/call-back for saves the to NSManagedObjectContext
 	// used to synchronize the email information on a dedicated thread. This will in turn 
 	// trigger the main thread to perform updates on to the appropriate NSFetchedResultsControllers,
 	// table views, etc.
-    [self.mainThreadDmc.managedObjectContext 
-		performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) 
-		withObject:notification waitUntilDone:TRUE];
+    [self.mainThreadDmc.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
+	[self.mainThreadDmc saveContext];
+}
 
+- (void)mailSyncThreadDidSaveNotificationHandler:(NSNotification *)notification
+{
+	[self performSelectorOnMainThread:@selector(mergeChangesFromConnectionThread:)
+		withObject:notification waitUntilDone:TRUE];
 }
 
 
