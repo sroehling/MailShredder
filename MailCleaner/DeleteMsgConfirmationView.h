@@ -15,6 +15,9 @@
 @interface DeleteMsgConfirmationView : UIView
 {
 	@private
+	
+		UILabel *confirmationTitle;
+	
 		UIButton *deleteButton;
 		UIButton *deleteAllButton;
 		UIButton *skipButton;
@@ -37,11 +40,15 @@
 		NSUInteger currentMsgIndex;
 		NSMutableSet *msgsConfirmedForDeletion;
 		
+		UIImageView *backgroundImage;
+		
 		DataModelController *appDmc;
 		
 		id<DeleteMsgConfirmationViewDelegate> delegate;
 
 }
+
+@property(nonatomic,retain) UILabel *confirmationTitle;
 
 @property(nonatomic,retain) UIButton *cancelButton;
 @property(nonatomic,retain) UIButton *deleteButton;
@@ -61,6 +68,8 @@
 
 @property(nonatomic,retain) UIView *msgDisplayView;
 
+@property(nonatomic,retain) UIImageView *backgroundImage;
+
 @property(nonatomic,retain) NSArray *msgsToDelete;
 @property(nonatomic,retain) NSMutableSet *msgsConfirmedForDeletion;
 
@@ -73,6 +82,7 @@
 	andAppDataModelController:(DataModelController*)theAppDmc
 	andDelegate:(id<DeleteMsgConfirmationViewDelegate>)deleteDelegate;
 
+-(void)showWithAnimation;
 
 @end
 

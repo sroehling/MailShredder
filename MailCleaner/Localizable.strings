@@ -241,6 +241,7 @@
 "MESSAGE_DELETE_ACTION_SUMMARY_MOVE_THEN_PERMANENTLY_DELETE_FORMAT" = "The %@ will be permanently deleted (after first being moved to email folder '%@'). This cannot be undone.";
 "MESSAGE_DELETE_ACTION_SUMMARY_MOVE_FORMAT" = "The %@ will be moved to the email folder '%@'";
 
+"MESSAGE_DELETE_CONFIRMATION_TITLE" = "Confirm Deletion";
 "MESSAGE_DELETE_FINAL_CONFIRMATION_FORMAT" = "Are you sure you want to delete %d %@? %@";
 "MESSAGE_DELETE_FINAL_CONFIRMATION_TITLE" = "Final Delete Confirmation";
 "MESSAGE_DELETE_FINAL_CONFIRMATION_CANCEL_BUTTON_TITLE" = "Cancel";

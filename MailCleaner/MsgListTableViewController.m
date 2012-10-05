@@ -503,8 +503,10 @@ static CGFloat const MSG_LIST_COMPLETE_STATUS_HUD_DISPLAY_TIME = 3.0f;
 			andMsgsToDelete:trashedMsgs 
 			andAppDataModelController:self.appDmc
 			andDelegate:self] autorelease];
-		
+			
 		[self.navigationController.view addSubview:deleteConfirmationView];
+		[deleteConfirmationView showWithAnimation];
+		
 	}
 
 }

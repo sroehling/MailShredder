@@ -74,6 +74,8 @@
 		0059CEAA160239C600DDF6A8 /* SubjectFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0059CEA9160239C600DDF6A8 /* SubjectFilterFormInfoCreator.m */; };
 		005BA6F615E2B0F000D5D11C /* ImapAcctPreset.m in Sources */ = {isa = PBXBuildFile; fileRef = 005BA6F515E2B0F000D5D11C /* ImapAcctPreset.m */; };
 		005E6A8715647602004198B6 /* EmailInfoActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 005E6A8615647602004198B6 /* EmailInfoActionView.m */; };
+		00676245161DF0890015209D /* confirmDeleteBkg.png in Resources */ = {isa = PBXBuildFile; fileRef = 00676244161DF0890015209D /* confirmDeleteBkg.png */; };
+		00676247161E04210015209D /* confirmDeleteBkg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00676246161E04200015209D /* confirmDeleteBkg@2x.png */; };
 		006AE32A15F8FF21007EED2E /* EmailAccountFormPopulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AE32915F8FF21007EED2E /* EmailAccountFormPopulator.m */; };
 		006AE33315F9113F007EED2E /* FullEmailAccountFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AE33215F9113F007EED2E /* FullEmailAccountFormInfoCreator.m */; };
 		006AE33615F919E4007EED2E /* ImapAcctPresets.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AE33515F919E4007EED2E /* ImapAcctPresets.m */; };
@@ -359,6 +361,8 @@
 		005E6A8515647602004198B6 /* EmailInfoActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoActionView.h; sourceTree = "<group>"; };
 		005E6A8615647602004198B6 /* EmailInfoActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoActionView.m; sourceTree = "<group>"; };
 		0065E3BB158920D500D59B2A /* SyncDesign.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = SyncDesign.md; sourceTree = "<group>"; };
+		00676244161DF0890015209D /* confirmDeleteBkg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = confirmDeleteBkg.png; sourceTree = "<group>"; };
+		00676246161E04200015209D /* confirmDeleteBkg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "confirmDeleteBkg@2x.png"; sourceTree = "<group>"; };
 		006AE32815F8FF21007EED2E /* EmailAccountFormPopulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAccountFormPopulator.h; sourceTree = "<group>"; };
 		006AE32915F8FF21007EED2E /* EmailAccountFormPopulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAccountFormPopulator.m; sourceTree = "<group>"; };
 		006AE33115F9113F007EED2E /* FullEmailAccountFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullEmailAccountFormInfoCreator.h; sourceTree = "<group>"; };
@@ -717,6 +721,7 @@
 		0039E5FB1566CD2E00CB259D /* Message List View (base) */ = {
 			isa = PBXGroup;
 			children = (
+				00676243161DF0740015209D /* Confirm Delete */,
 				004A74FF15D966AD00A5F4FB /* Detail View */,
 				00472B1815ACA02000C6BC82 /* Resources */,
 				006D6673156E8E2500074979 /* MsgTableCell.h */,
@@ -725,12 +730,8 @@
 				00D498621575380600F8FD2F /* MsgListView.m */,
 				005E6A8515647602004198B6 /* EmailInfoActionView.h */,
 				005E6A8615647602004198B6 /* EmailInfoActionView.m */,
-				001A93621609788A00740534 /* deletemsgsdone@2x.png */,
-				001A93631609788A00740534 /* deletemsgsdone.png */,
 				003F2395156D43490009BFE3 /* MsgListTableViewController.h */,
 				003F2396156D43490009BFE3 /* MsgListTableViewController.m */,
-				008129E915B8ABEC00533E36 /* DeleteMsgConfirmationView.h */,
-				008129EA15B8ABED00533E36 /* DeleteMsgConfirmationView.m */,
 			);
 			name = "Message List View (base)";
 			sourceTree = "<group>";
@@ -894,6 +895,19 @@
 				00C4AB11158177C400E0868A /* libiconv.dylib */,
 			);
 			name = Libs;
+			sourceTree = "<group>";
+		};
+		00676243161DF0740015209D /* Confirm Delete */ = {
+			isa = PBXGroup;
+			children = (
+				001A93621609788A00740534 /* deletemsgsdone@2x.png */,
+				001A93631609788A00740534 /* deletemsgsdone.png */,
+				00676246161E04200015209D /* confirmDeleteBkg@2x.png */,
+				00676244161DF0890015209D /* confirmDeleteBkg.png */,
+				008129E915B8ABEC00533E36 /* DeleteMsgConfirmationView.h */,
+				008129EA15B8ABED00533E36 /* DeleteMsgConfirmationView.m */,
+			);
+			name = "Confirm Delete";
 			sourceTree = "<group>";
 		};
 		006AE32C15F90F99007EED2E /* IMAP Presets */ = {
@@ -1456,6 +1470,8 @@
 				00257FC4160CCF2F005D5DED /* ResultraGenericLibResources.bundle in Resources */,
 				00257FCB160D1C2B005D5DED /* Default.png in Resources */,
 				00257FCC160D1C2B005D5DED /* Default@2x.png in Resources */,
+				00676245161DF0890015209D /* confirmDeleteBkg.png in Resources */,
+				00676247161E04210015209D /* confirmDeleteBkg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
