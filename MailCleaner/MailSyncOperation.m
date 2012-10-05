@@ -63,6 +63,31 @@
 	[syncFailedAlert show];
 }
 
+-(BOOL)isWellFormedCoreMsg:(CTCoreMessage*)msg
+{
+	if((msg.sentDateGMT != nil) &&
+		(msg.sender.email != nil) && (msg.sender.email.length > 0))
+	{
+		return TRUE;
+	}
+	else
+	{
+		NSString *dateStr = (msg.sentDateGMT!=nil)?
+			[[DateHelper theHelper].longDateFormatter stringFromDate:msg.sentDateGMT]:
+			@"[GMT Date Missing]";
+		NSString *senderDateStr = (msg.senderDate != nil)?
+			[[DateHelper theHelper].longDateFormatter stringFromDate:msg.senderDate]:
+			@"[Sender Date Missing]";
+		NSString *senderStr = (msg.sender.email != nil)?msg.sender.email:@"[sender missing]";
+		
+		NSString *subjectStr = (msg.subject != nil)?msg.subject:@"[Subject Missing]";
+			
+		NSLog(@"Skipping sync for malformed message: sender date=%@, gmt date=%@, subj=%@, sender=%@",
+			senderDateStr,dateStr,subjectStr,senderStr);
+			
+		return FALSE;
+	}
+}
 
 -(void)main
 {
@@ -107,8 +132,11 @@
 						}
 						
 						for(CTCoreMessage *msg in serverMsgSet)
-						{			
-							[msgSyncContext syncOneMsg:msg];
+						{
+							if([self isWellFormedCoreMsg:msg])
+							{
+								[msgSyncContext syncOneMsg:msg];
+							}
 						} // For each message in the folder
 					}
 					[msgSyncContext finishFolderSync];
