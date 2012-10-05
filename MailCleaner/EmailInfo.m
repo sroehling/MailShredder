@@ -41,6 +41,9 @@ NSString * const EMAIL_INFO_IS_SENT_MSG_KEY = @"isSentMsg";
 @dynamic isStarred;
 @dynamic isSentMsg;
 
+@dynamic isHidden;
+
+
 
 - (NSDate*)sendDateLocalTimeZone 
 {

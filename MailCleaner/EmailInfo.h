@@ -56,6 +56,15 @@ extern NSString * const EMAIL_INFO_RECIPIENT_ADDRESSES_KEY;
 @property (nonatomic, retain) NSNumber * isSentMsg;
 
 
+// The isHidden property is used to manage whether the message
+// should be removed from futher consideration, with a default of FALSE.
+// The UI functionality is not yet implemented, but the data model
+// definition is in place so a schema migration isn't necessary
+// to implement the feature.
+@property (nonatomic, retain) NSNumber * isHidden;
+
+
+
 -(NSString*)formattedSendDate;
 -(NSString*)formattedSendDateAndTime;
 

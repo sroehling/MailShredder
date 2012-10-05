@@ -30,6 +30,7 @@
 #import "RecipientAddressFilter.h"
 #import "EmailAccount.h"
 #import "SubjectFilter.h"
+#import "SenderDomainFilter.h"
 
 @implementation TestMessageFiltering
 
@@ -59,7 +60,8 @@
 					withName:@"" andSendDate:[DateHelper dateFromStr:sendDate]
 					withCurrentAddresses:currEmailAddressByAddress 
 					inDataModelController:self.appDataDmc
-					andEmailAcct:self.testAppVals.currentEmailAcct];
+					andEmailAcct:self.testAppVals.currentEmailAcct
+					andIsRecipientAddr:FALSE andIsSenderAddr:TRUE];
 					
 	newEmailInfo.subject = subject;
 	newEmailInfo.uid = [NSNumber numberWithInt:currMessageId];
@@ -77,7 +79,8 @@
 	newEmailInfo.senderDomain = [EmailDomain findOrAddDomainName:[MailAddressHelper 
 			emailAddressDomainName:fromSender] withCurrentDomains:currDomainsByName
 			inDataModelController:self.appDataDmc 
-			andEmailAcct:self.testAppVals.currentEmailAcct];
+			andEmailAcct:self.testAppVals.currentEmailAcct
+			andIsRecipientDomain:FALSE andIsSenderDomain:TRUE];
 	
 	
 	newEmailInfo.emailAcct = testAppVals.currentEmailAcct;
@@ -86,7 +89,8 @@
 						withName:@"" andSendDate:[DateHelper dateFromStr:sendDate]
 					withCurrentAddresses:currEmailAddressByAddress 
 					inDataModelController:self.appDataDmc
-					andEmailAcct:self.testAppVals.currentEmailAcct];
+					andEmailAcct:self.testAppVals.currentEmailAcct
+					andIsRecipientAddr:TRUE andIsSenderAddr:FALSE];
 	[newEmailInfo addRecipientAddressesObject:recipientAddress];
 	
 	newEmailInfo.isRead = [NSNumber numberWithBool:TRUE];
@@ -198,19 +202,9 @@
 	
 	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
 
-	self.messageFilterForTest.ageFilter = testAppVals.defaultAgeFilterNewer1Year;
-	NSPredicate *filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
-	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S02", nil];
-	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
-
-	self.messageFilterForTest.ageFilter = testAppVals.defaultAgeFilterNewer3Months;
-	filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
-	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S02", nil];
-	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
-
 	self.messageFilterForTest.ageFilter = testAppVals.defaultAgeFilterOlder1Year;
-	filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
-	msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S03",@"S04",@"S05", nil];
+	NSPredicate *filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
+	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S03",@"S04",@"S05", nil];
 	[self checkFilteredEmailsInfos:msgsExpectedAfterFiltering  andFilterPredicate:filterPredicate];
 
 	self.messageFilterForTest.ageFilter = testAppVals.defaultAgeFilterNone;
@@ -289,13 +283,15 @@
 			withName:@"" andSendDate:[DateHelper today]
 					withCurrentAddresses:currEmailAddressByAddress 
 					inDataModelController:self.appDataDmc
-					andEmailAcct:self.testAppVals.currentEmailAcct]];
+					andEmailAcct:self.testAppVals.currentEmailAcct
+					andIsRecipientAddr:TRUE andIsSenderAddr:FALSE]];
 	[self.messageFilterForTest.recipientAddressFilter addSelectedAddressesObject:
 		[EmailAddress findOrAddAddress:@"bob@example.com" 
 			withName:@"" andSendDate:[DateHelper today]
 					withCurrentAddresses:currEmailAddressByAddress 
 					inDataModelController:self.appDataDmc
-					andEmailAcct:self.testAppVals.currentEmailAcct]];
+					andEmailAcct:self.testAppVals.currentEmailAcct
+					andIsRecipientAddr:TRUE andIsSenderAddr:FALSE]];
 					
 	NSPredicate *filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S02",@"S05", nil];
@@ -351,7 +347,7 @@
 	[self populateTestEmailWithSendDate:@"2012-05-01" andSubject:@"S05" andFrom:@"sally@localdomain"];
 
 	// Filtering email addresses with the localdomain should include S01 and S05.
-	[self.messageFilterForTest.emailDomainFilter addSelectedDomainsObject:localDomainMsg.senderDomain];
+	[self.messageFilterForTest.senderDomainFilter addSelectedDomainsObject:localDomainMsg.senderDomain];
 	
 	NSPredicate *filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S01",@"S05", nil];
@@ -372,9 +368,9 @@
 	[self populateTestEmailWithSendDate:@"2012-05-01" andSubject:@"S05" andFrom:@"sally@localdomain"];
 
 	// Filtering email addresses with the localdomain should include S01 and S05.
-	[self.messageFilterForTest.emailDomainFilter addSelectedDomainsObject:localDomainMsg.senderDomain];
+	[self.messageFilterForTest.senderDomainFilter addSelectedDomainsObject:localDomainMsg.senderDomain];
 	
-	self.messageFilterForTest.emailDomainFilter.matchUnselected = [NSNumber numberWithBool:TRUE];
+	self.messageFilterForTest.senderDomainFilter.matchUnselected = [NSNumber numberWithBool:TRUE];
 	
 	NSPredicate *filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
 	NSArray *msgsExpectedAfterFiltering = [NSArray arrayWithObjects:@"S02",@"S03",@"S04", nil];

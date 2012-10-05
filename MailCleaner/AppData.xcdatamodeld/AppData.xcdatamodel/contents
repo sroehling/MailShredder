@@ -87,6 +87,7 @@
     </entity>
     <entity name="EmailInfo" representedClassName="EmailInfo" syncable="YES">
         <attribute name="deleted" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isHidden" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="isRead" attributeType="Boolean" syncable="YES"/>
         <attribute name="isSentMsg" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="isStarred" attributeType="Boolean" syncable="YES"/>
@@ -188,7 +189,7 @@
         <element name="EmailDomainFilter" positionX="160" positionY="192" width="128" height="75"/>
         <element name="EmailFolder" positionX="160" positionY="192" width="128" height="90"/>
         <element name="EmailFolderFilter" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="EmailInfo" positionX="160" positionY="192" width="128" height="255"/>
+        <element name="EmailInfo" positionX="160" positionY="192" width="128" height="270"/>
         <element name="FromAddressFilter" positionX="160" positionY="192" width="128" height="75"/>
         <element name="MessageFilter" positionX="160" positionY="192" width="128" height="255"/>
         <element name="ReadFilter" positionX="160" positionY="192" width="128" height="120"/>
