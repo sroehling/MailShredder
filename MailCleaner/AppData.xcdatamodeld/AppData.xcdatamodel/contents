@@ -138,7 +138,7 @@
     </entity>
     <entity name="SentReceivedFilter" representedClassName="SentReceivedFilter" syncable="YES">
         <attribute name="matchLogic" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="messageFilterSentReceivedFilter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="sentReceivedFilter" inverseEntity="MessageFilter" syncable="YES"/>
+        <relationship name="messageFilterSentReceivedFilter" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="sentReceivedFilter" inverseEntity="MessageFilter" syncable="YES"/>
         <relationship name="sharedAppValsSentReceivedFilterEither" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultSentReceivedFilterEither" inverseEntity="SharedAppVals" syncable="YES"/>
         <relationship name="sharedAppValsSentReceivedFilterReceived" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultSentReceivedFilterReceived" inverseEntity="SharedAppVals" syncable="YES"/>
         <relationship name="sharedAppValsSentReceivedFilterSent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultSentReceivedFilterSent" inverseEntity="SharedAppVals" syncable="YES"/>
@@ -195,9 +195,9 @@
         <element name="RecipientAddressFilter" positionX="160" positionY="192" width="128" height="60"/>
         <element name="RecipientDomainFilter" positionX="160" positionY="192" width="128" height="60"/>
         <element name="SenderDomainFilter" positionX="160" positionY="192" width="128" height="60"/>
+        <element name="SentReceivedFilter" positionX="160" positionY="192" width="128" height="120"/>
         <element name="SharedAppVals" positionX="160" positionY="192" width="128" height="345"/>
         <element name="StarredFilter" positionX="160" positionY="192" width="128" height="120"/>
         <element name="SubjectFilter" positionX="160" positionY="192" width="128" height="90"/>
-        <element name="SentReceivedFilter" positionX="160" positionY="192" width="128" height="120"/>
     </elements>
 </model>

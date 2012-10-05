@@ -22,7 +22,8 @@ extern NSUInteger const SENT_RECEIVED_FILTER_MATCH_LOGIC_SENT;
 
 @property (nonatomic, retain) NSNumber * matchLogic;
 
-@property (nonatomic, retain) MessageFilter *messageFilterSentReceivedFilter;
+@property (nonatomic, retain) NSSet *messageFilterSentReceivedFilter;
+
 @property (nonatomic, retain) SharedAppVals *sharedAppValsSentReceivedFilterEither;
 @property (nonatomic, retain) SharedAppVals *sharedAppValsSentReceivedFilterSent;
 @property (nonatomic, retain) SharedAppVals *sharedAppValsSentReceivedFilterReceived;
@@ -38,5 +39,14 @@ extern NSUInteger const SENT_RECEIVED_FILTER_MATCH_LOGIC_SENT;
 -(NSPredicate*)filterPredicate;
 -(BOOL)filterMatchesEitherSentOrReceived  ;
 
+
+@end
+
+@interface SentReceivedFilter (CoreDataGeneratedAccessors)
+
+- (void)addMessageFilterSentReceivedFilterObject:(MessageFilter *)value;
+- (void)removeMessageFilterSentReceivedFilterObject:(MessageFilter *)value;
+- (void)addMessageFilterSentReceivedFilter:(NSSet *)values;
+- (void)removeMessageFilterSentReceivedFilter:(NSSet *)values;
 
 @end

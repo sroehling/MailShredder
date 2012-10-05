@@ -20,6 +20,14 @@
 1. Delete an existing account from the settings view.
 2. The account should not longer appear in the account list.
 
+### ACCT-T02 Multiple Accounts
+
+1. After creating an initial account, create a second one.
+2. Without changing the current account to the new one, go
+   back to the message list view. No errors should occurs.
+3. Go back and select the new account. The account should
+   initially synchronize without errors.
+
 ## iCloud (@me) Integration
 
 ### ICLOUD-T01: Account Creation
