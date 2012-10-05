@@ -10,6 +10,7 @@
 #import "EmailInfoActionView.h"
 #import "UIHelper.h"
 #import "LocalizationHelper.h"
+#import "AppHelper.h"
 
 static CGFloat const MSG_LIST_LOAD_MORE_BUTTON_FONT = 13.0f;
 static CGFloat const MSG_LIST_LOAD_MORE_BUTTON_MARGIN = 5.0f;
@@ -78,6 +79,11 @@ static CGFloat const MSG_LIST_LOAD_MORE_FOOTER_HEIGHT = 50.0f;
 			[UIScreen mainScreen].bounds.size.width,MSG_LIST_LOAD_MORE_FOOTER_HEIGHT)] autorelease];
 		[self.loadMoreMsgsTableFooter addSubview:self.loadMoreStatusLabel];
 		[self.loadMoreMsgsTableFooter addSubview:self.loadMoreButton];
+		
+		if([AppHelper generatingLaunchScreen])
+		{
+			self.loadMoreMsgsTableFooter.hidden = TRUE;
+		}
 
 		
 		self.msgListTableView.tableFooterView = self.loadMoreMsgsTableFooter;
