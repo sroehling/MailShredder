@@ -12,6 +12,7 @@
 #import "DataModelController.h"
 #import "SharedAppVals.h"
 #import "LocalizationHelper.h"
+#import "KeychainFieldInfo.h"
 
 @implementation EmailAcctFieldEditInfo
 
@@ -73,6 +74,11 @@
 -(void)deleteObject:(DataModelController *)dataModelController
 {
 	NSLog(@"Deleting acct: %@",self.emailAcct.acctName);
+	
+	// Remove password entry from the keychain
+	KeychainFieldInfo *passwordField = [self.emailAcct passwordFieldInfo];
+	[passwordField setFieldValue:@""];
+	
 	[self.appDmc deleteObject:self.emailAcct];
 	[self.appDmc saveContext];
 }
