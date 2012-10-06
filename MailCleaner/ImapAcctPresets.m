@@ -29,19 +29,30 @@
 		NSString   *path = [[NSBundle mainBundle] pathForResource: @"imapAcctPresets" ofType: @"txt"];
 		NSString *presetData = [NSString stringWithContentsOfFile:path 
 				encoding:NSUTF8StringEncoding error:nil];
-		NSArray *lines = [presetData componentsSeparatedByString:@"\n"];
+		NSArray *allLines = [presetData componentsSeparatedByString:@"\n"];
 		
 		self.presetsByDomainName = [[[NSMutableDictionary alloc] init] autorelease];
 		self.presetsByIMAPHostName = [[[NSMutableDictionary alloc] init] autorelease];
 		
+		// Strip out any lines with comments, where comments are any line starting with
+		// the '#' character.
+		NSMutableArray *linesWithoutComments = [[[NSMutableArray alloc] init] autorelease];
+		for(NSString *line in allLines)
+		{
+			if(!(line.length > 0 && ([line characterAtIndex:0] == '#')))
+			{
+				[linesWithoutComments addObject:line];
+			}
+		}
+		
 		NSUInteger lineNum = 0;
-		while(lineNum < lines.count)
+		while(lineNum < linesWithoutComments.count)
 		{
 		
 			/////////////////////////////////////////////////////////////////////
 			// Scan the first line for the server settings
 			/////////////////////////////////////////////////////////////////////
-			NSString *serverSettingsLine = [lines objectAtIndex:lineNum];
+			NSString *serverSettingsLine = [linesWithoutComments objectAtIndex:lineNum];
 			lineNum++;
 
 			NSArray *fields = [serverSettingsLine componentsSeparatedByString:@"\t"];
@@ -70,8 +81,8 @@
 			// The second line is the number of folders in the default list of
 			// synchronized folders
 			/////////////////////////////////////////////////////////////////////
-			assert(lineNum < lines .count);
-			NSString *defaultSyncFoldersLine = [lines objectAtIndex:lineNum];
+			assert(lineNum < linesWithoutComments .count);
+			NSString *defaultSyncFoldersLine = [linesWithoutComments objectAtIndex:lineNum];
 			lineNum++;
 			NSArray *syncFields = [defaultSyncFoldersLine componentsSeparatedByString:@"\t"];
 			NSString *scannedNumDefaultSyncFolders = [syncFields objectAtIndex:0];
@@ -83,8 +94,8 @@
 			NSLog(@"Reading default synchronized folders: count = %d",numDefaultSyncFolders);
 			for(NSInteger defaultFolder = 0; defaultFolder < numDefaultSyncFolders; defaultFolder++)
 			{
-				assert(lineNum<lines.count);
-				NSString *defaultSyncFolderName = [lines objectAtIndex:lineNum];
+				assert(lineNum<linesWithoutComments.count);
+				NSString *defaultSyncFolderName = [linesWithoutComments objectAtIndex:lineNum];
 				lineNum++; 
 				
 				[preset.defaultSyncFolders addObject:defaultSyncFolderName];
@@ -96,8 +107,8 @@
 			// The next line is the number of folders in the default list of
 			// synchronized folders
 			/////////////////////////////////////////////////////////////////////
-			assert(lineNum < lines.count);
-			NSString *numDefaultTrashFoldersLine = [lines objectAtIndex:lineNum];
+			assert(lineNum < linesWithoutComments.count);
+			NSString *numDefaultTrashFoldersLine = [linesWithoutComments objectAtIndex:lineNum];
 			lineNum++;
 			
 			NSInteger numDefaultTrashFolders = [numDefaultTrashFoldersLine integerValue];
@@ -105,8 +116,8 @@
 			NSLog(@"Reading default trash folders: count = %d",numDefaultTrashFolders);
 			for(NSInteger defaultFolder = 0; defaultFolder < numDefaultTrashFolders; defaultFolder++)
 			{
-				assert(lineNum<lines.count);
-				NSString *defaultTrashFolderName = [lines objectAtIndex:lineNum];
+				assert(lineNum<linesWithoutComments.count);
+				NSString *defaultTrashFolderName = [linesWithoutComments objectAtIndex:lineNum];
 				lineNum++; 
 				
 				[preset.defaultTrashFolders addObject:defaultTrashFolderName];

@@ -1,8 +1,49 @@
+################################################################################
+# Presets for gmail and Google Apps accounts.
+#
+# Notes about presets:
+#	UK English - [Gmail]/All Mail -  [Gmail]/Bin
+#	Espanol - [Gmail]/Todos -  [Gmail]/Papelera
+#	Espanol (Latin America) - Same as Espanol
+#	French - [Gmail]/Tous les messages - [Gmail]/Corbeille
+#	German (Deutsch) - [Gmail]/Alle Nachrichten - [Gmail]/Papierkorb
+#	Italian (Italiano) - [Gmail]/Tutti i messaggi
+#	Dansk (Denmark) - [Gmail]/Alle e-mails - [Gmail]/Papirkurv
+#	Brazil - [Gmail]/Todos os e-mails - [Gmail]/Lixeira
+#	Portugal - [Gmail]/Todo o correio - [Gmail]/Caixote do Lixo
+#	Nederlands - [Gmail]/Alle berichten - [Gmail]/Prullenbak
+#	Filipino - [Gmail]/Lahat ng Mail - [Gmail]/Basurahan
+#	Polski - [Gmail]/Wszystkie - [Gmail]/Kosz
+################################################################################
 gmail.com	imap.gmail.com	Y	993	Y	N
-1	Y
+11	Y
 [Gmail]/All Mail
-1
+[Gmail]/Todos
+[Gmail]/Tous les messages
+[Gmail]/Alle Nachrichten
+[Gmail]/Tutti i messaggi
+[Gmail]/Alle e-mails
+[Gmail]/Todos os e-mails
+[Gmail]/Todo o correio
+[Gmail]/Alle berichten
+[Gmail]/Lahat ng Mail
+[Gmail]/Wszystkie
+12
 [Gmail]/Trash
+[Gmail]/Bin
+[Gmail]/Papelera
+[Gmail]/Corbeille
+[Gmail]/Papierkorb
+[Gmail]/Cestino
+[Gmail]/Papirkurv
+[Gmail]/Lixeira
+[Gmail]/Caixote do Lixo
+[Gmail]/Prullenbak
+[Gmail]/Basurahan
+[Gmail]/Kosz
+################################################################################
+# Presets for iCloud (@me) accounts
+################################################################################
 me.com	imap.mail.me.com	Y	993	Y	N
 3	N
 INBOX

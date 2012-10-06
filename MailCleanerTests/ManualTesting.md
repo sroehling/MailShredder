@@ -47,7 +47,8 @@
 1. Ensure the account settings are setup to not immediately delete messages.
 2. Put a message in the "Archive", "Sent Mail", and "Inbox" folder.
 3. Delete the messages
-4. The messages should appear in the Trash folder. This can be verified using the web interface at www.icloud.com.
+4. The messages should appear in the Trash folder. This can be verified using 
+   the web interface at www.icloud.com.
 
 
 ### ICLOUD-T03: Immediately Delete (After Moving to Trash)
@@ -59,4 +60,22 @@
     "Msg Permanently deleted" for each message.
 4. Both messages should no longer appear in any folders, including 
    the trash folders. This can be verified using the web interface at www.icloud.com.
+   
+## Gmail Integration
+
+### GMAIL-T01: Change the language
+
+1. Go to the gmail settings and change the language to Espanol.
+2. Create a new account.
+3. Upon creation, the account should be setup like an English account, but the
+   equivalent settings for "[Gmail]/All Mail" and "[Gmail]/Trash" folders
+	should be in Spanish; i.e.: [Gmail]/Todos and  [Gmail]/Papelera respectively
+	
+### GMAIL-T01: Verify Language 
+
+If the user changes the language in Gmail, without
+updating the App settings, an error should be generated
+if the trash folder is no longer valid or the all mail
+folder no longer has any messages.
+
 
