@@ -50,7 +50,7 @@
 	
 		self.progressDelegate = theProgressDelegate;
 		
-		self.mailAcct = [[CTCoreAccount alloc] init];
+		self.mailAcct = [[[CTCoreAccount alloc] init] autorelease];
 		SharedAppVals *sharedVals = [SharedAppVals getUsingDataModelController:self.mainThreadDmc];
 		assert(sharedVals.currentEmailAcct != nil);
 
@@ -81,7 +81,7 @@
 
 -(void)connect
 {
-	self.mailAcct = [[CTCoreAccount alloc] init];
+	self.mailAcct = [[[CTCoreAccount alloc] init] autorelease];
 	
 	int connectionType = [self.emailAcctInfo.useSSL boolValue]?
 		CONNECTION_TYPE_TLS:CONNECTION_TYPE_PLAIN;

@@ -15,7 +15,7 @@ extern NSString *const MSG_TABLE_CELL_IDENTIFIER;
 		UILabel *sendDateLabel;
 		UILabel *fromLabel;
 		UIImageView *selectedCheckbox;
-		UILabel *subjectlabel;
+		UILabel *subjectLabel;
 		UIImageView *msgFlag;
 }
 

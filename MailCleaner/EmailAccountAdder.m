@@ -394,8 +394,8 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 -(void)startAcctConnectionTest
 {
 	connectionTestSucceeded = FALSE;
-	self.connectionTestHUD = [[MBProgressHUD alloc] 
-		initWithView:self.currParentContext.parentController.navigationController.view];
+	self.connectionTestHUD = [[[MBProgressHUD alloc] 
+		initWithView:self.currParentContext.parentController.navigationController.view] autorelease];
 	[self.currParentContext.parentController.navigationController.view addSubview:self.connectionTestHUD];
 	self.connectionTestHUD.mode = MBProgressHUDModeIndeterminate;
 	self.connectionTestHUD.delegate = self;

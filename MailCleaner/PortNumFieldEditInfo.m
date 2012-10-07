@@ -19,10 +19,10 @@
 
 -(id)initWithEmailAcct:(EmailAccount*)theEmailAcct
 {
-    ManagedObjectFieldInfo *fieldInfo = [[ManagedObjectFieldInfo alloc] 
+    ManagedObjectFieldInfo *fieldInfo = [[[ManagedObjectFieldInfo alloc] 
               initWithManagedObject:theEmailAcct andFieldKey:EMAIL_ACCOUNT_PORTNUM_KEY 
 			  andFieldLabel:LOCALIZED_STR(@"EMAIL_ACCOUNT_PORTNUM_FIELD_LABEL")
-			  andFieldPlaceholder:LOCALIZED_STR(@"EMAIL_ACCOUNT_PORTNUM_PLACEHOLDER")];
+			  andFieldPlaceholder:LOCALIZED_STR(@"EMAIL_ACCOUNT_PORTNUM_PLACEHOLDER")] autorelease];
 
 	self = [super initWithFieldInfo:fieldInfo andNumberFormatter:[NumberHelper theHelper].decimalFormatter  
 			andValidator:[[[PortNumberValidator alloc] init] autorelease]];

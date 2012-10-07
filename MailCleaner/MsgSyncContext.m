@@ -47,8 +47,8 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 		self.currDomainByDomainName = [syncAcct emailDomainsByDomainName];
 		
 		newLocalMsgsCreated=0;
-		self.syncProgressCounter = [[PercentProgressCounter alloc] 
-			initWithTotalCount:totalMsgs];
+		self.syncProgressCounter = [[[PercentProgressCounter alloc] 
+			initWithTotalCount:totalMsgs] autorelease];
 			
 		assert(theProgressDelegate != nil);
 		self.progressDelegate = theProgressDelegate;

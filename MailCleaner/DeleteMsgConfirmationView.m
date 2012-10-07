@@ -107,7 +107,7 @@ CGFloat const DELETE_CONFIRMATION_MSG_NUMBER_FRAME_HEIGHT= 20.0f;
 		UIImage *bkgImage = [UIImage imageNamed:@"confirmDeleteBkg.png"];
 		UIImage *stretchableBackgroundImage =
 			[bkgImage stretchableImageWithLeftCapWidth:10 topCapHeight:10];
-		self.backgroundImage = [[UIImageView alloc] initWithFrame:CGRectZero];
+		self.backgroundImage = [[[UIImageView alloc] initWithFrame:CGRectZero] autorelease];
 		self.backgroundImage.image = stretchableBackgroundImage;
 		self.backgroundImage.contentMode = UIViewContentModeScaleToFill;
 		[self addSubview:self.backgroundImage];
@@ -166,7 +166,7 @@ CGFloat const DELETE_CONFIRMATION_MSG_NUMBER_FRAME_HEIGHT= 20.0f;
 		[self.msgDisplayView addSubview:self.subjectLabel]; 
 		[self.msgDisplayView addSubview:self.subjectCaption];
 		
-		self.currentMsgNumber = [[UILabel alloc] initWithFrame:CGRectZero];
+		self.currentMsgNumber = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
 		self.currentMsgNumber.backgroundColor = [UIColor clearColor];
 		self.currentMsgNumber.opaque = NO;
 		self.currentMsgNumber.textAlignment = UITextAlignmentRight;

@@ -38,8 +38,8 @@
 		inManagedObjectContext:appDmc.managedObjectContext];
 	[fetchRequest setEntity:entity];
  
-	NSSortDescriptor *sort = [[NSSortDescriptor alloc]
-		initWithKey:EMAIL_INFO_SEND_DATE_KEY ascending:NO];
+	NSSortDescriptor *sort = [[[NSSortDescriptor alloc]
+		initWithKey:EMAIL_INFO_SEND_DATE_KEY ascending:NO] autorelease];
 	[fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
 	
 
@@ -59,8 +59,8 @@
 		inManagedObjectContext:appDmc.managedObjectContext];
 	[fetchRequest setEntity:entity];
  
-	NSSortDescriptor *sort = [[NSSortDescriptor alloc]
-		initWithKey:EMAIL_INFO_SEND_DATE_KEY ascending:NO];
+	NSSortDescriptor *sort = [[[NSSortDescriptor alloc]
+		initWithKey:EMAIL_INFO_SEND_DATE_KEY ascending:NO] autorelease];
 	[fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
 	
 	NSPredicate *currentAcctPredicate = [MsgPredicateHelper emailInfoInCurrentAcctPredicate:appDmc];
