@@ -197,8 +197,14 @@
 	NSArray *validCoreMsgs = [self emailInfoToValidCoreMsgList:emailInfoMsgList withMsgFolder:srcFolder];
 	
 	[self copyCoreMessages:validCoreMsgs fromFolder:srcFolder toFolder:destFolder];
+
+	[self.deleteProgressDelegate mailDeleteUpdateProgress:0.5];
+
 	
 	[self deleteCoreMsgs:validCoreMsgs fromFolder:srcFolder];
+
+	[self.deleteProgressDelegate mailDeleteUpdateProgress:0.75];
+
 	
 	return TRUE;
 }
@@ -241,6 +247,8 @@
 	FolderDeletionMsgs *folderDeletionMsgs = [[[FolderDeletionMsgs alloc]
 		initWithMsgsToDelete:msgsMarkedForDeletion
 		andMailAcct:self.connectionContext.mailAcct] autorelease];
+		
+	[self.deleteProgressDelegate mailDeleteUpdateProgress:0.0];
 		
 	
 	// The following dictionary is book-keeping when/if a message is 
@@ -307,7 +315,10 @@
 	// the ones which were just moved.
 	if((deleteDestFolder != nil) && doDeleteMsgs)
 	{
-		// Need to disconnect, then reconnect to get an updated message count 
+
+		[self.deleteProgressDelegate mailDeleteUpdateProgress:0.5];
+
+		// Need to disconnect, then reconnect to get an updated message count
 		// and list of messages.
 		[deleteDestFolder disconnect];
 		[deleteDestFolder connect];
@@ -345,6 +356,8 @@
 	
 	numMsgsDeleted = msgsMarkedForDeletion.count;
 	
+	[self.deleteProgressDelegate mailDeleteUpdateProgress:0.9];
+
 	// Delete the local EmailInfo objects for the messages just deleted
 	[self.connectionContext.syncDmc deleteObjects:msgsMarkedForDeletion];
 	
@@ -356,6 +369,12 @@
 		completionInfo.destinationFolder = deleteDestFolder.path;
 	}
 	completionInfo.numMsgsDeleted = numMsgsDeleted;
+	
+	[self.deleteProgressDelegate mailDeleteUpdateProgress:1.0];
+	[NSThread sleepForTimeInterval:0.5];
+
+	
+	
 	return completionInfo;
 
 }
