@@ -319,8 +319,7 @@
     }
 }
 
-
--(void)updateMessageFilterCountsInBackground
+-(void)startFilterCountsThreadFromMainThread
 {
 	MessageFilterCountOperation *countMsgsOperation = 
 		[[[MessageFilterCountOperation alloc] initWithMainThreadDmc:self.appDmc 
@@ -329,6 +328,16 @@
 	countMsgsOperation.queuePriority = NSOperationQueuePriorityHigh;
 		
 	[self.backgroundOperationsQueue addOperation:countMsgsOperation];
+
+}
+
+
+-(void)updateMessageFilterCountsInBackground
+{
+	// This method may be called from a thread to initiate a counting operation.
+	// The memory allocated for the operation needs to be done on the main thread.
+	[self performSelectorOnMainThread:@selector(startFilterCountsThreadFromMainThread)
+		withObject:nil waitUntilDone:TRUE];
 }
 
 -(void)syncWithServerInBackgroundThread
