@@ -71,12 +71,17 @@
    equivalent settings for "[Gmail]/All Mail" and "[Gmail]/Trash" folders
 	should be in Spanish; i.e.: [Gmail]/Todos and  [Gmail]/Papelera respectively
 	
-### GMAIL-T01: Verify Language 
+### GMAIL-T02: Verify Language 
 
 If the user changes the language in Gmail, without
 updating the App settings, an error should be generated
 if the trash folder is no longer valid or the all mail
 folder no longer has any messages.
+
+### GMAIL-T03: Real Account
+
+Connect to a real account. The number and variety of messages
+will provide a good (albeit not scientific) test case.
 
 ## Test Server Integration
 

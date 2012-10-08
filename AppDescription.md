@@ -1,22 +1,37 @@
 # MailCleaner
 
+Use MailCleaner to help protect your privacy 
+and the privacy of those who send you email.
+
 MailCleaner is a specialized email utility to zero in on and 
-selectively delete old, unwanted, and/or confidential emails. 
+selectively delete old, unwanted, or confidential emails. 
+While regular email apps focus on reading and writing emails,
+MailCleaner is designed to help you efficiently filter, select, 
+then bulk delete unwanted messages.
 
-Selectively deleting emails is important to protect your privacy, limit the 
-advertising profile email providers build on you, limit your potential 
-exposure to hackers, or to purge old emails containing personal or 
-sensitive information. MailCleaner also helps you stay organized and 
-purge unneeded emails or keep your account storage under quota.
-
-For example, MailCleaner can help you periodically delete emails
+For example, MailCleaner is useful for 
+periodically deleting emails
 with bank statements, online purchase receipts, or 
-confidential communications. After filtering and reviewing
-your email with MailCleaner, you'll likely be surprised
-how many emails you'll want to delete.
+confidential messages from friends and family.
 
-MailCleaner currently supports email accounts with IMAP support, such as 
-Gmail, Google Apps for businesses, or iCloud.
+Individual messages may be insignificant, but collectively
+they represent an extensive profile of what you purchased,
+who you've done business with, where you've traveled, and
+other confidential business and personal communications. 
+
+After some time, there's really no reason to keep most
+messages. However, there are important reasons to delete them, such
+as limiting your exposure if your account is compromised, or to 
+limit the advertising profile some email providers 
+build on you.  
+
+Above and beyond important privacy concerns, MailCleaner also 
+helps you stay organized and keep your account storage under quota.
+After using MailCleaner, you'll likely be surprised
+how many unneeded messages can be safely deleted.
+
+MailCleaner currently supports email accounts with IMAP support, 
+such as Gmail, Google Apps for businesses, or iCloud.
 
 ## Features
 
