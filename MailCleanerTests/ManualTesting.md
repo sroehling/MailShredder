@@ -78,4 +78,16 @@ updating the App settings, an error should be generated
 if the trash folder is no longer valid or the all mail
 folder no longer has any messages.
 
+## Test Server Integration
+
+### TSERV_T01: Large number of messages
+
+1. Using the test scripts, create a large inbox with 50K messages
+   (this is equivalent to someone who receives approximately 50
+   messages per day over 5 years).
+2. Set up the account to synchronize with test server.
+3. The synchronizatino should complete successfully (not crash) and 
+   the app should still be responsive.
+
+
 
