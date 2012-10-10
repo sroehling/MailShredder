@@ -1,9 +1,8 @@
 //
 //  MsgTableCell.m
-//  MailCleaner
 //
 //  Created by Steve Roehling on 5/24/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Resultra, LLC. All rights reserved.
 //
 
 #import "MsgTableCell.h"

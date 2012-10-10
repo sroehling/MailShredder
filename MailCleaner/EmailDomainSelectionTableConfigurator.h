@@ -1,6 +1,5 @@
 //
 //  EmailDomainSelectionTableConfigurator.h
-//  MailCleaner
 //
 //  Created by Steve Roehling on 9/30/12.
 //

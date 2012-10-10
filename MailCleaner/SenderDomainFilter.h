@@ -1,6 +1,5 @@
 //
 //  SenderDomainFilter.h
-//  MailCleaner
 //
 //  Created by Steve Roehling on 10/2/12.
 //

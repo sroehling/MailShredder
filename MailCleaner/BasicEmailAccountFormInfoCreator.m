@@ -1,9 +1,8 @@
 //
 //  EmailAddrFormInfoCreator.m
-//  MailCleaner
 //
 //  Created by Steve Roehling on 8/20/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Resultra, LLC. All rights reserved.
 //
 
 #import "BasicEmailAccountFormInfoCreator.h"

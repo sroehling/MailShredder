@@ -1,6 +1,5 @@
 //
 //  EmailAddressFilterTableConfigurator.m
-//  MailCleaner
 //
 //  Created by Steve Roehling on 9/28/12.
 //

@@ -1,6 +1,5 @@
 //
 //  EmailAddressFilterFormInfo.h
-//  MailCleaner
 //
 //  Created by Steve Roehling on 9/29/12.
 //

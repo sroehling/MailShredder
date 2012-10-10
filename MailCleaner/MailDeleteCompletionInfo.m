@@ -1,9 +1,8 @@
 //
 //  MailDeleteCompletionInfo.m
-//  MailCleaner
 //
 //  Created by Steve Roehling on 9/18/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Resultra, LLC. All rights reserved.
 //
 
 #import "MailDeleteCompletionInfo.h"

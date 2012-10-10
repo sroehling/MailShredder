@@ -1,6 +1,5 @@
 //
 //  FolderDeletionMsgs.m
-//  MailCleaner
 //
 //  Created by Steve Roehling on 9/27/12.
 //

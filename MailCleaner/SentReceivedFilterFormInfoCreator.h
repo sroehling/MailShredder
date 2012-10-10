@@ -1,6 +1,5 @@
 //
 //  SentReceivedFormInfoCreator.h
-//  MailCleaner
 //
 //  Created by Steve Roehling on 10/3/12.
 //
