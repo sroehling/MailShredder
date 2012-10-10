@@ -5,17 +5,17 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>Email Purger</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>mailcleaner.png</string>
-		<string>mailcleaner@2x.png</string>
-		<string>mailcleaner-72.png</string>
+		<string>emailpurger.png</string>
+		<string>emailpurger@2x.png</string>
+		<string>emailpurger-72.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>com.resultra.mailcleaner</string>
+	<string>com.resultra.emailpurger</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

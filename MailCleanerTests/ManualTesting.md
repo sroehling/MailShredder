@@ -27,6 +27,24 @@
    back to the message list view. No errors should occurs.
 3. Go back and select the new account. The account should
    initially synchronize without errors.
+   
+## Filters
+
+The automated test suite has good coverage of the filter logic. The tests
+below are designed to test the UI functionality related to filters.
+
+### FILTER-T01: Create a Filter from the Popup Menu
+
+1. Load the app with the integration test mail server.
+2. Select a message from the message list.
+3. From the narrow filter popup menu (RHS), narrow
+   the filter to the selcted message.
+4. Save the filter from the popup menu.
+
+After completing this test, the new filter should appear
+in the load filter menu. If the filter is reset, then reloaded
+from the load filter menu, the results should reappear in the message
+list.
 
 ## iCloud (@me) Integration
 

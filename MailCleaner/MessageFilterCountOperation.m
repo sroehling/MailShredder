@@ -61,7 +61,7 @@
 
 -(void)msgCountsThreadDidSaveNotificationHandler:(NSNotification*)notification
 {
-	[self performSelectorOnMainThread:@selector(mergeChangesFromCountingThread)
+	[self performSelectorOnMainThread:@selector(mergeChangesFromCountingThread:)
 		withObject:notification waitUntilDone:TRUE];
 }
 

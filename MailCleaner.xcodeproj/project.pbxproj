@@ -127,9 +127,9 @@
 		00B2FB2716012A8B005C93DB /* StarredFilterFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B2FB2616012A8B005C93DB /* StarredFilterFieldEditInfo.m */; };
 		00B2FB2A16012A9B005C93DB /* StarredFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B2FB2916012A9B005C93DB /* StarredFilterFormInfoCreator.m */; };
 		00B3B71D15DDA62C00A8FFCD /* MsgSyncContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B3B71C15DDA62C00A8FFCD /* MsgSyncContext.m */; };
-		00B6DAA41604F06700C3B5EC /* mailcleaner.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B6DAA11604F06700C3B5EC /* mailcleaner.png */; };
-		00B6DAA51604F06700C3B5EC /* mailcleaner-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B6DAA21604F06700C3B5EC /* mailcleaner-72.png */; };
-		00B6DAA61604F06700C3B5EC /* mailcleaner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B6DAA31604F06700C3B5EC /* mailcleaner@2x.png */; };
+		00B6DAA41604F06700C3B5EC /* emailpurger.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B6DAA11604F06700C3B5EC /* emailpurger.png */; };
+		00B6DAA51604F06700C3B5EC /* emailpurger-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B6DAA21604F06700C3B5EC /* emailpurger-72.png */; };
+		00B6DAA61604F06700C3B5EC /* emailpurger@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B6DAA31604F06700C3B5EC /* emailpurger@2x.png */; };
 		00C4AB141581784900E0868A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB131581784900E0868A /* CFNetwork.framework */; };
 		00C4AB15158178FC00E0868A /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB11158177C400E0868A /* libiconv.dylib */; };
 		00C8777415B306EE0063F88B /* PortNumFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8777315B306EE0063F88B /* PortNumFieldEditInfo.m */; };
@@ -159,6 +159,7 @@
 		00E420EF160BC534007CFA48 /* msgflag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00E420EE160BC534007CFA48 /* msgflag@2x.png */; };
 		00E9944A15643244003B9771 /* EmailInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9944915643244003B9771 /* EmailInfoTableViewController.m */; };
 		00E9F6CB16163ED9002BA59E /* EmailAddressSelectionTableConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9F6CA16163ED9002BA59E /* EmailAddressSelectionTableConfigurator.m */; };
+		00EA1F901624CB020028A8A6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00EA1F8F1624CB020028A8A6 /* Default-568h@2x.png */; };
 		00EDA63315F6B62F00917916 /* FilterNameFieldValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00EDA63215F6B62F00917916 /* FilterNameFieldValidator.m */; };
 		00EDA63815F7C0D800917916 /* MessageFilterCountOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00EDA63715F7C0D800917916 /* MessageFilterCountOperation.m */; };
 		00F16E0A15FA7F0C00E3A21B /* DeleteSettingsEmailAccountFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F16E0915FA7F0C00E3A21B /* DeleteSettingsEmailAccountFormInfoCreator.m */; };
@@ -260,7 +261,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0005668D1562F94C003D114D /* MailCleaner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MailCleaner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0005668D1562F94C003D114D /* EmailPurger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmailPurger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		000566911562F94C003D114D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		000566931562F94C003D114D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		000566951562F94C003D114D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -270,7 +271,7 @@
 		0005669F1562F94C003D114D /* MailCleaner-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MailCleaner-Prefix.pch"; sourceTree = "<group>"; };
 		000566A01562F94C003D114D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		000566A11562F94C003D114D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		000566BC1562F94D003D114D /* MailCleanerTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MailCleanerTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		000566BC1562F94D003D114D /* MailCleanerTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = MailCleanerTests.octest; path = "EmailPurger Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		000566BD1562F94D003D114D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		000566C51562F94D003D114D /* MailCleanerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MailCleanerTests-Info.plist"; sourceTree = "<group>"; };
 		000566C71562F94D003D114D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -406,6 +407,8 @@
 		009CAD9215D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompositeMailSyncProgressDelegate.h; sourceTree = "<group>"; };
 		009CAD9315D2DBE700C2C19F /* CompositeMailSyncProgressDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompositeMailSyncProgressDelegate.m; sourceTree = "<group>"; };
 		009CAD9915D2F80900C2C19F /* deleteMsgs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deleteMsgs.png; sourceTree = "<group>"; };
+		009DA2C6162496DD00A3A5CC /* AppStoreInfo.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = AppStoreInfo.md; sourceTree = "<group>"; };
+		009DA2C716249A9F00A3A5CC /* EmailPurgerLargeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EmailPurgerLargeIcon.png; sourceTree = "<group>"; };
 		009E32081567E4C500233276 /* AgeFilterFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeFilterFieldEditInfo.h; sourceTree = "<group>"; };
 		009E32091567E4C500233276 /* AgeFilterFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgeFilterFieldEditInfo.m; sourceTree = "<group>"; };
 		00A6FB3C159A493200ED4D4B /* EmailDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailDomain.h; sourceTree = "<group>"; };
@@ -456,9 +459,9 @@
 		00B3B71C15DDA62C00A8FFCD /* MsgSyncContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgSyncContext.m; sourceTree = "<group>"; };
 		00B4972F1607B3860048D81F /* MessageDeletionBehavior.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = MessageDeletionBehavior.md; sourceTree = "<group>"; };
 		00B6DA9B1604BEC000C3B5EC /* ManualTesting.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = ManualTesting.md; sourceTree = "<group>"; };
-		00B6DAA11604F06700C3B5EC /* mailcleaner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mailcleaner.png; sourceTree = "<group>"; };
-		00B6DAA21604F06700C3B5EC /* mailcleaner-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mailcleaner-72.png"; sourceTree = "<group>"; };
-		00B6DAA31604F06700C3B5EC /* mailcleaner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mailcleaner@2x.png"; sourceTree = "<group>"; };
+		00B6DAA11604F06700C3B5EC /* emailpurger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emailpurger.png; sourceTree = "<group>"; };
+		00B6DAA21604F06700C3B5EC /* emailpurger-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "emailpurger-72.png"; sourceTree = "<group>"; };
+		00B6DAA31604F06700C3B5EC /* emailpurger@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "emailpurger@2x.png"; sourceTree = "<group>"; };
 		00C4AB11158177C400E0868A /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		00C4AB131581784900E0868A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		00C5042B1603AB72007C6BE7 /* AppDescription.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = AppDescription.md; sourceTree = "<group>"; };
@@ -511,6 +514,11 @@
 		00E9944915643244003B9771 /* EmailInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoTableViewController.m; sourceTree = "<group>"; };
 		00E9F6C916163ED9002BA59E /* EmailAddressSelectionTableConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddressSelectionTableConfigurator.h; sourceTree = "<group>"; };
 		00E9F6CA16163ED9002BA59E /* EmailAddressSelectionTableConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddressSelectionTableConfigurator.m; sourceTree = "<group>"; };
+		00EA1F881624AC6F0028A8A6 /* EmailPurgerScreenshot4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EmailPurgerScreenshot4.png; sourceTree = "<group>"; };
+		00EA1F891624AC6F0028A8A6 /* EmailPurgerScreenshot3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EmailPurgerScreenshot3.png; sourceTree = "<group>"; };
+		00EA1F8F1624CB020028A8A6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
+		00ECDE351624A0D6008D4DC5 /* EmailPurgerScreenshot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EmailPurgerScreenshot1.png; sourceTree = "<group>"; };
+		00ECDE361624A0D6008D4DC5 /* EmailPurgerScreenshot2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EmailPurgerScreenshot2.png; sourceTree = "<group>"; };
 		00EDA63115F6B62F00917916 /* FilterNameFieldValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterNameFieldValidator.h; sourceTree = "<group>"; };
 		00EDA63215F6B62F00917916 /* FilterNameFieldValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterNameFieldValidator.m; sourceTree = "<group>"; };
 		00EDA63615F7C0D800917916 /* MessageFilterCountOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageFilterCountOperation.h; sourceTree = "<group>"; };
@@ -573,10 +581,11 @@
 		000566821562F94C003D114D = {
 			isa = PBXGroup;
 			children = (
+				001576EE16248E5900CA7515 /* App Store */,
 				0065E3B91586A57400D59B2A /* Libs */,
 				007ABE8E156AB631004BA8BF /* Development Docs */,
-				000566971562F94C003D114D /* MailCleaner */,
-				000566C31562F94D003D114D /* MailCleanerTests */,
+				000566971562F94C003D114D /* Email Purger */,
+				000566C31562F94D003D114D /* Email Purger Tests */,
 				000566901562F94C003D114D /* Frameworks */,
 				0005668E1562F94C003D114D /* Products */,
 				00B0EC09160CBD2E00B57B56 /* ResultraGenericLib.xcodeproj */,
@@ -587,7 +596,7 @@
 		0005668E1562F94C003D114D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0005668D1562F94C003D114D /* MailCleaner.app */,
+				0005668D1562F94C003D114D /* EmailPurger.app */,
 				000566BC1562F94D003D114D /* MailCleanerTests.octest */,
 			);
 			name = Products;
@@ -604,7 +613,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		000566971562F94C003D114D /* MailCleaner */ = {
+		000566971562F94C003D114D /* Email Purger */ = {
 			isa = PBXGroup;
 			children = (
 				00EDA63515F7C08100917916 /* Message Filter Count Operation */,
@@ -619,15 +628,16 @@
 				000566981562F94C003D114D /* Supporting Files */,
 				0039E5FC1566CE0700CB259D /* Message Filter */,
 			);
+			name = "Email Purger";
 			path = MailCleaner;
 			sourceTree = "<group>";
 		};
 		000566981562F94C003D114D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				00B6DAA11604F06700C3B5EC /* mailcleaner.png */,
-				00B6DAA21604F06700C3B5EC /* mailcleaner-72.png */,
-				00B6DAA31604F06700C3B5EC /* mailcleaner@2x.png */,
+				00B6DAA11604F06700C3B5EC /* emailpurger.png */,
+				00B6DAA21604F06700C3B5EC /* emailpurger-72.png */,
+				00B6DAA31604F06700C3B5EC /* emailpurger@2x.png */,
 				0005672915630DDD003D114D /* Localizable.strings */,
 				000566991562F94C003D114D /* MailCleaner-Info.plist */,
 				0005669A1562F94C003D114D /* InfoPlist.strings */,
@@ -638,7 +648,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		000566C31562F94D003D114D /* MailCleanerTests */ = {
+		000566C31562F94D003D114D /* Email Purger Tests */ = {
 			isa = PBXGroup;
 			children = (
 				00B6DA9B1604BEC000C3B5EC /* ManualTesting.md */,
@@ -646,6 +656,7 @@
 				0017B751157968EA001D5D28 /* TestMessageFiltering.h */,
 				0017B752157968EA001D5D28 /* TestMessageFiltering.m */,
 			);
+			name = "Email Purger Tests";
 			path = MailCleanerTests;
 			sourceTree = "<group>";
 		};
@@ -671,6 +682,19 @@
 				000BBAAB159CFA0F003A7158 /* EmailFolderFilterFormInfoCreator.m */,
 			);
 			name = "Email Folder Filter";
+			sourceTree = "<group>";
+		};
+		001576EE16248E5900CA7515 /* App Store */ = {
+			isa = PBXGroup;
+			children = (
+				009DA2C6162496DD00A3A5CC /* AppStoreInfo.md */,
+				009DA2C716249A9F00A3A5CC /* EmailPurgerLargeIcon.png */,
+				00ECDE351624A0D6008D4DC5 /* EmailPurgerScreenshot1.png */,
+				00ECDE361624A0D6008D4DC5 /* EmailPurgerScreenshot2.png */,
+				00EA1F891624AC6F0028A8A6 /* EmailPurgerScreenshot3.png */,
+				00EA1F881624AC6F0028A8A6 /* EmailPurgerScreenshot4.png */,
+			);
+			name = "App Store";
 			sourceTree = "<group>";
 		};
 		0039E5E31566B45300CB259D /* App Data */ = {
@@ -708,8 +732,7 @@
 		0039E5FA1566CD0800CB259D /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				00257FC9160D1C2B005D5DED /* Default.png */,
-				00257FCA160D1C2B005D5DED /* Default@2x.png */,
+				00EA1F8E1624CAE20028A8A6 /* Launch Images */,
 				003D599D15641B8A00AD3D91 /* AppHelper.h */,
 				003D599E15641B8A00AD3D91 /* AppHelper.m */,
 				000566A01562F94C003D114D /* AppDelegate.h */,
@@ -1285,6 +1308,16 @@
 			name = "Move to Folder for Deletion Setting";
 			sourceTree = "<group>";
 		};
+		00EA1F8E1624CAE20028A8A6 /* Launch Images */ = {
+			isa = PBXGroup;
+			children = (
+				00EA1F8F1624CB020028A8A6 /* Default-568h@2x.png */,
+				00257FC9160D1C2B005D5DED /* Default.png */,
+				00257FCA160D1C2B005D5DED /* Default@2x.png */,
+			);
+			name = "Launch Images";
+			sourceTree = "<group>";
+		};
 		00EDA63515F7C08100917916 /* Message Filter Count Operation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1308,9 +1341,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0005668C1562F94C003D114D /* MailCleaner */ = {
+		0005668C1562F94C003D114D /* EmailPurger */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 000566CE1562F94D003D114D /* Build configuration list for PBXNativeTarget "MailCleaner" */;
+			buildConfigurationList = 000566CE1562F94D003D114D /* Build configuration list for PBXNativeTarget "EmailPurger" */;
 			buildPhases = (
 				000566891562F94C003D114D /* Sources */,
 				0005668A1562F94C003D114D /* Frameworks */,
@@ -1324,14 +1357,14 @@
 				00B0EC1B160CBD4300B57B56 /* PBXTargetDependency */,
 				00B0EBE7160CBC0000B57B56 /* PBXTargetDependency */,
 			);
-			name = MailCleaner;
+			name = EmailPurger;
 			productName = MailCleaner;
-			productReference = 0005668D1562F94C003D114D /* MailCleaner.app */;
+			productReference = 0005668D1562F94C003D114D /* EmailPurger.app */;
 			productType = "com.apple.product-type.application";
 		};
-		000566BB1562F94D003D114D /* MailCleanerTests */ = {
+		000566BB1562F94D003D114D /* EmailPurger Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 000566D11562F94D003D114D /* Build configuration list for PBXNativeTarget "MailCleanerTests" */;
+			buildConfigurationList = 000566D11562F94D003D114D /* Build configuration list for PBXNativeTarget "EmailPurger Tests" */;
 			buildPhases = (
 				000566B71562F94D003D114D /* Sources */,
 				000566B81562F94D003D114D /* Frameworks */,
@@ -1343,7 +1376,7 @@
 			dependencies = (
 				000566C21562F94D003D114D /* PBXTargetDependency */,
 			);
-			name = MailCleanerTests;
+			name = "EmailPurger Tests";
 			productName = MailCleanerTests;
 			productReference = 000566BC1562F94D003D114D /* MailCleanerTests.octest */;
 			productType = "com.apple.product-type.bundle";
@@ -1378,8 +1411,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				0005668C1562F94C003D114D /* MailCleaner */,
-				000566BB1562F94D003D114D /* MailCleanerTests */,
+				0005668C1562F94C003D114D /* EmailPurger */,
+				000566BB1562F94D003D114D /* EmailPurger Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -1457,9 +1490,9 @@
 				00561E7C15F5060E0020229D /* checkboxselected.png in Resources */,
 				00561E7F15F526600020229D /* settings@2x.png in Resources */,
 				00561E8015F526600020229D /* settings.png in Resources */,
-				00B6DAA41604F06700C3B5EC /* mailcleaner.png in Resources */,
-				00B6DAA51604F06700C3B5EC /* mailcleaner-72.png in Resources */,
-				00B6DAA61604F06700C3B5EC /* mailcleaner@2x.png in Resources */,
+				00B6DAA41604F06700C3B5EC /* emailpurger.png in Resources */,
+				00B6DAA51604F06700C3B5EC /* emailpurger-72.png in Resources */,
+				00B6DAA61604F06700C3B5EC /* emailpurger@2x.png in Resources */,
 				00F4711C1608CDB000315F5A /* emailAcctDeletionSettingsICloud.md in Resources */,
 				00F4711F1608CDFF00315F5A /* emailAcctDeletionSettingsGmail.md in Resources */,
 				00F471211608CF2700315F5A /* emailAcctDeletionSettingsGoogleApps.md in Resources */,
@@ -1472,6 +1505,7 @@
 				00257FCC160D1C2B005D5DED /* Default@2x.png in Resources */,
 				00676245161DF0890015209D /* confirmDeleteBkg.png in Resources */,
 				00676247161E04210015209D /* confirmDeleteBkg@2x.png in Resources */,
+				00EA1F901624CB020028A8A6 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1624,7 +1658,7 @@
 /* Begin PBXTargetDependency section */
 		000566C21562F94D003D114D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0005668C1562F94C003D114D /* MailCleaner */;
+			target = 0005668C1562F94C003D114D /* EmailPurger */;
 			targetProxy = 000566C11562F94D003D114D /* PBXContainerItemProxy */;
 		};
 		00B0EBE7160CBC0000B57B56 /* PBXTargetDependency */ = {
@@ -1685,6 +1719,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "Email Purger";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1704,6 +1739,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "Email Purger";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1797,7 +1833,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		000566CE1562F94D003D114D /* Build configuration list for PBXNativeTarget "MailCleaner" */ = {
+		000566CE1562F94D003D114D /* Build configuration list for PBXNativeTarget "EmailPurger" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				000566CF1562F94D003D114D /* Debug */,
@@ -1806,7 +1842,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		000566D11562F94D003D114D /* Build configuration list for PBXNativeTarget "MailCleanerTests" */ = {
+		000566D11562F94D003D114D /* Build configuration list for PBXNativeTarget "EmailPurger Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				000566D21562F94D003D114D /* Debug */,
