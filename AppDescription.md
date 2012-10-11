@@ -1,5 +1,4 @@
-# Email Purger
-
+# MailShredder
 
 ## Features
 
@@ -9,13 +8,13 @@
 * **Saved Message Filters**: You can save filters for the types of messages you 
   expect to periodically delete. MailCleaner tracks how many messages
   match each filter, so you'll always know which messages need attention.
-* **Multiple Email Account Support**: Use Email Purger for both personal
+* **Multiple Email Account Support**: Use MailShredder for both personal
   and business email accounts.
 * **Message Deletion Options**: Depending on the account type, move messages
   to a special "trash folder" for delayed deletion, or permanently delete 
   them immediately.
 
-## Reasons/Motivations to use Email Purger
+## Reasons/Motivations to use MailShredder
 
   * For the types of information you used to shred, more 
     and more of this information is communicated via email: e.g.:

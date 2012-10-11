@@ -7,7 +7,7 @@ settings are tailored to review and delete messages from appropriate
 email folders and to move these messages to the "Deleted Messages" 
 to be permanently deleted later.
 
-Email Purger Message Deletion Setting  | Recommended Value | Comments
+MailShredder Message Deletion Setting  | Recommended Value | Comments
 ------------- | ------------- | ----------
 Synchronized Folders    | INBOX, Archive, Sent Messages    | Other folders are for drafts and junk mail. Messages within these other folders typically wouldn't be reviewed for deletion.
 Trash Folder    | Deleted Messages    | Moving a message to this folder will cause it to be automatically erased (permanently deleted) after 30 days. The [web interface][iCloudWeb] also provides an "Empty Trash" capability to immediately erase messages in the trash folder.

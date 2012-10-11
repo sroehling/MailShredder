@@ -256,8 +256,8 @@
 
 /* This string is also defined in ResultraGenericLib. The ones here overrides the
   more generic strings given the library */
-"PASSCODE_ENTRY_PROMPT" = "Enter a passcode for Email Purger";
-"PASSCODE_VERIFY_PROMPT" = "Enter your Email Purger passcode";
+"PASSCODE_ENTRY_PROMPT" = "Enter a passcode for MailShredder";
+"PASSCODE_VERIFY_PROMPT" = "Enter your MailShredder passcode";
 
 
 

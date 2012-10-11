@@ -1,11 +1,11 @@
-# About Email Purger
+# About MailShredder
 
-Email Purger is a product of Resultra, LLC. If you have any further questions or inquiries , 
-please visit the [website for this app].[AppWebsite].
+MailShredder is a product of Resultra, LLC. If you have any further questions or inquiries, 
+please visit the [website for this app][AppWebsite].
 
 ## Acknowledgements
 
-The Email Purger software incorporates under license a number of 
+The MailShredder software incorporates under license a number of 
 third party software libraries.
 The following is a list of these libraries, and 
 the copyrights and associated conditions 

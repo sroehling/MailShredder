@@ -101,6 +101,16 @@ folder no longer has any messages.
 Connect to a real account. The number and variety of messages
 will provide a good (albeit not scientific) test case.
 
+### GMAIL-T04: Move to Trash
+
+Setup the account to both move the message to [Gmail]/Trash, 
+then immediately delete.
+
+### GMAIL-T05: Immediate Delete
+
+Setup the account to both move the message to [Gmail]/Trash, 
+then immediately delete.
+
 ## Test Server Integration
 
 ### TSERV_T01: Large number of messages
@@ -111,6 +121,13 @@ will provide a good (albeit not scientific) test case.
 2. Set up the account to synchronize with test server.
 3. The synchronizatino should complete successfully (not crash) and 
    the app should still be responsive.
+   
+## General System Testing
+
+### SYSTEST-T01: Release Build
+
+This can sometimes expose problems not seen in a release build, such as
+memory management issues.
 
 
 
