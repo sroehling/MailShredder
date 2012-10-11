@@ -129,5 +129,10 @@ then immediately delete.
 This can sometimes expose problems not seen in a release build, such as
 memory management issues.
 
+### SYSTEST-T02: Test on iPad 2
+
+The iPad 2 has dual cores, so it should operate a little more
+realistically than the iPhone 3GS with threading.
+
 
 
