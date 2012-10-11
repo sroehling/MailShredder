@@ -17,24 +17,15 @@
 
 @synthesize syncDmc;
 @synthesize mainThreadDmc;
+@synthesize cachedChangeNotifications;
 @synthesize progressDelegate;
 @synthesize mailAcct;
 @synthesize emailAcctInfo;
 
--(void)mergeChangesFromConnectionThread:(NSNotification *)notification
-{
-    // This method is invoked as a subscriber/call-back for saves the to NSManagedObjectContext
-	// used to synchronize the email information on a dedicated thread. This will in turn 
-	// trigger the main thread to perform updates on to the appropriate NSFetchedResultsControllers,
-	// table views, etc.
-    [self.mainThreadDmc.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
-	[self.mainThreadDmc saveContext];
-}
 
 - (void)mailSyncThreadDidSaveNotificationHandler:(NSNotification *)notification
 {
-	[self performSelectorOnMainThread:@selector(mergeChangesFromConnectionThread:)
-		withObject:notification waitUntilDone:TRUE];
+	[self.cachedChangeNotifications addObject:notification];
 }
 
 
@@ -54,7 +45,10 @@
 		assert(sharedVals.currentEmailAcct != nil);
 
 		self.emailAcctInfo = sharedVals.currentEmailAcct;
-		
+	
+		self.cachedChangeNotifications = [[[NSMutableArray alloc] init] autorelease];
+
+				
 		contextIsSetup = FALSE;
 		
 
@@ -186,18 +180,31 @@
 	}
 }
 
+-(void)mergeCachedChangesToMainThreadContext
+{
+	for(NSNotification *cachedNotification in self.cachedChangeNotifications)
+	{
+		NSLog(@"Merging cached changes from main thread MOC to msg filter counting thread MOC");
+		[self.mainThreadDmc.managedObjectContext mergeChangesFromContextDidSaveNotification:cachedNotification];
+	}
+
+	[self.mainThreadDmc saveContext];
+
+	[self.cachedChangeNotifications removeAllObjects];
+}
+
 -(void)saveLocalChanges
 {
 	// Process any pending deletes before saving.
 	[self.syncDmc.managedObjectContext processPendingChanges];
 	
 	[self.syncDmc saveContext];
-
+	
+	[self performSelectorOnMainThread:@selector(mergeCachedChangesToMainThreadContext) withObject:nil waitUntilDone:TRUE];
 }
 
 -(void)teardownConnection
 {
-
 	if([self.progressDelegate respondsToSelector:@selector(mailServerConnectionTeardownStarted)])
 	{
 		[self.progressDelegate mailServerConnectionTeardownStarted];
@@ -222,6 +229,7 @@
 	[mainThreadDmc release];
 	[mailAcct release];
 	[emailAcctInfo release];
+	[cachedChangeNotifications release];
 	[super dealloc];
 }
 

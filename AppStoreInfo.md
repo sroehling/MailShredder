@@ -5,7 +5,7 @@ The information below was provided for the app store submission.
 
 ## SKU
 
-EMAILPURGER_2012_0001
+MAILSHREDDER_2012_0001
 
 ## Primary Category: 
 
@@ -19,6 +19,7 @@ Productivity
 
 There is a test account for review purposes. The app will prompt for an email address, password and email server.
 
+Account Name: Test
 Address: testmc@resultra.com
 Password: here2testmc
 IMAP Server: imap.gmail.com

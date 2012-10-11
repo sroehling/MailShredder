@@ -18,6 +18,8 @@
 	@private
 		DataModelController *syncDmc;
 		DataModelController *mainThreadDmc;
+		NSMutableArray *cachedChangeNotifications;
+
 		CTCoreAccount *mailAcct;
 		EmailAccount *emailAcctInfo;
 		id<MailServerConnectionProgressDelegate> progressDelegate;
@@ -28,6 +30,7 @@
 
 @property(nonatomic,retain) DataModelController *syncDmc;
 @property(nonatomic,retain) DataModelController *mainThreadDmc;
+@property(nonatomic,retain) NSMutableArray *cachedChangeNotifications;
 @property(nonatomic,retain) CTCoreAccount *mailAcct;
 @property(nonatomic,retain) EmailAccount *emailAcctInfo;
 @property(nonatomic,assign) id<MailServerConnectionProgressDelegate> progressDelegate;

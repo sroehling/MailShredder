@@ -109,7 +109,7 @@
 			msgSize:[emailInfo.size unsignedIntegerValue] ];
 }
 
--(NSMutableDictionary*)msgsToDeleteByLookupValue:(NSArray*)msgsMarkedForDeletion
+-(NSMutableDictionary*)msgsToDeleteByLookupValue:(NSSet*)msgsMarkedForDeletion
 {
 	NSMutableDictionary *msgsByLookupValue = [[[NSMutableDictionary alloc] init] autorelease];
 	for(EmailInfo *markedForDeletion  in msgsMarkedForDeletion)
@@ -197,22 +197,17 @@
 	
 	[self copyCoreMessages:validCoreMsgs fromFolder:srcFolder toFolder:destFolder];
 
-	[self.deleteProgressDelegate mailDeleteUpdateProgress:0.5];
-
-	
 	[self deleteCoreMsgs:validCoreMsgs fromFolder:srcFolder];
-
-	[self.deleteProgressDelegate mailDeleteUpdateProgress:0.75];
-
 	
 	return TRUE;
 }
 
--(MailDeleteCompletionInfo*)deleteMarkedMsgs
+-(void)deleteMsgBatch:(NSSet*)emailInfoMsgsToDelete
+	fromSrcFolder:(CTCoreFolder*)origMsgFolder toDestFolder:(CTCoreFolder*)deleteDestFolder
+	andDoDeleteMsgs:(BOOL)doDeleteMsgs
 {
-	NSDictionary *folderByPath = [self serverFoldersByName];
-	CTCoreFolder *deleteDestFolder = [self destFolderForDelete:folderByPath];
-	
+
+
 	NSUInteger nextUIDInDeleteFolder = 0;
 	if(deleteDestFolder != nil)
 	{
@@ -222,85 +217,52 @@
 		// delete after the delete operation.
 		nextUIDInDeleteFolder = deleteDestFolder.uidNext;
 	}
-	
-	BOOL doDeleteMsgs = [[self.connectionContext acctInSyncObjectContext].deleteHandlingDeleteMsg boolValue];
-		
-		
-	// Limit the messages deleted to those which are both in the current
-	// account and marked for deletion.
-	NSPredicate *markedForDeletion = [MsgPredicateHelper markedForDeletion];
-	NSPredicate *msgsInCurrentAcct = [NSPredicate predicateWithFormat:@"%K = %@",
-		EMAIL_INFO_ACCT_KEY,
-		self.connectionContext.acctInSyncObjectContext];
-	NSPredicate *markedInCurrentAcct = [NSCompoundPredicate andPredicateWithSubpredicates:
-		[NSArray arrayWithObjects:markedForDeletion,msgsInCurrentAcct, nil]];
-		
-	NSArray *msgsMarkedForDeletion = [self.connectionContext.syncDmc 
-		fetchObjectsForEntityName:EMAIL_INFO_ENTITY_NAME 
-		andPredicate:markedInCurrentAcct];
-		
-	// folderDeletionMsgs an index of the messages by source folder. This
-	// is used so the messages can be moved (copied then deleted) or deleted
-	// in bulk from the source folder (rather than 1 by 1 as they appear
-	// in msgsMarkedForDeletion.
-	FolderDeletionMsgs *folderDeletionMsgs = [[[FolderDeletionMsgs alloc]
-		initWithMsgsToDelete:msgsMarkedForDeletion
-		andMailAcct:self.connectionContext.mailAcct] autorelease];
-		
-	[self.deleteProgressDelegate mailDeleteUpdateProgress:0.0];
-		
-	
+
+
 	// The following dictionary is book-keeping when/if a message is 
 	// first moved to a destination folder, then deleted from there.
 	// Only messages which are new to thd delete folder and match a
 	// the lookup value of a message marked for deletion will actually
 	// be deleted.
 	NSMutableDictionary *msgsToDeleteByLookupValue = 
-		[self msgsToDeleteByLookupValue:msgsMarkedForDeletion];
-		
-	NSUInteger numMsgsDeleted = 0;
-	for(FolderDeletionMsgSet *folderDeletionMsgSet in folderDeletionMsgs.folderDeletionMsgSets)
-	{
-	
-		CTCoreFolder *origMsgFolder = folderDeletionMsgSet.srcFolder;
-		if(deleteDestFolder != nil)
-		{
-			if(![origMsgFolder.path isEqualToString:deleteDestFolder.path])
-			{
-				// Different paths => move the messages
-				
-				[self moveEmailInfoMsgs:folderDeletionMsgSet.msgsToDelete
-					fromFolder:origMsgFolder toFolder:deleteDestFolder];
-				// After moving the message, we don't know exactly what UID it will have in the 
-				// new folder, although nextUIDInDestFolder is a good guess. So, for this
-				// reason we wait until the end to delete messages, then get a list of new
-				// UIDs in the destination folder and delete the messages with these new
-				// UIDs.
-			}
-			else 
-			{
-				// The message(s) is already in the destination delete folder, so there's no need 
-				// to move the message. However, if the setting is still
-				// to delete the message, we still need to delete it from from the destination
-				// folder.
-				if(doDeleteMsgs)
-				{
-					[self deleteEmailInfoMsgList:folderDeletionMsgSet.msgsToDelete fromFolder:origMsgFolder];
-				}
-			}
-		}
-		else if(doDeleteMsgs)
-		{
-			// There is not a destination folder, so we don't need to move the message.
-			// However, if the messages are set for immediate deletion, still deleted
-			// it immediately in place.
-			[self deleteEmailInfoMsgList:folderDeletionMsgSet.msgsToDelete fromFolder:origMsgFolder];
-		}
+		[self msgsToDeleteByLookupValue:emailInfoMsgsToDelete];
 
-		
-	} // For each Folder's deletion message set.
-	
-		
+
+	if(deleteDestFolder != nil)
+	{
+		if(![origMsgFolder.path isEqualToString:deleteDestFolder.path])
+		{
+			// Different paths => move the messages
+			
+			[self moveEmailInfoMsgs:emailInfoMsgsToDelete
+				fromFolder:origMsgFolder toFolder:deleteDestFolder];
+			// After moving the message, we don't know exactly what UID it will have in the 
+			// new folder, although nextUIDInDestFolder is a good guess. So, for this
+			// reason we wait until the end to delete messages, then get a list of new
+			// UIDs in the destination folder and delete the messages with these new
+			// UIDs.
+		}
+		else 
+		{
+			// The message(s) is already in the destination delete folder, so there's no need 
+			// to move the message. However, if the setting is still
+			// to delete the message, we still need to delete it from from the destination
+			// folder.
+			if(doDeleteMsgs)
+			{
+				[self deleteEmailInfoMsgList:emailInfoMsgsToDelete fromFolder:origMsgFolder];
+			}
+		}
+	}
+	else if(doDeleteMsgs)
+	{
+		// There is not a destination folder, so we don't need to move the message.
+		// However, if the messages are set for immediate deletion, still deleted
+		// it immediately in place.
+		[self deleteEmailInfoMsgList:emailInfoMsgsToDelete fromFolder:origMsgFolder];
+	}
+
+
 	// The messages have been moved to a destination folder. If the doDeleteMsgs (immediately)
 	// flag has been set, then deleted the messages immediately from there.
 	// 
@@ -314,9 +276,6 @@
 	// the ones which were just moved.
 	if((deleteDestFolder != nil) && doDeleteMsgs)
 	{
-
-		[self.deleteProgressDelegate mailDeleteUpdateProgress:0.5];
-
 		// Need to disconnect, then reconnect to get an updated message count
 		// and list of messages.
 		[deleteDestFolder disconnect];
@@ -352,13 +311,70 @@
 		[self deleteCoreMsgs:msgsConfirmedForDeleteAfterMoving fromFolder:deleteDestFolder];
 		
 	}
-	
-	numMsgsDeleted = msgsMarkedForDeletion.count;
-	
-	[self.deleteProgressDelegate mailDeleteUpdateProgress:0.9];
 
 	// Delete the local EmailInfo objects for the messages just deleted
-	[self.connectionContext.syncDmc deleteObjects:msgsMarkedForDeletion];
+	[self.connectionContext.syncDmc deleteObjects:[emailInfoMsgsToDelete allObjects]];
+	[self.connectionContext.syncDmc saveContext];
+
+
+}
+
+-(MailDeleteCompletionInfo*)deleteMarkedMsgs
+{
+	NSDictionary *folderByPath = [self serverFoldersByName];
+	CTCoreFolder *deleteDestFolder = [self destFolderForDelete:folderByPath];
+	
+	BOOL doDeleteMsgs = [[self.connectionContext acctInSyncObjectContext].deleteHandlingDeleteMsg boolValue];
+		
+	// Limit the messages deleted to those which are both in the current
+	// account and marked for deletion.
+	NSPredicate *markedForDeletion = [MsgPredicateHelper markedForDeletion];
+	NSPredicate *msgsInCurrentAcct = [NSPredicate predicateWithFormat:@"%K = %@",
+		EMAIL_INFO_ACCT_KEY,
+		self.connectionContext.acctInSyncObjectContext];
+	NSPredicate *markedInCurrentAcct = [NSCompoundPredicate andPredicateWithSubpredicates:
+		[NSArray arrayWithObjects:markedForDeletion,msgsInCurrentAcct, nil]];
+		
+	NSArray *msgsMarkedForDeletion = [self.connectionContext.syncDmc 
+		fetchObjectsForEntityName:EMAIL_INFO_ENTITY_NAME 
+		andPredicate:markedInCurrentAcct];
+	NSUInteger totalMsgsMarkedForDeletion = msgsMarkedForDeletion.count;
+	
+		
+	// folderDeletionMsgs an index of the messages by source folder. This
+	// is used so the messages can be moved (copied then deleted) or deleted
+	// in bulk from the source folder (rather than 1 by 1 as they appear
+	// in msgsMarkedForDeletion.
+	//
+	// This object also breaks the messages down into batches, so the
+	// deletion can done incrementally. Doing the deletion incrementally
+	// is important so if it is interrupted it will likely get partially
+	// done. It is also important to give the user some incremental feedback
+	// regarding progress of the deletion.
+	FolderDeletionMsgs *folderDeletionMsgs = [[[FolderDeletionMsgs alloc]
+		initWithMsgsToDelete:msgsMarkedForDeletion
+		andMailAcct:self.connectionContext.mailAcct] autorelease];
+		
+	[self.deleteProgressDelegate mailDeleteUpdateProgress:0.0];
+		
+		
+	NSUInteger numMsgsDeleted = 0;
+	for(FolderDeletionMsgSet *folderDeletionMsgSet in folderDeletionMsgs.folderDeletionMsgSets)
+	{
+		CTCoreFolder *origMsgFolder = folderDeletionMsgSet.srcFolder;
+		
+		for(NSSet *msgDeletionBatch in folderDeletionMsgSet.msgsToDeleteBatches)
+		{
+			[self deleteMsgBatch:msgDeletionBatch
+				fromSrcFolder:origMsgFolder toDestFolder:deleteDestFolder andDoDeleteMsgs:doDeleteMsgs];
+				
+			numMsgsDeleted += msgDeletionBatch.count;
+			CGFloat deleteProgress = ((CGFloat)numMsgsDeleted)/((CGFloat)totalMsgsMarkedForDeletion);
+			[self.deleteProgressDelegate mailDeleteUpdateProgress:deleteProgress];
+
+		}
+		
+	} // For each Folder's deletion message set.
 	
 	
 	MailDeleteCompletionInfo *completionInfo = [[[MailDeleteCompletionInfo alloc] init] autorelease];
@@ -372,8 +388,6 @@
 	[self.deleteProgressDelegate mailDeleteUpdateProgress:1.0];
 	[NSThread sleepForTimeInterval:0.5];
 
-	
-	
 	return completionInfo;
 
 }

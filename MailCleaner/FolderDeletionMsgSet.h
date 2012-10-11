@@ -12,11 +12,11 @@
 @interface FolderDeletionMsgSet : NSObject {
 	@private
 		CTCoreFolder *srcFolder;
-		NSMutableSet *msgsToDelete;
+		NSMutableArray *msgsToDeleteBatches;
 }
 
 @property(nonatomic,retain) CTCoreFolder *srcFolder;
-@property(nonatomic,retain) NSMutableSet *msgsToDelete;
+@property(nonatomic,retain) NSMutableArray *msgsToDeleteBatches;
 
 -(id)initWithSrcFolder:(CTCoreFolder*)theSrcFolder;
 -(void)addMsg:(EmailInfo*)msgToDelete;

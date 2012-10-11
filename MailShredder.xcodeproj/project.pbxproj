@@ -261,7 +261,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0005668D1562F94C003D114D /* EmailPurger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmailPurger.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0005668D1562F94C003D114D /* MailShredder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MailShredder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		000566911562F94C003D114D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		000566931562F94C003D114D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		000566951562F94C003D114D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -271,7 +271,7 @@
 		0005669F1562F94C003D114D /* MailShredder-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MailShredder-Prefix.pch"; sourceTree = "<group>"; };
 		000566A01562F94C003D114D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		000566A11562F94C003D114D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		000566BC1562F94D003D114D /* EmailPurger Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EmailPurger Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		000566BC1562F94D003D114D /* EmailPurger Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "EmailPurger Tests.octest"; path = "MailShredder Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		000566BD1562F94D003D114D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		000566C51562F94D003D114D /* MailShredderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MailShredderTests-Info.plist"; sourceTree = "<group>"; };
 		000566C71562F94D003D114D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -597,7 +597,7 @@
 		0005668E1562F94C003D114D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0005668D1562F94C003D114D /* EmailPurger.app */,
+				0005668D1562F94C003D114D /* MailShredder.app */,
 				000566BC1562F94D003D114D /* EmailPurger Tests.octest */,
 			);
 			name = Products;
@@ -1361,7 +1361,7 @@
 			);
 			name = MailShredder;
 			productName = MailCleaner;
-			productReference = 0005668D1562F94C003D114D /* EmailPurger.app */;
+			productReference = 0005668D1562F94C003D114D /* MailShredder.app */;
 			productType = "com.apple.product-type.application";
 		};
 		000566BB1562F94D003D114D /* MailShredder Tests */ = {

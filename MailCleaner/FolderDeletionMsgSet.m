@@ -5,14 +5,16 @@
 //
 //
 
+static NSUInteger const FOLDER_DELETION_MSG_SET_BATCH_SIZE = 20;
+
 #import "FolderDeletionMsgSet.h"
 #import "EmailInfo.h"
 #import "EmailFolder.h"
 
 @implementation FolderDeletionMsgSet
 
-@synthesize msgsToDelete;
 @synthesize srcFolder;
+@synthesize msgsToDeleteBatches;
 
 -(id)initWithSrcFolder:(CTCoreFolder*)theSrcFolder
 {
@@ -22,7 +24,9 @@
 		assert(theSrcFolder != nil);
 		self.srcFolder = theSrcFolder;
 		
-		self.msgsToDelete = [[[NSMutableSet alloc] init] autorelease];
+		self.msgsToDeleteBatches = [[[NSMutableArray alloc] init] autorelease];
+		NSMutableSet *firstBatch = [[[NSMutableSet alloc] init] autorelease];
+		[self.msgsToDeleteBatches addObject:firstBatch];
 	}
 	return self;
 }
@@ -31,14 +35,27 @@
 {
 	assert(msgToDelete != nil);
 	assert([msgToDelete.folderInfo.folderName isEqualToString:self.srcFolder.path]);
+
+	assert(self.msgsToDeleteBatches.count >0);
+	NSUInteger currentBatchIndex = self.msgsToDeleteBatches.count - 1;
+
+	NSMutableSet *currentBatch = [self.msgsToDeleteBatches objectAtIndex:currentBatchIndex];
+	assert(currentBatch != nil);
+	if(currentBatch.count >= FOLDER_DELETION_MSG_SET_BATCH_SIZE)
+	{
+		currentBatch = [[[NSMutableSet alloc] init] autorelease];
+		[self.msgsToDeleteBatches addObject:currentBatch];
+	}
 	
-	[self.msgsToDelete addObject:msgToDelete];
+	[currentBatch addObject:msgToDelete];
+	
+	
 }
 
 -(void)dealloc
 {
 	[srcFolder release];
-	[msgsToDelete release];
+	[msgsToDeleteBatches release];
 	
 	[super dealloc];
 }

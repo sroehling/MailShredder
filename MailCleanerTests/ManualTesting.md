@@ -101,6 +101,15 @@ folder no longer has any messages.
 Connect to a real account. The number and variety of messages
 will provide a good (albeit not scientific) test case.
 
+A good way to populate the messages in the real account
+is to:
+
+1. Generate the messages using the integration test server
+2. Connect the Apple Mail client to both the integration 
+   test account and the Gmail account.
+3. Select the messages in the test account, right-click
+   and copy them to the "All Mail" folder of the real account.
+
 ### GMAIL-T04: Move to Trash
 
 Setup the account to both move the message to [Gmail]/Trash, 
