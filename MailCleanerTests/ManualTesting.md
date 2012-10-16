@@ -101,8 +101,7 @@ folder no longer has any messages.
 Connect to a real account. The number and variety of messages
 will provide a good (albeit not scientific) test case.
 
-A good way to populate the messages in the real account
-is to:
+Setup:
 
 1. Generate the messages using the integration test server
 2. Connect the Apple Mail client to both the integration 
@@ -122,14 +121,22 @@ then immediately delete.
 
 ## Test Server Integration
 
-### TSERV_T01: Large number of messages
+### TSERV_T01: Large Number of Messages
+
+Setup:
 
 1. Using the test scripts, create a large inbox with 50K messages
    (this is equivalent to someone who receives approximately 50
    messages per day over 5 years).
 2. Set up the account to synchronize with test server.
-3. The synchronizatino should complete successfully (not crash) and 
+
+Post-conditions:
+
+1. The synchronizatino should complete successfully (not crash) and 
    the app should still be responsive.
+2. The app should only download a number of messages, which is 
+   equal to the maximum number of synchronized messages 
+   for the account (5000 by default).
    
 ## General System Testing
 
