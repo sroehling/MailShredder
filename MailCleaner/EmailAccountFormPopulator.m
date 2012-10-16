@@ -46,7 +46,8 @@
 	KeychainFieldInfo *passwordFieldInfo = [emailAccount passwordFieldInfo];		
 	TextFieldEditInfo *passwordFieldEditInfo = [[[TextFieldEditInfo alloc]
 		initWithFieldInfo:passwordFieldInfo andValidator:passwordValidator 
-		andSecureTextEntry:YES andAutoCorrection:UITextAutocorrectionTypeNo] autorelease];
+		andSecureTextEntry:YES andAutoCorrection:UITextAutocorrectionTypeNo
+		andAutoCapitalizationType:UITextAutocapitalizationTypeNone] autorelease];
 		
 	[self.currentSection addFieldEditInfo:passwordFieldEditInfo];
 }
@@ -71,7 +72,8 @@
 		andLabel:LOCALIZED_STR(@"EMAIL_ACCOUNT_USERNAME_FIELD_LABEL") 
 		andPlaceholder:LOCALIZED_STR(@"EMAIL_ACCOUNT_USERNAME_PLACEHOLDER") 
 		andValidator:userNameValidator andSecureTextEntry:NO 
-		andAutoCorrectType:UITextAutocorrectionTypeNo];
+		andAutoCorrectType:UITextAutocorrectionTypeNo
+		andAutoCapitalizationType:UITextAutocapitalizationTypeNone];
 	[self.currentSection addFieldEditInfo:userNameFieldEditInfo];
 
 }
@@ -89,7 +91,8 @@
 		andLabel:LOCALIZED_STR(@"EMAIL_ACCOUNT_IMAP_SERVER_FIELD_LABEL") 
 		andPlaceholder:LOCALIZED_STR(@"EMAIL_ACCOUNT_IMAP_SERVER_PLACEHOLDER") 
 		andValidator:hostnameValidator andSecureTextEntry:NO 
-		andAutoCorrectType:UITextAutocorrectionTypeNo];
+		andAutoCorrectType:UITextAutocorrectionTypeNo
+		andAutoCapitalizationType:UITextAutocapitalizationTypeNone];
 	[self.currentSection addFieldEditInfo:hostnameFieldEditInfo];
 }
 
@@ -111,7 +114,8 @@
 		andLabel:LOCALIZED_STR(@"EMAIL_ACCOUNT_ADDRESS_FIELD_LABEL") 
 		andPlaceholder:LOCALIZED_STR(@"EMAIL_ACCOUNT_ADDRESS_PLACEHOLDER") 
 		andValidator:addressValidator andSecureTextEntry:NO 
-		andAutoCorrectType:UITextAutocorrectionTypeNo];
+		andAutoCorrectType:UITextAutocorrectionTypeNo
+		andAutoCapitalizationType:UITextAutocapitalizationTypeNone];
 	[self.currentSection addFieldEditInfo:emailAddrFieldEditInfo];
 
 }

@@ -184,7 +184,7 @@
 {
 	for(NSNotification *cachedNotification in self.cachedChangeNotifications)
 	{
-		NSLog(@"Merging cached changes from main thread MOC to msg filter counting thread MOC");
+		NSLog(@"Merging cached changes in thread's NSManagedObjectContext (MOC) to main thread MOC");
 		[self.mainThreadDmc.managedObjectContext mergeChangesFromContextDidSaveNotification:cachedNotification];
 	}
 

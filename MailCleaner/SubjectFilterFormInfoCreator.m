@@ -49,7 +49,8 @@
 		[TextFieldEditInfo createForObject:self.subjectFilter andKey:SUBJECT_FILTER_SEARCH_STRING_KEY 
 		andLabel:LOCALIZED_STR(@"SUBJECT_FILTER_SEARCH_STRING_FIELD_LABEL") 
 		andPlaceholder:LOCALIZED_STR(@"SUBJECT_FILTER_SEARCH_STRING_PLACEHOLDER") 
-		andValidator:nil andSecureTextEntry:FALSE andAutoCorrectType:UITextAutocorrectionTypeNo];
+		andValidator:nil andSecureTextEntry:FALSE andAutoCorrectType:UITextAutocorrectionTypeNo
+		andAutoCapitalizationType:UITextAutocapitalizationTypeSentences];
 	[formPopulator.currentSection addFieldEditInfo:subjectContainsFieldEditInfo];
 	
 	[formPopulator populateBoolFieldInParentObj:self.subjectFilter 
