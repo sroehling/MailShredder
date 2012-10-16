@@ -20,6 +20,10 @@
 #import "EmailFolder.h"
 #import "PortNumFieldEditInfo.h"
 #import "SyncFoldersFieldEditInfo.h"
+#import "ManagedObjectFieldInfo.h"
+#import "NumberFieldEditInfo.h"
+#import "NumberHelper.h"
+#import "NumberPickerFieldEditInfo.h"
 
 @implementation EmailAccountFormPopulator
 
@@ -156,7 +160,36 @@
 	[self populateBoolFieldInParentObj:emailAccount withBoolField:EMAIL_ACCOUNT_USESSL_KEY 
 		andFieldLabel:LOCALIZED_STR(@"EMAIL_ACCOUNT_USESSL_FIELD_TITLE") 
 		andSubTitle:@""];
+}
 
+-(void)populateSyncOldMsgsFirst:(EmailAccount*)emailAccount
+{
+	[self populateBoolFieldInParentObj:emailAccount withBoolField:EMAIL_ACCOUNT_SYNC_OLD_MSGS_FIRST_KEY 
+		andFieldLabel:LOCALIZED_STR(@"EMAIL_ACCOUNT_SYNC_OLD_MSGS_FIRST_FIELD_CAPTION") 
+		andSubTitle:LOCALIZED_STR(@"EMAIL_ACCOUNT_SYNC_OLD_MSGS_FIRST_FIELD_SUBTITLE")];
+}
+
+-(void)populateMaxSyncMsgs:(EmailAccount*)emailAccount
+{
+    ManagedObjectFieldInfo *fieldInfo = [[[ManagedObjectFieldInfo alloc] 
+              initWithManagedObject:emailAccount andFieldKey:EMAIL_ACCOUNT_MAX_SYNC_MSGS_KEY
+			  andFieldLabel:LOCALIZED_STR(@"EMAIL_ACCOUNT_MAX_SYNC_MESSAGES_FIELD_LABEL")
+			  andFieldPlaceholder:@"N/A"] autorelease];
+			 
+	NSArray *selectableMaxValues = [NSArray arrayWithObjects:
+			[NSNumber numberWithUnsignedInteger:500],
+			[NSNumber numberWithUnsignedInteger:1000],
+			[NSNumber numberWithUnsignedInteger:2500],
+			[NSNumber numberWithUnsignedInteger:5000],
+			[NSNumber numberWithUnsignedInteger:10000],
+			[NSNumber numberWithUnsignedInteger:25000],
+		nil];
+	
+	NumberPickerFieldEditInfo *maxSyncMsgsFieldEditInfo = [[[NumberPickerFieldEditInfo alloc]
+		initWithFieldInfo:fieldInfo andNumberVals:selectableMaxValues andTitle:
+		LOCALIZED_STR(@"EMAIL_ACCOUNT_MAX_SYNC_MESSAGES_PICKER_TITLE")] autorelease];
+		
+	[self.currentSection addFieldEditInfo:maxSyncMsgsFieldEditInfo];
 }
 
 -(void)populatePortNumberField:(EmailAccount *)emailAccount

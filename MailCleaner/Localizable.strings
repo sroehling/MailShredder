@@ -206,7 +206,7 @@
 "EMAIL_ACCOUNT_DELETE_ALERT_DELETE_BUTTON_TITLE" = "Delete Account";
 "EMAIL_ACCOUNT_DELETE_SETTINGS_SECTION_HEADER" = "Message Deletion Settings";
 "EMAIL_ACCOUNT_DELETE_SETTINGS_TABLE_SUBHEADER" = "These settings determine what happens when you delete a selected message in this account. Please review these settings and change them if needed.";
-"EMAIL_ACCOUNT_DELETE_MSGS_FIELD_LABEL" = "Immediately Erase Messages?";
+"EMAIL_ACCOUNT_DELETE_MSGS_FIELD_LABEL" = "Erase Messages?";
 "EMAIL_ACCOUNT_DELETE_MSGS_FIELD_SUBTITLE" = "Immediately and permanently erase messages?";
 "EMAIL_ACCOUNT_SYNC_FOLDER_LIST_TITLE" = "Synchronized Folders";
 "EMAIL_ACCOUNT_SYNC_FOLDER_TABLE_HEADER_TITLE" = "Synchronized Folder List";
@@ -221,6 +221,11 @@
 "EMAIL_ACCOUNT_MOVE_TO_FOLDER_NONE" = "Don't Move Message";
 "EMAIL_ACCOUNT_MOVE_TO_FOLDER_FIELD_SUBTITLE" = "Move the message to a specific folder for deletion.";
 "EMAIL_ACCOUNT_MOVE_TO_FOLDER_SECTION_HEADER" = "Trash Folder";
+"EMAIL_ACCOUNT_SYNC_SETTINGS_SECTION_HEADER" = "Synchronization";
+"EMAIL_ACCOUNT_SYNC_OLD_MSGS_FIRST_FIELD_CAPTION" = "Older Messages First?";
+"EMAIL_ACCOUNT_SYNC_OLD_MSGS_FIRST_FIELD_SUBTITLE" = "Synchronize older messages first?";
+"EMAIL_ACCOUNT_MAX_SYNC_MESSAGES_FIELD_LABEL" = "Maximum Messages to Sync";
+"EMAIL_ACCOUNT_MAX_SYNC_MESSAGES_PICKER_TITLE" = "Maximum Messages";
 
 "EMAIL_ACCOUNT_CONNECTION_TEST_FAILURE_ALERT_TITLE" = "Failure Connecting to Email Account";
 "EMAIL_ACCOUNT_CONNECTION_TEST_FAILURE_ALERT_MSG" = "There was a failure connecting to the email account. Double-check the settings and your internet connection, then try again.";

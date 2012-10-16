@@ -22,4 +22,7 @@
 -(void)populateDeleteMsgsField:(EmailAccount*)emailAccount;
 -(void)populateSyncFoldersField:(EmailAccount*)emailAccount;
 
+-(void)populateSyncOldMsgsFirst:(EmailAccount*)emailAccount;
+-(void)populateMaxSyncMsgs:(EmailAccount*)emailAccount;
+
 @end

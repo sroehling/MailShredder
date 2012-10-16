@@ -20,6 +20,10 @@ extern NSString * const EMAIL_ACCOUNT_USERNAME_KEY;
 extern NSInteger const EMAIL_ACCOUNT_DEFAULT_PORT_SSL;
 extern NSInteger const EMAIL_ACCOUNT_DEFAULT_PORT_NOSSL;
 
+extern NSString * const EMAIL_ACCOUNT_SYNC_OLD_MSGS_FIRST_KEY;
+extern NSString * const EMAIL_ACCOUNT_MAX_SYNC_MSGS_KEY;
+
+
 extern NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX;
 extern NSString * const EMAIL_ACCOUNT_UNIQUEACCTID_KEY;
 
@@ -56,6 +60,14 @@ extern NSString * const EMAIL_ACCOUNT_DELETE_HANDLING_MOVE_TO_FOLDER_KEY;
 // The last time a successful synchronization with the 
 // server took place. This is displaying status in the UI.
 @property (nonatomic, retain) NSDate * lastSync;
+
+// The following 2 properties determine the maximum number
+// of messages to be synchronized locally. For heavy email
+// users it may be necessary to synchronize fewer than the
+// total number of headers in their email accounts.
+@property (nonatomic, retain) NSNumber * maxSyncMsgs;
+@property (nonatomic, retain) NSNumber * syncOldMsgsFirst;
+
 
 @property BOOL isSelectedForSelectableObjectTableView;
 

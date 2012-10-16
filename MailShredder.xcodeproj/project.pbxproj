@@ -167,6 +167,7 @@
 		00F4711F1608CDFF00315F5A /* emailAcctDeletionSettingsGmail.md in Resources */ = {isa = PBXBuildFile; fileRef = 00F4711E1608CDFF00315F5A /* emailAcctDeletionSettingsGmail.md */; };
 		00F471211608CF2700315F5A /* emailAcctDeletionSettingsGoogleApps.md in Resources */ = {isa = PBXBuildFile; fileRef = 00F471201608CF2700315F5A /* emailAcctDeletionSettingsGoogleApps.md */; };
 		00F4A9BD15E2AFB100595C95 /* imapAcctPresets.txt in Resources */ = {isa = PBXBuildFile; fileRef = 00F4A9BC15E2AFB100595C95 /* imapAcctPresets.txt */; };
+		00F5BDDC1629154C0033CC31 /* MsgSyncPriorityList.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F5BDDB1629154C0033CC31 /* MsgSyncPriorityList.m */; };
 		00F9B3911617BC430054E402 /* EmailAddressFilterFormInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F9B3901617BC430054E402 /* EmailAddressFilterFormInfo.m */; };
 		00F9B3941618F4F50054E402 /* EmailDomainSelectionTableConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F9B3931618F4F50054E402 /* EmailDomainSelectionTableConfigurator.m */; };
 		00F9B397161B57340054E402 /* RecipientDomainFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F9B396161B57340054E402 /* RecipientDomainFilter.m */; };
@@ -530,6 +531,8 @@
 		00F4711E1608CDFF00315F5A /* emailAcctDeletionSettingsGmail.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = emailAcctDeletionSettingsGmail.md; sourceTree = "<group>"; };
 		00F471201608CF2700315F5A /* emailAcctDeletionSettingsGoogleApps.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = emailAcctDeletionSettingsGoogleApps.md; sourceTree = "<group>"; };
 		00F4A9BC15E2AFB100595C95 /* imapAcctPresets.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = imapAcctPresets.txt; sourceTree = "<group>"; };
+		00F5BDDA1629154C0033CC31 /* MsgSyncPriorityList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgSyncPriorityList.h; sourceTree = "<group>"; };
+		00F5BDDB1629154C0033CC31 /* MsgSyncPriorityList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgSyncPriorityList.m; sourceTree = "<group>"; };
 		00F9B38F1617BC430054E402 /* EmailAddressFilterFormInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddressFilterFormInfo.h; sourceTree = "<group>"; };
 		00F9B3901617BC430054E402 /* EmailAddressFilterFormInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddressFilterFormInfo.m; sourceTree = "<group>"; };
 		00F9B3921618F4F50054E402 /* EmailDomainSelectionTableConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailDomainSelectionTableConfigurator.h; sourceTree = "<group>"; };
@@ -1183,6 +1186,8 @@
 		00B3B71F15DDE1E000A8FFCD /* Mail Sync */ = {
 			isa = PBXGroup;
 			children = (
+				00F5BDDA1629154C0033CC31 /* MsgSyncPriorityList.h */,
+				00F5BDDB1629154C0033CC31 /* MsgSyncPriorityList.m */,
 				00B3B71B15DDA62C00A8FFCD /* MsgSyncContext.h */,
 				00B3B71C15DDA62C00A8FFCD /* MsgSyncContext.m */,
 				007860CD15DD99F600DC333B /* FolderSyncContext.h */,
@@ -1644,6 +1649,7 @@
 				00AFA80E161CA0100030EC20 /* SentReceivedFilter.m in Sources */,
 				00AFA812161CA7350030EC20 /* SentReceivedFilterFieldEditInfo.m in Sources */,
 				00AFA815161CAC420030EC20 /* SentReceivedFilterFormInfoCreator.m in Sources */,
+				00F5BDDC1629154C0033CC31 /* MsgSyncPriorityList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

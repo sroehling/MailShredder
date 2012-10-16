@@ -24,6 +24,8 @@ NSString * const EMAIL_ACCOUNT_ADDRESS_KEY = @"emailAddress";
 NSString * const EMAIL_ACCOUNT_IMAPSERVER_KEY = @"imapServer";
 NSString * const EMAIL_ACCOUNT_USERNAME_KEY = @"userName";
 NSString * const EMAIL_ACCOUNT_UNIQUEACCTID_KEY = @"uniqueAcctID";
+NSString * const EMAIL_ACCOUNT_SYNC_OLD_MSGS_FIRST_KEY = @"syncOldMsgsFirst";
+NSString * const EMAIL_ACCOUNT_MAX_SYNC_MSGS_KEY = @"maxSyncMsgs";
 
 NSString * const EMAIL_ACCOUNT_DELETE_HANDLING_DELETE_MSG_KEY = @"deleteHandlingDeleteMsg";
 NSString * const EMAIL_ACCOUNT_DELETE_HANDLING_MOVE_TO_FOLDER_KEY = @"deleteHandlingMoveToFolder";
@@ -50,6 +52,9 @@ NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX = @"EmailAccountLoginInfo";
 @dynamic addressesInAcct;
 @dynamic emailsInAcct;
 @dynamic onlySyncFolders;
+
+@dynamic maxSyncMsgs;
+@dynamic syncOldMsgsFirst;
 
 @dynamic msgListFilter;
 @dynamic savedMsgListFilters;

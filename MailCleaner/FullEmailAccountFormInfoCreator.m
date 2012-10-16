@@ -34,9 +34,14 @@
 	
 	[formPopulator nextSectionWithTitle:LOCALIZED_STR(@"EMAIL_ACCOUNT_DELETE_SETTINGS_SECTION_HEADER")
 		 andHelpFile:@"emailAcctDeleteSettings"];
-	[formPopulator populateSyncFoldersField:self.emailAccount]; 
 	[formPopulator populateMoveToDeleteFolderSetting:self.emailAccount];
 	[formPopulator populateDeleteMsgsField:self.emailAccount];
+	
+	[formPopulator nextSectionWithTitle:LOCALIZED_STR(@"EMAIL_ACCOUNT_SYNC_SETTINGS_SECTION_HEADER")];
+	[formPopulator populateSyncFoldersField:self.emailAccount];
+	[formPopulator populateMaxSyncMsgs:self.emailAccount];
+	[formPopulator populateSyncOldMsgsFirst:self.emailAccount];
+	
 
 	return formPopulator.formInfo;
 

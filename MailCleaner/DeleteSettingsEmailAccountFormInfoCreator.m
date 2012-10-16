@@ -22,11 +22,14 @@
 		andSubHeader:LOCALIZED_STR(@"EMAIL_ACCOUNT_DELETE_SETTINGS_TABLE_SUBHEADER") 
 		andHelpFile:@"emailAcctDeleteSettings" 
 		andParentController:parentContext.parentController];
-	
+
 	[formPopulator nextSection];
 	[formPopulator populateSyncFoldersField:self.emailAccount]; 
+
+	[formPopulator nextSection];
 	[formPopulator populateMoveToDeleteFolderSetting:self.emailAccount];
 	[formPopulator populateDeleteMsgsField:self.emailAccount];
+
 
 	return formPopulator.formInfo;
 

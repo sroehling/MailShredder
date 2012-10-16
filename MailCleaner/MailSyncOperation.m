@@ -22,6 +22,7 @@
 #import "MsgSyncContext.h"
 #import "AppHelper.h"
 #import "AppDelegate.h"
+#import "MsgSyncPriorityList.h"
 
 
 @implementation MailSyncOperation
@@ -102,8 +103,20 @@
 					andProgressDelegate:self.syncProgressDelegate];
 		NSSet *allFoldersOnServer = [[self.connectionContext.mailAcct allFolders] retain];
 		
+		EmailAccount *syncEmailAcct = self.connectionContext.acctInSyncObjectContext;
+		NSUInteger maxSyncMsgs = [syncEmailAcct.maxSyncMsgs unsignedIntegerValue];
+		BOOL syncOldMsgsFirst = [syncEmailAcct.syncOldMsgsFirst boolValue];
+		MsgSyncPriorityList *msgSyncPriorityList =
+			[[MsgSyncPriorityList alloc] initWithMaxMsgsToSync:maxSyncMsgs
+			andSyncOlderMsgsFirst:syncOldMsgsFirst];
+		
 		@try
 		{
+		
+			////////////////////////////////////////////////////////////////////////////////////
+			// Sync Pass 1: In the first pass, a list of chronologically sorted messages
+			// to be synchronized is created.
+			////////////////////////////////////////////////////////////////////////////////////
 			for (NSString *folderName in allFoldersOnServer)
 			{
 				CTCoreFolder *currFolder = [self.connectionContext.mailAcct folderWithPath:folderName];
@@ -112,13 +125,12 @@
 					
 				if([folderSyncContext folderIsSynchronized:folderName])
 				{
-					NSLog(@"%@: Synchronizing folder",folderName);
-					[msgSyncContext startMsgSyncForFolder:emailFolder];
+					NSLog(@"Retrieving message headers: %@",folderName);
 					NSUInteger totalMessageCount;
 					if(![currFolder totalMessageCount:&totalMessageCount])
 					{
 						@throw [NSException exceptionWithName:@"FailureRetrievingFolderMsgCount" 
-							reason:@"Failure retrievig message count for folder" userInfo:nil];
+							reason:@"Failure retrieving message count for folder" userInfo:nil];
 					}
 				
 					if(totalMessageCount > 0)
@@ -132,14 +144,17 @@
 						
 						for(CTCoreMessage *msg in serverMsgSet)
 						{
+							// Add the CTCoreMessage object msg
+							// to a sorted list of messages. The messages are sorted in chronological
+							// order, so only the most recent EmailInfo objects, up to a maximum, will be
+							// cached locally and presented to the user.
 							if([self isWellFormedCoreMsg:msg])
 							{
-								[msgSyncContext syncOneMsg:msg];
+								[msgSyncPriorityList addMsg:msg];
 							}
 						} // For each message in the folder
 					}
-					[msgSyncContext finishFolderSync];
-					NSLog(@"%@: ... done synchronizing folder",folderName);
+					NSLog(@"Done retrieving message headers: %@",folderName);
 					NSLog(@"-------");
 				} // If folder is synchronized
 				else 
@@ -148,13 +163,50 @@
 					if ([emailFolder hasLocalEmailInfoObjects])
 					{
 						// If the folder is no longer synchronized, but still has local EmailInfo objects, then
-						// these objects need to be deleted, so they don't show up in message list results.
+						// these objects need to be deleted. Deleting them will ensure they don't show up
+						// in message list results.
 						[self.connectionContext.syncDmc deleteObjects:[emailFolder.emailInfoFolder allObjects]];
 						[self.connectionContext.syncDmc saveContext];
 					}
 				}
 
 			} // For each folder
+			
+			////////////////////////////////////////////////////////////////////////////////////
+			// Sync Pass 2: In the 2nd pass, a list of messages to sync (as created from
+			// pass 1 is iterated over. These messages are synchronized to the local database
+			// of messages.
+			////////////////////////////////////////////////////////////////////////////////////
+			CTCoreFolder *currCoreFolder = nil;
+			EmailFolder *currEmailFolder = nil;
+			NSArray *msgsToSync = [msgSyncPriorityList syncMsgsSortedByFolder];
+			if(msgsToSync.count > 0)
+			{
+				for(CTCoreMessage *msg in msgsToSync)
+				{
+					assert(msg.parentFolder != nil);
+					if(msg.parentFolder != currCoreFolder)
+					{
+						if(currEmailFolder != nil)
+						{
+							[msgSyncContext finishFolderSync];
+						}
+						currEmailFolder = [folderSyncContext
+							findOrCreateLocalEmailFolderForServerFolderWithName:msg.parentFolder.path];
+						currCoreFolder = msg.parentFolder;
+						[msgSyncContext startMsgSyncForFolder:currEmailFolder];
+						NSLog(@"Sync PASS 2: Started synchronization to local database for folder: %@",
+								msg.parentFolder.path);
+					}
+					[msgSyncContext syncOneMsg:msg];
+				}
+				// Note finishFolderSync will delete any local EmailInfo objects which are
+				// were not in the list of messages that were synchronized. The "unnacounted for"
+				// EmailInfo objects could either be objects which were deleted separately on
+				// the server or ones which didn't make it into the limited list of chronologically
+				// sorted messages.
+				[msgSyncContext finishFolderSync];
+			}
 
 			[folderSyncContext deleteMsgsForFoldersNoLongerOnServer];
 			
@@ -186,6 +238,7 @@
 			[allFoldersOnServer release];
 			[folderSyncContext release];
 			[msgSyncContext release];
+			[msgSyncPriorityList release];
 		}
 	}
 	else 
