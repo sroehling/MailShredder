@@ -29,7 +29,7 @@
    initially synchronize without errors.
    
 ## Filters
-
+  
 The automated test suite has good coverage of the filter logic. The tests
 below are designed to test the UI functionality related to filters.
 
@@ -45,6 +45,23 @@ After completing this test, the new filter should appear
 in the load filter menu. If the filter is reset, then reloaded
 from the load filter menu, the results should reappear in the message
 list.
+
+### FILTER-T01: Create a Filter from the Saved Filter List
+
+Test Procedure:
+
+1. Go to the list of saved filters in the setttings view.
+2. Tap on the Edit then '+' buttons to create a new filter
+3. Before setting the name, change the sub-criteria for sender
+   address.
+4. Go back to the main form and enter a name.
+5. Tap on the save button.
+
+Post-conditions:
+
+1. The filter should save without creating an error.
+2. In the main message list, the filter should be visible in the
+   menu.
 
 ## iCloud (@me) Integration
 

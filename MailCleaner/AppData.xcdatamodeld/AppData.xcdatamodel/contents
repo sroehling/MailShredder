@@ -108,7 +108,7 @@
         <relationship name="messageFilterFromAddrFilter" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="fromAddressFilter" inverseEntity="MessageFilter" syncable="YES"/>
     </entity>
     <entity name="MessageFilter" representedClassName="MessageFilter" syncable="YES">
-        <attribute name="filterName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="filterName" optional="YES" attributeType="String" minValueString="1" syncable="YES"/>
         <attribute name="matchingMsgs" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="ageFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilter" inverseName="messageFilterAgeFilter" inverseEntity="AgeFilter" syncable="YES"/>
         <relationship name="emailAcctMsgListFilter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="msgListFilter" inverseEntity="EmailAccount" syncable="YES"/>

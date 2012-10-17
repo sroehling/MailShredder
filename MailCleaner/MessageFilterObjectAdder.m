@@ -83,6 +83,14 @@
 		andDataModelController:self.addFilterDmc] autorelease];
 	addView.popDepth = 1;
 	addView.saveWhenSaveButtonPressed = TRUE;
+	
+	// Sub-criteria  of the filter may be changed prior to the filter being saved as a whole.
+	// We also don't want to trigger the newFilterSavedDidSaveNotificationHandler method
+	// before the filter is fully validated and saved. So, the
+	// disableCoreDataSaveUntilSaveButtonPressed flag ensures the filter is not saved
+	// until the "Save" button in the top-level form is pressed.
+	
+	addView.disableCoreDataSaveUntilSaveButtonPressed = TRUE;
 
 	[parentContext.parentController.navigationController pushViewController:addView animated:TRUE];
 
