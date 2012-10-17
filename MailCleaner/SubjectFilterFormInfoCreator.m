@@ -12,6 +12,7 @@
 #import "SubjectFilter.h"
 #import "TextFieldEditInfo.h"
 #import "SectionInfo.h"
+#import "TextFieldConfigInfo.h"
 
 @implementation SubjectFilterFormInfoCreator
 
@@ -45,12 +46,15 @@
 	
 	[formPopulator nextSection];
 	
+	TextFieldConfigInfo *subjectTextFieldConfigInfo =
+		[[[TextFieldConfigInfo alloc] init] autorelease];
+	subjectTextFieldConfigInfo.autoCorrectType = UITextAutocorrectionTypeNo;
+	
 	TextFieldEditInfo *subjectContainsFieldEditInfo =
 		[TextFieldEditInfo createForObject:self.subjectFilter andKey:SUBJECT_FILTER_SEARCH_STRING_KEY 
 		andLabel:LOCALIZED_STR(@"SUBJECT_FILTER_SEARCH_STRING_FIELD_LABEL") 
 		andPlaceholder:LOCALIZED_STR(@"SUBJECT_FILTER_SEARCH_STRING_PLACEHOLDER") 
-		andValidator:nil andSecureTextEntry:FALSE andAutoCorrectType:UITextAutocorrectionTypeNo
-		andAutoCapitalizationType:UITextAutocapitalizationTypeSentences];
+		andValidator:nil andConfigInfo:subjectTextFieldConfigInfo];
 	[formPopulator.currentSection addFieldEditInfo:subjectContainsFieldEditInfo];
 	
 	[formPopulator populateBoolFieldInParentObj:self.subjectFilter 

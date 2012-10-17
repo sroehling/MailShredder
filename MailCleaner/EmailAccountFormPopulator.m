@@ -24,6 +24,7 @@
 #import "NumberFieldEditInfo.h"
 #import "NumberHelper.h"
 #import "NumberPickerFieldEditInfo.h"
+#import "TextFieldConfigInfo.h"
 
 @implementation EmailAccountFormPopulator
 
@@ -43,11 +44,17 @@
 	TextFieldValidator *passwordValidator = [[[RegExpTextFieldValidator alloc] 
 		initWithValidationMsg:LOCALIZED_STR(@"EMAIL_ACCOUNT_PASSWORD_VALIDATION_MSG")
 		andPattern:passwordRegExPattern] autorelease];
-	KeychainFieldInfo *passwordFieldInfo = [emailAccount passwordFieldInfo];		
+	KeychainFieldInfo *passwordFieldInfo = [emailAccount passwordFieldInfo];
+	
+	TextFieldConfigInfo *passwordTextFieldConfigInfo = [[[TextFieldConfigInfo alloc] init] autorelease];
+	passwordTextFieldConfigInfo.doSecureTextEntry = TRUE;
+	passwordTextFieldConfigInfo.autoCorrectType = UITextAutocorrectionTypeNo;
+	passwordTextFieldConfigInfo.autoCapitalizeType = UITextAutocapitalizationTypeNone;
+			
+				
 	TextFieldEditInfo *passwordFieldEditInfo = [[[TextFieldEditInfo alloc]
-		initWithFieldInfo:passwordFieldInfo andValidator:passwordValidator 
-		andSecureTextEntry:YES andAutoCorrection:UITextAutocorrectionTypeNo
-		andAutoCapitalizationType:UITextAutocapitalizationTypeNone] autorelease];
+		initWithFieldInfo:passwordFieldInfo andValidator:passwordValidator
+		andConfigInfo:passwordTextFieldConfigInfo] autorelease];
 		
 	[self.currentSection addFieldEditInfo:passwordFieldEditInfo];
 }
@@ -67,13 +74,19 @@
 	TextFieldValidator *userNameValidator = [[[RegExpTextFieldValidator alloc] 
 		initWithValidationMsg:LOCALIZED_STR(@"EMAIL_ACCOUNT_USERNAME_VALIDATION_MSG")
 		andPattern:userNameRegExPattern] autorelease];
+
+	TextFieldConfigInfo *userNameTextFieldConfigInfo =
+		[[[TextFieldConfigInfo alloc] init] autorelease];
+	userNameTextFieldConfigInfo.autoCapitalizeType = UITextAutocapitalizationTypeNone;
+	userNameTextFieldConfigInfo.autoCorrectType = UITextAutocorrectionTypeNo;
+	userNameTextFieldConfigInfo.keyboardType = UIKeyboardTypeEmailAddress;
+		
 	TextFieldEditInfo *userNameFieldEditInfo = [TextFieldEditInfo 
 		createForObject:emailAccount andKey:EMAIL_ACCOUNT_USERNAME_KEY 
 		andLabel:LOCALIZED_STR(@"EMAIL_ACCOUNT_USERNAME_FIELD_LABEL") 
 		andPlaceholder:LOCALIZED_STR(@"EMAIL_ACCOUNT_USERNAME_PLACEHOLDER") 
-		andValidator:userNameValidator andSecureTextEntry:NO 
-		andAutoCorrectType:UITextAutocorrectionTypeNo
-		andAutoCapitalizationType:UITextAutocapitalizationTypeNone];
+		andValidator:userNameValidator andConfigInfo:userNameTextFieldConfigInfo];
+		
 	[self.currentSection addFieldEditInfo:userNameFieldEditInfo];
 
 }
@@ -86,13 +99,18 @@
 	TextFieldValidator *hostnameValidator = [[[RegExpTextFieldValidator alloc] 
 		initWithValidationMsg:LOCALIZED_STR(@"EMAIL_ACCOUNT_HOSTNAME_VALIDATION_MSG")
 		andPattern:hostNameRegExpPattern] autorelease];
+		
+	TextFieldConfigInfo *hostNameTextFieldConfigInfo =
+		[[[TextFieldConfigInfo alloc] init] autorelease];
+	hostNameTextFieldConfigInfo.autoCorrectType = UITextAutocorrectionTypeNo;
+	hostNameTextFieldConfigInfo.autoCapitalizeType = UITextAutocapitalizationTypeNone;
+	hostNameTextFieldConfigInfo.keyboardType = UIKeyboardTypeURL;
+		
 	TextFieldEditInfo *hostnameFieldEditInfo = [TextFieldEditInfo 
 		createForObject:emailAccount andKey:EMAIL_ACCOUNT_IMAPSERVER_KEY 
 		andLabel:LOCALIZED_STR(@"EMAIL_ACCOUNT_IMAP_SERVER_FIELD_LABEL") 
 		andPlaceholder:LOCALIZED_STR(@"EMAIL_ACCOUNT_IMAP_SERVER_PLACEHOLDER") 
-		andValidator:hostnameValidator andSecureTextEntry:NO 
-		andAutoCorrectType:UITextAutocorrectionTypeNo
-		andAutoCapitalizationType:UITextAutocapitalizationTypeNone];
+		andValidator:hostnameValidator andConfigInfo:hostNameTextFieldConfigInfo];
 	[self.currentSection addFieldEditInfo:hostnameFieldEditInfo];
 }
 
@@ -109,13 +127,19 @@
 	TextFieldValidator *addressValidator = [[[RegExpTextFieldValidator alloc] 
 		initWithValidationMsg:LOCALIZED_STR(@"EMAIL_ACCOUNT_ADDRESS_VALIDATION_MSG")
 		andPattern:emailRegExPattern] autorelease];
+		
+		
+	TextFieldConfigInfo *emailAddressTextFieldConfigInfo =
+		[[[TextFieldConfigInfo alloc] init] autorelease];
+	emailAddressTextFieldConfigInfo.autoCorrectType = UITextAutocorrectionTypeNo;
+	emailAddressTextFieldConfigInfo.autoCapitalizeType = UITextAutocapitalizationTypeNone;
+	emailAddressTextFieldConfigInfo.keyboardType = UIKeyboardTypeEmailAddress;
+		
 	TextFieldEditInfo *emailAddrFieldEditInfo = [TextFieldEditInfo 
 		createForObject:emailAccount andKey:EMAIL_ACCOUNT_ADDRESS_KEY 
 		andLabel:LOCALIZED_STR(@"EMAIL_ACCOUNT_ADDRESS_FIELD_LABEL") 
 		andPlaceholder:LOCALIZED_STR(@"EMAIL_ACCOUNT_ADDRESS_PLACEHOLDER") 
-		andValidator:addressValidator andSecureTextEntry:NO 
-		andAutoCorrectType:UITextAutocorrectionTypeNo
-		andAutoCapitalizationType:UITextAutocapitalizationTypeNone];
+		andValidator:addressValidator andConfigInfo:emailAddressTextFieldConfigInfo];
 	[self.currentSection addFieldEditInfo:emailAddrFieldEditInfo];
 
 }
