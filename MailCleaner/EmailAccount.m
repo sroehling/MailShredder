@@ -35,6 +35,8 @@ NSInteger const EMAIL_ACCOUNT_DEFAULT_PORT_NOSSL = 143;
 
 NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX = @"EmailAccountLoginInfo";
 
+NSUInteger const EMAIL_ACCOUNT_DEFAULT_MAX_SYNC_MSGS = 10000;
+
 
 @implementation EmailAccount
 
@@ -69,6 +71,7 @@ NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX = @"EmailAccountLoginInfo";
 {
 
 	EmailAccount *newAcct = [acctDmc insertObject:EMAIL_ACCOUNT_ENTITY_NAME];
+	
 	newAcct.portNumber = [NSNumber numberWithInt:EMAIL_ACCOUNT_DEFAULT_PORT_SSL];
 	newAcct.useSSL = [NSNumber numberWithBool:TRUE];
 	
@@ -83,7 +86,9 @@ NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX = @"EmailAccountLoginInfo";
 	
 	newAcct.uniqueAcctID = uniqueIDCandidate;
 	
-	newAcct.msgListFilter = [MessageFilter defaultMessageFilter:acctDmc];	
+	newAcct.msgListFilter = [MessageFilter defaultMessageFilter:acctDmc];
+	
+	newAcct.maxSyncMsgs = [NSNumber numberWithUnsignedInteger:EMAIL_ACCOUNT_DEFAULT_MAX_SYNC_MSGS];
 	
 	return newAcct;
 }

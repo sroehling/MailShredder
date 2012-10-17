@@ -30,6 +30,8 @@ extern NSString * const EMAIL_ACCOUNT_UNIQUEACCTID_KEY;
 extern NSString * const EMAIL_ACCOUNT_DELETE_HANDLING_DELETE_MSG_KEY;
 extern NSString * const EMAIL_ACCOUNT_DELETE_HANDLING_MOVE_TO_FOLDER_KEY;
 
+extern NSUInteger const EMAIL_ACCOUNT_DEFAULT_MAX_SYNC_MSGS;
+
 @class DataModelController;
 @class SharedAppVals;
 @class KeychainFieldInfo;

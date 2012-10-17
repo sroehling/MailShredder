@@ -185,7 +185,7 @@
 			[NSNumber numberWithUnsignedInteger:1000],
 			[NSNumber numberWithUnsignedInteger:2500],
 			[NSNumber numberWithUnsignedInteger:5000],
-			[NSNumber numberWithUnsignedInteger:10000],
+			[NSNumber numberWithUnsignedInteger:EMAIL_ACCOUNT_DEFAULT_MAX_SYNC_MSGS],
 			[NSNumber numberWithUnsignedInteger:25000],
 		nil];
 	
