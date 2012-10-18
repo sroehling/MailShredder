@@ -20,7 +20,12 @@
 		GenericTableAddViewSaveCompleteDelegate,MBProgressHUDDelegate>
 {
 	@private
-		FormContext *currParentContext;
+		UINavigationController *currentNavController;
+		
+		// EmailAccounts are created in their own NSManagedObjectContext
+		// (wrapped by dmcForNewAcct).
+		DataModelController *dmcForNewAcct;
+		
 		ImapAcctPresets *emailAcctPresets;
 		id<GenericTableAddViewSaveCompleteDelegate> acctSaveCompleteDelegate;
 		GenericFieldBasedTableAddViewController *currentAddViewController;
@@ -39,6 +44,11 @@
 }
 
 @property(nonatomic,retain) FormContext *currParentContext;
+@property(nonatomic,retain) UINavigationController *currentNavController;
+
+@property(nonatomic,retain) DataModelController *dmcForNewAcct;
+
+
 @property(nonatomic,retain) ImapAcctPresets *emailAcctPresets;
 @property(nonatomic, assign) id<GenericTableAddViewSaveCompleteDelegate> acctSaveCompleteDelegate; // optional
 @property(nonatomic,retain) GenericFieldBasedTableAddViewController *currentAddViewController;
@@ -47,8 +57,6 @@
 @property(nonatomic,retain) MBProgressHUD *connectionTestHUD;
 @property(nonatomic,retain) EmailAccount *acctBeingAdded;
 
-
--(GenericFieldBasedTableAddViewController*)addViewControllerForNewAccountAddr:
-	(DataModelController*)dmcForNewAcct;
+-(void)promptForNewAccountInfo:(UINavigationController*)navController;
 
 @end

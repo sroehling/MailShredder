@@ -84,7 +84,10 @@
 	assert([addedObject isKindOfClass:[EmailAccount class]]);
 		
 	// The first account becomes the current email account
-	self.sharedAppVals.currentEmailAcct = (EmailAccount*)addedObject;
+	// The object passed in is from the dedicated NSManagedObjectContext
+	// used to create the EmailAccount. Therefore, we can't assign it
+	// directly to the current account in self.appDmc.
+	[self assignFirstEmailAccountToCurrentIfNotSelected];
 	
 	[self.appDmc saveContext];
 	
@@ -100,25 +103,16 @@
 
 -(void)promptForEmailAcctInfoForDataModelController
 {
-    GenericFieldBasedTableAddViewController *addView = 
-		[self.emailAccountAdder addViewControllerForNewAccountAddr:self.appDmc];
-	addView.popDepth = 0;
-	addView.showCancelButton = FALSE;
-	
-	// Setup self.emailAccountAddr so it uses addView as the parent view controller
-	// when the final form for the account settings is presented. Also setup
-	// self.emailAccountAddr so it calls the delegate method when the final save is complete.
-	FormContext *parentContext = [[[FormContext alloc] 
-		initWithParentController:addView andDataModelController:self.appDmc] autorelease];
-	self.emailAccountAdder.currParentContext = parentContext;
-	self.emailAccountAdder.acctSaveCompleteDelegate = self;
-
-	UINavigationController *emailAcctNavController = [[[UINavigationController alloc] 
-			initWithRootViewController:addView] autorelease];
+	UIViewController *emptyRootViewController = [[[UIViewController alloc] init] autorelease];
+	UINavigationController *emailAcctNavController = [[[UINavigationController alloc]
+			initWithRootViewController:emptyRootViewController] autorelease];
 	emailAcctNavController.title = LOCALIZED_STR(@"EMAIL_ACCOUNT_VIEW_TITLE");
 	emailAcctNavController.navigationBar.tintColor = [ColorHelper navBarTintColor];;	
 		
-	self.window.rootViewController = emailAcctNavController;	
+	self.window.rootViewController = emailAcctNavController;
+	
+	[self.emailAccountAdder promptForNewAccountInfo:emailAcctNavController];
+			
     [self.window makeKeyAndVisible];
 }
 
@@ -230,6 +224,8 @@
 	[SharedAppVals initFromDatabase];
 
 	self.emailAccountAdder = [[[EmailAccountAdder alloc] init] autorelease];
+	self.emailAccountAdder.acctSaveCompleteDelegate = self;
+
 	
 	self.accountChangeListers = [[[NSMutableSet alloc] init] autorelease];
 	

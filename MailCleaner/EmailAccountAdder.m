@@ -22,6 +22,8 @@
 #import "DeleteSettingsEmailAccountFormInfoCreator.h"
 #import "KeychainFieldInfo.h"
 #import "EmailFolder.h"
+#import "AppHelper.h"
+#import "AppDelegate.h"
 
 
 NSInteger const ADD_EMAIL_ACCOUNT_STEP_PROMPT_BASIC_INFO = 0;
@@ -31,7 +33,7 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 
 @implementation EmailAccountAdder
 
-@synthesize currParentContext;
+@synthesize currentNavController;
 @synthesize acctSaveCompleteDelegate;
 @synthesize emailAcctPresets;
 @synthesize connectionTestQueue;
@@ -39,14 +41,17 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 @synthesize acctBeingAdded;
 @synthesize currentAddViewController;
 
+@synthesize dmcForNewAcct;
+
 -(void)dealloc
 {
-	[currParentContext release];
+	[currentNavController release];
 	[emailAcctPresets release];
 	[connectionTestQueue release];
 	[acctBeingAdded release];
 	[connectionTestHUD release];
 	[currentAddViewController release];
+	[dmcForNewAcct release];
 	[super dealloc];
 }
 
@@ -61,16 +66,54 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	return self;
 }
 
+- (void)newAcctDidSaveNotificationHandler:(NSNotification *)notification
+{
+	AppDelegate *theAppDelegate = [AppHelper theAppDelegate];
+
+	DataModelController *mainDmc = theAppDelegate.appDmc;
+
+	[mainDmc.managedObjectContext
+		mergeChangesFromContextDidSaveNotification:notification];
+}
+
+
+-(void)teardownNewAcctDmc
+{
+	if(self.dmcForNewAcct != nil)
+	{
+		[[NSNotificationCenter defaultCenter] removeObserver:self 
+			name:NSManagedObjectContextDidSaveNotification 
+			object:self.dmcForNewAcct.managedObjectContext];
+		self.dmcForNewAcct = nil;
+	}
+}
+
+-(void)setupNewAcctDmc
+{
+	[self teardownNewAcctDmc];
+	
+	DataModelController *mainDmc = [AppHelper theAppDelegate].appDmc;
+	
+	self.dmcForNewAcct = [[[DataModelController alloc]
+			initWithPersistentStoreCoord:mainDmc.persistentStoreCoordinator] autorelease];
+	self.dmcForNewAcct.saveEnabled = FALSE;
+			
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+		selector:@selector(newAcctDidSaveNotificationHandler:)
+		name:NSManagedObjectContextDidSaveNotification 
+		object:self.dmcForNewAcct.managedObjectContext];	
+}
+
+
 -(GenericFieldBasedTableAddViewController*)addViewControllerForNextStep:
 	(EmailAccountFormInfoCreator*)emailAcctFormInfoCreator
-	withinDataModelController:(DataModelController*)dmcForNewAcct
 {
 
 	GenericFieldBasedTableAddViewController *addViewController =  
 		[[[GenericFieldBasedTableAddViewController alloc] 
 			initWithFormInfoCreator:emailAcctFormInfoCreator 
 			andNewObject:emailAcctFormInfoCreator.emailAccount
-			andDataModelController:dmcForNewAcct] autorelease];
+			andDataModelController:self.dmcForNewAcct] autorelease];
 
 	addViewController.saveButtonTitle = 
 		LOCALIZED_STR(@"EMAIL_ACCOUNT_EMAIL_ADDRESS_SAVE_BUTTON_TITLE");
@@ -85,19 +128,17 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 
 }
 
--(GenericFieldBasedTableAddViewController*)addViewControllerForNewAccountAddr:
-	(DataModelController*)dmcForNewAcct
+-(GenericFieldBasedTableAddViewController*)addViewControllerForNewAccountAddr
 {
 	self.acctBeingAdded = [EmailAccount 
-		defaultNewEmailAcctWithDataModelController:dmcForNewAcct];
+		defaultNewEmailAcctWithDataModelController:self.dmcForNewAcct];
 	currentStep = ADD_EMAIL_ACCOUNT_STEP_PROMPT_BASIC_INFO;
 	
 	BasicEmailAccountFormInfoCreator *basicAcctFormInfoCreator = 
 		[[[BasicEmailAccountFormInfoCreator alloc] initWithEmailAcct:self.acctBeingAdded] autorelease];
 	
 	GenericFieldBasedTableAddViewController *basicInfoAddView = 
-		[self addViewControllerForNextStep:basicAcctFormInfoCreator
-			withinDataModelController:dmcForNewAcct];
+		[self addViewControllerForNextStep:basicAcctFormInfoCreator];
 		
 	return basicInfoAddView;
 
@@ -121,28 +162,35 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 
 	currentStep = nextStepNum;
 	
-	[self.currParentContext.parentController.navigationController
-		pushViewController:nextStepViewController animated:TRUE];
+	[self.currentNavController pushViewController:nextStepViewController animated:TRUE];
 
 }
 
-
--(void)addObjectFromTableView:(FormContext*)parentContext
+-(void)promptForNewAccountInfo:(UINavigationController*)navController
 {
 	// This is the first callback when the user presses the "+" button
 	// to add a new view.
 	NSLog(@"Adding email account");
 		
-	self.currParentContext = parentContext;	
+	assert(navController != nil);
+	self.currentNavController = navController;
+	
+	[self setupNewAcctDmc];
+		
 	promptedForImapServer = FALSE;
 	entryProgressBasicInfoComplete = FALSE;
 	entryProgressServerInfoComplete = FALSE;
 	currentPopDepth = 0;
 		
-	GenericFieldBasedTableAddViewController *basicInfoAddView = 
-		[self addViewControllerForNewAccountAddr:parentContext.dataModelController];
+	GenericFieldBasedTableAddViewController *basicInfoAddView = [self addViewControllerForNewAccountAddr];
 
 	[self advanceToNextForm:basicInfoAddView withNextStepNumber:ADD_EMAIL_ACCOUNT_STEP_PROMPT_BASIC_INFO];
+}
+
+
+-(void)addObjectFromTableView:(FormContext*)parentContext
+{
+	[self promptForNewAccountInfo:parentContext.parentController.navigationController];
 }
 
 -(BOOL)supportsAddOutsideEditMode
@@ -261,8 +309,7 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	andNextStepNumber:(NSInteger)nextStepNum
 {
 	GenericFieldBasedTableAddViewController *nextStepAddView = 
-		[self addViewControllerForNextStep:nextStepFormInfoCreator
-			withinDataModelController:self.currParentContext.dataModelController];
+		[self addViewControllerForNextStep:nextStepFormInfoCreator];
 
 	[self advanceToNextForm:nextStepAddView withNextStepNumber:nextStepNum];
 
@@ -296,7 +343,14 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 	GenericFieldBasedTableAddViewController *addView =  
 		[[[GenericFieldBasedTableAddViewController alloc] 
 		initWithFormInfoCreator:emailAcctFormInfoCreator andNewObject:newAcct
-		andDataModelController:self.currParentContext.dataModelController] autorelease];
+		andDataModelController:self.dmcForNewAcct] autorelease];
+		
+	// The disableCoreDataSaveUntilSaveButtonPressed will cause the view for confirming
+	// the deletion settings to enable saving when/if the save button is pressed.
+	// Note the save is disabled initially for self.newAcctDmc, so only after confirming
+	// the delete settings, will the save actually occur.
+	addView.disableCoreDataSaveUntilSaveButtonPressed = TRUE;
+	
 	addView.saveWhenSaveButtonPressed = TRUE;
 	
 	if(self.acctSaveCompleteDelegate != nil)
@@ -363,7 +417,7 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 					CTCoreFolder *currFolder = [mailAcct folderWithPath:folderName];
 					NSLog(@"NewAcctConnectTestOperation: Getting folder: %@",currFolder.path);
 					[EmailFolder findOrAddFolder:currFolder.path inExistingFolders:currFoldersByName 
-						withDataModelController:self.currParentContext.dataModelController andFolderAcct:self.acctBeingAdded]; 
+						withDataModelController:self.dmcForNewAcct andFolderAcct:self.acctBeingAdded];
 				}
 			}
 
@@ -394,20 +448,21 @@ NSInteger const ADD_EMAIL_ACCOUNT_STEP_MESSAGE_DELETE_SETTINGS = 3;
 {
 	connectionTestSucceeded = FALSE;
 	self.connectionTestHUD = [[[MBProgressHUD alloc] 
-		initWithView:self.currParentContext.parentController.navigationController.view] autorelease];
-	[self.currParentContext.parentController.navigationController.view addSubview:self.connectionTestHUD];
+		initWithView:self.currentNavController.view] autorelease];
+	[self.currentNavController.view addSubview:self.connectionTestHUD];
 	self.connectionTestHUD.mode = MBProgressHUDModeIndeterminate;
 	self.connectionTestHUD.delegate = self;
 	NSLog(@"Connection test started");
 	
-	[self.connectionTestHUD showWhileExecuting:@selector(doConnectionTest) onTarget:self withObject:nil animated:TRUE];
+	[self.connectionTestHUD showWhileExecuting:@selector(doConnectionTest)
+		onTarget:self withObject:nil animated:TRUE];
 }
 
 -(void)genericAddViewSaveCompleteForObject:(NSManagedObject*)addedObject
 {
 	// This callback is invoked when the Next button is invoked on the first
 	// "basic info" or IMAP server form
-	assert(self.currParentContext != nil);
+	assert(self.currentNavController != nil);
 	assert([addedObject isKindOfClass:[EmailAccount class]]);
 	EmailAccount *newAcct = (EmailAccount*)addedObject;
 	
