@@ -29,6 +29,7 @@
 #import "MailDeleteOperation.h"
 #import "CompositeMailDeleteProgressDelegate.h"
 #import "MailDeleteCompletionInfo.h"
+#import "MessageFilter.h"
 #import "MBProgressHUD.h"
 
 
@@ -402,6 +403,13 @@ static CGFloat const MSG_LIST_COMPLETE_STATUS_HUD_DISPLAY_TIME = 3.0f;
 	}
 }
 
+-(MessageFilter*)currentAcctMsgFilter
+{
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
+	assert(sharedAppVals.currentEmailAcct != nil);
+	return sharedAppVals.currentEmailAcct.msgListFilter;
+}
+
 -(void)reconfigFetchedResultsAfterSync
 {
 	[self configureFetchedResultsController:FALSE];
@@ -561,6 +569,34 @@ static CGFloat const MSG_LIST_COMPLETE_STATUS_HUD_DISPLAY_TIME = 3.0f;
 {
 	currentMsgListPageSize += MSG_LIST_STARTING_PAGE_SIZE;
 	[self configureFetchedResultsController:FALSE];
+}
+
+-(void)refreshMessageList
+{
+	[self configureFetchedResultsController:TRUE];
+}
+
+-(void)resetFilterToDefault
+{
+	NSLog(@"Reset filter to Default");
+	
+	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
+	MessageFilter *currentFilter = sharedAppVals.currentEmailAcct.msgListFilter;
+	
+	[currentFilter resetToDefault:self.appDmc];
+
+	[self.appDmc saveContext];
+	[self refreshMessageList];
+}
+
+-(void)msgListViewResetFilterButtonPressed
+{
+	[self resetFilterToDefault];
+}
+
+-(BOOL)msgListViewUnfilteredMessageListActive
+{
+	return [self currentAcctMsgFilter].matchesAnyMessage?TRUE:FALSE;
 }
 
 #pragma mark CurrentEmailAccountChangedListener

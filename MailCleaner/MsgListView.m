@@ -26,14 +26,33 @@ static CGFloat const MSG_LIST_LOAD_MORE_FOOTER_HEIGHT = 50.0f;
 @synthesize loadMoreMsgsTableFooter;
 @synthesize loadMoreStatusLabel;
 @synthesize loadMoreButton;
+@synthesize resetFilterButton;
 
 @synthesize delegate;
+
+-(void)dealloc
+{
+	[msgListActionFooter release];
+	[msgListTableView release];
+	[loadMoreMsgsTableFooter release];
+	[loadMoreStatusLabel release];
+	[loadMoreButton release];
+	[resetFilterButton release];
+	[super dealloc];
+}
 
 -(void)loadMoreMsgs
 {
 	assert(self.delegate != nil);
 	[self.delegate msgListViewLoadMoreMessagesButtonPressed];
 	NSLog(@"Load more messages");
+}
+
+-(void)resetFilterButtonPressed
+{
+	assert(self.delegate != nil);
+	NSLog(@"Reset filter");
+	[self.delegate msgListViewResetFilterButtonPressed];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -68,16 +87,26 @@ static CGFloat const MSG_LIST_LOAD_MORE_FOOTER_HEIGHT = 50.0f;
 		andTarget:self andAction:@selector(loadMoreMsgs)
 			andTitle:LOCALIZED_STR(@"MESSAGE_LIST_LOAD_MORE_MESSAGES_BUTTON_TITLE")
 		andFontSize:MSG_LIST_LOAD_MORE_BUTTON_FONT];
+		
+		self.resetFilterButton = [UIHelper buttonWithBackgroundColor:[UIColor lightGrayColor]
+		andTitleColor:[UIColor whiteColor]
+		andTarget:self andAction:@selector(resetFilterButtonPressed)
+			andTitle:LOCALIZED_STR(@"MESSAGE_FILTER_RESET_FILTER_BUTTON_TITLE")
+		andFontSize:MSG_LIST_LOAD_MORE_BUTTON_FONT];
+		self.resetFilterButton.hidden = TRUE;
 
 		CGRect buttonFrame = CGRectMake(MSG_LIST_LOAD_MORE_BUTTON_MARGIN, MSG_LIST_LOAD_MORE_LABEL_HEIGHT,
 			[UIScreen mainScreen].bounds.size.width-(2 * MSG_LIST_LOAD_MORE_BUTTON_MARGIN),
 			MSG_LIST_LOAD_MORE_BUTTON_HEIGHT);
 		[loadMoreButton setFrame:buttonFrame];
 		
+		[resetFilterButton setFrame:buttonFrame];
+		
 		self.loadMoreMsgsTableFooter = [[[UIView alloc] initWithFrame:CGRectMake(0,0,
 			[UIScreen mainScreen].bounds.size.width,MSG_LIST_LOAD_MORE_FOOTER_HEIGHT)] autorelease];
 		[self.loadMoreMsgsTableFooter addSubview:self.loadMoreStatusLabel];
 		[self.loadMoreMsgsTableFooter addSubview:self.loadMoreButton];
+		[self.loadMoreMsgsTableFooter addSubview:self.resetFilterButton];
 		
 		if([AppHelper generatingLaunchScreen])
 		{
@@ -135,30 +164,25 @@ static CGFloat const MSG_LIST_LOAD_MORE_FOOTER_HEIGHT = 50.0f;
 	{
 		self.loadMoreStatusLabel.text = LOCALIZED_STR(@"MESSAGE_LIST_LOAD_NO_MATCHING_STATUS");
 		self.loadMoreButton.hidden = TRUE;
+		self.resetFilterButton.hidden = [self.delegate msgListViewUnfilteredMessageListActive]?TRUE:FALSE;
 	}
 	else if(msgsLoaded < totalMessageCount)
 	{
 		self.loadMoreStatusLabel.text = [NSString stringWithFormat:LOCALIZED_STR(@"MESSAGE_LIST_LOAD_FIRST_STATUS_FORMAT"),
 			msgsLoaded,totalMessageCount];
 		self.loadMoreButton.hidden = FALSE;
+			assert(self.delegate != nil);
+		self.resetFilterButton.hidden = TRUE;
 	}
 	else
 	{
 		self.loadMoreStatusLabel.text = [NSString stringWithFormat:LOCALIZED_STR(@"MESSAGE_LIST_LOAD_ALL_STATUS_FORMAT"),
 			totalMessageCount];
 		self.loadMoreButton.hidden = TRUE;
+		self.resetFilterButton.hidden = TRUE;
 	}
 }
 
--(void)dealloc
-{
-	[msgListActionFooter release];
-	[msgListTableView release];
-	[loadMoreMsgsTableFooter release];
-	[loadMoreStatusLabel release];
-	[loadMoreButton release];
-	[super dealloc];
-}
 
 
 @end

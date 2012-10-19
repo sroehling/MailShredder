@@ -15,6 +15,7 @@
 #import "MsgListView.h"
 
 @class DataModelController;
+@class MessageFilter;
 
 @interface MsgListTableViewController : UIViewController 
 	<NSFetchedResultsControllerDelegate,UITableViewDelegate,
@@ -49,6 +50,9 @@
 // Reconfigure the fetched results controller, based upon the message filter
 // parameters, then reload the table data.
 -(void)configureFetchedResultsController:(BOOL)doResetPageSize;
+-(void)refreshMessageList;
+-(void)resetFilterToDefault;
+-(MessageFilter*)currentAcctMsgFilter;
 
 - (id)initWithAppDataModelController:(DataModelController*)theAppDmc;
 

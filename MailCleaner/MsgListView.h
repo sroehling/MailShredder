@@ -22,6 +22,8 @@
 		UILabel *loadMoreStatusLabel;
 		UIButton *loadMoreButton;
 		
+		UIButton *resetFilterButton;
+		
 		id<MsgListViewDelegate> delegate;
 }
 
@@ -32,6 +34,7 @@
 @property(nonatomic,retain) UIView *loadMoreMsgsTableFooter;
 @property(nonatomic,retain) UILabel *loadMoreStatusLabel;
 @property(nonatomic,retain) UIButton *loadMoreButton;
+@property(nonatomic,retain) UIButton *resetFilterButton;
 
 @property(nonatomic,assign) id<MsgListViewDelegate> delegate;
 
@@ -43,5 +46,7 @@
 @protocol MsgListViewDelegate <NSObject>
 
 -(void)msgListViewLoadMoreMessagesButtonPressed;
+-(void)msgListViewResetFilterButtonPressed;
+-(BOOL)msgListViewUnfilteredMessageListActive;
 
 @end

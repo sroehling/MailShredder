@@ -65,12 +65,6 @@ static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 255.0f;
 @synthesize loadFilterPopoverController;
 @synthesize editFilterDmc;
 
--(MessageFilter*)currentAcctMsgFilter
-{
-	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
-	assert(sharedAppVals.currentEmailAcct != nil);
-	return sharedAppVals.currentEmailAcct.msgListFilter;
-}
 
 -(void)showSettings
 {
@@ -105,14 +99,8 @@ static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 255.0f;
 {
 	NSLog(@"Reset filter to Default");
 	
-	SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
-	MessageFilter *currentFilter = sharedAppVals.currentEmailAcct.msgListFilter;
-	
-	[currentFilter resetToDefault:self.appDmc];
-
-	[self.appDmc saveContext];
-	[self refreshMessageList];
-	
+	[self resetFilterToDefault];
+		
 	[self.loadFilterPopoverController dismissPopoverAnimated:TRUE];
 }
 
@@ -366,7 +354,7 @@ static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 255.0f;
 	[self refreshMessageFilterHeader];
 		// TODO - Need to update selection to only include those messages which are seen.
 
-	[self configureFetchedResultsController:TRUE];
+	[super refreshMessageList];
 }
 
 
@@ -375,9 +363,6 @@ static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 255.0f;
 	[super viewWillAppear:animated];
 	
 	[self refreshMessageFilterHeader];
-	
-	
-
 }
 
 -(void)viewDidAppear:(BOOL)animated
