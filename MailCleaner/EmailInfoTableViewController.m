@@ -52,10 +52,10 @@
 #import "AgeFilterComparison.h"
 #import "SenderDomainFilter.h"
 
-static CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 295.0f;
+static CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 320.0f;
 
 static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MENU_WIDTH = 220.0f;
-static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 255.0f;
+static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 320.0f;
 
 
 @implementation EmailInfoTableViewController
@@ -225,9 +225,13 @@ static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 255.0f;
 		 andTarget:self andSelector:@selector(narrowToReceivedMsgs)
 		 andEnabled:TRUE] autorelease]];
 		 
-		 
-		 
 	TableMenuItem *ageFilterItem = [[[TableMenuItem alloc] 
+		initWithTitle:sharedAppVals.defaultAgeFilterOlder1Month.filterSynopsis
+		 andTarget:self andSelector:@selector(narrowToAgeFilter:)] autorelease];
+	ageFilterItem.objectForSelector = sharedAppVals.defaultAgeFilterOlder1Month;
+	[narrowFilterSection addMenuItem:ageFilterItem];
+		 
+	ageFilterItem = [[[TableMenuItem alloc] 
 		initWithTitle:sharedAppVals.defaultAgeFilterOlder3Months.filterSynopsis
 		 andTarget:self andSelector:@selector(narrowToAgeFilter:)] autorelease];
 	ageFilterItem.objectForSelector = sharedAppVals.defaultAgeFilterOlder3Months;
