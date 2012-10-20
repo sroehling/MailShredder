@@ -77,7 +77,6 @@
 		00676245161DF0890015209D /* confirmDeleteBkg.png in Resources */ = {isa = PBXBuildFile; fileRef = 00676244161DF0890015209D /* confirmDeleteBkg.png */; };
 		00676247161E04210015209D /* confirmDeleteBkg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00676246161E04200015209D /* confirmDeleteBkg@2x.png */; };
 		006981631631BF6700A1B2F9 /* thirdPartyLibs.md in Resources */ = {isa = PBXBuildFile; fileRef = 006981621631BF6700A1B2F9 /* thirdPartyLibs.md */; };
-		006981651631C1FB00A1B2F9 /* releaseManifest.md in Resources */ = {isa = PBXBuildFile; fileRef = 006981641631C1FB00A1B2F9 /* releaseManifest.md */; };
 		006AE32A15F8FF21007EED2E /* EmailAccountFormPopulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AE32915F8FF21007EED2E /* EmailAccountFormPopulator.m */; };
 		006AE33315F9113F007EED2E /* FullEmailAccountFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AE33215F9113F007EED2E /* FullEmailAccountFormInfoCreator.m */; };
 		006AE33615F919E4007EED2E /* ImapAcctPresets.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AE33515F919E4007EED2E /* ImapAcctPresets.m */; };
@@ -1520,7 +1519,6 @@
 				00676247161E04210015209D /* confirmDeleteBkg@2x.png in Resources */,
 				00EA1F901624CB020028A8A6 /* Default-568h@2x.png in Resources */,
 				006981631631BF6700A1B2F9 /* thirdPartyLibs.md in Resources */,
-				006981651631C1FB00A1B2F9 /* releaseManifest.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

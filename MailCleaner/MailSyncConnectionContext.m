@@ -17,15 +17,26 @@
 
 @synthesize syncDmc;
 @synthesize mainThreadDmc;
-@synthesize cachedChangeNotifications;
 @synthesize progressDelegate;
 @synthesize mailAcct;
 @synthesize emailAcctInfo;
 
+- (void)mergeChangesFromConnectionThread:(NSNotification *)notification
+{
+    // This method is invoked as a subscriber/call-back for saves the to NSManagedObjectContext
+    // used to synchronize the email information on a dedicated thread. This will in turn
+    // trigger the main thread to perform updates on to the appropriate NSFetchedResultsControllers,
+    // table views, etc.
+	NSLog(@"MailSyncConnectionContext: merging changes from thread to main NSManagedObjectContext");
+    [self.mainThreadDmc.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
+	[self.mainThreadDmc saveContext];
+}
+
 
 - (void)mailSyncThreadDidSaveNotificationHandler:(NSNotification *)notification
 {
-	[self.cachedChangeNotifications addObject:notification];
+	[self performSelectorOnMainThread:@selector(mergeChangesFromConnectionThread:)
+		withObject:notification waitUntilDone:TRUE];
 }
 
 
@@ -45,9 +56,6 @@
 		assert(sharedVals.currentEmailAcct != nil);
 
 		self.emailAcctInfo = sharedVals.currentEmailAcct;
-	
-		self.cachedChangeNotifications = [[[NSMutableArray alloc] init] autorelease];
-
 				
 		contextIsSetup = FALSE;
 		
@@ -118,6 +126,13 @@
 		self.syncDmc = [[[DataModelController alloc] 
 				initWithPersistentStoreCoord:self.mainThreadDmc.managedObjectContext.persistentStoreCoordinator] autorelease];
 				
+		// The following will cause any changes which are saved external from the thread to be merged
+		// to the in-memory objects on a per-property basis. On a per-property basis, there shouldn't be
+		// any conflicting changes (since the synchronization thread and other threads change
+		// different properties), so this merge policy should be OK.
+		[self.syncDmc.managedObjectContext setMergePolicy:NSMergeByPropertyStoreTrumpMergePolicy];
+
+				
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 			selector:@selector(mailSyncThreadDidSaveNotificationHandler:)
 			name:NSManagedObjectContextDidSaveNotification 
@@ -180,18 +195,6 @@
 	}
 }
 
--(void)mergeCachedChangesToMainThreadContext
-{
-	for(NSNotification *cachedNotification in self.cachedChangeNotifications)
-	{
-		NSLog(@"Merging cached changes in thread's NSManagedObjectContext (MOC) to main thread MOC");
-		[self.mainThreadDmc.managedObjectContext mergeChangesFromContextDidSaveNotification:cachedNotification];
-	}
-
-	[self.mainThreadDmc saveContext];
-
-	[self.cachedChangeNotifications removeAllObjects];
-}
 
 -(void)saveLocalChanges
 {
@@ -200,7 +203,6 @@
 	
 	[self.syncDmc saveContext];
 	
-	[self performSelectorOnMainThread:@selector(mergeCachedChangesToMainThreadContext) withObject:nil waitUntilDone:TRUE];
 }
 
 -(void)teardownConnection
@@ -229,7 +231,6 @@
 	[mainThreadDmc release];
 	[mailAcct release];
 	[emailAcctInfo release];
-	[cachedChangeNotifications release];
 	[super dealloc];
 }
 

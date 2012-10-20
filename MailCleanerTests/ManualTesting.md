@@ -1,6 +1,10 @@
 # Manual Testing
 
-## Message Delete
+## Message Deletion
+
+### DEL-01 Message Delete
+
+Test Procedure:
 
 1. Setup preferences to first move the message to a delete folder, 
    then immediately/permanently delete from there.
@@ -11,7 +15,52 @@
 3. In a separate email client, move a message, M1 to the delete
    folder.
 4. Continue execution in the debugger.
-5. M0 should be permanently deleted, but M1 should not.
+
+Post-condition:
+
+1. M0 should be permanently deleted, but M1 should not.
+
+### DEL-02 Reset Filter While Deleting
+
+Since the Gmail IMAP server takes longer than to move than delete messages, using a test account with Google Apps is advisable. Since the message deletion occurs in a separate thread, both reseting the filter and the message deletion will change the CoreData database; this test will ensure the multi-threaded deletion code and merge logic functions properly.
+
+Test Procedure:
+
+1. In a test account, narrow the filter to a subset of messages. Ideally, there should be >= 100 messages selected.
+2. Select all the messages and start the deletion. The "Reset Filter" button should be displayed in the message list view, since no more messages match the filter.
+3. Reset the filter while the messages are being deleted.
+
+Post-conditions:
+
+1. All the messages should be displayed after reseting the filter.
+2. The message deletion should complete without errors. 
+
+## General
+
+### GEN-T01: Disable then Re-Enable Passcode
+
+Test Procedure:
+
+1. Go to the settings view
+2. Disable the passcode (i.e., turn if OFF
+3. Stop the application
+4. Restart the application
+5. Upon re-start, there should be no prompting for the passcode.
+5. Go the settings view again
+6. Re-Enable the passcode, entering a different one than before
+7. Restart the application
+8. Upon, re-start, the app should prompt for the new passcode.
+
+### GEN-T02: View Message Details
+
+Test Procedure:
+
+1. Pick a message fromt he message list.
+2. Tap on the disclosure button to view the message details
+
+Post-conditions:
+
+1. The message header and body associated with the message is shown.
 
 ## Account Creation and Deletion
 
