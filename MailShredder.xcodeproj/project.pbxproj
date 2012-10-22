@@ -302,6 +302,10 @@
 		00257FCA160D1C2B005D5DED /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		0027518115B9E77B0025FDB8 /* MessageFilterTableFooterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageFilterTableFooterController.h; sourceTree = "<group>"; };
 		0027518215B9E77B0025FDB8 /* MessageFilterTableFooterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageFilterTableFooterController.m; sourceTree = "<group>"; };
+		002FCDD91635C54D00EA5240 /* AppScreenshot1_iPhone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppScreenshot1_iPhone5.png; sourceTree = "<group>"; };
+		002FCDDA1635C54D00EA5240 /* AppScreenshot2_iPhone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppScreenshot2_iPhone5.png; sourceTree = "<group>"; };
+		002FCDDB1635C54D00EA5240 /* AppScreenshot3_iPhone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppScreenshot3_iPhone5.png; sourceTree = "<group>"; };
+		002FCDDC1635C54D00EA5240 /* AppScreenshot4_iPhone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppScreenshot4_iPhone5.png; sourceTree = "<group>"; };
 		00394EFB156EFE00006C3AE5 /* msgActionButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = msgActionButton.png; sourceTree = "<group>"; };
 		0039E5DB1566B14000CB259D /* AppData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppData.xcdatamodel; sourceTree = "<group>"; };
 		0039E5EA1566B8CE00CB259D /* AgeFilterNone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeFilterNone.h; sourceTree = "<group>"; };
@@ -694,12 +698,16 @@
 		001576EE16248E5900CA7515 /* App Store */ = {
 			isa = PBXGroup;
 			children = (
-				0068FC3616263A8B00F246E5 /* AppScreenshot3.png */,
 				009DA2C6162496DD00A3A5CC /* AppStoreInfo.md */,
 				009DA2C716249A9F00A3A5CC /* AppStoreLargeIcon.png */,
 				00ECDE351624A0D6008D4DC5 /* AppScreenshot1.png */,
 				00ECDE361624A0D6008D4DC5 /* AppScreenshot2.png */,
+				0068FC3616263A8B00F246E5 /* AppScreenshot3.png */,
 				00EA1F881624AC6F0028A8A6 /* AppScreenShot4.png */,
+				002FCDD91635C54D00EA5240 /* AppScreenshot1_iPhone5.png */,
+				002FCDDA1635C54D00EA5240 /* AppScreenshot2_iPhone5.png */,
+				002FCDDB1635C54D00EA5240 /* AppScreenshot3_iPhone5.png */,
+				002FCDDC1635C54D00EA5240 /* AppScreenshot4_iPhone5.png */,
 				0068FC351625D60500F246E5 /* ReleaseChecklist.md */,
 				006981641631C1FB00A1B2F9 /* releaseManifest.md */,
 			);
