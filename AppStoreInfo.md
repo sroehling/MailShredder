@@ -3,28 +3,9 @@
 The information below was provided for the app store submission.
 
 
-## SKU
+## SKU Number
 
 MAILSHREDDER_2012_0001
-
-## Primary Category: 
-
-Utilities
-
-## Secondary Category
-
-Productivity
-
-## Review Notes:
-
-There is a test account for review purposes. The app will prompt for an email address, password and email server.
-
-Account Name: Test
-Address: testmc@resultra.com
-Password: here2testmc
-IMAP Server: imap.gmail.com
-
-Upon startup the app will also prompt for an app passcode. Enter anything or 5555.
 
 ## Version Number
 
@@ -33,6 +14,14 @@ Upon startup the app will also prompt for an app passcode. Enter anything or 555
 ## Copyright:
 
 2012 Resultra, LLC
+
+## Primary Category: 
+
+Utilities
+
+## Secondary Category
+
+Productivity
 
 ## Description
 
@@ -48,14 +37,25 @@ MailShredder also helps you stay organized and keep your account storage under q
 
 email, mail, bulk, privacy, purge, delete, cleaner, gmail, IMAP
 
+## Support URL
+
+http://mailshredder.resultra.com/support
+
 ## Support Email Address
 
 support@resultra.com
 
-## Support URL
-
-http://emailpurger.resultra.com/support
-
 ## Marketing URL
 
-http://emailpurger.resultra.com
+http://mailshredder.resultra.com
+
+## Review Notes
+
+There is a test account for review purposes. When first started, the app will prompt for an email address, password and email server.
+
+Account Name: Test
+Address: testmc@resultra.com
+Password: here2testmc
+IMAP Server: imap.gmail.com
+
+After entering the account information, the app will also prompt for an app passcode. Enter 5555 for testing purposes.
