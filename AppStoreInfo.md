@@ -25,11 +25,13 @@ Productivity
 
 ## Description
 
-Use MailShredder to help protect your privacy and the privacy of those who send you email. 
+MailShredder will help protect your privacy and the privacy of those who send you email. 
 
-While regular email apps focus on reading and writing email, MailShredder is a specialized email utility to zero in on and selectively delete old, unwanted, or confidential email messages. MailShredder supports email accounts with IMAP support, such as Gmail or iCloud. MailShredder can also be setup with multiple accounts.
+While regular email apps focus on reading and writing email, MailShredder is specialized to readily filter, select, and bulk delete old, unwanted, or confidential messages.
 
-Individual messages may be insignificant, but collectively they represent an extensive and revealing profile of what you purchased, who you've done business with, where you've traveled, and other confidential business and personal information. After some time, there's really no reason to keep most messages. However, there are important reasons to delete them, such as limiting your exposure if your account is compromised, or to limit the advertising profile some email providers build on you.
+MailShredder supports email accounts with IMAP support, such as Gmail or iCloud. MailShredder can also be setup with multiple accounts.
+
+Individual messages may be insignificant, but together they represent an extensive and revealing profile of what you purchased, who you've done business with, where you've traveled, and other confidential business and personal information. After some time, there's really no reason to keep most messages. However, there are important reasons to delete them, such as limiting your exposure if your account is compromised, or to limit the advertising profile some email providers build on you.
 
 MailShredder also helps you stay organized and keep your account storage under quota. After using MailShredder, you'll likely be surprised how many unneeded messages can be safely deleted.
 
