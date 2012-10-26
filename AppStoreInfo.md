@@ -25,15 +25,22 @@ Productivity
 
 ## Description
 
-MailShredder will help protect your privacy and the privacy of those who send you email. 
+MailShredder will help protect your privacy and the privacy of those who send you email. MailShredder is a specialized utility to readily filter, review, then selectively delete old, unwanted, or confidential messages. MailShredder is for email accounts with IMAP support, such as Gmail or iCloud. 
 
-MailShredder is a specialized email utility to readily filter, select, then delete old, unwanted, or confidential messages. For example, if you identify a message from a particular sender which can be deleted, MailShredder can easily filter for messages from the same sender. Saved filters can also be created for the types of messages needing periodic deletion, such as online purchase receipts or bill payment notifications.
+More and more confidential information is now being sent via email rather than paper documents in regular "snail" mail. For many of the same reasons it was important to shred these confidential documents, it's now equally important to periodically delete the same kinds of information from your email account.
 
-MailShredder supports email accounts with IMAP support, such as Gmail or iCloud. MailShredder can also be setup with multiple email accounts.
-
-Individual messages may be insignificant, but together they represent an extensive and revealing profile of what you've purchased, who you've done business with, where you've traveled, and other confidential business and personal information. After some time, there's really no reason to keep most messages. However, there are important reasons to delete them, such as limiting your exposure if your account were compromised, or to limit the advertising profile some email providers build on you.
+Individual messages may be insignificant, but together they represent an extensive and revealing profile of what you've purchased, who you've done business with, where you've traveled, and other confidential business and personal information. After some time, there's really no reason to keep most messages. In fact, there are important reasons to delete them, such as limiting your exposure if your account is compromised, or to limit the advertising profile some email providers build on you.
 
 MailShredder also helps you stay organized and keep your account storage under quota. After using MailShredder, you'll likely be surprised how many unneeded messages can be safely deleted.
+
+Features: 
+
+• Interactive filtering - select a message needing deletion, then filter for messages from the same sender (assuming those messages can probably be deleted too).
+• Save filters for the types of messages needing periodic deletion, such as online purchase receipts or bill payment notifications.
+• Support for email accounts with IMAP support, such as Gmail or iCloud. Please confirm your email account supports IMAP before downloading.
+• Multiple email account support.
+• Control over deletion behavior - either move messages to a trash folder or permanently delete them immediately.
+• Passcode to limit who can open the app.
 
 ## Keywords
 
