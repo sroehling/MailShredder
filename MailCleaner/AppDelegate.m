@@ -33,6 +33,7 @@
 #import "MailSyncConnectionContext.h"
 #import "MailSyncOperation.h"
 #import "CompositeMailDeleteProgressDelegate.h"
+#import "Appirater.h"
 
 @implementation AppDelegate
 
@@ -198,6 +199,8 @@
 	// messages.
 	[self.sharedAppVals addObserver:self forKeyPath:SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY 
 			options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+			
+	[Appirater appLaunched:YES];
 }
 
 
@@ -216,6 +219,17 @@
 	{
 		[self finishStartupWithDefinedEmailAcctSettings];
 	}
+
+}
+
+-(void)configureReviewAppPrompt
+{
+	[Appirater setAppId:MAIL_SHREDDER_APP_ID];
+    [Appirater setDaysUntilPrompt:2];
+    [Appirater setUsesUntilPrompt:5];
+    [Appirater setSignificantEventsUntilPrompt:-1];
+    [Appirater setTimeBeforeReminding:5];
+    [Appirater setDebug:NO];
 
 }
 
@@ -271,6 +285,8 @@
 	
 	self.passcodeValidator = [[[PasscodeValidator alloc] initWithDelegate:self] autorelease];
 	self.passcodeSetter = [[[PasscodeSetter alloc] initWithDelegate:self] autorelease];
+	
+	[self configureReviewAppPrompt];
 
 	return YES;
 }

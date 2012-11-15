@@ -14,6 +14,7 @@
 
 extern NSString * const APP_DATA_DATA_MODEL_NAME;
 extern NSString * const APP_DATA_STORE_NAME;
+extern NSString * const MAIL_SHREDDER_APP_ID;
 
 
 +(DataModelController*)appDataModelController;

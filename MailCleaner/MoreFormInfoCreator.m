@@ -20,6 +20,7 @@
 #import "SavedMessageFilterListFormInfoCreator.h"
 #import "PasscodeFieldInfo.h"
 #import "BoolFieldEditInfo.h"
+#import "RateAppFieldEditInfo.h"
 
 @implementation MoreFormInfoCreator
 
@@ -81,6 +82,7 @@
 	[formPopulator nextSection];
 	
 	[formPopulator populateHelpPageWithTitle:LOCALIZED_STR(@"HELP_ABOUT") andPageRef:@"about"];
+	[formPopulator.currentSection addFieldEditInfo:[[[RateAppFieldEditInfo alloc] init] autorelease]];
 
 	
 	return formPopulator.formInfo;
