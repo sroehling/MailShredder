@@ -25,7 +25,7 @@ Productivity
 
 ## Description
 
-MailShredder will help protect your privacy and the privacy of those who send you email. MailShredder is a specialized utility to readily filter, review, then selectively delete old, unwanted, or confidential messages. MailShredder is for email accounts with IMAP support, such as Gmail or iCloud. 
+MailShredder will help protect your privacy and the privacy of those who send you email. MailShredder is a specialized utility to readily filter, review, then bulk delete old, unwanted, or confidential messages. MailShredder is for email accounts with IMAP support, such as Gmail or iCloud. 
 
 More and more confidential information is now being sent via email rather than paper documents in regular "snail" mail. For many of the same reasons it was important to shred these confidential documents, it's now equally important to periodically delete the same kinds of information from your email account.
 

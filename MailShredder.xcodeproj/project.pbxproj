@@ -274,7 +274,7 @@
 		0005669F1562F94C003D114D /* MailShredder-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MailShredder-Prefix.pch"; sourceTree = "<group>"; };
 		000566A01562F94C003D114D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		000566A11562F94C003D114D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		000566BC1562F94D003D114D /* EmailPurger Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "EmailPurger Tests.octest"; path = "MailShredder Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		000566BC1562F94D003D114D /* MailShredder Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MailShredder Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		000566BD1562F94D003D114D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		000566C51562F94D003D114D /* MailShredderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MailShredderTests-Info.plist"; sourceTree = "<group>"; };
 		000566C71562F94D003D114D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -612,7 +612,7 @@
 			isa = PBXGroup;
 			children = (
 				0005668D1562F94C003D114D /* MailShredder.app */,
-				000566BC1562F94D003D114D /* EmailPurger Tests.octest */,
+				000566BC1562F94D003D114D /* MailShredder Tests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1402,7 +1402,7 @@
 			);
 			name = "MailShredder Tests";
 			productName = MailCleanerTests;
-			productReference = 000566BC1562F94D003D114D /* EmailPurger Tests.octest */;
+			productReference = 000566BC1562F94D003D114D /* MailShredder Tests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -1814,13 +1814,13 @@
 		000566D21562F94D003D114D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MailCleaner.app/MailCleaner";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MailShredder.app/MailShredder";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MailCleaner/MailCleaner-Prefix.pch";
+				GCC_PREFIX_HEADER = "MailCleaner/MailShredder-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/..\"/**";
 				INFOPLIST_FILE = "MailCleanerTests/MailShredderTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1838,7 +1838,7 @@
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MailCleaner/MailCleaner-Prefix.pch";
+				GCC_PREFIX_HEADER = "MailCleaner/MailShredder-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/..\"/**";
 				INFOPLIST_FILE = "MailCleanerTests/MailShredderTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
