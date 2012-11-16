@@ -68,3 +68,9 @@ Password: here2testmc
 IMAP Server: imap.gmail.com
 
 After entering the account information, the app will also prompt for an app passcode. This app passcode allows the user to have an extra  layer of security for running the app. Please enter 5555 for testing purposes (any passcode will work, however).
+
+## Release Notes
+
+### Version 1.0.1
+
+Periodically prompt to optionally submit an app review. In the settings, also include a link to submit a review.
