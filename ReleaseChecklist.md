@@ -17,3 +17,17 @@ be populated with some messages.
 
 4. Create a Release Build
   1. In the project settings and in the "Code Signing" section, set the "Code Signing Identity" to "iPhone Distribution: Resultra, LLC".
+  2. Validate and distribute/submit the archive for the App Store.
+  3. In XCode, select the project, right click and select "Discard Changes". This will have the effect of reverting the Code Signing back to "iPhone Developer" (Note: there's an open issue to add a "Distribution" target so this isn't necessary, see: https://trello.com/c/3hbwuGMq)
+  
+5. Update releaseManifest.md with SHA1 of any libraries changed since last release.
+
+6. Using git, tag the app's project code with the version number: e.g.:
+
+	git tag -a v1.0.1 -m "Version 1.0.1 submitted for approval"
+	
+7. Using git, tag any libraries changed alongside the project code: e.g.:
+
+	git tag -a v1.4 -m "Version Released with v.1.0.1 of MailShredder"
+	
+8. Create an off-site backup of the current source code tree.
