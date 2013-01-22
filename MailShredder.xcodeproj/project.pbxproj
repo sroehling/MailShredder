@@ -1781,6 +1781,7 @@
 					"\"$(SRCROOT)/../MailCore/include\"/**",
 				);
 				INFOPLIST_FILE = "MailCleaner/MailShredder-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1801,6 +1802,7 @@
 					"\"$(SRCROOT)/../MailCore/include\"/**",
 				);
 				INFOPLIST_FILE = "MailCleaner/MailShredder-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",

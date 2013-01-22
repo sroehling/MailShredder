@@ -62,7 +62,7 @@ CGFloat const  EMAIL_ACTION_VIEW_STATUS_LABEL_FONT_SIZE = 11.0f;
 -(UILabel*)emailInfoViewStatusLabel
 {
 	UILabel *theStatusLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-	theStatusLabel.textAlignment = UITextAlignmentCenter;
+	theStatusLabel.textAlignment = NSTextAlignmentCenter;
 	theStatusLabel.font = [UIFont systemFontOfSize:EMAIL_ACTION_VIEW_STATUS_LABEL_FONT_SIZE];
 	theStatusLabel.textColor = [UIColor whiteColor];
 	theStatusLabel.numberOfLines = 1;

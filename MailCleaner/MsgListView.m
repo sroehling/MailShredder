@@ -74,7 +74,7 @@ static CGFloat const MSG_LIST_LOAD_MORE_FOOTER_HEIGHT = 50.0f;
 		// Setup a footer view for the table with a "show more"
 		// messages button and summary of messages shown.
 		self.loadMoreStatusLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-		self.loadMoreStatusLabel.textAlignment = UITextAlignmentCenter;
+		self.loadMoreStatusLabel.textAlignment = NSTextAlignmentCenter;
 		self.loadMoreStatusLabel.font = [UIFont systemFontOfSize:11.0f];
 		self.loadMoreStatusLabel.textColor = [UIColor darkGrayColor];
 		self.loadMoreStatusLabel.numberOfLines = 1;

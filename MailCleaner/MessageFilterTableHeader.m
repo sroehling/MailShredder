@@ -44,7 +44,7 @@ static CGFloat const kMessageFilterTableSubtitleFontSize = 11.0f;
 		self.header.backgroundColor = [UIColor clearColor];
         self.header.opaque = NO;
         self.header.textColor = [UIColor blackColor];
-		self.header.textAlignment = UITextAlignmentCenter;
+		self.header.textAlignment = NSTextAlignmentCenter;
         self.header.highlightedTextColor = [UIColor whiteColor];
         self.header.font = [UIFont boldSystemFontOfSize:kMessageFilterTableTitleFontSize];       
 		[self addSubview:self.header];
@@ -52,7 +52,7 @@ static CGFloat const kMessageFilterTableSubtitleFontSize = 11.0f;
 		self.subTitle = [TableCellHelper createWrappedSubtitleLabel];
 		self.subTitle.font = [UIFont systemFontOfSize:kMessageFilterTableSubtitleFontSize];
 		self.subTitle.textColor = [UIColor whiteColor];
-		self.subTitle.textAlignment = UITextAlignmentCenter;
+		self.subTitle.textAlignment = NSTextAlignmentCenter;
 		[self addSubview:self.subTitle];
 		
 		if([AppHelper generatingLaunchScreen])

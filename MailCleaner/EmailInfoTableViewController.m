@@ -407,7 +407,7 @@ static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 320.0f;
 {
 	[self.editFilterDmc saveContext];
 	[self.editFilterDmc.managedObjectContext reset];
-	[self.navigationController dismissModalViewControllerAnimated:TRUE];
+    [self.navigationController dismissViewControllerAnimated:TRUE completion:nil];
 }
 
 - (void)msgFilterShowFilterEditor
@@ -437,7 +437,7 @@ static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 320.0f;
 
 	navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 
-	[self.navigationController presentModalViewController:navController animated:TRUE];
+    [self.navigationController presentViewController:navController animated:TRUE completion:nil];
 }
 
 #pragma mark Button list call-backs
