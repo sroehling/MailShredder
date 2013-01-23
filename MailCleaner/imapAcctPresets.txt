@@ -51,3 +51,30 @@ Archive
 Sent Messages
 1
 Deleted Messages
+################################################################################
+# Presets for Yahoo (@ymail.com) accounts
+################################################################################
+ymail.com	imap.mail.yahoo.com	Y	993	Y	N
+2	N
+Inbox
+Sent
+1
+Trash
+################################################################################
+# Presets for Yahoo (@yahoo.com) accounts
+################################################################################
+yahoo.com	imap.mail.yahoo.com	Y	993	Y	N
+2	N
+Inbox
+Sent
+1
+Trash
+################################################################################
+# Presets for Yahoo (@rocketmail.com) accounts
+################################################################################
+rocketmail.com	imap.mail.yahoo.com	Y	993	Y	N
+2	N
+Inbox
+Sent
+1
+Trash
