@@ -9,11 +9,11 @@ MAILSHREDDER_2012_0001
 
 ## Version Number
 
-1.0
+1.0.2
 
 ## Copyright:
 
-2012 Resultra, LLC
+2012-13 Resultra, LLC
 
 ## Primary Category: 
 
@@ -38,6 +38,7 @@ Features:
 • Interactive filtering - select a message needing deletion, then filter for messages from the same sender (assuming those messages can probably be deleted too).
 • Save filters for the types of messages needing periodic deletion, such as online purchase receipts or bill payment notifications.
 • Support for email accounts with IMAP support, such as Gmail or iCloud. Please confirm your email account supports IMAP before downloading.
+• Quick setup for Gmail, iCloud and Yahoo email accounts -  After providing just the email address and password, the IMAP settings and recommended message deletion settings are configured automatically.
 • Multiple email account support.
 • Control over deletion behavior - either move messages to a trash folder or permanently delete them immediately.
 • Passcode to limit who can open the app.
@@ -74,3 +75,10 @@ After entering the account information, the app will also prompt for an app pass
 ### Version 1.0.1
 
 Periodically prompt to optionally submit an app review. In the settings, also include a link to submit a review.
+
+### Version 1.0.2
+
+• iOS version 6 is now required to run MailShredder.
+• Quick setup for Yahoo email accounts (already supported for Gmail and iCloud).
+• Minor refinements and bug fixes.
+
