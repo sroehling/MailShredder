@@ -132,6 +132,9 @@
 		00B6DAA41604F06700C3B5EC /* appicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B6DAA11604F06700C3B5EC /* appicon.png */; };
 		00B6DAA51604F06700C3B5EC /* appicon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B6DAA21604F06700C3B5EC /* appicon-72.png */; };
 		00B6DAA61604F06700C3B5EC /* appicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B6DAA31604F06700C3B5EC /* appicon@2x.png */; };
+		00BF835716B6E41C0029C4D9 /* TestMailDeleteProgressDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 00BF835616B6E41C0029C4D9 /* TestMailDeleteProgressDelegate.m */; };
+		00C1566D16B3231200D7899D /* StressTestSyncAndDelete.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C1566C16B3231200D7899D /* StressTestSyncAndDelete.m */; };
+		00C1567016B32F8200D7899D /* TestMailSyncProgressDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C1566F16B32F8200D7899D /* TestMailSyncProgressDelegate.m */; };
 		00C4AB141581784900E0868A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB131581784900E0868A /* CFNetwork.framework */; };
 		00C4AB15158178FC00E0868A /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB11158177C400E0868A /* libiconv.dylib */; };
 		00C8777415B306EE0063F88B /* PortNumFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8777315B306EE0063F88B /* PortNumFieldEditInfo.m */; };
@@ -474,6 +477,12 @@
 		00B6DAA11604F06700C3B5EC /* appicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon.png; sourceTree = "<group>"; };
 		00B6DAA21604F06700C3B5EC /* appicon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appicon-72.png"; sourceTree = "<group>"; };
 		00B6DAA31604F06700C3B5EC /* appicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appicon@2x.png"; sourceTree = "<group>"; };
+		00BF835516B6E41C0029C4D9 /* TestMailDeleteProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMailDeleteProgressDelegate.h; sourceTree = "<group>"; };
+		00BF835616B6E41C0029C4D9 /* TestMailDeleteProgressDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestMailDeleteProgressDelegate.m; sourceTree = "<group>"; };
+		00C1566B16B3231200D7899D /* StressTestSyncAndDelete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StressTestSyncAndDelete.h; sourceTree = "<group>"; };
+		00C1566C16B3231200D7899D /* StressTestSyncAndDelete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StressTestSyncAndDelete.m; sourceTree = "<group>"; };
+		00C1566E16B32F8100D7899D /* TestMailSyncProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMailSyncProgressDelegate.h; sourceTree = "<group>"; };
+		00C1566F16B32F8200D7899D /* TestMailSyncProgressDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestMailSyncProgressDelegate.m; sourceTree = "<group>"; };
 		00C4AB11158177C400E0868A /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		00C4AB131581784900E0868A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		00C5042B1603AB72007C6BE7 /* AppDescription.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = AppDescription.md; sourceTree = "<group>"; };
@@ -670,6 +679,12 @@
 				000566C41562F94D003D114D /* Supporting Files */,
 				0017B751157968EA001D5D28 /* TestMessageFiltering.h */,
 				0017B752157968EA001D5D28 /* TestMessageFiltering.m */,
+				00C1566B16B3231200D7899D /* StressTestSyncAndDelete.h */,
+				00C1566C16B3231200D7899D /* StressTestSyncAndDelete.m */,
+				00C1566E16B32F8100D7899D /* TestMailSyncProgressDelegate.h */,
+				00C1566F16B32F8200D7899D /* TestMailSyncProgressDelegate.m */,
+				00BF835516B6E41C0029C4D9 /* TestMailDeleteProgressDelegate.h */,
+				00BF835616B6E41C0029C4D9 /* TestMailDeleteProgressDelegate.m */,
 			);
 			name = "MailShredder Tests";
 			path = MailCleanerTests;
@@ -1676,6 +1691,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0017B753157968EA001D5D28 /* TestMessageFiltering.m in Sources */,
+				00C1566D16B3231200D7899D /* StressTestSyncAndDelete.m in Sources */,
+				00C1567016B32F8200D7899D /* TestMailSyncProgressDelegate.m in Sources */,
+				00BF835716B6E41C0029C4D9 /* TestMailDeleteProgressDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

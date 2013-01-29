@@ -27,7 +27,6 @@
     // used to synchronize the email information on a dedicated thread. This will in turn
     // trigger the main thread to perform updates on to the appropriate NSFetchedResultsControllers,
     // table views, etc.
-	NSLog(@"MailSyncConnectionContext: merging changes from thread to main NSManagedObjectContext");
     [self.mainThreadDmc.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
 	[self.mainThreadDmc saveContext];
 }
@@ -131,7 +130,8 @@
 		// any conflicting changes (since the synchronization thread and other threads change
 		// different properties), so this merge policy should be OK.
 		[self.syncDmc.managedObjectContext setMergePolicy:NSMergeByPropertyStoreTrumpMergePolicy];
-
+//[self.syncDmc.managedObjectContext setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+  //      [self.syncDmc.managedObjectContext setMergePolicy:NSErrorMergePolicy];
 				
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 			selector:@selector(mailSyncThreadDidSaveNotificationHandler:)

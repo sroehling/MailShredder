@@ -23,6 +23,12 @@ be populated with some messages.
   1. Run the "Analyze" Build phase on the project
   2. Run the project's unit tests using the "Test" option.
   3. Install and run on hardware.
+  4. There's a test called "StressTestSyncAndDelete" which does a stress
+     test against a local IMAP server. This test isn't part of the 
+     unit tests which are by default enabled. If any of the 
+     client/server related code has been changed (and/or the 
+     underlying MailCore library), it is advisable to also setup
+     and run this test. 
   
 6. Commit changes made to project in steps 1-5 above.
 

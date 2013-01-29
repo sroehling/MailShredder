@@ -115,7 +115,6 @@
 	for(EmailInfo *markedForDeletion  in msgsMarkedForDeletion)
 	{
 		NSString *msgLookup = [self messageLookupForEmailInfo:markedForDeletion];
-		NSLog(@"Lookup for msg to be deleted: %@",msgLookup);
 		[msgsByLookupValue setObject:markedForDeletion forKey:msgLookup];
 	}
 	return msgsByLookupValue;

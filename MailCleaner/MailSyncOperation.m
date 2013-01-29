@@ -125,13 +125,13 @@
 					
 				if([folderSyncContext folderIsSynchronized:folderName])
 				{
-					NSLog(@"Retrieving message headers: %@",folderName);
 					NSUInteger totalMessageCount;
 					if(![currFolder totalMessageCount:&totalMessageCount])
 					{
 						@throw [NSException exceptionWithName:@"FailureRetrievingFolderMsgCount" 
 							reason:@"Failure retrieving message count for folder" userInfo:nil];
 					}
+					NSLog(@"Retrieving message headers: %@ count = %d",folderName,totalMessageCount);
 				
 					if(totalMessageCount > 0)
 					{
@@ -139,7 +139,7 @@
 						if(serverMsgSet == nil)
 						{
 							@throw [NSException exceptionWithName:@"FailureRetrievingMsgSet" 
-								reason:@"Failure retrievig message set for folder" userInfo:nil];
+								reason:@"Failure retrieving message set for folder" userInfo:nil];
 						}
 						
 						for(CTCoreMessage *msg in serverMsgSet)
@@ -156,6 +156,13 @@
 					}
 					NSLog(@"Done retrieving message headers: %@",folderName);
 					NSLog(@"-------");
+                    
+                    // Retrieving the message headers causes the MailCore library to connect to the
+                    // current folder. If there are multiple folders, an exception is sometimes thrown
+                    // if no steps are taken to disconnect the from the folder after retrieving the
+                    // message headers. The necessity for this disconnect was found using the
+                    // "StressTestSyncAndDelete" test case.
+                    [currFolder disconnect];
 				} // If folder is synchronized
 				else 
 				{
