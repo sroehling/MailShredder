@@ -5,7 +5,7 @@ The following is a list of libraries and their SHA1's.
 Library              | SHA1
 ---------------------|-----------------------------------------
 MailCore             | a182d018ae006e5ddf6c243d3583ae6eb09b05bf
-ResultraGenericLib   | 8dbf541019b3009a75bec87db6b374244ca8726d
+ResultraGenericLib   | da39ca397670c0189ea48c58c1c3640a3a073e76
 
 If newer versions of the libraries are integrated, this list should be updated. 
 The SHA1 for a library can be shown by going to the top-level directory of 

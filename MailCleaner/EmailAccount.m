@@ -35,7 +35,7 @@ NSInteger const EMAIL_ACCOUNT_DEFAULT_PORT_NOSSL = 143;
 
 NSString * const EMAIL_ACCOUNT_KEYCHAIN_PREFIX = @"EmailAccountLoginInfo";
 
-NSUInteger const EMAIL_ACCOUNT_DEFAULT_MAX_SYNC_MSGS = 10000;
+NSUInteger const EMAIL_ACCOUNT_DEFAULT_MAX_SYNC_MSGS = 5000;
 
 
 @implementation EmailAccount

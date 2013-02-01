@@ -2,7 +2,6 @@
 
 1. Update Version Numbers
   1. In AppStoreInfo.md
-  2. In the App Store listing.
   3. In the project settings.
 
 2. Double-check the test account provided in the review notes.  
@@ -17,6 +16,7 @@ be populated with some messages.
   
 6. In iTunes Connect, create the new version
   * Cut and paste the "What's changed" information from AppStoreInfo.md
+  * Use the same version number as was changed in step 1.
   * Update the copyright, if the year has changed.
 
 7. Final Testing

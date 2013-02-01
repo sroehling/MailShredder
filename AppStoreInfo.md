@@ -9,7 +9,7 @@ MAILSHREDDER_2012_0001
 
 ## Version Number
 
-1.0.2
+1.0.3
 
 ## Copyright:
 
@@ -82,3 +82,7 @@ Periodically prompt to optionally submit an app review. In the settings, also in
 • Quick setup for Yahoo email accounts (already supported for Gmail and iCloud).
 • Minor refinements and bug fixes.
 
+### Version 1.0.3
+
+• Especially for email accounts with large numbers of messages, improve the performance to download (synchronize) message headers.
+• Fixed a bug relating to the synchronizing of message headers when multiple email folders are synchronized.
