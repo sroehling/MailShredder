@@ -11,6 +11,15 @@
 #import "MailDeleteOperation.h"
 
 @interface TestMailDeleteProgressDelegate : NSObject <MailDeleteProgressDelegate> {
+    @private
+        BOOL logDeletedMsgs;
+        NSUInteger numDeletedMsgs;
+    
 }
+
+@property BOOL logDeletedMsgs;
+@property NSUInteger numDeletedMsgs;
+
+-(void)reset;
 
 @end

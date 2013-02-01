@@ -17,13 +17,13 @@
 @interface StressTestSyncAndDelete : SenTestCase
 {
     @private
-        SharedAppVals *testAppVals;
+        SharedAppVals *appValsForTest;
         DataModelController *appDataDmc;
         TestMailSyncProgressDelegate *progressDelegate;
         TestMailDeleteProgressDelegate *deleteProgressDelegate;
 }
 
-@property(nonatomic,retain) SharedAppVals *testAppVals;
+@property(nonatomic,retain) SharedAppVals *appValsForTest;
 @property(nonatomic,retain) DataModelController *appDataDmc;
 @property(nonatomic,retain) TestMailSyncProgressDelegate *progressDelegate;
 @property(nonatomic,retain) TestMailDeleteProgressDelegate *deleteProgressDelegate;

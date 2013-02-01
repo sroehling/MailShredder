@@ -7,8 +7,28 @@
 //
 
 #import "TestMailSyncProgressDelegate.h"
+#import "DateHelper.h"
 
 @implementation TestMailSyncProgressDelegate
+
+@synthesize logMsgSyncCompletion;
+@synthesize numMsgsSynced;
+
+-(id)init
+{
+    self = [super init];
+    if(self)
+    {
+        [self reset];
+    }
+    return self;
+}
+
+-(void)reset
+{
+    self.logMsgSyncCompletion = FALSE;
+    self.numMsgsSynced = 0;
+}
 
 -(void)mailServerConnectionStarted
 {
@@ -28,6 +48,22 @@
 
 -(void)mailSyncUpdateProgress:(CGFloat)percentProgress
 {
+}
+
+-(void)msgSyncComplete:(CTCoreMessage*)msg
+{
+    if(self.logMsgSyncCompletion)
+    {
+		NSString *dateStr =  [[DateHelper theHelper].longDateFormatter stringFromDate:msg.sentDateGMT];
+ 		NSString *senderDateStr = [[DateHelper theHelper].longDateFormatter stringFromDate:msg.senderDate];
+        
+		NSLog(@"Msg Sync Complete: UID=%d sequence #  = %d sender date=%@, gmt date=%@, subj=%@, sender=%@",
+              msg.uid, msg.sequenceNumber,
+              senderDateStr,dateStr,msg.sender.email,msg.sender.email);
+        
+    }
+    numMsgsSynced ++;
+    
 }
 
 -(void)mailServerConnectionTeardownStarted

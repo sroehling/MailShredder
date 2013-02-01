@@ -186,6 +186,11 @@ NSUInteger const MAIL_SYNC_NEW_MSGS_SAVE_THRESHOLD = 1000;
 	{
 		[self.connectionContext saveLocalChanges];
 	}
+    
+    if([self.progressDelegate respondsToSelector:@selector(msgSyncComplete:)])
+    {
+        [self.progressDelegate msgSyncComplete:msg];
+    }
 	
 }
 

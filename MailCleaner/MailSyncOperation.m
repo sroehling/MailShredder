@@ -23,6 +23,7 @@
 #import "AppHelper.h"
 #import "AppDelegate.h"
 #import "MsgSyncPriorityList.h"
+#import "SyncHelper.h"
 
 
 @implementation MailSyncOperation
@@ -63,30 +64,62 @@
 	[syncFailedAlert show];
 }
 
--(BOOL)isWellFormedCoreMsg:(CTCoreMessage*)msg
+
+
+
+-(NSArray*)retrieveServerMsgHeaderSetForFolder:(CTCoreFolder*)currFolder
+                    andTotalMsgsAllFolders:(NSUInteger)totalMsgsAllFolders
+                    andMaxMsgsToSync:(NSUInteger)maxMsgsSyncAllFolders
+                           andSyncOldMsgsFirst:(BOOL)doSyncOldMsgsFirst
 {
-	if((msg.sentDateGMT != nil) &&
-		(msg.sender.email != nil) && (msg.sender.email.length > 0))
-	{
-		return TRUE;
-	}
-	else
-	{
-		NSString *dateStr = (msg.sentDateGMT!=nil)?
-			[[DateHelper theHelper].longDateFormatter stringFromDate:msg.sentDateGMT]:
-			@"[GMT Date Missing]";
-		NSString *senderDateStr = (msg.senderDate != nil)?
-			[[DateHelper theHelper].longDateFormatter stringFromDate:msg.senderDate]:
-			@"[Sender Date Missing]";
-		NSString *senderStr = (msg.sender.email != nil)?msg.sender.email:@"[sender missing]";
-		
-		NSString *subjectStr = (msg.subject != nil)?msg.subject:@"[Subject Missing]";
-			
-		NSLog(@"Skipping sync for malformed message: sender date=%@, gmt date=%@, subj=%@, sender=%@",
-			senderDateStr,dateStr,subjectStr,senderStr);
-			
-		return FALSE;
-	}
+    
+    [currFolder connect];
+
+    NSUInteger folderMessageCount = [SyncHelper folderMsgCount:currFolder];
+ 
+    NSUInteger numMsgsToSyncInFolder = [SyncHelper countOfMsgsToSyncForFolderWithMsgCount:folderMessageCount
+                andTotalMsgCountAllFolders:totalMsgsAllFolders andMaxMsgsToSync:maxMsgsSyncAllFolders];
+    
+    NSArray *serverMsgSet;
+    
+    if(numMsgsToSyncInFolder > 0)
+    {
+        NSLog(@"Retrieving message headers: %@",currFolder.path);
+        
+        NSUInteger startSeqNum, stopSeqNum;
+        [SyncHelper calcSequenceNumbersForSyncWithTotalFolderMsgCount:folderMessageCount
+            andMsgsToSyncInFolder:numMsgsToSyncInFolder andSyncOldMsgsFirst:doSyncOldMsgsFirst
+            andStartSeqNum:&startSeqNum andStopSeqNum:&stopSeqNum];
+   
+         NSArray *retrievedMsgSet = [currFolder messagesFromSequenceNumber:startSeqNum to:stopSeqNum
+                        withFetchAttributes:CTFetchAttrEnvelope];
+        
+        NSLog(@"Done retrieving message headers: %@",currFolder.path);
+        NSLog(@"-------");
+        
+        // When the folder is disconnected, the array containing the returned
+        // message set is emptied.
+        serverMsgSet = [NSArray arrayWithArray:retrievedMsgSet];
+        
+        if(serverMsgSet == nil)
+        {
+            @throw [NSException exceptionWithName:@"FailureRetrievingMsgSet"
+                                           reason:@"Failure retrieving message set for folder" userInfo:nil];
+        }
+    }
+    else
+    {
+        serverMsgSet = [[[NSArray alloc] init] autorelease];
+    }
+    
+    // Retrieving the message headers causes the MailCore library to connect to the
+    // current folder. If there are multiple folders, an exception is sometimes thrown
+    // if no steps are taken to disconnect the from the folder after retrieving the
+    // message headers. The necessity for this disconnect was found using the
+    // "StressTestSyncAndDelete" test case.
+    [currFolder disconnect];
+    
+   return serverMsgSet;
 }
 
 -(void)main
@@ -95,21 +128,28 @@
 	
 	if([self.connectionContext establishConnection])
 	{
-		FolderSyncContext *folderSyncContext = [[FolderSyncContext alloc] 
-					initWithConnectionContext:self.connectionContext];
-		MsgSyncContext *msgSyncContext = [[MsgSyncContext alloc] 
-					initWithConnectionContext:self.connectionContext
-					andTotalExpectedMsgs:[folderSyncContext totalServerMsgCountInAllFolders]
-					andProgressDelegate:self.syncProgressDelegate];
-		NSSet *allFoldersOnServer = [[self.connectionContext.mailAcct allFolders] retain];
 		
-		EmailAccount *syncEmailAcct = self.connectionContext.acctInSyncObjectContext;
-		NSUInteger maxSyncMsgs = [syncEmailAcct.maxSyncMsgs unsignedIntegerValue];
-		BOOL syncOldMsgsFirst = [syncEmailAcct.syncOldMsgsFirst boolValue];
-		MsgSyncPriorityList *msgSyncPriorityList =
-			[[MsgSyncPriorityList alloc] initWithMaxMsgsToSync:maxSyncMsgs
-			andSyncOlderMsgsFirst:syncOldMsgsFirst];
-		
+        FolderSyncContext *folderSyncContext = [[FolderSyncContext alloc]
+                        initWithConnectionContext:self.connectionContext];
+        NSUInteger totalMsgCountAllSynchronizedFolders =
+                [folderSyncContext totalServerMsgCountInAllFolders];
+        
+        
+        MsgSyncContext *msgSyncContext = [[MsgSyncContext alloc]
+                  initWithConnectionContext:self.connectionContext
+                  andTotalExpectedMsgs:totalMsgCountAllSynchronizedFolders
+                  andProgressDelegate:self.syncProgressDelegate];
+        
+        NSSet *allFoldersOnServer = [[self.connectionContext.mailAcct allFolders] retain];
+        
+        EmailAccount *syncEmailAcct = self.connectionContext.acctInSyncObjectContext;
+        
+        NSUInteger maxSyncMsgs = [syncEmailAcct.maxSyncMsgs unsignedIntegerValue];
+        BOOL syncOldMsgsFirst = [syncEmailAcct.syncOldMsgsFirst boolValue];
+        
+        MsgSyncPriorityList *msgSyncPriorityList =
+                [[MsgSyncPriorityList alloc] initWithMaxMsgsToSync:maxSyncMsgs
+                andSyncOlderMsgsFirst:syncOldMsgsFirst];
 		@try
 		{
 		
@@ -125,44 +165,13 @@
 					
 				if([folderSyncContext folderIsSynchronized:folderName])
 				{
-					NSUInteger totalMessageCount;
-					if(![currFolder totalMessageCount:&totalMessageCount])
-					{
-						@throw [NSException exceptionWithName:@"FailureRetrievingFolderMsgCount" 
-							reason:@"Failure retrieving message count for folder" userInfo:nil];
-					}
-					NSLog(@"Retrieving message headers: %@ count = %d",folderName,totalMessageCount);
-				
-					if(totalMessageCount > 0)
-					{
-						NSArray *serverMsgSet = [currFolder messagesFromUID:1 to:0 withFetchAttributes:CTFetchAttrEnvelope];
-						if(serverMsgSet == nil)
-						{
-							@throw [NSException exceptionWithName:@"FailureRetrievingMsgSet" 
-								reason:@"Failure retrieving message set for folder" userInfo:nil];
-						}
-						
-						for(CTCoreMessage *msg in serverMsgSet)
-						{
-							// Add the CTCoreMessage object msg
-							// to a sorted list of messages. The messages are sorted in chronological
-							// order, so only the most recent EmailInfo objects, up to a maximum, will be
-							// cached locally and presented to the user.
-							if([self isWellFormedCoreMsg:msg])
-							{
-								[msgSyncPriorityList addMsg:msg];
-							}
-						} // For each message in the folder
-					}
-					NSLog(@"Done retrieving message headers: %@",folderName);
-					NSLog(@"-------");
                     
-                    // Retrieving the message headers causes the MailCore library to connect to the
-                    // current folder. If there are multiple folders, an exception is sometimes thrown
-                    // if no steps are taken to disconnect the from the folder after retrieving the
-                    // message headers. The necessity for this disconnect was found using the
-                    // "StressTestSyncAndDelete" test case.
-                    [currFolder disconnect];
+					NSArray *serverMsgSet = [self retrieveServerMsgHeaderSetForFolder:currFolder
+                                            andTotalMsgsAllFolders:totalMsgCountAllSynchronizedFolders
+                                            andMaxMsgsToSync:maxSyncMsgs andSyncOldMsgsFirst:syncOldMsgsFirst];
+                    [msgSyncPriorityList addWellFormedMsgs:serverMsgSet];
+ 
+                     
 				} // If folder is synchronized
 				else 
 				{

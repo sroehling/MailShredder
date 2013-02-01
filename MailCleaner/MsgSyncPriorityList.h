@@ -23,6 +23,8 @@
 	andSyncOlderMsgsFirst:(BOOL)doSyncOlderMsgsFirst;
 
 -(void)addMsg:(CTCoreMessage*)candidateMsgForSync;
+-(void)addWellFormedMsgs:(NSArray*)coreMsgs;
+
 -(NSArray*)syncMsgsSortedByFolder;
 
 @end

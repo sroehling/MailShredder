@@ -10,6 +10,7 @@
 
 @protocol MailDeleteProgressDelegate;
 @class MailDeleteCompletionInfo;
+@class EmailInfo;
 
 @interface MailDeleteOperation : MailOperation
 {
@@ -31,5 +32,6 @@
 @optional
 	-(void)mailDeleteUpdateProgress:(CGFloat)percentProgress;
 	-(void)mailDeleteComplete:(BOOL)completeStatus withCompletionInfo:(MailDeleteCompletionInfo*)mailDeleteCompletionInfo;
+    -(void)mailDeleteMsgComplete:(EmailInfo*)deletedMsg;
 
 @end

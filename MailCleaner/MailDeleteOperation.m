@@ -310,6 +310,14 @@
 		[self deleteCoreMsgs:msgsConfirmedForDeleteAfterMoving fromFolder:deleteDestFolder];
 		
 	}
+    
+    if([self.deleteProgressDelegate respondsToSelector:@selector(mailDeleteMsgComplete:)])
+    {
+        for (EmailInfo *deletedMsg in emailInfoMsgsToDelete)
+        {
+            [self.deleteProgressDelegate mailDeleteMsgComplete:deletedMsg];
+        }
+    }
 
 	// Delete the local EmailInfo objects for the messages just deleted
 	[self.connectionContext.syncDmc deleteObjects:[emailInfoMsgsToDelete allObjects]];

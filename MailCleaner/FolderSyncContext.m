@@ -10,6 +10,7 @@
 #import "EmailAccount.h"
 #import "MailSyncConnectionContext.h"
 #import "DataModelController.h"
+#import "SyncHelper.h"
 
 @implementation FolderSyncContext
 
@@ -68,13 +69,7 @@
 			CTCoreFolder *currFolder = [self.connectionContext.mailAcct
 				folderWithPath:folderName];
 			
-			NSUInteger messagesInFolder;
-			if(![currFolder totalMessageCount:&messagesInFolder])
-			{
-				@throw [NSException exceptionWithName:@"FailureRetrievingFolderMsgCount" 
-					reason:@"Failure retrievig message count for folder" userInfo:nil];
-			}
-			NSLog(@"total messages in folder %@:%d",folderName,messagesInFolder);
+			NSUInteger messagesInFolder = [SyncHelper folderMsgCount:currFolder];
 		
 			totalMsgs += messagesInFolder;
 			

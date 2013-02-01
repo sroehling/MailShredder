@@ -64,6 +64,50 @@ static NSString * const CORE_MSG_SORT_BY_FOLDER_KEY_PATH = @"parentFolder.path";
  	}
 }
 
+-(BOOL)isWellFormedCoreMsg:(CTCoreMessage*)msg
+{
+	if((msg.sentDateGMT != nil) &&
+       (msg.sender.email != nil) && (msg.sender.email.length > 0))
+	{
+		return TRUE;
+	}
+	else
+	{
+		NSString *dateStr = (msg.sentDateGMT!=nil)?
+        [[DateHelper theHelper].longDateFormatter stringFromDate:msg.sentDateGMT]:
+        @"[GMT Date Missing]";
+		NSString *senderDateStr = (msg.senderDate != nil)?
+        [[DateHelper theHelper].longDateFormatter stringFromDate:msg.senderDate]:
+        @"[Sender Date Missing]";
+		NSString *senderStr = (msg.sender.email != nil)?msg.sender.email:@"[sender missing]";
+		
+		NSString *subjectStr = (msg.subject != nil)?msg.subject:@"[Subject Missing]";
+        
+		NSLog(@"Skipping sync for malformed message: sender date=%@, gmt date=%@, subj=%@, sender=%@",
+              senderDateStr,dateStr,subjectStr,senderStr);
+        
+		return FALSE;
+	}
+}
+
+
+-(void)addWellFormedMsgs:(NSArray*)coreMsgs
+{
+    assert(coreMsgs != nil);
+    for(CTCoreMessage *msg in coreMsgs)
+    {
+        // Add the CTCoreMessage object msg
+        // to a sorted list of messages. The messages are sorted in chronological
+        // order, so only the most recent EmailInfo objects, up to a maximum, will be
+        // cached locally and presented to the user.
+        if([self isWellFormedCoreMsg:msg])
+        {
+            [self addMsg:msg];
+        }
+    } // For each message in the folder
+
+}
+
 -(NSArray*)syncMsgsSortedByFolder
 {
 	[self resortMsgList];

@@ -33,10 +33,12 @@
 
 static NSUInteger const MAX_MSGS_PER_DELETE_OPERATION = 500;
 static NSUInteger const MAX_MSGS_TO_CACHE_FROM_SYNC = 1000;
+static NSString * const TEST_YAHOO_EMAIL_ACCT_PASSWORD
+        = @"TEMPORARILY_CHANGE_TO_REAL_PASSWORD_BEFORE_RUNNING_TEST";
 
 @implementation StressTestSyncAndDelete
 
-@synthesize testAppVals;
+@synthesize appValsForTest;
 @synthesize appDataDmc;
 @synthesize progressDelegate;
 @synthesize deleteProgressDelegate;
@@ -51,38 +53,19 @@ static NSUInteger const MAX_MSGS_TO_CACHE_FROM_SYNC = 1000;
 }
 
 
--(void)resetCoreData
+-(void)resetCoreDataAndTestProgressDelegates
 {
       
  	self.appDataDmc = [[[DataModelController alloc]
                         initForInMemoryStorageWithDataModelNamed:APP_DATA_DATA_MODEL_NAME
                         andStoreNamed:APP_DATA_STORE_NAME] autorelease];
      
- 	self.testAppVals = [SharedAppVals createWithDataModelController:self.appDataDmc];
+ 	self.appValsForTest = [SharedAppVals createWithDataModelController:self.appDataDmc];
     [self.appDataDmc saveContext];
-    [self.testAppVals.managedObjectContext setMergePolicy:NSMergeByPropertyStoreTrumpMergePolicy];
+    [self.appValsForTest.managedObjectContext setMergePolicy:NSMergeByPropertyStoreTrumpMergePolicy];
 
-	
-	EmailAccount *testAcct = [EmailAccount defaultNewEmailAcctWithDataModelController:self.appDataDmc];
-	testAcct.userName = @"testimapuser@debianvm.local";
-	testAcct.imapServer = @"debianvm";
-	testAcct.emailAddress = @"testimapuser@debianvm.local";
-	testAcct.acctName = @"Test Account";
-    testAcct.portNumber = [NSNumber numberWithInteger:143];
-    testAcct.useSSL = [NSNumber numberWithBool:FALSE];
-    [testAcct.passwordFieldInfo setFieldValue:@"pass"];
-    
-    EmailFolder *inboxFolder = [appDataDmc insertObject:EMAIL_FOLDER_ENTITY_NAME];
-    inboxFolder.folderName = @"INBOX";
-    inboxFolder.folderAccount = testAcct;
- //   [testAcct addOnlySyncFoldersObject:inboxFolder];
-    
-    testAcct.maxSyncMsgs = [NSNumber numberWithUnsignedInteger:MAX_MSGS_TO_CACHE_FROM_SYNC];
-
-	
-	self.testAppVals.currentEmailAcct = testAcct;
-    
-    [self.appDataDmc saveContext];
+	[self.progressDelegate reset];
+    [self.deleteProgressDelegate reset];
     
 }
 
@@ -97,14 +80,14 @@ static NSUInteger const MAX_MSGS_TO_CACHE_FROM_SYNC = 1000;
                                               initWithConnectionContext:syncConnectionContext
                                               andProgressDelegate:self.progressDelegate] autorelease];
     
-    NSLog(@"SYNC: Emails in account before sync: %d",self.testAppVals.currentEmailAcct.emailsInAcct.count);
+    NSLog(@"SYNC: Emails in account before sync: %d",self.appValsForTest.currentEmailAcct.emailsInAcct.count);
     NSLog(@"SYNC: Total count of emails cached locally before sync: %d",
           [CoreDataHelper countObjectsForEntityName:EMAIL_INFO_ENTITY_NAME
                               inManagedObectContext:self.appDataDmc.managedObjectContext]);
     
     [syncOperation main];
     
-    NSLog(@"SYNC: Emails in account after sync: %d",self.testAppVals.currentEmailAcct.emailsInAcct.count);
+    NSLog(@"SYNC: Emails in account after sync: %d",self.appValsForTest.currentEmailAcct.emailsInAcct.count);
     
     NSUInteger msgsCachedLocally = [CoreDataHelper countObjectsForEntityName:EMAIL_INFO_ENTITY_NAME
                                                        inManagedObectContext:self.appDataDmc.managedObjectContext];
@@ -124,7 +107,7 @@ static NSUInteger const MAX_MSGS_TO_CACHE_FROM_SYNC = 1000;
           initWithMainThreadDmc:self.appDataDmc
           andProgressDelegate:self.progressDelegate] autorelease];
 	
-    NSLog(@"DELETE: Emails in account before delete: %d",self.testAppVals.currentEmailAcct.emailsInAcct.count);
+    NSLog(@"DELETE: Emails in account before delete: %d",self.appValsForTest.currentEmailAcct.emailsInAcct.count);
     
     NSLog(@"DELETE: Total count of emails cached locally before delete: %d",
           [CoreDataHelper countObjectsForEntityName:EMAIL_INFO_ENTITY_NAME
@@ -138,7 +121,7 @@ static NSUInteger const MAX_MSGS_TO_CACHE_FROM_SYNC = 1000;
     [deleteOperation main];
 
     
-    NSLog(@"DELETE: Emails in account after delete: %d",self.testAppVals.currentEmailAcct.emailsInAcct.count);
+    NSLog(@"DELETE: Emails in account after delete: %d",self.appValsForTest.currentEmailAcct.emailsInAcct.count);
 
     NSLog(@"DELETE: Total count of emails cached locally after delete: %d",
           [CoreDataHelper countObjectsForEntityName:EMAIL_INFO_ENTITY_NAME
@@ -147,22 +130,24 @@ static NSUInteger const MAX_MSGS_TO_CACHE_FROM_SYNC = 1000;
     
 }
 
--(NSUInteger)markEmailBatchForDeletion
+-(NSUInteger)markEmailBatchForDeletionWithBatchSize:(NSUInteger)deleteBatchSize
 {
-    if(self.testAppVals.currentEmailAcct.emailsInAcct.count <= 0)
+    assert(deleteBatchSize > 0);
+    
+    if(self.appValsForTest.currentEmailAcct.emailsInAcct.count <= 0)
     {
         return 0;
     }
     
     NSUInteger numMsgsDeleted = 0;
-    for (EmailInfo *info in self.testAppVals.currentEmailAcct.emailsInAcct)
+    for (EmailInfo *info in self.appValsForTest.currentEmailAcct.emailsInAcct)
     {
         
         info.deleted = [NSNumber numberWithBool:TRUE];
         
         numMsgsDeleted++;
         
-        if (numMsgsDeleted >= MAX_MSGS_PER_DELETE_OPERATION)
+        if (numMsgsDeleted >= deleteBatchSize)
         {
             [self.appDataDmc saveContext];
             return numMsgsDeleted;
@@ -173,51 +158,140 @@ static NSUInteger const MAX_MSGS_TO_CACHE_FROM_SYNC = 1000;
     return numMsgsDeleted;
 }
 
--(NSUInteger)markAndDeleteBatchOfEmails
+-(NSUInteger)markAndDeleteBatchOfEmailsWithBatchSize:(NSUInteger)deleteBatchSize
 {
-    NSUInteger numMsgsMarkedForDeletion = [self markEmailBatchForDeletion];
+    NSUInteger numMsgsMarkedForDeletion = [self markEmailBatchForDeletionWithBatchSize:deleteBatchSize];
     if(numMsgsMarkedForDeletion > 0)
     {
         NSLog(@"DELETE: %d of %d messages marked for deletion",
               numMsgsMarkedForDeletion,
-              self.testAppVals.currentEmailAcct.emailsInAcct.count);
+              self.appValsForTest.currentEmailAcct.emailsInAcct.count);
         [self deleteMarkedMsgsOnTestServer];
         NSLog(@"DELETE: %d messages remain after deletion",
-              self.testAppVals.currentEmailAcct.emailsInAcct.count);
+              self.appValsForTest.currentEmailAcct.emailsInAcct.count);
       
     }
     
     return numMsgsMarkedForDeletion;
 }
 
--(void)testSyncAndDeleteWithTestServer
+-(void)syncAndDeleteAllMsgsInCurrentlyConfiguredTestAcctWithBatchSize:(NSUInteger)deleteBatchSize
 {
-    NSLog(@"Stress testing against test server");
-    
-    [self resetCoreData];
-    
     NSUInteger msgsCachedLocallyForDeletion = [self syncWithTestServer];
     while(msgsCachedLocallyForDeletion > 0)
     {
         // delete all the messages retrieved via the sync
-        NSUInteger msgsDeleted = [self markAndDeleteBatchOfEmails];
+        NSUInteger msgsDeleted = [self markAndDeleteBatchOfEmailsWithBatchSize:deleteBatchSize];
         while(msgsDeleted > 0)
         {
-            msgsDeleted = [self markAndDeleteBatchOfEmails];
+            msgsDeleted = [self markAndDeleteBatchOfEmailsWithBatchSize:deleteBatchSize];
         }
         
         // re-sync with server to get more messages
         msgsCachedLocallyForDeletion =  [self syncWithTestServer];
     }
     
+    NSLog(@"TOTAL Messages Synced: %d",self.progressDelegate.numMsgsSynced);
+    NSLog(@"TOTAL Messages Deleted: %d",self.deleteProgressDelegate.numDeletedMsgs);
+
 }
+
+-(EmailAccount *)setupTestEmailAcct:(NSString *)acctName
+               imapServer:(NSString*)imapSrv
+                emailAddr:(NSString*)addr userName:(NSString*)userName
+                 password:(NSString*)passwd
+                   useSSL:(BOOL)doUseSSL portNum:(NSUInteger)portNum
+                maxSyncMsgs:(NSUInteger)maxSync
+{
+	EmailAccount *testAcct = [EmailAccount defaultNewEmailAcctWithDataModelController:self.appDataDmc];
+	testAcct.userName = userName;
+	testAcct.imapServer =imapSrv;
+	testAcct.emailAddress = addr;
+	testAcct.acctName = acctName;
+    testAcct.portNumber = [NSNumber numberWithInteger:portNum];
+    testAcct.useSSL = [NSNumber numberWithBool:doUseSSL];
+    [testAcct.passwordFieldInfo setFieldValue:passwd];
+    
+    testAcct.maxSyncMsgs = [NSNumber numberWithUnsignedInteger:maxSync];
+
+    self.appValsForTest.currentEmailAcct = testAcct;
+    
+    [self.appDataDmc saveContext];
+    
+    return testAcct;
+}
+
+//-----------------------------------------------------------------------------------------------
+// This test will test the deletion of all messages from a test server. Before running this test
+// the test Dovecot IMAP server needs to be up and running in a virtual machine, and
+// a test mailbox needs to be created and populated, as follows:
+//
+// % cd /home/vmail/testimapuser\@debianvm.local/
+// % ~sroehling/MailCleanerTestImapServer/testScripts/gentestmbox.pl --subjprefix=INBOXMSGS\
+//               --nummsgs=1000 > INBOX ; chown vmail:vmail INBOX
+//-----------------------------------------------------------------------------------------------
+-(void)testSyncAndDeleteWithTestServer
+{
+    NSLog(@"Stress testing against test server");
+    
+    [self resetCoreDataAndTestProgressDelegates];
+    
+    
+   	EmailAccount *testAcct = [self setupTestEmailAcct:@"Test Account"
+            imapServer:@"debianvm"
+            emailAddr:@"testimapuser@debianvm.local" userName:@"testimapuser@debianvm.local"
+            password:@"pass"
+            useSSL:FALSE portNum:EMAIL_ACCOUNT_DEFAULT_PORT_NOSSL
+            maxSyncMsgs:MAX_MSGS_TO_CACHE_FROM_SYNC];
+  
+    EmailFolder *inboxFolder = [appDataDmc insertObject:EMAIL_FOLDER_ENTITY_NAME];
+    inboxFolder.folderName = @"INBOX";
+    inboxFolder.folderAccount = testAcct;
+    [testAcct addOnlySyncFoldersObject:inboxFolder];
+    
+    // Set the line below to TRUE to print via NSLog details on each message that is synchronized.
+//    self.progressDelegate.logMsgSyncCompletion = TRUE;
+//    self.deleteProgressDelegate.logDeletedMsgs = TRUE;
+    self.progressDelegate.logMsgSyncCompletion = FALSE;
+    self.deleteProgressDelegate.logDeletedMsgs = FALSE;
+    
+    [self.appDataDmc saveContext];
+    
+    [self syncAndDeleteAllMsgsInCurrentlyConfiguredTestAcctWithBatchSize:MAX_MSGS_PER_DELETE_OPERATION];
+    
+}
+
+-(void)testSyncAndDeleteWithYahooServer
+{
+    NSLog(@"Stress testing against test server");
+    
+    [self resetCoreDataAndTestProgressDelegates];
+    
+ 	EmailAccount *testAcct = [self setupTestEmailAcct:@"Yahoo"
+        imapServer:@"imap.mail.yahoo.com"
+        emailAddr:@"sroehling@yahoo.com" userName:@"sroehling@yahoo.com" 
+        password:TEST_YAHOO_EMAIL_ACCT_PASSWORD
+        useSSL:TRUE portNum:EMAIL_ACCOUNT_DEFAULT_PORT_SSL
+        maxSyncMsgs:50];
+    
+    // Limit deletion to the Inbox
+    EmailFolder *inboxFolder = [appDataDmc insertObject:EMAIL_FOLDER_ENTITY_NAME];
+    inboxFolder.folderName = @"Inbox";
+    inboxFolder.folderAccount = testAcct;
+    [testAcct addOnlySyncFoldersObject:inboxFolder];
+    [self.appDataDmc saveContext];
+
+    [self syncAndDeleteAllMsgsInCurrentlyConfiguredTestAcctWithBatchSize:10];
+    
+}
+
 
 - (void)tearDown
 {
     // Tear-down code here.
 	
 	[appDataDmc release];
-	[testAppVals release];
+	[appValsForTest release];
     [progressDelegate release];
     [deleteProgressDelegate release];
     

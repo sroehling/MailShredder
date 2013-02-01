@@ -133,6 +133,8 @@
 		00B6DAA51604F06700C3B5EC /* appicon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B6DAA21604F06700C3B5EC /* appicon-72.png */; };
 		00B6DAA61604F06700C3B5EC /* appicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B6DAA31604F06700C3B5EC /* appicon@2x.png */; };
 		00BF835716B6E41C0029C4D9 /* TestMailDeleteProgressDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 00BF835616B6E41C0029C4D9 /* TestMailDeleteProgressDelegate.m */; };
+		00BF836216B9A7DF0029C4D9 /* TestSyncHelperMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 00BF836116B9A7DF0029C4D9 /* TestSyncHelperMethods.m */; };
+		00BF836516B9A8710029C4D9 /* SyncHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 00BF836416B9A8710029C4D9 /* SyncHelper.m */; };
 		00C1566D16B3231200D7899D /* StressTestSyncAndDelete.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C1566C16B3231200D7899D /* StressTestSyncAndDelete.m */; };
 		00C1567016B32F8200D7899D /* TestMailSyncProgressDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C1566F16B32F8200D7899D /* TestMailSyncProgressDelegate.m */; };
 		00C4AB141581784900E0868A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C4AB131581784900E0868A /* CFNetwork.framework */; };
@@ -479,6 +481,10 @@
 		00B6DAA31604F06700C3B5EC /* appicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appicon@2x.png"; sourceTree = "<group>"; };
 		00BF835516B6E41C0029C4D9 /* TestMailDeleteProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMailDeleteProgressDelegate.h; sourceTree = "<group>"; };
 		00BF835616B6E41C0029C4D9 /* TestMailDeleteProgressDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestMailDeleteProgressDelegate.m; sourceTree = "<group>"; };
+		00BF836016B9A7DF0029C4D9 /* TestSyncHelperMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestSyncHelperMethods.h; sourceTree = "<group>"; };
+		00BF836116B9A7DF0029C4D9 /* TestSyncHelperMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSyncHelperMethods.m; sourceTree = "<group>"; };
+		00BF836316B9A8710029C4D9 /* SyncHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncHelper.h; sourceTree = "<group>"; };
+		00BF836416B9A8710029C4D9 /* SyncHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncHelper.m; sourceTree = "<group>"; };
 		00C1566B16B3231200D7899D /* StressTestSyncAndDelete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StressTestSyncAndDelete.h; sourceTree = "<group>"; };
 		00C1566C16B3231200D7899D /* StressTestSyncAndDelete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StressTestSyncAndDelete.m; sourceTree = "<group>"; };
 		00C1566E16B32F8100D7899D /* TestMailSyncProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMailSyncProgressDelegate.h; sourceTree = "<group>"; };
@@ -685,6 +691,8 @@
 				00C1566F16B32F8200D7899D /* TestMailSyncProgressDelegate.m */,
 				00BF835516B6E41C0029C4D9 /* TestMailDeleteProgressDelegate.h */,
 				00BF835616B6E41C0029C4D9 /* TestMailDeleteProgressDelegate.m */,
+				00BF836016B9A7DF0029C4D9 /* TestSyncHelperMethods.h */,
+				00BF836116B9A7DF0029C4D9 /* TestSyncHelperMethods.m */,
 			);
 			name = "MailShredder Tests";
 			path = MailCleanerTests;
@@ -1225,6 +1233,8 @@
 				007860CE15DD99F600DC333B /* FolderSyncContext.m */,
 				008FE30F15D57D850066A75D /* MailSyncOperation.h */,
 				008FE31015D57D850066A75D /* MailSyncOperation.m */,
+				00BF836316B9A8710029C4D9 /* SyncHelper.h */,
+				00BF836416B9A8710029C4D9 /* SyncHelper.m */,
 			);
 			name = "Mail Sync";
 			sourceTree = "<group>";
@@ -1683,6 +1693,7 @@
 				00AFA812161CA7350030EC20 /* SentReceivedFilterFieldEditInfo.m in Sources */,
 				00AFA815161CAC420030EC20 /* SentReceivedFilterFormInfoCreator.m in Sources */,
 				00F5BDDC1629154C0033CC31 /* MsgSyncPriorityList.m in Sources */,
+				00BF836516B9A8710029C4D9 /* SyncHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1694,6 +1705,7 @@
 				00C1566D16B3231200D7899D /* StressTestSyncAndDelete.m in Sources */,
 				00C1567016B32F8200D7899D /* TestMailSyncProgressDelegate.m in Sources */,
 				00BF835716B6E41C0029C4D9 /* TestMailDeleteProgressDelegate.m in Sources */,
+				00BF836216B9A7DF0029C4D9 /* TestSyncHelperMethods.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

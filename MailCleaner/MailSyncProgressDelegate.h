@@ -14,5 +14,6 @@
 @optional
 	-(void)mailSyncUpdateProgress:(CGFloat)percentProgress;
 	-(void)mailSyncComplete:(BOOL)successfulCompletion;
+    -(void)msgSyncComplete:(CTCoreMessage*)msg;
 
 @end
