@@ -65,26 +65,9 @@ be populated with some messages.
      and current app folders. The differences should correspond to
      the expected changes.
 
-  2. Within the Xcode organizer, create an installable/ad-hoc build for testing the upate:
-     a. Select the same archive built for release
-     b. Press "Distribute ..."
-     c. Select "Save for Enterprise or ad-hoc development", and press "Next".
-     d. Select "iOS Team Provisioning Profile" as the code signing identity, then press "Next"
-     e. Save the resulting ".ipa" file to include the version number.
-     
-  3. Test the update, as a user would see it.
-     a. Delete the app on device used for testing (DUT).
-     b. Connect DUT to computer
-     c. Double-click on previous saved version of ".ipa" file. When iTunes prompts,
-        choose to replace the existing.
-     d. Setup the app with some data and account information.
-     d. Within iTunes, select to install the app, then re-sync the DUT with iTunes
-     e. Double-click on the current saved version of ".ipa" file, replacing
-        the previous one.
-     f. Within iTunes, select to install the app, then re-sync DUT with iTunes.
-        This will cause iTunes to update the app, just like it would for a user.
-     g. Re-launch the app and ensure the account and data are still correct and 
-        functioning after the update. Also test any new features.
+  2. Refer to the document "ManualTesting.md", which includes tests to
+     be performed on a the release build. This notably includes RELTEST-T01,
+     which is testing the update to ensure backward compatibility has been preserved.
 
 7. Within the Xcode organizer, validate and distribute/submit the archive for the App Store.
   

@@ -203,7 +203,7 @@ Post-conditions:
 2. The app should only download a number of messages, which is 
    equal to the maximum number of synchronized messages 
    for the account (5000 by default).
-   
+      
 ## General System Testing
 
 ### SYSTEST-T01: Release Build
@@ -215,6 +215,37 @@ memory management issues.
 
 The iPad 2 has dual cores, so it should operate a little more
 realistically than the iPhone 3GS with threading.
+
+
+## Release Testing
+
+## RELTEST-T01: Backward Compatibility
+
+Test Update From Prior Version on Device:
+
+1. Within the Xcode organizer, create an installable/ad-hoc build for testing the upate:
+    1. Select the same archive built for release
+    2. Press "Distribute ..."
+    3. Select "Save for Enterprise or ad-hoc development", and press "Next".
+    4. Select "iOS Team Provisioning Profile" as the code signing identity, then press "Next"
+    5. Save the resulting ".ipa" file to include the version number.
+ 
+2. Test the update, as a user would see it.
+    1. Delete the app on device used for testing (DUT).
+    2. Connect DUT to computer
+    3. Double-click on previous saved version of ".ipa" file. When iTunes prompts,
+       choose to replace the existing, from the apps list tell iTunes to
+       install the app. After the app is installed, the version installed
+       can be verified from the Settings app under "General->Usage".
+    4. Setup the app with some data and account information.
+    5. Within iTunes, select to install the app, then re-sync the DUT with iTunes
+    6. Double-click on the current saved version of ".ipa" file, replacing
+       the previous one.
+    7. Within iTunes, select to install the app, then re-sync DUT with iTunes.
+       This will cause iTunes to update the app, just like it would for a user.
+    8. Re-launch the app and ensure the account and data are still correct and
+       functioning after the update. Also test any new features.
+
 
 
 
