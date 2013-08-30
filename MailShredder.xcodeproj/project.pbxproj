@@ -374,6 +374,7 @@
 		005BA6F515E2B0F000D5D11C /* ImapAcctPreset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImapAcctPreset.m; sourceTree = "<group>"; };
 		005E6A8515647602004198B6 /* EmailInfoActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailInfoActionView.h; sourceTree = "<group>"; };
 		005E6A8615647602004198B6 /* EmailInfoActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailInfoActionView.m; sourceTree = "<group>"; };
+		00647B1817D156CC00537253 /* ConfigMgmtInfo.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = ConfigMgmtInfo.md; sourceTree = "<group>"; };
 		0065E3BB158920D500D59B2A /* SyncDesign.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = SyncDesign.md; sourceTree = "<group>"; };
 		00676244161DF0890015209D /* confirmDeleteBkg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = confirmDeleteBkg.png; sourceTree = "<group>"; };
 		00676246161E04200015209D /* confirmDeleteBkg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "confirmDeleteBkg@2x.png"; sourceTree = "<group>"; };
@@ -610,6 +611,7 @@
 		000566821562F94C003D114D = {
 			isa = PBXGroup;
 			children = (
+				00647B1717D156AC00537253 /* Build & Release Info */,
 				005992311652D58A000F49AC /* SystemConfiguration.framework */,
 				001576EE16248E5900CA7515 /* App Store */,
 				0065E3B91586A57400D59B2A /* Libs */,
@@ -735,8 +737,6 @@
 				002FCDDA1635C54D00EA5240 /* AppScreenshot2_iPhone5.png */,
 				002FCDDB1635C54D00EA5240 /* AppScreenshot3_iPhone5.png */,
 				002FCDDC1635C54D00EA5240 /* AppScreenshot4_iPhone5.png */,
-				0068FC351625D60500F246E5 /* ReleaseChecklist.md */,
-				006981641631C1FB00A1B2F9 /* releaseManifest.md */,
 			);
 			name = "App Store";
 			sourceTree = "<group>";
@@ -946,6 +946,16 @@
 				0059CEA9160239C600DDF6A8 /* SubjectFilterFormInfoCreator.m */,
 			);
 			name = "Subject Filter";
+			sourceTree = "<group>";
+		};
+		00647B1717D156AC00537253 /* Build & Release Info */ = {
+			isa = PBXGroup;
+			children = (
+				0068FC351625D60500F246E5 /* ReleaseChecklist.md */,
+				006981641631C1FB00A1B2F9 /* releaseManifest.md */,
+				00647B1817D156CC00537253 /* ConfigMgmtInfo.md */,
+			);
+			name = "Build & Release Info";
 			sourceTree = "<group>";
 		};
 		0065E3B91586A57400D59B2A /* Libs */ = {
@@ -1808,14 +1818,13 @@
 				GCC_PREFIX_HEADER = "MailCleaner/MailShredder-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/..\"/**",
-					"\"$(SRCROOT)/../MailCore/include\"/**",
+					"\"$(SRCROOT)/../MailCore\"/**",
 				);
 				INFOPLIST_FILE = "MailCleaner/MailShredder-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../MailCore/build/Release-iphoneos\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1829,14 +1838,13 @@
 				GCC_PREFIX_HEADER = "MailCleaner/MailShredder-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/..\"/**",
-					"\"$(SRCROOT)/../MailCore/include\"/**",
+					"\"$(SRCROOT)/../MailCore\"/**",
 				);
 				INFOPLIST_FILE = "MailCleaner/MailShredder-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../MailCore/build/Release-iphoneos\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
