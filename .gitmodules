@@ -1,0 +1,9 @@
+[submodule "lib/ResultraGenericLib"]
+	path = lib/ResultraGenericLib
+	url = git@macmini.local:/Users/git/ResultraGenericLib.git
+[submodule "lib/MailCore"]
+	path = lib/MailCore
+	url = https://github.com/mronge/MailCore.git
+[submodule "lib/MarkdownHelpGeneration"]
+	path = lib/MarkdownHelpGeneration
+	url = git@macmini.local:/Users/git/MarkdownHelpGeneration.git
