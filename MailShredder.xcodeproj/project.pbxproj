@@ -139,7 +139,6 @@
 		00C8777415B306EE0063F88B /* PortNumFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8777315B306EE0063F88B /* PortNumFieldEditInfo.m */; };
 		00C8970A15AF34560006FF2F /* MoreFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8970915AF34560006FF2F /* MoreFormInfoCreator.m */; };
 		00C8971915AF3F0E0006FF2F /* about.md in Resources */ = {isa = PBXBuildFile; fileRef = 00C8971815AF3F0E0006FF2F /* about.md */; };
-		00C8971B15AF40340006FF2F /* markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 00C8971A15AF40340006FF2F /* markdown.css */; };
 		00C8971E15AF4BF20006FF2F /* EmailAccountFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8971D15AF4BF20006FF2F /* EmailAccountFormInfoCreator.m */; };
 		00C8972115AF4F480006FF2F /* EmailAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8972015AF4F480006FF2F /* EmailAccount.m */; };
 		00C8972415AF52540006FF2F /* EmailAccountListFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C8972315AF52540006FF2F /* EmailAccountListFormInfoCreator.m */; };
@@ -150,6 +149,10 @@
 		00D498811576EC0100F8FD2F /* MessageFilterObjectAdder.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D498801576EC0100F8FD2F /* MessageFilterObjectAdder.m */; };
 		00D498921577F02B00F8FD2F /* MailCleanerFormPopulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D498911577F02B00F8FD2F /* MailCleanerFormPopulator.m */; };
 		00D4989915781DA600F8FD2F /* SavedMessageFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4989815781DA500F8FD2F /* SavedMessageFilterFormInfoCreator.m */; };
+		00D5527517F208350066F627 /* libResultraGenericLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D5525217F1FC7C0066F627 /* libResultraGenericLib.a */; };
+		00D5527617F208730066F627 /* libmailcore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D5526317F1FD2A0066F627 /* libmailcore.a */; };
+		00D5527817F208D60066F627 /* markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 00D5527717F208D60066F627 /* markdown.css */; };
+		00D5527E17F20F020066F627 /* ResultraGenericLibResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 00D5525617F1FC7C0066F627 /* ResultraGenericLibResources.bundle */; };
 		00DA6FA51614AFA300F22DEB /* FolderDeletionMsgSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA6FA41614AFA300F22DEB /* FolderDeletionMsgSet.m */; };
 		00DA6FA81614B0C900F22DEB /* FolderDeletionMsgs.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA6FA71614B0C800F22DEB /* FolderDeletionMsgs.m */; };
 		00DED4A415ED530E00C3B1EF /* emailAcctDeleteSettings.md in Resources */ = {isa = PBXBuildFile; fileRef = 00DED4A315ED530E00C3B1EF /* emailAcctDeleteSettings.md */; };
@@ -188,7 +191,7 @@
 			outputFiles = (
 				"${DERIVED_FILE_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_BASE}.html",
 			);
-			script = "mkdir -p ${DERIVED_FILE_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}$; \"${INPUT_FILE_DIR}/../../MarkdownHelpGeneration/wrapMarkdown.pl\" \"${INPUT_FILE_PATH}\" > ${DERIVED_FILE_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_BASE}.html";
+			script = "mkdir -p ${DERIVED_FILE_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}$; \"${SRCROOT}/lib/MarkdownHelpGeneration/wrapMarkdown.pl\" \"${INPUT_FILE_PATH}\" > ${DERIVED_FILE_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_BASE}.html";
 		};
 /* End PBXBuildRule section */
 
@@ -241,6 +244,27 @@
 			proxyType = 2;
 			remoteGlobalIDString = F8DFCF4915801A5000C01975;
 			remoteInfo = Tests;
+		};
+		00D5526F17F207C90066F627 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00B0EBC5160CBBEF00B57B56 /* MailCore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F8618B5610DADB5C00C41188;
+			remoteInfo = "MailCore iOS";
+		};
+		00D5527117F207CC0066F627 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00B0EC09160CBD2E00B57B56 /* ResultraGenericLib.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0041072F14EEE8300063E307;
+			remoteInfo = ResultraGenericLib;
+		};
+		00D5527C17F20EBC0066F627 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00B0EC09160CBD2E00B57B56 /* ResultraGenericLib.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 004E287A14EF1B060025D89E;
+			remoteInfo = ResultraGenericLibResources;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -495,6 +519,7 @@
 		00D498911577F02B00F8FD2F /* MailCleanerFormPopulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailCleanerFormPopulator.m; sourceTree = "<group>"; };
 		00D4989715781DA500F8FD2F /* SavedMessageFilterFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedMessageFilterFormInfoCreator.h; sourceTree = "<group>"; };
 		00D4989815781DA500F8FD2F /* SavedMessageFilterFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedMessageFilterFormInfoCreator.m; sourceTree = "<group>"; };
+		00D5527717F208D60066F627 /* markdown.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = markdown.css; path = lib/MarkdownHelpGeneration/markdown.css; sourceTree = "<group>"; };
 		00DA6FA31614AFA300F22DEB /* FolderDeletionMsgSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderDeletionMsgSet.h; sourceTree = "<group>"; };
 		00DA6FA41614AFA300F22DEB /* FolderDeletionMsgSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderDeletionMsgSet.m; sourceTree = "<group>"; };
 		00DA6FA61614B0C800F22DEB /* FolderDeletionMsgs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderDeletionMsgs.h; sourceTree = "<group>"; };
@@ -549,6 +574,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00D5527617F208730066F627 /* libmailcore.a in Frameworks */,
+				00D5527517F208350066F627 /* libResultraGenericLib.a in Frameworks */,
 				005992321652D58A000F49AC /* SystemConfiguration.framework in Frameworks */,
 				00C4AB141581784900E0868A /* CFNetwork.framework in Frameworks */,
 				00B0EBF6160CBCA200B57B56 /* libcrypto.a in Frameworks */,
@@ -585,6 +612,7 @@
 		000566821562F94C003D114D = {
 			isa = PBXGroup;
 			children = (
+				00D5527717F208D60066F627 /* markdown.css */,
 				00647B1717D156AC00537253 /* Build & Release Info */,
 				005992311652D58A000F49AC /* SystemConfiguration.framework */,
 				001576EE16248E5900CA7515 /* App Store */,
@@ -1386,6 +1414,9 @@
 				00C8971215AF3AA00006FF2F /* PBXBuildRule */,
 			);
 			dependencies = (
+				00D5527D17F20EBC0066F627 /* PBXTargetDependency */,
+				00D5527217F207CC0066F627 /* PBXTargetDependency */,
+				00D5527017F207C90066F627 /* PBXTargetDependency */,
 			);
 			name = MailShredder;
 			productName = MailCleaner;
@@ -1497,13 +1528,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00D5527817F208D60066F627 /* markdown.css in Resources */,
 				007ABE8F156ACADE004BA8BF /* dummyEmails.txt in Resources */,
 				0005669C1562F94C003D114D /* InfoPlist.strings in Resources */,
 				0005672A15630DDD003D114D /* Localizable.strings in Resources */,
 				00394EFC156EFE00006C3AE5 /* msgActionButton.png in Resources */,
 				0054D2EA15ADF49D00270679 /* search.png in Resources */,
 				00C8971915AF3F0E0006FF2F /* about.md in Resources */,
-				00C8971B15AF40340006FF2F /* markdown.css in Resources */,
 				009CAD9A15D2F80900C2C19F /* deleteMsgs.png in Resources */,
 				00F4A9BD15E2AFB100595C95 /* imapAcctPresets.txt in Resources */,
 				00DED4A415ED530E00C3B1EF /* emailAcctDeleteSettings.md in Resources */,
@@ -1535,6 +1566,7 @@
 				00676245161DF0890015209D /* confirmDeleteBkg.png in Resources */,
 				00676247161E04210015209D /* confirmDeleteBkg@2x.png in Resources */,
 				00EA1F901624CB020028A8A6 /* Default-568h@2x.png in Resources */,
+				00D5527E17F20F020066F627 /* ResultraGenericLibResources.bundle in Resources */,
 				006981631631BF6700A1B2F9 /* thirdPartyLibs.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1696,6 +1728,21 @@
 			isa = PBXTargetDependency;
 			target = 0005668C1562F94C003D114D /* MailShredder */;
 			targetProxy = 000566C11562F94D003D114D /* PBXContainerItemProxy */;
+		};
+		00D5527017F207C90066F627 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "MailCore iOS";
+			targetProxy = 00D5526F17F207C90066F627 /* PBXContainerItemProxy */;
+		};
+		00D5527217F207CC0066F627 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ResultraGenericLib;
+			targetProxy = 00D5527117F207CC0066F627 /* PBXContainerItemProxy */;
+		};
+		00D5527D17F20EBC0066F627 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ResultraGenericLibResources;
+			targetProxy = 00D5527C17F20EBC0066F627 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
