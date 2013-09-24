@@ -1813,8 +1813,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MailCleaner/MailShredder-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/..\"/**",
-					"\"$(SRCROOT)/../MailCore\"/**",
+					"\"$(SRCROOT)\"/**",
+					"\"$(SRCROOT)\"/lib/**",
 				);
 				INFOPLIST_FILE = "MailCleaner/MailShredder-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -1833,8 +1833,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MailCleaner/MailShredder-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/..\"/**",
-					"\"$(SRCROOT)/../MailCore\"/**",
+					"\"$(SRCROOT)\"/**",
+					"\"$(SRCROOT)\"/lib/**",
 				);
 				INFOPLIST_FILE = "MailCleaner/MailShredder-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
