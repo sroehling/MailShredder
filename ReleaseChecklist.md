@@ -10,16 +10,14 @@ be populated with some messages.
 
 3. Add a Release Notes Entry to the bottom of the AppStoreInfo.md file. This will be used to describe "What's Changed" in the App Store submission.
 
-4. Update releaseManifest.md with SHA1 of any libraries changed since last release.
-
-5. Update the copyright information in AppStoreInfo.md, if the year has changed
+4. Update the copyright information in AppStoreInfo.md, if the year has changed
   
-6. In iTunes Connect, create the new version
+5. In iTunes Connect, create the new version
   * Cut and paste the "What's changed" information from AppStoreInfo.md
   * Use the same version number as was changed in step 1.
   * Update the copyright, if the year has changed.
 
-7. Final Testing
+6. Final Testing
   1. Run the "Analyze" Build phase on the project
   2. Run the project's unit tests using the "Test" option.
   3. Install and run on hardware.

@@ -7,3 +7,4 @@
 [submodule "lib/MarkdownHelpGeneration"]
 	path = lib/MarkdownHelpGeneration
 	url = git@macmini.local:/Users/git/MarkdownHelpGeneration.git
+	ignore = dirty

@@ -151,7 +151,6 @@
 		00D4989915781DA600F8FD2F /* SavedMessageFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4989815781DA500F8FD2F /* SavedMessageFilterFormInfoCreator.m */; };
 		00D5527517F208350066F627 /* libResultraGenericLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D5525217F1FC7C0066F627 /* libResultraGenericLib.a */; };
 		00D5527617F208730066F627 /* libmailcore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D5526317F1FD2A0066F627 /* libmailcore.a */; };
-		00D5527817F208D60066F627 /* markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 00D5527717F208D60066F627 /* markdown.css */; };
 		00D5527E17F20F020066F627 /* ResultraGenericLibResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 00D5525617F1FC7C0066F627 /* ResultraGenericLibResources.bundle */; };
 		00DA6FA51614AFA300F22DEB /* FolderDeletionMsgSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA6FA41614AFA300F22DEB /* FolderDeletionMsgSet.m */; };
 		00DA6FA81614B0C900F22DEB /* FolderDeletionMsgs.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA6FA71614B0C800F22DEB /* FolderDeletionMsgs.m */; };
@@ -381,7 +380,6 @@
 		0068FC351625D60500F246E5 /* ReleaseChecklist.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = ReleaseChecklist.md; sourceTree = "<group>"; };
 		0068FC3616263A8B00F246E5 /* AppScreenshot3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppScreenshot3.png; sourceTree = "<group>"; };
 		006981621631BF6700A1B2F9 /* thirdPartyLibs.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = thirdPartyLibs.md; sourceTree = "<group>"; };
-		006981641631C1FB00A1B2F9 /* releaseManifest.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = releaseManifest.md; sourceTree = "<group>"; };
 		006AE32815F8FF21007EED2E /* EmailAccountFormPopulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAccountFormPopulator.h; sourceTree = "<group>"; };
 		006AE32915F8FF21007EED2E /* EmailAccountFormPopulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAccountFormPopulator.m; sourceTree = "<group>"; };
 		006AE33115F9113F007EED2E /* FullEmailAccountFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullEmailAccountFormInfoCreator.h; sourceTree = "<group>"; };
@@ -519,7 +517,6 @@
 		00D498911577F02B00F8FD2F /* MailCleanerFormPopulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailCleanerFormPopulator.m; sourceTree = "<group>"; };
 		00D4989715781DA500F8FD2F /* SavedMessageFilterFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedMessageFilterFormInfoCreator.h; sourceTree = "<group>"; };
 		00D4989815781DA500F8FD2F /* SavedMessageFilterFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedMessageFilterFormInfoCreator.m; sourceTree = "<group>"; };
-		00D5527717F208D60066F627 /* markdown.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = markdown.css; path = lib/MarkdownHelpGeneration/markdown.css; sourceTree = "<group>"; };
 		00DA6FA31614AFA300F22DEB /* FolderDeletionMsgSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderDeletionMsgSet.h; sourceTree = "<group>"; };
 		00DA6FA41614AFA300F22DEB /* FolderDeletionMsgSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderDeletionMsgSet.m; sourceTree = "<group>"; };
 		00DA6FA61614B0C800F22DEB /* FolderDeletionMsgs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderDeletionMsgs.h; sourceTree = "<group>"; };
@@ -612,7 +609,6 @@
 		000566821562F94C003D114D = {
 			isa = PBXGroup;
 			children = (
-				00D5527717F208D60066F627 /* markdown.css */,
 				00647B1717D156AC00537253 /* Build & Release Info */,
 				005992311652D58A000F49AC /* SystemConfiguration.framework */,
 				001576EE16248E5900CA7515 /* App Store */,
@@ -954,7 +950,6 @@
 			isa = PBXGroup;
 			children = (
 				0068FC351625D60500F246E5 /* ReleaseChecklist.md */,
-				006981641631C1FB00A1B2F9 /* releaseManifest.md */,
 				00647B1817D156CC00537253 /* ConfigMgmtInfo.md */,
 			);
 			name = "Build & Release Info";
@@ -1528,7 +1523,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00D5527817F208D60066F627 /* markdown.css in Resources */,
 				007ABE8F156ACADE004BA8BF /* dummyEmails.txt in Resources */,
 				0005669C1562F94C003D114D /* InfoPlist.strings in Resources */,
 				0005672A15630DDD003D114D /* Localizable.strings in Resources */,

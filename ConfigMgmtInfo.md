@@ -1,32 +1,26 @@
 # Configuration Management Information
 
-## Creating a New Working Directory
+## Building MailShredder for Development or Release
 
-Retrieve the modules from the repository:
-
-    git clone git@macmini.local:/Users/git/ResultraGenericLib.git
-    git clone git@macmini.local:/Users/git/MailShredder.git
-    git clone git@macmini.local:/Users/git/MailCore.git
-    git clone git@macmini.local:/Users/git/MarkdownHelpGeneration.git
-
-## Reference a Specific Version of MailCore
-
-MailShredder depends on a specific version of the MailCore library. This version must be populated into the library's directory, then the appropriate versions of submodules need to be populated too:
-
-	cd MailCore
-	git checkout a182d01
-	git submodule init
-	git submodule update
-	cd ..
+### Create a Folder for Development
 	
-Refer to releaseManifest.md to confirm the specific version of MailCore to be referenced.
+Clone the Source and Libraries from GIT, then populate and confirm the submodules. 
 
-## Reference a Specific Version of ResultraGenericLib
+    git clone git@macmini.local:/Users/git/MailShredder.git WORKINGDIRNAME
+    
+**WORKINGDIRNAME** can be left off if the intent is to populate the 'MailShredder' directory.  
 
-MailShredder currently references a specific version of ResultraLib. So, similar to what was done for MailCore, this version needs to be populated into the library's directory:
+###  Switch to Branch (If Not Working on Main Branch)
 
-	cd ResultraGenericLib
-	git checkout da39ca3
-	cd ..
-	
-Refer to releaseManifest.md to confirm the specific version of ResultraGenericLib to be referenced.
+To start work on an existing branch:
+
+    git checkout BRANCHNAME
+    
+Or, to first create the branch for new development:
+
+	git checkout -b BRANCHNAME
+
+###  Populate the Submodules
+
+    git submodule update --init --recursive
+    git submodule status --recursive
