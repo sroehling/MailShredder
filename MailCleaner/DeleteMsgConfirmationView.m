@@ -342,7 +342,7 @@ CGFloat const DELETE_CONFIRMATION_MSG_NUMBER_FRAME_HEIGHT= 20.0f;
 -(void)showWithAnimation
 {
 	[UIView animateWithDuration:0.35
-		delay:0.0 options:UIViewAnimationCurveEaseInOut 
+		delay:0.0 options:UIViewAnimationOptionCurveEaseInOut
 			 animations:^{self.alpha = 1.0;}
 			 completion:^(BOOL finished) {}];		
 }
@@ -350,7 +350,7 @@ CGFloat const DELETE_CONFIRMATION_MSG_NUMBER_FRAME_HEIGHT= 20.0f;
 -(void)hideWithAnimation
 {
 	[UIView animateWithDuration:0.35
-		delay:0.0 options:UIViewAnimationCurveEaseInOut 
+		delay:0.0 options:UIViewAnimationOptionCurveEaseInOut
 			 animations:^{self.alpha = 0.0;}
 			 completion:^(BOOL finished) {
 				[self removeFromSuperview];

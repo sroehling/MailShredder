@@ -14,8 +14,6 @@ NSString * const APP_DATA_DATA_MODEL_NAME = @"AppData";
 NSString * const APP_DATA_STORE_NAME = @"AppData.sqlite";
 NSString * const MAIL_SHREDDER_APP_ID = @"572539748";
 
-static NSString * const APP_GENERATING_LAUNCH_SCREEN_ENV_VAR = @"APP_GENERATING_LAUNCH_SCREEN";
-
 @implementation AppHelper
 
 

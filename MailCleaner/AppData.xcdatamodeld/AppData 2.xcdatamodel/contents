@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="Version 2.0" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C1021" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="AgeFilter" representedClassName="AgeFilter" isAbstract="YES" syncable="YES">
+        <relationship name="messageFilterAgeFilter" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="ageFilter" inverseEntity="MessageFilter" syncable="YES"/>
+    </entity>
+    <entity name="AgeFilterComparison" representedClassName="AgeFilterComparison" parentEntity="AgeFilter" syncable="YES">
+        <attribute name="comparison" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="interval" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="showInFilterPopupMenu" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="timeUnit" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultAgeFilterOlder1Month" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterOlder1Month" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultAgeFilterOlder1Year" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterOlder1Year" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultAgeFilterOlder2Years" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterOlder2Years" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultAgeFilterOlder3Months" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterOlder3Months" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultAgeFilterOlder3Years" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterOlder3Years" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultAgeFilterOlder4Years" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterOlder4Years" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultAgeFilterOlder5Years" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterOlder5Years" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultAgeFilterOlder6Months" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterOlder6Months" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultAgeFilterOlder18Months" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterOlder18Months" inverseEntity="SharedAppVals" syncable="YES"/>
+    </entity>
+    <entity name="AgeFilterNone" representedClassName="AgeFilterNone" parentEntity="AgeFilter" syncable="YES">
+        <relationship name="sharedAppValsDefaultAgeFilterNone" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultAgeFilterNone" inverseEntity="SharedAppVals" syncable="YES"/>
+    </entity>
+    <entity name="EmailAccount" representedClassName="EmailAccount" syncable="YES">
+        <attribute name="acctName" attributeType="String" syncable="YES"/>
+        <attribute name="deleteHandlingDeleteMsg" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <attribute name="emailAddress" attributeType="String" syncable="YES"/>
+        <attribute name="imapServer" attributeType="String" syncable="YES"/>
+        <attribute name="lastSync" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="maxSyncMsgs" attributeType="Integer 32" defaultValueString="5000" syncable="YES"/>
+        <attribute name="portNumber" attributeType="Integer 32" defaultValueString="143" syncable="YES"/>
+        <attribute name="syncOldMsgsFirst" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="uniqueAcctID" attributeType="String" syncable="YES"/>
+        <attribute name="userName" attributeType="String" syncable="YES"/>
+        <attribute name="useSSL" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <relationship name="addressesInAcct" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="EmailAddress" inverseName="addressAccount" inverseEntity="EmailAddress" syncable="YES"/>
+        <relationship name="deleteHandlingMoveToFolder" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailFolder" inverseName="emailAcctMoveToFolderDeleteRule" inverseEntity="EmailFolder" syncable="YES"/>
+        <relationship name="domainsInAcct" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="EmailDomain" inverseName="domainAcct" inverseEntity="EmailDomain" syncable="YES"/>
+        <relationship name="emailsInAcct" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="EmailInfo" inverseName="emailAcct" inverseEntity="EmailInfo" syncable="YES"/>
+        <relationship name="foldersInAcct" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="EmailFolder" inverseName="folderAccount" inverseEntity="EmailFolder" syncable="YES"/>
+        <relationship name="msgListFilter" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="MessageFilter" inverseName="emailAcctMsgListFilter" inverseEntity="MessageFilter" syncable="YES"/>
+        <relationship name="onlySyncFolders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailFolder" inverseName="emailAccountOnlySyncFolders" inverseEntity="EmailFolder" syncable="YES"/>
+        <relationship name="savedMsgListFilters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="emailAcctSavedFilter" inverseEntity="MessageFilter" syncable="YES"/>
+        <relationship name="sharedAppValsCurrentEmailAcct" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="currentEmailAcct" inverseEntity="SharedAppVals" syncable="YES"/>
+    </entity>
+    <entity name="EmailAddress" representedClassName="EmailAddress" syncable="YES">
+        <attribute name="address" attributeType="String" minValueString="1" syncable="YES"/>
+        <attribute name="addressSort" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isRecipientAddr" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isSenderAddr" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nameDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="sectionName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="addressAccount" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="addressesInAcct" inverseEntity="EmailAccount" syncable="YES"/>
+        <relationship name="emailInfoRecipientAddress" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailInfo" inverseName="recipientAddresses" inverseEntity="EmailInfo" syncable="YES"/>
+        <relationship name="emailInfosWithSenderAddress" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailInfo" inverseName="senderAddress" inverseEntity="EmailInfo" syncable="YES"/>
+        <relationship name="selectedAddressEmailAddress" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailAddressFilter" inverseName="selectedAddresses" inverseEntity="EmailAddressFilter" syncable="YES"/>
+    </entity>
+    <entity name="EmailAddressFilter" representedClassName="EmailAddressFilter" syncable="YES">
+        <attribute name="matchUnselected" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <relationship name="selectedAddresses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailAddress" inverseName="selectedAddressEmailAddress" inverseEntity="EmailAddress" syncable="YES"/>
+    </entity>
+    <entity name="EmailDomain" representedClassName="EmailDomain" syncable="YES">
+        <attribute name="domainName" attributeType="String" syncable="YES"/>
+        <attribute name="isRecipientDomain" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isSenderDomain" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="sectionName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="domainAcct" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="domainsInAcct" inverseEntity="EmailAccount" syncable="YES"/>
+        <relationship name="emailDomainFilterSelectedDomains" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailDomainFilter" inverseName="selectedDomains" inverseEntity="EmailDomainFilter" syncable="YES"/>
+        <relationship name="emailInfoRecipientDomains" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailInfo" inverseName="recipientDomains" inverseEntity="EmailInfo" syncable="YES"/>
+        <relationship name="emailInfosWithDomainForSender" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailInfo" inverseName="senderDomain" inverseEntity="EmailInfo" syncable="YES"/>
+    </entity>
+    <entity name="EmailDomainFilter" representedClassName="EmailDomainFilter" syncable="YES">
+        <attribute name="matchUnselected" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <relationship name="selectedDomains" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailDomain" inverseName="emailDomainFilterSelectedDomains" inverseEntity="EmailDomain" syncable="YES"/>
+    </entity>
+    <entity name="EmailFolder" representedClassName="EmailFolder" syncable="YES">
+        <attribute name="folderName" attributeType="String" syncable="YES"/>
+        <relationship name="emailAccountOnlySyncFolders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="onlySyncFolders" inverseEntity="EmailAccount" syncable="YES"/>
+        <relationship name="emailAcctMoveToFolderDeleteRule" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="deleteHandlingMoveToFolder" inverseEntity="EmailAccount" syncable="YES"/>
+        <relationship name="emailFolderFilterSelectedFolders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailFolderFilter" inverseName="selectedFolders" inverseEntity="EmailFolderFilter" syncable="YES"/>
+        <relationship name="emailInfoFolder" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailInfo" inverseName="folderInfo" inverseEntity="EmailInfo" syncable="YES"/>
+        <relationship name="folderAccount" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="foldersInAcct" inverseEntity="EmailAccount" syncable="YES"/>
+    </entity>
+    <entity name="EmailFolderFilter" representedClassName="EmailFolderFilter" syncable="YES">
+        <attribute name="matchUnselected" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <relationship name="messageFilterFolderFilter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="folderFilter" inverseEntity="MessageFilter" syncable="YES"/>
+        <relationship name="selectedFolders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailFolder" inverseName="emailFolderFilterSelectedFolders" inverseEntity="EmailFolder" syncable="YES"/>
+    </entity>
+    <entity name="EmailInfo" representedClassName="EmailInfo" syncable="YES">
+        <attribute name="deleted" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isHidden" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isRead" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isSentMsg" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isStarred" attributeType="Boolean" syncable="YES"/>
+        <attribute name="sendDate" attributeType="Date" syncable="YES"/>
+        <attribute name="size" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="subject" attributeType="String" syncable="YES"/>
+        <attribute name="uid" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="emailAcct" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="emailsInAcct" inverseEntity="EmailAccount" syncable="YES"/>
+        <relationship name="folderInfo" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailFolder" inverseName="emailInfoFolder" inverseEntity="EmailFolder" syncable="YES"/>
+        <relationship name="recipientAddresses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailAddress" inverseName="emailInfoRecipientAddress" inverseEntity="EmailAddress" syncable="YES"/>
+        <relationship name="recipientDomains" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EmailDomain" inverseName="emailInfoRecipientDomains" inverseEntity="EmailDomain" syncable="YES"/>
+        <relationship name="senderAddress" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAddress" inverseName="emailInfosWithSenderAddress" inverseEntity="EmailAddress" syncable="YES"/>
+        <relationship name="senderDomain" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailDomain" inverseName="emailInfosWithDomainForSender" inverseEntity="EmailDomain" syncable="YES"/>
+    </entity>
+    <entity name="FromAddressFilter" representedClassName="FromAddressFilter" parentEntity="EmailAddressFilter" syncable="YES">
+        <relationship name="messageFilterFromAddrFilter" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="fromAddressFilter" inverseEntity="MessageFilter" syncable="YES"/>
+    </entity>
+    <entity name="MessageFilter" representedClassName="MessageFilter" syncable="YES">
+        <attribute name="filterName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="matchingMsgs" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="ageFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilter" inverseName="messageFilterAgeFilter" inverseEntity="AgeFilter" syncable="YES"/>
+        <relationship name="emailAcctMsgListFilter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="msgListFilter" inverseEntity="EmailAccount" syncable="YES"/>
+        <relationship name="emailAcctSavedFilter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="savedMsgListFilters" inverseEntity="EmailAccount" syncable="YES"/>
+        <relationship name="folderFilter" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="EmailFolderFilter" inverseName="messageFilterFolderFilter" inverseEntity="EmailFolderFilter" syncable="YES"/>
+        <relationship name="fromAddressFilter" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="FromAddressFilter" inverseName="messageFilterFromAddrFilter" inverseEntity="FromAddressFilter" syncable="YES"/>
+        <relationship name="readFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ReadFilter" inverseName="messageFilterReadFilter" inverseEntity="ReadFilter" syncable="YES"/>
+        <relationship name="recipientAddressFilter" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="RecipientAddressFilter" inverseName="messageFilterRecipientAddressFilter" inverseEntity="RecipientAddressFilter" syncable="YES"/>
+        <relationship name="recipientDomainFilter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="RecipientDomainFilter" inverseName="messageFilterRecipientDomainFilter" inverseEntity="RecipientDomainFilter" syncable="YES"/>
+        <relationship name="senderDomainFilter" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="SenderDomainFilter" inverseName="messageFilterSenderDomainFilter" inverseEntity="SenderDomainFilter" syncable="YES"/>
+        <relationship name="sentReceivedFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SentReceivedFilter" inverseName="messageFilterSentReceivedFilter" inverseEntity="SentReceivedFilter" syncable="YES"/>
+        <relationship name="starredFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="StarredFilter" inverseName="messageFilterStarredFilter" inverseEntity="StarredFilter" syncable="YES"/>
+        <relationship name="subjectFilter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SubjectFilter" inverseName="messageFilterSubjectFilters" inverseEntity="SubjectFilter" syncable="YES"/>
+    </entity>
+    <entity name="ReadFilter" representedClassName="ReadFilter" syncable="YES">
+        <attribute name="matchLogic" attributeType="Integer 32" syncable="YES"/>
+        <relationship name="messageFilterReadFilter" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="readFilter" inverseEntity="MessageFilter" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultReadFilterRead" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultReadFilterRead" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultReadFilterReadOrUnread" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultReadFilterReadOrUnread" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultReadFilterUnread" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultReadFilterUnread" inverseEntity="SharedAppVals" syncable="YES"/>
+    </entity>
+    <entity name="RecipientAddressFilter" representedClassName="RecipientAddressFilter" parentEntity="EmailAddressFilter" syncable="YES">
+        <relationship name="messageFilterRecipientAddressFilter" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="recipientAddressFilter" inverseEntity="MessageFilter" syncable="YES"/>
+    </entity>
+    <entity name="RecipientDomainFilter" representedClassName="RecipientDomainFilter" parentEntity="EmailDomainFilter" syncable="YES">
+        <relationship name="messageFilterRecipientDomainFilter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="recipientDomainFilter" inverseEntity="MessageFilter" syncable="YES"/>
+    </entity>
+    <entity name="SenderDomainFilter" representedClassName="SenderDomainFilter" parentEntity="EmailDomainFilter" syncable="YES">
+        <relationship name="messageFilterSenderDomainFilter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="senderDomainFilter" inverseEntity="MessageFilter" syncable="YES"/>
+    </entity>
+    <entity name="SentReceivedFilter" representedClassName="SentReceivedFilter" syncable="YES">
+        <attribute name="matchLogic" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="messageFilterSentReceivedFilter" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="sentReceivedFilter" inverseEntity="MessageFilter" syncable="YES"/>
+        <relationship name="sharedAppValsSentReceivedFilterEither" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultSentReceivedFilterEither" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsSentReceivedFilterReceived" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultSentReceivedFilterReceived" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsSentReceivedFilterSent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultSentReceivedFilterSent" inverseEntity="SharedAppVals" syncable="YES"/>
+    </entity>
+    <entity name="SharedAppVals" representedClassName="SharedAppVals" syncable="YES">
+        <relationship name="currentEmailAcct" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="sharedAppValsCurrentEmailAcct" inverseEntity="EmailAccount" syncable="YES"/>
+        <relationship name="defaultAgeFilterNone" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterNone" inverseName="sharedAppValsDefaultAgeFilterNone" inverseEntity="AgeFilterNone" syncable="YES"/>
+        <relationship name="defaultAgeFilterOlder1Month" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterOlder1Month" inverseEntity="AgeFilterComparison" syncable="YES"/>
+        <relationship name="defaultAgeFilterOlder1Year" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterOlder1Year" inverseEntity="AgeFilterComparison" syncable="YES"/>
+        <relationship name="defaultAgeFilterOlder2Years" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterOlder2Years" inverseEntity="AgeFilterComparison" syncable="YES"/>
+        <relationship name="defaultAgeFilterOlder3Months" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterOlder3Months" inverseEntity="AgeFilterComparison" syncable="YES"/>
+        <relationship name="defaultAgeFilterOlder3Years" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterOlder3Years" inverseEntity="AgeFilterComparison" syncable="YES"/>
+        <relationship name="defaultAgeFilterOlder4Years" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterOlder4Years" inverseEntity="AgeFilterComparison" syncable="YES"/>
+        <relationship name="defaultAgeFilterOlder5Years" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterOlder5Years" inverseEntity="AgeFilterComparison" syncable="YES"/>
+        <relationship name="defaultAgeFilterOlder6Months" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterOlder6Months" inverseEntity="AgeFilterComparison" syncable="YES"/>
+        <relationship name="defaultAgeFilterOlder18Months" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterOlder18Months" inverseEntity="AgeFilterComparison" syncable="YES"/>
+        <relationship name="defaultReadFilterRead" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ReadFilter" inverseName="sharedAppValsDefaultReadFilterRead" inverseEntity="ReadFilter" syncable="YES"/>
+        <relationship name="defaultReadFilterReadOrUnread" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ReadFilter" inverseName="sharedAppValsDefaultReadFilterReadOrUnread" inverseEntity="ReadFilter" syncable="YES"/>
+        <relationship name="defaultReadFilterUnread" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ReadFilter" inverseName="sharedAppValsDefaultReadFilterUnread" inverseEntity="ReadFilter" syncable="YES"/>
+        <relationship name="defaultSentReceivedFilterEither" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SentReceivedFilter" inverseName="sharedAppValsSentReceivedFilterEither" inverseEntity="SentReceivedFilter" syncable="YES"/>
+        <relationship name="defaultSentReceivedFilterReceived" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SentReceivedFilter" inverseName="sharedAppValsSentReceivedFilterReceived" inverseEntity="SentReceivedFilter" syncable="YES"/>
+        <relationship name="defaultSentReceivedFilterSent" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SentReceivedFilter" inverseName="sharedAppValsSentReceivedFilterSent" inverseEntity="SentReceivedFilter" syncable="YES"/>
+        <relationship name="defaultStarredFilterStarred" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="StarredFilter" inverseName="sharedAppValsDefaultStarredFilterStarred" inverseEntity="StarredFilter" syncable="YES"/>
+        <relationship name="defaultStarredFilterStarredOrUnstarred" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="StarredFilter" inverseName="sharedAppValsDefaultStarredFilterStarredOrUnstarred" inverseEntity="StarredFilter" syncable="YES"/>
+        <relationship name="defaultStarredFilterUnstarred" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="StarredFilter" inverseName="sharedAppValsDefaultStarredFilterUnstarred" inverseEntity="StarredFilter" syncable="YES"/>
+    </entity>
+    <entity name="StarredFilter" representedClassName="StarredFilter" syncable="YES">
+        <attribute name="matchLogic" attributeType="Integer 32" syncable="YES"/>
+        <relationship name="messageFilterStarredFilter" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="starredFilter" inverseEntity="MessageFilter" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultStarredFilterStarred" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultStarredFilterStarred" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultStarredFilterStarredOrUnstarred" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultStarredFilterStarredOrUnstarred" inverseEntity="SharedAppVals" syncable="YES"/>
+        <relationship name="sharedAppValsDefaultStarredFilterUnstarred" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultStarredFilterUnstarred" inverseEntity="SharedAppVals" syncable="YES"/>
+    </entity>
+    <entity name="SubjectFilter" representedClassName="SubjectFilter" syncable="YES">
+        <attribute name="caseSensitive" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="searchString" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="messageFilterSubjectFilters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageFilter" inverseName="subjectFilter" inverseEntity="MessageFilter" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="AgeFilter" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="AgeFilterComparison" positionX="160" positionY="192" width="128" height="238"/>
+        <element name="AgeFilterNone" positionX="160" positionY="192" width="128" height="60"/>
+        <element name="EmailAccount" positionX="160" positionY="192" width="128" height="345"/>
+        <element name="EmailAddress" positionX="160" positionY="192" width="128" height="210"/>
+        <element name="EmailAddressFilter" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="EmailDomain" positionX="160" positionY="192" width="128" height="165"/>
+        <element name="EmailDomainFilter" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="EmailFolder" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="EmailFolderFilter" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="EmailInfo" positionX="160" positionY="192" width="128" height="270"/>
+        <element name="FromAddressFilter" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="MessageFilter" positionX="160" positionY="192" width="128" height="255"/>
+        <element name="ReadFilter" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="RecipientAddressFilter" positionX="160" positionY="192" width="128" height="60"/>
+        <element name="RecipientDomainFilter" positionX="160" positionY="192" width="128" height="60"/>
+        <element name="SenderDomainFilter" positionX="160" positionY="192" width="128" height="60"/>
+        <element name="SentReceivedFilter" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="SharedAppVals" positionX="160" positionY="192" width="128" height="345"/>
+        <element name="StarredFilter" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="SubjectFilter" positionX="160" positionY="192" width="128" height="90"/>
+    </elements>
+</model>
