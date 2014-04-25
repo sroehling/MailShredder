@@ -91,7 +91,9 @@
 
 -(NSString*)messageLookupForSubject:(NSString*)subject sendDate:(NSDate*)sendDate msgSize:(NSUInteger)msgSize
 {
-	NSString *msgDateStr = [[DateHelper theHelper].longDateFormatter stringFromDate:sendDate];
+    DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
+
+	NSString *msgDateStr = [dateHelper.longDateFormatter stringFromDate:sendDate];
 	return [NSString stringWithFormat:@"%@-%d-%@",msgDateStr,msgSize,subject];
 }
 

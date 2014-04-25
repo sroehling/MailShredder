@@ -70,7 +70,8 @@
 	NSPredicate *notDeletedPredicate = [NSPredicate predicateWithFormat:@"%K == %@",
 		EMAIL_INFO_DELETED_KEY,[NSNumber numberWithBool:FALSE]];
 		
-	NSDate *baseDate = [DateHelper today];
+    DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
+	NSDate *baseDate = [dateHelper today];
 	NSPredicate *filterPredicate = [msgFilter filterPredicate:baseDate];
 	assert(filterPredicate != nil);
 	

@@ -50,8 +50,9 @@ CGFloat const  EMAIL_ACTION_VIEW_STATUS_LABEL_FONT_SIZE = 11.0f;
 		[currAcct.managedObjectContext refreshObject:currAcct mergeChanges:TRUE];
 		if(currAcct.lastSync != nil)
 		{
+            DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
 			return [NSString stringWithFormat:LOCALIZED_STR(@"MSGS_ACTION_LAST_UPDATED_FORMAT"),
-				[[DateHelper theHelper].longDateFormatter stringFromDate:currAcct.lastSync]];
+				[dateHelper.longDateFormatter stringFromDate:currAcct.lastSync]];
 		}
 	}
 	return [NSString stringWithFormat:LOCALIZED_STR(@"MSGS_ACTION_LAST_UPDATED_FORMAT"),

@@ -51,21 +51,24 @@ NSString * const EMAIL_INFO_IS_SENT_MSG_KEY = @"isSentMsg";
 
 -(NSString*)formattedSendDate
 {
+    DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
+
 	NSDate *localSendDate = [self sendDateLocalTimeZone];
-	if([DateHelper dateIsEqual:localSendDate otherDate:[DateHelper today]])
+	if([dateHelper dateIsEqual:localSendDate otherDate:[dateHelper today]])
 	{
-		return [[DateHelper theHelper].shortTimeFormatter stringFromDate:localSendDate];
+		return [dateHelper.shortTimeFormatter stringFromDate:localSendDate];
 	}
 	else 
 	{
-		return [[DateHelper theHelper].shortDateFormatter stringFromDate:localSendDate];
+		return [dateHelper.shortDateFormatter stringFromDate:localSendDate];
 	}
 }
 
 -(NSString*)formattedSendDateAndTime
 {
+    DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
 	NSDate *localSendDate = [self sendDateLocalTimeZone];
-	return [[DateHelper theHelper].mediumDateAndTimeFormatter stringFromDate:localSendDate];
+	return [dateHelper.mediumDateAndTimeFormatter stringFromDate:localSendDate];
 }
 
 @end

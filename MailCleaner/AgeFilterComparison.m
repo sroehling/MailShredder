@@ -119,10 +119,12 @@ NSUInteger const AGE_FILTER_COMPARISON_NEWER = 1;
 	{
 		[filterCompareComponents setYear:relativeIntervalValue];
 	}
-	NSDate *compareDate = [[DateHelper theHelper].gregorian 
+    DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
+    
+	NSDate *compareDate = [dateHelper.gregorian
 		dateByAddingComponents:filterCompareComponents 
                  toDate:baseDate options:0];
-	NSLog(@"Compare date: %@",[DateHelper stringFromDate:compareDate]);
+	NSLog(@"Compare date: %@",[dateHelper stringFromDate:compareDate]);
 
 	NSString *comparisonOperatorAsString;
 	if([self.comparison integerValue] == AGE_FILTER_COMPARISON_OLDER)

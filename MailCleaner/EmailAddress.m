@@ -115,6 +115,8 @@ NSString * const EMAIL_ADDRESS_IS_SENDER_KEY = @"isSenderAddr";
 	}
 
 	// Set or update the name used for the address
+    DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
+    
 	if((theAddr.name == nil) || ([theAddr.name length]==0))
 	{
 		theAddr.name = senderName;
@@ -123,7 +125,7 @@ NSString * const EMAIL_ADDRESS_IS_SENDER_KEY = @"isSenderAddr";
 	}
 	else if ((theAddr.nameDate != nil) && 
 		[StringValidation nonEmptyString:senderName] &&
-		[DateHelper dateIsLater:sendDate otherDate:theAddr.nameDate])
+		[dateHelper dateIsLater:sendDate otherDate:theAddr.nameDate])
 	{
 		// Name is already set, but there is a newer one.
 		theAddr.nameDate = sendDate;

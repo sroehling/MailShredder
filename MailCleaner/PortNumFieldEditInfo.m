@@ -60,7 +60,7 @@
 			else {
 				[self.fieldInfo setFieldValue:[NSNumber numberWithInt:EMAIL_ACCOUNT_DEFAULT_PORT_NOSSL]];
 			}
-			[self refreshFieldValue];
+//			[self refreshFieldValue];
 		}
     }
 }

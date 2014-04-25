@@ -73,11 +73,12 @@ static NSString * const CORE_MSG_SORT_BY_FOLDER_KEY_PATH = @"parentFolder.path";
 	}
 	else
 	{
+        DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
 		NSString *dateStr = (msg.sentDateGMT!=nil)?
-        [[DateHelper theHelper].longDateFormatter stringFromDate:msg.sentDateGMT]:
+        [dateHelper.longDateFormatter stringFromDate:msg.sentDateGMT]:
         @"[GMT Date Missing]";
 		NSString *senderDateStr = (msg.senderDate != nil)?
-        [[DateHelper theHelper].longDateFormatter stringFromDate:msg.senderDate]:
+        [dateHelper.longDateFormatter stringFromDate:msg.senderDate]:
         @"[Sender Date Missing]";
 		NSString *senderStr = (msg.sender.email != nil)?msg.sender.email:@"[sender missing]";
 		
