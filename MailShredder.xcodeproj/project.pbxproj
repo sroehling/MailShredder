@@ -109,6 +109,7 @@
 		00A6FB4F159A908200ED4D4B /* EmailDomainFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB4E159A908100ED4D4B /* EmailDomainFilterFormInfoCreator.m */; };
 		00A6FB58159B850A00ED4D4B /* MailAddressHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB57159B850900ED4D4B /* MailAddressHelper.m */; };
 		00A9BB39190ECE0C000B419B /* settings.md in Resources */ = {isa = PBXBuildFile; fileRef = 00A9BB38190ECE0C000B419B /* settings.md */; };
+		00A9BB3E190EDEE8000B419B /* markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 00A9BB3D190EDEE8000B419B /* markdown.css */; };
 		00AAF2E015B4B3ED00BFF03C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00AAF2DF15B4B3ED00BFF03C /* Security.framework */; };
 		00AAF2E815B61ED000BFF03C /* EmailAcctFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AAF2E715B61ED000BFF03C /* EmailAcctFieldEditInfo.m */; };
 		00AFA80E161CA0100030EC20 /* SentReceivedFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AFA80D161CA0100030EC20 /* SentReceivedFilter.m */; };
@@ -442,6 +443,7 @@
 		00A6FB56159B850900ED4D4B /* MailAddressHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailAddressHelper.h; sourceTree = "<group>"; };
 		00A6FB57159B850900ED4D4B /* MailAddressHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailAddressHelper.m; sourceTree = "<group>"; };
 		00A9BB38190ECE0C000B419B /* settings.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = settings.md; sourceTree = "<group>"; };
+		00A9BB3D190EDEE8000B419B /* markdown.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = markdown.css; path = lib/MarkdownHelpGeneration/markdown.css; sourceTree = "<group>"; };
 		00AAF2DF15B4B3ED00BFF03C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		00AAF2E615B61ECF00BFF03C /* EmailAcctFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAcctFieldEditInfo.h; sourceTree = "<group>"; };
 		00AAF2E715B61ED000BFF03C /* EmailAcctFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAcctFieldEditInfo.m; sourceTree = "<group>"; };
@@ -499,7 +501,6 @@
 		00C8970815AF34560006FF2F /* MoreFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreFormInfoCreator.h; sourceTree = "<group>"; };
 		00C8970915AF34560006FF2F /* MoreFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreFormInfoCreator.m; sourceTree = "<group>"; };
 		00C8971815AF3F0E0006FF2F /* about.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = about.md; sourceTree = "<group>"; };
-		00C8971A15AF40340006FF2F /* markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = markdown.css; path = ../../MarkdownHelpGeneration/markdown.css; sourceTree = "<group>"; };
 		00C8971C15AF4BF20006FF2F /* EmailAccountFormInfoCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAccountFormInfoCreator.h; sourceTree = "<group>"; };
 		00C8971D15AF4BF20006FF2F /* EmailAccountFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAccountFormInfoCreator.m; sourceTree = "<group>"; };
 		00C8971F15AF4F480006FF2F /* EmailAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAccount.h; sourceTree = "<group>"; };
@@ -612,6 +613,7 @@
 		000566821562F94C003D114D = {
 			isa = PBXGroup;
 			children = (
+				00A9BB3D190EDEE8000B419B /* markdown.css */,
 				00647B1717D156AC00537253 /* Build & Release Info */,
 				005992311652D58A000F49AC /* SystemConfiguration.framework */,
 				001576EE16248E5900CA7515 /* App Store */,
@@ -1258,7 +1260,6 @@
 		00C8970615AF34400006FF2F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				00C8971A15AF40340006FF2F /* markdown.css */,
 				00C8970815AF34560006FF2F /* MoreFormInfoCreator.h */,
 				00C8970915AF34560006FF2F /* MoreFormInfoCreator.m */,
 				00C8971815AF3F0E0006FF2F /* about.md */,
@@ -1528,6 +1529,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00A9BB3E190EDEE8000B419B /* markdown.css in Resources */,
 				007ABE8F156ACADE004BA8BF /* dummyEmails.txt in Resources */,
 				0005669C1562F94C003D114D /* InfoPlist.strings in Resources */,
 				0005672A15630DDD003D114D /* Localizable.strings in Resources */,
