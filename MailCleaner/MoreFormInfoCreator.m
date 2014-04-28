@@ -115,8 +115,11 @@
 	[formPopulator.currentSection addFieldEditInfo:passcodeFieldEditInfo];
 
 	[formPopulator nextSection];
-	
+
+    [formPopulator populateHelpPageWithTitle:LOCALIZED_STR(@"HELP_SUPPORT") andPageRef:@"support"];
+    
 	[formPopulator populateHelpPageWithTitle:LOCALIZED_STR(@"HELP_ABOUT") andPageRef:@"about"];
+    
 	[formPopulator.currentSection addFieldEditInfo:[[[RateAppFieldEditInfo alloc] init] autorelease]];
 
 	

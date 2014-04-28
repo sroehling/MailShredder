@@ -171,6 +171,7 @@
 "EMAIL_ACCOUNT_MAX_DELETE_INCREMENT_FIELD_SUBTITLE" = "Number of messages shown at once for bulk deletion";
 
 "HELP_ABOUT" = "About";
+"HELP_SUPPORT" = "Help";
 
 "EMAIL_ACCOUNT_VIEW_TITLE" = "Email Account";
 "EMAIL_ACCOUNT_LIST_VIEW_TITLE" = "Email Accounts";
