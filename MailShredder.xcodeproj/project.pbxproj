@@ -108,6 +108,7 @@
 		00A6FB4C159A8DF100ED4D4B /* EmailDomainFilterDomainAdder.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB4B159A8DF100ED4D4B /* EmailDomainFilterDomainAdder.m */; };
 		00A6FB4F159A908200ED4D4B /* EmailDomainFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB4E159A908100ED4D4B /* EmailDomainFilterFormInfoCreator.m */; };
 		00A6FB58159B850A00ED4D4B /* MailAddressHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB57159B850900ED4D4B /* MailAddressHelper.m */; };
+		00A9BB39190ECE0C000B419B /* settings.md in Resources */ = {isa = PBXBuildFile; fileRef = 00A9BB38190ECE0C000B419B /* settings.md */; };
 		00AAF2E015B4B3ED00BFF03C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00AAF2DF15B4B3ED00BFF03C /* Security.framework */; };
 		00AAF2E815B61ED000BFF03C /* EmailAcctFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AAF2E715B61ED000BFF03C /* EmailAcctFieldEditInfo.m */; };
 		00AFA80E161CA0100030EC20 /* SentReceivedFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AFA80D161CA0100030EC20 /* SentReceivedFilter.m */; };
@@ -440,6 +441,7 @@
 		00A6FB4E159A908100ED4D4B /* EmailDomainFilterFormInfoCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailDomainFilterFormInfoCreator.m; sourceTree = "<group>"; };
 		00A6FB56159B850900ED4D4B /* MailAddressHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailAddressHelper.h; sourceTree = "<group>"; };
 		00A6FB57159B850900ED4D4B /* MailAddressHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailAddressHelper.m; sourceTree = "<group>"; };
+		00A9BB38190ECE0C000B419B /* settings.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = settings.md; sourceTree = "<group>"; };
 		00AAF2DF15B4B3ED00BFF03C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		00AAF2E615B61ECF00BFF03C /* EmailAcctFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAcctFieldEditInfo.h; sourceTree = "<group>"; };
 		00AAF2E715B61ED000BFF03C /* EmailAcctFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAcctFieldEditInfo.m; sourceTree = "<group>"; };
@@ -1261,6 +1263,7 @@
 				00C8970915AF34560006FF2F /* MoreFormInfoCreator.m */,
 				00C8971815AF3F0E0006FF2F /* about.md */,
 				006981621631BF6700A1B2F9 /* thirdPartyLibs.md */,
+				00A9BB38190ECE0C000B419B /* settings.md */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1560,6 +1563,7 @@
 				00257FCB160D1C2B005D5DED /* Default.png in Resources */,
 				00257FCC160D1C2B005D5DED /* Default@2x.png in Resources */,
 				00676245161DF0890015209D /* confirmDeleteBkg.png in Resources */,
+				00A9BB39190ECE0C000B419B /* settings.md in Resources */,
 				00676247161E04210015209D /* confirmDeleteBkg@2x.png in Resources */,
 				00EA1F901624CB020028A8A6 /* Default-568h@2x.png in Resources */,
 				00D5527E17F20F020066F627 /* ResultraGenericLibResources.bundle in Resources */,

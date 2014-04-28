@@ -29,8 +29,12 @@
 {
     HelpPageFormPopulator *formPopulator = [[[HelpPageFormPopulator alloc] 
 		initWithFormContext:parentContext] autorelease];
-	
-	formPopulator.formInfo.title = LOCALIZED_STR(@"SETTINGS_VIEW_TITLE");
+    
+    
+    [formPopulator populateWithHeader:LOCALIZED_STR(@"SETTINGS_VIEW_HEADER")
+                         andSubHeader:LOCALIZED_STR(@"SETTINGS_VIEW_SUBHEADER")
+                          andHelpFile:@"settings" andParentController:parentContext.parentController ];
+    formPopulator.formInfo.title = LOCALIZED_STR(@"SETTINGS_VIEW_TITLE");
 
 	[formPopulator nextSection];
 	

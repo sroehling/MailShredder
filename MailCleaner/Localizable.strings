@@ -163,6 +163,8 @@
 "SUBJECT_FILTER_MATCH_CONTAINS_SEARCH_STRING" = "Specific Subjects";
 
 "SETTINGS_VIEW_TITLE" = "Settings";
+"SETTINGS_VIEW_HEADER" = "MailShredder Settings";
+"SETTINGS_VIEW_SUBHEADER" = "The settings below configure how MailShredder connects to mail accounts, can be made more secure with a passcode, and displays messages for deletion. Tap on the help button for more information.";
 "SAVED_FILTERS_FIELD_CAPTION" = "Saved Message Filters";
 "SAVED_FILTERS_FIELD_SUBTITLE" = "Edit saved message filters for the current account";
 "EMAIL_ACCOUNT_MAX_DELETE_INCREMENT_FIELD_LABEL" = "Messages Shown";
