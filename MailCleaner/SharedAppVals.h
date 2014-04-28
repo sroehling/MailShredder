@@ -10,6 +10,7 @@
 
 extern NSString * const SHARED_APP_VALS_ENTITY_NAME;
 extern NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY;
+extern NSString * const SHARED_APP_VALS_MAX_DELETE_INCREMENT_KEY;
 
 @class MessageFilter;
 @class AgeFilterNone;
@@ -23,6 +24,8 @@ extern NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY;
 @interface SharedAppVals : NSManagedObject
 
 @property (nonatomic, retain) EmailAccount *currentEmailAcct;
+@property (nonatomic, retain) NSNumber * maxDeleteIncrement;
+
 
 // Defaults and "singleton" objects only
 // needing one instance.

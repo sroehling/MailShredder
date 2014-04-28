@@ -165,6 +165,8 @@
 "SETTINGS_VIEW_TITLE" = "Settings";
 "SAVED_FILTERS_FIELD_CAPTION" = "Saved Message Filters";
 "SAVED_FILTERS_FIELD_SUBTITLE" = "Edit saved message filters for the current account";
+"EMAIL_ACCOUNT_MAX_DELETE_INCREMENT_FIELD_LABEL" = "Messages Shown";
+"EMAIL_ACCOUNT_MAX_DELETE_INCREMENT_FIELD_SUBTITLE" = "Number of messages shown at once for bulk deletion";
 
 "HELP_ABOUT" = "About";
 

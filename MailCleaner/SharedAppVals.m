@@ -23,10 +23,15 @@
 
 NSString * const SHARED_APP_VALS_ENTITY_NAME = @"SharedAppVals";
 NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY = @"currentEmailAcct";
+NSString * const SHARED_APP_VALS_MAX_DELETE_INCREMENT_KEY = @"maxDeleteIncrement";
+
 
 @implementation SharedAppVals
 
 @dynamic currentEmailAcct;
+
+@dynamic maxDeleteIncrement;
+
 
 @dynamic defaultAgeFilterNone;
 
@@ -101,6 +106,9 @@ NSString * const SHARED_APP_VALS_CURRENT_EMAIL_ACCOUNT_KEY = @"currentEmailAcct"
 	sharedVals.defaultSentReceivedFilterEither = [SentReceivedFilter sentReceivedFilterInDataModelController:dataModelController andMatchLogic:SENT_RECEIVED_FILTER_MATCH_LOGIC_EITHER];
 	sharedVals.defaultSentReceivedFilterReceived = [SentReceivedFilter sentReceivedFilterInDataModelController:dataModelController andMatchLogic:SENT_RECEIVED_FILTER_MATCH_LOGIC_RECEIVED];
 	sharedVals.defaultSentReceivedFilterSent = [SentReceivedFilter sentReceivedFilterInDataModelController:dataModelController andMatchLogic:SENT_RECEIVED_FILTER_MATCH_LOGIC_SENT];
+    
+    // The maxDeleteIncrement field is configured to a default value of 100 using the field properties of the
+    // core data field definition, so no explicit initialization is needed here.
 		
 	return sharedVals;
 }

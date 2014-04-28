@@ -147,6 +147,7 @@
         <relationship name="sharedAppValsSentReceivedFilterSent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharedAppVals" inverseName="defaultSentReceivedFilterSent" inverseEntity="SharedAppVals" syncable="YES"/>
     </entity>
     <entity name="SharedAppVals" representedClassName="SharedAppVals" syncable="YES">
+        <attribute name="maxDeleteIncrement" optional="YES" attributeType="Integer 16" defaultValueString="100" syncable="YES"/>
         <relationship name="currentEmailAcct" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="EmailAccount" inverseName="sharedAppValsCurrentEmailAcct" inverseEntity="EmailAccount" syncable="YES"/>
         <relationship name="defaultAgeFilterNone" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterNone" inverseName="sharedAppValsDefaultAgeFilterNone" inverseEntity="AgeFilterNone" syncable="YES"/>
         <relationship name="defaultAgeFilterOlder1Month" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AgeFilterComparison" inverseName="sharedAppValsDefaultAgeFilterOlder1Month" inverseEntity="AgeFilterComparison" syncable="YES"/>
@@ -199,7 +200,7 @@
         <element name="RecipientDomainFilter" positionX="160" positionY="192" width="128" height="60"/>
         <element name="SenderDomainFilter" positionX="160" positionY="192" width="128" height="60"/>
         <element name="SentReceivedFilter" positionX="160" positionY="192" width="128" height="120"/>
-        <element name="SharedAppVals" positionX="160" positionY="192" width="128" height="345"/>
+        <element name="SharedAppVals" positionX="160" positionY="192" width="128" height="360"/>
         <element name="StarredFilter" positionX="160" positionY="192" width="128" height="120"/>
         <element name="SubjectFilter" positionX="160" positionY="192" width="128" height="90"/>
     </elements>

@@ -33,7 +33,6 @@
 #import "MBProgressHUD.h"
 
 
-static NSUInteger const MSG_LIST_STARTING_PAGE_SIZE = 100;
 static CGFloat const MSG_LIST_COMPLETE_STATUS_HUD_DISPLAY_TIME = 3.0f;
 
 @implementation MsgListTableViewController
@@ -177,6 +176,12 @@ static CGFloat const MSG_LIST_COMPLETE_STATUS_HUD_DISPLAY_TIME = 3.0f;
 	return sharedAppVals.currentEmailAcct;
 }
 
+-(unsigned int)msgListPageSize
+{
+    SharedAppVals *sharedAppVals = [SharedAppVals getUsingDataModelController:self.appDmc];
+    return [sharedAppVals.maxDeleteIncrement unsignedIntValue];
+}
+
 
 -(void)configureFetchedResultsController:(BOOL)doResetPageSize
 {
@@ -192,7 +197,7 @@ static CGFloat const MSG_LIST_COMPLETE_STATUS_HUD_DISPLAY_TIME = 3.0f;
 		
 	if(doResetPageSize)
 	{
-		currentMsgListPageSize = MSG_LIST_STARTING_PAGE_SIZE;
+		currentMsgListPageSize = [self msgListPageSize];
 	}
 	// Limit the number of results which are returned to a "page full" of results.
 	[currentFilterFetchRequest setFetchLimit:currentMsgListPageSize];
@@ -567,7 +572,7 @@ static CGFloat const MSG_LIST_COMPLETE_STATUS_HUD_DISPLAY_TIME = 3.0f;
 
 -(void)msgListViewLoadMoreMessagesButtonPressed
 {
-	currentMsgListPageSize += MSG_LIST_STARTING_PAGE_SIZE;
+	currentMsgListPageSize += [self msgListPageSize];
 	[self configureFetchedResultsController:FALSE];
 }
 

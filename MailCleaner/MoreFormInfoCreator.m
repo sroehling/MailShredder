@@ -21,6 +21,7 @@
 #import "PasscodeFieldInfo.h"
 #import "BoolFieldEditInfo.h"
 #import "RateAppFieldEditInfo.h"
+#import "NumberPickerFieldEditInfo.h"
 
 @implementation MoreFormInfoCreator
 
@@ -69,6 +70,36 @@
 			andContentDescription:nil andSubViewFactory:savedFiltersViewControllerFactory] autorelease];
 		[formPopulator.currentSection addFieldEditInfo:savedFiltersFieldEditInfo];
 	}
+    
+    if(TRUE)
+	{
+        
+        ManagedObjectFieldInfo *maxDeleteIncrementAcctFieldInfo =
+		[[[ManagedObjectFieldInfo alloc] initWithManagedObject:sharedAppVals
+                andFieldKey:SHARED_APP_VALS_MAX_DELETE_INCREMENT_KEY
+                andFieldLabel:LOCALIZED_STR(@"EMAIL_ACCOUNT_MAX_DELETE_INCREMENT_FIELD_LABEL")
+                andFieldPlaceholder:@"dummy"] autorelease];
+
+        
+        NSArray *selectableMaxValues = [NSArray arrayWithObjects:
+                                        [NSNumber numberWithUnsignedInteger:25],
+                                        [NSNumber numberWithUnsignedInteger:50],
+                                        [NSNumber numberWithUnsignedInteger:100],
+                                        [NSNumber numberWithUnsignedInteger:250],
+                                        [NSNumber numberWithUnsignedInteger:500],
+                                        [NSNumber numberWithUnsignedInteger:1000],
+                                        nil];
+        
+        NumberPickerFieldEditInfo *maxDeletMsgsIncrementFieldEditInfo = [[[NumberPickerFieldEditInfo alloc]
+                    initWithFieldInfo:maxDeleteIncrementAcctFieldInfo andNumberVals:selectableMaxValues andTitle:
+                    LOCALIZED_STR(@"EMAIL_ACCOUNT_MAX_DELETE_INCREMENT_FIELD_LABEL")] autorelease];
+        maxDeletMsgsIncrementFieldEditInfo.fieldSubtitle =
+            LOCALIZED_STR(@"EMAIL_ACCOUNT_MAX_DELETE_INCREMENT_FIELD_SUBTITLE");
+		
+        [formPopulator.currentSection addFieldEditInfo:maxDeletMsgsIncrementFieldEditInfo];
+        
+	}
+
 	
 	[formPopulator nextSection];
 	PasscodeFieldInfo *passcodeFieldInfo  = [[[PasscodeFieldInfo alloc] 
