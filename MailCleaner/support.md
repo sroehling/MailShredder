@@ -7,7 +7,7 @@ it is stored in a bundle resource, which is not accessable from the markdown/htm
 -->
 
 If you have any further questions or inquiries, 
-please visit the [website for this app][AppWebsite]. At the app's website you'll find [answers to frequently asked questions][AppFaq], and support contact information should you need further assistance.
+please visit the [website for this app][AppWebsite]. At the app's website, you'll find [answers to frequently asked questions][AppFaq], and support contact information should you need further assistance.
 
 
 [AppWebsite]:http://mailshredder.resultra.com/support

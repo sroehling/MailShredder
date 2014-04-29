@@ -9,11 +9,11 @@ MAILSHREDDER_2012_0001
 
 ## Version Number
 
-1.0.3
+1.1
 
 ## Copyright:
 
-2012-13 Resultra, LLC
+2012-14 Resultra, LLC
 
 ## Primary Category: 
 
@@ -86,3 +86,11 @@ Periodically prompt to optionally submit an app review. In the settings, also in
 
 • Especially for email accounts with large numbers of messages, improve the performance to download (synchronize) message headers.
 • Fixed a bug relating to the synchronizing of message headers when multiple email folders are synchronized.
+
+### Version 1.1
+
+• Add a setting to configure how many messages are shown by default in the message list. Previously, more messages could be shown for review and deletion using the 'Load More' button at the bottom of the message list, but 100 messages were initially shown. For purposes of review and bulk deletion, fewer or more than 100 messages can now be shown in the message list.
+• Numerous minor refinements to the interface for setting up the email account.
+
+
+

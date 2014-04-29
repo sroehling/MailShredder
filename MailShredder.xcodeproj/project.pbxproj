@@ -109,9 +109,9 @@
 		00A6FB4F159A908200ED4D4B /* EmailDomainFilterFormInfoCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB4E159A908100ED4D4B /* EmailDomainFilterFormInfoCreator.m */; };
 		00A6FB58159B850A00ED4D4B /* MailAddressHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A6FB57159B850900ED4D4B /* MailAddressHelper.m */; };
 		00A9BB39190ECE0C000B419B /* settings.md in Resources */ = {isa = PBXBuildFile; fileRef = 00A9BB38190ECE0C000B419B /* settings.md */; };
-		00A9BB3E190EDEE8000B419B /* markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 00A9BB3D190EDEE8000B419B /* markdown.css */; };
 		00A9BB40190EE468000B419B /* support.md in Resources */ = {isa = PBXBuildFile; fileRef = 00A9BB3F190EE468000B419B /* support.md */; };
 		00A9BB42190EE53B000B419B /* buttonhelp-doc.png in Resources */ = {isa = PBXBuildFile; fileRef = 00A9BB41190EE53B000B419B /* buttonhelp-doc.png */; };
+		00A9BB4E1910164F000B419B /* markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 00A9BB4D1910164F000B419B /* markdown.css */; };
 		00AAF2E015B4B3ED00BFF03C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00AAF2DF15B4B3ED00BFF03C /* Security.framework */; };
 		00AAF2E815B61ED000BFF03C /* EmailAcctFieldEditInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AAF2E715B61ED000BFF03C /* EmailAcctFieldEditInfo.m */; };
 		00AFA80E161CA0100030EC20 /* SentReceivedFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AFA80D161CA0100030EC20 /* SentReceivedFilter.m */; };
@@ -445,9 +445,9 @@
 		00A6FB56159B850900ED4D4B /* MailAddressHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailAddressHelper.h; sourceTree = "<group>"; };
 		00A6FB57159B850900ED4D4B /* MailAddressHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailAddressHelper.m; sourceTree = "<group>"; };
 		00A9BB38190ECE0C000B419B /* settings.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = settings.md; sourceTree = "<group>"; };
-		00A9BB3D190EDEE8000B419B /* markdown.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = markdown.css; path = lib/MarkdownHelpGeneration/markdown.css; sourceTree = "<group>"; };
 		00A9BB3F190EE468000B419B /* support.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = support.md; sourceTree = "<group>"; };
 		00A9BB41190EE53B000B419B /* buttonhelp-doc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonhelp-doc.png"; sourceTree = "<group>"; };
+		00A9BB4D1910164F000B419B /* markdown.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = markdown.css; path = ../lib/MarkdownHelpGeneration/markdown.css; sourceTree = "<group>"; };
 		00AAF2DF15B4B3ED00BFF03C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		00AAF2E615B61ECF00BFF03C /* EmailAcctFieldEditInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAcctFieldEditInfo.h; sourceTree = "<group>"; };
 		00AAF2E715B61ED000BFF03C /* EmailAcctFieldEditInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAcctFieldEditInfo.m; sourceTree = "<group>"; };
@@ -617,7 +617,6 @@
 		000566821562F94C003D114D = {
 			isa = PBXGroup;
 			children = (
-				00A9BB3D190EDEE8000B419B /* markdown.css */,
 				00647B1717D156AC00537253 /* Build & Release Info */,
 				005992311652D58A000F49AC /* SystemConfiguration.framework */,
 				001576EE16248E5900CA7515 /* App Store */,
@@ -674,6 +673,7 @@
 		000566981562F94C003D114D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				00A9BB4D1910164F000B419B /* markdown.css */,
 				00B6DAA11604F06700C3B5EC /* appicon.png */,
 				00B6DAA21604F06700C3B5EC /* appicon-72.png */,
 				00B6DAA31604F06700C3B5EC /* appicon@2x.png */,
@@ -1535,7 +1535,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00A9BB3E190EDEE8000B419B /* markdown.css in Resources */,
+				00A9BB4E1910164F000B419B /* markdown.css in Resources */,
 				007ABE8F156ACADE004BA8BF /* dummyEmails.txt in Resources */,
 				0005669C1562F94C003D114D /* InfoPlist.strings in Resources */,
 				0005672A15630DDD003D114D /* Localizable.strings in Resources */,

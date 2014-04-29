@@ -10,7 +10,7 @@ To select which account is shown, tap on the settings button at the top right-ha
 
 ## Messages Shown
 
-The messages shown setting configures the default maximum number of messages which will be shown in the message list. By default, the app will show 100 messages at a time for review and deletion. Depending upon how you use MailShredder, the messages shown setting can be used to increase or decrease this number. For example, if you prefer to review each messages for deletion, you may want to lower this number. However, if you tend to bulk delete large numbers of messages at once (for example, all messages older than 6 months), you could increase this number.
+The messages shown setting configures the default maximum number of messages which will be shown in the message list. By default, the app will show 100 messages at a time for review and bulk deletion. Depending upon how you use MailShredder, the messages shown setting can be used to increase or decrease this number. For example, if you prefer to review each messages for deletion, you may want to lower this number. However, if you tend to bulk delete large numbers of messages at once (for example, all messages older than 6 months), you could increase this number.
 
 There is also 'Load More Messages' button at the bottom of the message list which will show (and enable deletion of) more messages at once.
 
