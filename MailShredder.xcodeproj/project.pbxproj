@@ -1843,6 +1843,7 @@
 		000566CF1562F94D003D114D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MailCleaner/MailShredder-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1863,6 +1864,7 @@
 		000566D01562F94D003D114D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MailCleaner/MailShredder-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
