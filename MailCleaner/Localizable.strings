@@ -187,7 +187,7 @@
 "EMAIL_ACCOUNT_PASSWORD_SECTION" = "Email Password";
 "EMAIL_ACCOUNT_MAIL_SERVER_SECTION" = "IMAP Mail Server Settings";
 "EMAIL_ACCOUNT_ACCOUNT_INFO_SECTION_TITLE" = "Account Information";
-"EMAIL_ACCOUNT_ADDRESS_FIELD_LABEL" = "Address";
+"EMAIL_ACCOUNT_ADDRESS_FIELD_LABEL" = "Email Address";
 "EMAIL_ACCOUNT_ADDRESS_PLACEHOLDER" = "Email Address";
 "EMAIL_ACCOUNT_ADDRESS_VALIDATION_MSG" = "Enter a valid email address";
 "EMAIL_ACCOUNT_HOSTNAME_VALIDATION_MSG" = "Enter a valid IMAP server name";
@@ -198,7 +198,7 @@
 "EMAIL_ACCOUNT_USERNAME_PLACEHOLDER" = "Enter a User Name";
 "EMAIL_ACCOUNT_PASSWORD_VALIDATION_MSG" = "Enter a valid password";
 "EMAIL_ACCOUNT_PASSWORD_FIELD_LABEL" = "Password";
-"EMAIL_ACCOUNT_PASSWORD_PLACEHOLDER" = "Enter a password";
+"EMAIL_ACCOUNT_PASSWORD_PLACEHOLDER" = "Enter your password";
 "EMAIL_ACCOUNT_TABLE_SUBHEADER" = "Enter your email account settings. If you're unsure of the settings, please consult your email provider."; 
 "EMAIL_ACCOUNT_TABLE_CONFIRM_SETTINGS_HEADER" = "Confirm Account Settings";
 "EMAIL_ACCOUNT_TABLE_CONFIRM_SETTINGS_SUBHEADER" = "Confirm your email account settings, and enter any missing information. If you're unsure of the settings, please consult your email provider. Tap the Next button if these settings look correct.";
