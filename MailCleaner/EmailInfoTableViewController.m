@@ -52,7 +52,7 @@
 #import "AgeFilterComparison.h"
 #import "SenderDomainFilter.h"
 
-static CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 320.0f;
+static CGFloat const EMAIL_INFO_TABLE_ACTION_MENU_HEIGHT = 330.0f;
 
 static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MENU_WIDTH = 220.0f;
 static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 320.0f;
@@ -141,14 +141,15 @@ static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 320.0f;
 	}
 
 	CGFloat tableMenuHeightForAllFilters;
+    CGFloat loadFilterMenuPadding = 60.0f;
 	if(numFilters > 0)
 	{
 		tableMenuHeightForAllFilters = numFilters * TABLE_MENU_ROW_HEIGHT + 
-							2 * TABLE_MENU_SECTION_HEIGHT + 40.0f;	
+							2 * TABLE_MENU_SECTION_HEIGHT + loadFilterMenuPadding;
 	}
 	else 
 	{
-		tableMenuHeightForAllFilters = 44.0f;
+		tableMenuHeightForAllFilters = loadFilterMenuPadding;
 	}
 	CGFloat tableMenuHeight = MIN(EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT	,tableMenuHeightForAllFilters);
 
