@@ -38,6 +38,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // iOS 7 Compatibility  - this ensures the view isn't hidden beneath the
+    // navigation bar.
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) { // if iOS 7
+        self.edgesForExtendedLayout = UIRectEdgeNone; //layout adjustements
+    }
+
 	
 	self.detailView = [[[MsgDetailView alloc] initWithFrame:CGRectZero] autorelease];
 		[self.detailView configureView:self.emailInfo];

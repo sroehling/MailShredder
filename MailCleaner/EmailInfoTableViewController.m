@@ -292,6 +292,10 @@ static CGFloat const EMAIL_INFO_TABLE_LOAD_FILTER_MAX_HEIGHT = 320.0f;
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
+    
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) { // if iOS 7
+        self.edgesForExtendedLayout = UIRectEdgeNone; //layout adjustements
+    }
 	
 	firstTimeLoading = TRUE;
   
