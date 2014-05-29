@@ -54,8 +54,11 @@
 {
     if(self.logMsgSyncCompletion)
     {
-		NSString *dateStr =  [[DateHelper theHelper].longDateFormatter stringFromDate:msg.sentDateGMT];
- 		NSString *senderDateStr = [[DateHelper theHelper].longDateFormatter stringFromDate:msg.senderDate];
+        
+        DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
+
+		NSString *dateStr =  [dateHelper.longDateFormatter stringFromDate:msg.sentDateGMT];
+ 		NSString *senderDateStr = [dateHelper.longDateFormatter stringFromDate:msg.senderDate];
         
 		NSLog(@"Msg Sync Complete: UID=%d sequence #  = %d sender date=%@, gmt date=%@, subj=%@, sender=%@",
               msg.uid, msg.sequenceNumber,

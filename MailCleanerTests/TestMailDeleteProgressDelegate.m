@@ -71,7 +71,9 @@
 {
     if(self.logDeletedMsgs)
     {
-		NSString *dateStr =  [[DateHelper theHelper].longDateFormatter stringFromDate:deletedMsg.sendDate];
+        DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
+
+		NSString *dateStr =  [dateHelper.longDateFormatter stringFromDate:deletedMsg.sendDate];
        
 		NSLog(@"Msg Sync Complete: UID=%d subj=%@, date=%@, sender=%@",
               [deletedMsg.uid integerValue], deletedMsg.subject,dateStr,

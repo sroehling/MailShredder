@@ -50,13 +50,15 @@
 	andSubject:(NSString*)subject andFrom:(NSString*)fromSender
 	andFolder:(NSString*)folderName andRecipientAddress:(NSString*)recipientAddr
 {
+    DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
+    
 	EmailInfo *newEmailInfo = (EmailInfo*) [self.appDataDmc insertObject:EMAIL_INFO_ENTITY_NAME];
-	newEmailInfo.sendDate = [DateHelper dateFromStr:sendDate];
+	newEmailInfo.sendDate = [dateHelper dateFromStr:sendDate];
 
 	NSMutableDictionary *currEmailAddressByAddress = [self.testAppVals.currentEmailAcct emailAddressesByName];
 	
 	newEmailInfo.senderAddress = [EmailAddress findOrAddAddress:fromSender 
-					withName:@"" andSendDate:[DateHelper dateFromStr:sendDate]
+					withName:@"" andSendDate:[dateHelper dateFromStr:sendDate]
 					withCurrentAddresses:currEmailAddressByAddress 
 					inDataModelController:self.appDataDmc
 					andEmailAcct:self.testAppVals.currentEmailAcct
@@ -85,7 +87,7 @@
 	newEmailInfo.emailAcct = testAppVals.currentEmailAcct;
 	
 	EmailAddress *recipientAddress = [EmailAddress findOrAddAddress:recipientAddr 
-						withName:@"" andSendDate:[DateHelper dateFromStr:sendDate]
+						withName:@"" andSendDate:[dateHelper dateFromStr:sendDate]
 					withCurrentAddresses:currEmailAddressByAddress 
 					inDataModelController:self.appDataDmc
 					andEmailAcct:self.testAppVals.currentEmailAcct
@@ -199,7 +201,9 @@
 	[self populateTestEmailWithSendDate:@"2010-01-01" andSubject:@"S04" andFrom:@"jane"];
 	[self populateTestEmailWithSendDate:@"2009-01-01" andSubject:@"S05" andFrom:@"jane"];
 	
-	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+    DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
+
+	NSDate *baseDate = [dateHelper dateFromStr:@"2012-12-31"];
 
 	self.messageFilterForTest.ageFilter = testAppVals.defaultAgeFilterOlder1Year;
 	NSPredicate *filterPredicate = [self.messageFilterForTest filterPredicate:baseDate];
@@ -221,8 +225,11 @@
 - (void)testEmailAddressFilter
 {
 	[self resetCoreData];
+    
+    DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
 
-	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+
+	NSDate *baseDate = [dateHelper dateFromStr:@"2012-12-31"];
 	
 	EmailInfo *fromJane = [self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane"];
 	[self populateTestEmailWithSendDate:@"2012-02-01" andSubject:@"S02" andFrom:@"bob"];
@@ -259,7 +266,9 @@
 {
 	[self resetCoreData];
 
-	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+    DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
+
+	NSDate *baseDate = [dateHelper dateFromStr:@"2012-12-31"];
 	
 	[self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane" 
 		andFolder:@"INBOX" andRecipientAddress:@"jane@example.com"];
@@ -279,14 +288,14 @@
 	NSMutableDictionary *currEmailAddressByAddress = [self.testAppVals.currentEmailAcct emailAddressesByName];
 	[self.messageFilterForTest.recipientAddressFilter addSelectedAddressesObject:
 		[EmailAddress findOrAddAddress:@"jane@example.com" 
-			withName:@"" andSendDate:[DateHelper today]
+			withName:@"" andSendDate:[dateHelper today]
 					withCurrentAddresses:currEmailAddressByAddress 
 					inDataModelController:self.appDataDmc
 					andEmailAcct:self.testAppVals.currentEmailAcct
 					andIsRecipientAddr:TRUE andIsSenderAddr:FALSE]];
 	[self.messageFilterForTest.recipientAddressFilter addSelectedAddressesObject:
 		[EmailAddress findOrAddAddress:@"bob@example.com" 
-			withName:@"" andSendDate:[DateHelper today]
+			withName:@"" andSendDate:[dateHelper today]
 					withCurrentAddresses:currEmailAddressByAddress 
 					inDataModelController:self.appDataDmc
 					andEmailAcct:self.testAppVals.currentEmailAcct
@@ -309,7 +318,9 @@
 {
 	[self resetCoreData];
 
-	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+    DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
+
+	NSDate *baseDate = [dateHelper dateFromStr:@"2012-12-31"];
 	
 	EmailInfo *fromJane = [self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane"];
 	[self populateTestEmailWithSendDate:@"2012-02-01" andSubject:@"S02" andFrom:@"bob"];
@@ -337,7 +348,9 @@
 {
 	[self resetCoreData];
 
-	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+    DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
+
+	NSDate *baseDate = [dateHelper dateFromStr:@"2012-12-31"];
 	
 	EmailInfo *localDomainMsg = [self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane@localdomain"];
 	[self populateTestEmailWithSendDate:@"2012-02-01" andSubject:@"S02" andFrom:@"bob@notlocaldomain"];
@@ -358,7 +371,9 @@
 {
 	[self resetCoreData];
 
-	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+    DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
+
+	NSDate *baseDate = [dateHelper dateFromStr:@"2012-12-31"];
 	
 	EmailInfo *localDomainMsg = [self populateTestEmailWithSendDate:@"2012-01-01" andSubject:@"S01" andFrom:@"jane@localdomain"];
 	[self populateTestEmailWithSendDate:@"2012-02-01" andSubject:@"S02" andFrom:@"bob@notlocaldomain"];
@@ -382,7 +397,9 @@
 {
 	[self resetCoreData];
 
-	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+    DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
+
+	NSDate *baseDate = [dateHelper dateFromStr:@"2012-12-31"];
 	
 	EmailInfo *inboxMsg = [self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S01" 
 		andFrom:@"jane@localdomain" andFolder:@"INBOX"];
@@ -404,7 +421,9 @@
 {
 	[self resetCoreData];
 
-	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+    DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
+
+	NSDate *baseDate = [dateHelper dateFromStr:@"2012-12-31"];
 	
 	EmailInfo *inboxMsg = [self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S01" 
 		andFrom:@"jane@localdomain" andFolder:@"INBOX"];
@@ -430,7 +449,9 @@
 {
 	[self resetCoreData];
 
-	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+    DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
+
+	NSDate *baseDate = [dateHelper dateFromStr:@"2012-12-31"];
 	
 	EmailInfo *starredMsg = [self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S01" 
 		andFrom:@"jane@localdomain" andFolder:@"INBOX"];
@@ -466,7 +487,9 @@
 {
 	[self resetCoreData];
 
-	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+    DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
+
+	NSDate *baseDate = [dateHelper dateFromStr:@"2012-12-31"];
 	
 	EmailInfo *readMsg = [self populateFolderTestEmailWithSendDate:@"2012-01-02" andSubject:@"S01" 
 		andFrom:@"jane@localdomain" andFolder:@"INBOX"];
@@ -502,7 +525,9 @@
 {
 	[self resetCoreData];
 
-	NSDate *baseDate = [DateHelper dateFromStr:@"2012-12-31"];
+    DateHelper *dateHelper = [[[DateHelper alloc] init] autorelease];
+
+	NSDate *baseDate = [dateHelper dateFromStr:@"2012-12-31"];
 	
 	NSString *subject01 = @"S01 - The First Message";
 	NSString *subject02 = @"S02 - Something else";
