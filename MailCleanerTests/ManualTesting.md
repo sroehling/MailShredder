@@ -169,7 +169,10 @@ will provide a good (albeit not scientific) test case.
 
 Setup:
 
-1. Generate the messages using the integration test server
+1. Generate the messages using the integration test server (inside the MailCleanerTestImapServer git module's testScripts folder):
+
+	genremotetestmbox.pl --nummsgs=500
+
 2. Connect the Apple Mail client to both the integration 
    test account and the Gmail account.
 3. Select the messages in the test account, right-click
