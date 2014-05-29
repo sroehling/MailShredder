@@ -89,6 +89,7 @@ Periodically prompt to optionally submit an app review. In the settings, also in
 
 ### Version 1.1
 
+• Fix a specific issue a few recent customers have been having setting up the connection to their email accounts. This has been resolved with a compatibility update for iOS 7.
 • Add a setting to configure how many messages are shown by default in the message list. Previously, more messages could be shown for review and deletion using the 'Load More' button at the bottom of the message list, but 100 messages were initially shown. For purposes of review and bulk deletion, fewer or more than 100 messages can now be shown in the message list.
 • Numerous minor refinements to the interface for setting up the email account.
 • Compatibility updates for iOS 7 and above.
